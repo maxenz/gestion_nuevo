@@ -1,0 +1,20 @@
+﻿@model IList<Gestion.Models.ProductosModulo>
+
+<div id="modulosList">
+
+    @{
+        List<Gestion.ViewModels.ModulosExcluidos> modExc = ViewBag.ProdModExc;
+        foreach (var mod in modExc)
+        {
+            
+        <div class="row">
+                <div class="make-switch make-switch-full span4 offset1" data-text-label="@mod.Descripcion"
+             data-on-label="<i class='icon-ok'></i>"
+             data-off-label="<i class='icon-remove'></i>">
+                    <input type="checkbox" name="selectedProdMod" value="@mod.ProductoModuloID" id="@mod.ProductoModuloID"  @(Html.Raw(mod.Asignado ? "checked" : "")) />
+                </div>
+        </div>
+                       
+        }
+    }
+</div>

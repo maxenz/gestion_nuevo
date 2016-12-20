@@ -1,0 +1,11 @@
+﻿@model Gestion.Models.Ticket
+
+@using (Html.BeginForm("Create","MisTickets",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_Form",Model)
+}
+

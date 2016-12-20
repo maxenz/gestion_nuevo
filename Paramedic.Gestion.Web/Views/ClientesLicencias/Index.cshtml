@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Gestion.Models.ClientesTerminal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoTerminal.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.RazonSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Referencia)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoTerminal.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.RazonSocial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Referencia)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

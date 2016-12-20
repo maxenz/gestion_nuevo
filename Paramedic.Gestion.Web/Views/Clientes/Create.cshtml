@@ -1,0 +1,12 @@
+﻿@model Gestion.Models.Cliente
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_Form",Model)
+    @Html.Partial("_ContactoPrincipal",Model)
+    @Html.Partial("_BottomForm")
+   
+}

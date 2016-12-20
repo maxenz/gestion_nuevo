@@ -1,0 +1,10 @@
+﻿@model Gestion.Models.Usuario
+
+@Html.Partial("_Header",Model)
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_Form",Model)
+}

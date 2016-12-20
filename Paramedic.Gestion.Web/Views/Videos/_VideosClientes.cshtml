@@ -1,0 +1,74 @@
+﻿@model PagedList.IPagedList<Gestion.Models.Video>
+@using PagedList.Mvc;
+
+<div id="videosList">
+    <div class="row">
+        <div class="span10 offset1" style="margin-bottom:-30px">
+            <div class="widget widget-table action-table">
+                <div class="widget-header">
+                    <i class="icon-th-list"></i>
+                    <h3>Videos</h3>
+                </div>
+                <!-- /widget-header -->
+                <div class="widget-content">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="span2">Tema </th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.First().Fecha)</th>
+                                <th class="span2">Car&aacute;cter </th>
+                                <th class="span1"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Descripcion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fecha)
+                                    </td>
+
+                                    @if (item.esPublico)
+                                    {
+                                        <td class="span2 centrado verde">P&uacute;blico</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="span2 centrado rojo">Privado</td>
+                                    }
+
+                                    <td class="centrado">
+                                        @{ 
+                                            var linkVideo = string.Format("{0}/{1}/{2}.{3}", "http://200.49.156.125:57774", "videos_shaman", item.Alias, "mp4");
+                                        }
+                                        <a href="@linkVideo" target="_blank" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-facetime-video"></i></a>
+                                    </td>
+
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- /widget-content -->
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="pagedList span7 offset5" data-gestion-target="#videosList">
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+        </div>
+
+        <!-- /row -->
+    </div>
+    @Html.Partial("_VideosContainer", Model)
+</div>
+<!-- /container -->

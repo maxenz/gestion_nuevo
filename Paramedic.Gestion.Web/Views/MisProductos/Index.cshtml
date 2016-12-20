@@ -1,0 +1,118 @@
+﻿@model IList<Gestion.Models.ClientesLicenciasProducto>
+<div class="row">
+    <div class="span6 offset3">
+        <div class="widget">
+            <div class="widget-header">
+                <i class="icon-bookmark"></i>
+                <h3>Productos Disponibles</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+                <div class="shortcuts">
+                    @foreach (var item in Model)
+                    {
+                        <a href="@item.ClientesLicencia.FullUrl" target="_blank" class="shortcut"><i class="shortcut-icon icon-list-alt"></i><span class="shortcut-label">@item.Producto.Descripcion</span> </a>
+                    }
+
+                </div>
+                <!-- /shortcuts -->
+            </div>
+            <!-- /widget-content -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@*<div class="row">
+        <div class="span4 offset4">
+            <div class="well well-sm">
+                <p style="font-weight: bold; text-align: center; margin-top: 9px">Productos Disponibles</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px">
+        @if (ViewBag.Express == 1)
+        {
+            <div class="span4 offset2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="span4">
+                                <i style="font-size: 5em" class="glyphicon glyphicon-circle-arrow-right"></i>
+                            </div>
+                            <div class="span8">
+                                <p style="margin-top: 25px; font-size: 1.3em;font-weight:bold">Shaman Express</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer announcement-bottom">
+                            <div class="row">
+                                <div class="span6">
+                                    <form method="POST" action="@urlExpress">
+                                        <input type="hidden" name="v" value="express" />
+                                        <input type="hidden" name="usr" value="@ViewBag.ShamanExpressUser" />
+                                        <input type="hidden" name="dbConexion" value="@ViewBag.dbConexion" />
+                                        <input type="hidden" name="dbName" value="@ViewBag.dbName" />
+                                        <input type="hidden" name="dbUser" value="@ViewBag.dbUser" />
+                                        <input type="hidden" name="dbPass" value="@ViewBag.dbPass" />
+                                        <input type="hidden" name="Cliente" value="@ViewBag.Cliente" />
+                                        <input type="submit" value="Ingresar al Sistema" />
+                                    </form>
+                                </div>
+                                <div class="span6 text-right">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.Full == 1)
+        {
+            <div class="span4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="span4">
+                                <i style="font-size: 5em" class="glyphicon glyphicon-circle-arrow-right"></i>
+                            </div>
+                            <div class="span8">
+                                <p style="margin-top: 25px; font-size: 1.3em;font-weight:bold">Shaman Full</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer announcement-bottom">
+                            <div class="row">
+                                <div class="span6">
+                                    <a href="@urlExpress" target="_blank">Ingresar al sistema</a>
+                                </div>
+                                <div class="span6 text-right">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>*@
+
+
+
+
+
+
+
+
+
+

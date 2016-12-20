@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<Gestion.ViewModels.LicenciasEstados>
+@using PagedList.Mvc;
+
+<div id="licenciasList">
+    <div class="row">
+        <div class="span10 offset1">
+            <div class="widget widget-table action-table" style="margin-bottom:0">
+                <div class="widget-header">
+                    <i class="icon-th-list"></i>
+                    <h3>Licencias</h3>
+                </div>
+                <!-- /widget-header -->
+                <div class="widget-content">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="span3">@Html.DisplayNameFor(model => model.First().Serial) </th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.First().NumeroLlave)</th>
+                                <th class="span3">@Html.DisplayNameFor(model => model.First().Estado) </th>
+                                <th class="span1"></th>
+                                <th class="span1"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Serial)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NumeroLlave)
+                                    </td>
+                                    <td>
+                                        @if (item.Estado == "SIN ASIGNAR")
+                                        {
+                                            <span style="color: green; font-weight: bold">
+                                                @Html.DisplayFor(modelItem => item.Estado)
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color: red; font-weight: bold">
+                                                @Html.DisplayFor(modelItem => item.Estado)
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td class="centrado">
+                                        <a href="Licencias/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
+                                    </td>
+                                    <td class="centrado">
+                                        <a href="Licencias/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#licenciasList"><i class="btn-icon-only icon-remove"> </i></a>
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /widget-content -->
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="pagedList span7 offset5" data-gestion-target="#licenciasList">
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+        </div>
+
+        <!-- /row -->
+    </div>
+</div>
+<!-- /container -->

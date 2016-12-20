@@ -1,0 +1,3 @@
+ALTER TABLE [dbo].[ClientesLicencias] ADD [SitioID] [int] NOT NULL DEFAULT 0
+CREATE INDEX [IX_SitioID] ON [dbo].[ClientesLicencias]([SitioID])
+ALTER TABLE [dbo].[ClientesLicencias] ADD CONSTRAINT [FK_dbo.ClientesLicencias_dbo.Sitios_SitioID] FOREIGN KEY ([SitioID]) REFERENCES [dbo].[Sitios] ([ID]) ON DELETE CASCADE

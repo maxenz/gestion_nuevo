@@ -1,0 +1,8 @@
+﻿@model Paramedic.Gestion.Model.Localidad
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_Form",Model)
+}

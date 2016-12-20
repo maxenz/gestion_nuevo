@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s0="http://tempuri.org" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://tempuri.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org">
+      <s:element name="GetCuentaCorriente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" name="pCli" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCuentaCorrienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="GetCuentaCorrienteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCuentaCorrienteSoapIn">
+    <wsdl:part name="parameters" element="s0:GetCuentaCorriente" />
+  </wsdl:message>
+  <wsdl:message name="GetCuentaCorrienteSoapOut">
+    <wsdl:part name="parameters" element="s0:GetCuentaCorrienteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ClientesDocumentosSoap">
+    <wsdl:operation name="GetCuentaCorriente">
+      <wsdl:input message="s0:GetCuentaCorrienteSoapIn" />
+      <wsdl:output message="s0:GetCuentaCorrienteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ClientesDocumentosSoap" type="s0:ClientesDocumentosSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCuentaCorriente">
+      <soap:operation soapAction="http://tempuri.org/WebServices.ClientesDocumentos.GetCuentaCorriente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ClientesDocumentos">
+    <wsdl:port name="ClientesDocumentosSoap" binding="s0:ClientesDocumentosSoap">
+      <soap:address location="http://192.168.0.249:57772/csp/shaman/WebServices.ClientesDocumentos.cls" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

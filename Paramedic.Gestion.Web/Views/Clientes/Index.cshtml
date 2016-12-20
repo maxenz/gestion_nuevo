@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<Gestion.ViewModels.ClientesPrincipal>
+@using PagedList.Mvc;
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="row" style="margin-top: -20px">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <i class="icon-filter"></i>
+                            <h3>Filtros</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+                            <form action="@Url.Action("Index")" method="get" id="frmSearchClientes" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#clientesList" style="margin-bottom:-10px">
+                                <div class="row">
+                                    <div class="span2">
+                                        <select id="selTipoClientes" name="selTipoClientes" style="width:100%">
+                                            <option value="1">Todos</option>
+                                            <option value="2">Vendidos</option>
+                                            <option value="3">En Gesti&oacute;n</option>
+                                        </select>
+                                    </div>
+                                    <div class="span2">
+                                        <select id="selDatosSegunVista" name="selDatosSegunVista" style="width:100%">
+                                            <option value="1">Datos Principales</option>
+                                            <option value="2">&Uacute;ltima Gesti&oacute;n</option>
+                                        </select>
+                                    </div>
+                                    <div class="span3">
+                                        <input type="text" class="search-query span3" id="searchName" name="searchName" placeholder="Buscar..." style="width: 90%">
+                                    </div>
+                                    <div class="span1">
+                                        <button class="btn btn-primary btn-small btn-actions" style="width: 100%" type="submit" id="search_button" name="search_button"><i class="btn-icon-only icon-search"></i></button>
+                                    </div>
+                                    <div class="span1">
+                                        <a href="/Clientes/Create" class="btn btn-primary btn-small btn-actions" style="width: 80%" id="new_button"><i class="btn-icon-only icon-plus-sign"></i></a>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- /bar-chart -->
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("_Clientes", Model)
+        </div>
+        <!-- /main-inner -->
+    </div>
+</div>

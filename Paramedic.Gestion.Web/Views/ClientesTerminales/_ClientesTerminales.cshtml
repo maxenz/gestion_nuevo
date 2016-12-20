@@ -1,0 +1,78 @@
+﻿@model IList<Gestion.Models.ClientesTerminal>
+
+<div id="clientesTerminalesList">
+                    <div class="row">
+                        <div class="span10 offset1" >
+                            <table class="table table-hover table-striped table-bordered tableIndex">
+                                <thead>
+                                    <tr>
+                                        <th class="span3 centrado">
+                                            @Html.DisplayNameFor(model => model.First().TipoTerminal.Descripcion)
+                                        </th>
+                                        <th class="span3 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Referencia)
+                                        </th>
+                                        <th class="span1 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Valor1)
+                                        </th>
+                                        <th class="span1 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Valor2)
+                                        </th>
+                                        <th class="span1 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Valor3)
+                                        </th>
+                                        <th class="span1 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Valor4)
+                                        </th>
+                                        <th class="span1 centrado"></th>
+                                        <th class="span1 centrado"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="span3 centrado">
+                                                @Html.DisplayFor(modelItem => item.TipoTerminal.Descripcion)
+                                            </td>
+                                            <td class="span3 centrado">
+                                                @Html.DisplayFor(modelItem => item.Referencia)
+                                            </td>
+                                            <td class="span1 centrado">
+                                                @Html.DisplayFor(modelItem => item.Valor1)
+                                            </td>
+                                            <td class="span1 centrado">
+                                                @Html.DisplayFor(modelItem => item.Valor2)
+                                            </td>
+                                            <td class="span1 centrado">
+                                                @Html.DisplayFor(modelItem => item.Valor3)
+                                            </td>
+                                            <td class="span1 centrado">
+                                                @Html.DisplayFor(modelItem => item.Valor4)
+                                            </td>
+                                            <td class="centrado">
+                                                <a href="@item.ClienteID/ClientesTerminales/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
+                                            </td>
+                                            <td class="centrado">
+                                                <a href="@item.ClienteID/ClientesTerminales/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesTerminalesList"><i class="btn-icon-only icon-remove"> </i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+
+                            <div class="row">
+
+                                <div class="span4 offset4 ">
+                                    <a href="@ViewBag.Cliente_ID/ClientesTerminales/Create" class="btn btn-block  btn-primary btnSubmit btn-actions">Agregar Terminal</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+

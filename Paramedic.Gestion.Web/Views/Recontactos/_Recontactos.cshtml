@@ -1,0 +1,66 @@
+﻿@model PagedList.IPagedList<Gestion.ViewModels.Recontacto>
+@using PagedList.Mvc;
+
+<div id="recontactoList">
+    <div class="row">
+        <div class="span10 offset1">
+            <div class="widget widget-table action-table">
+                <div class="widget-header">
+                    <i class="icon-th-list"></i>
+                    <h3>Usuarios</h3>
+                </div>
+                <!-- /widget-header -->
+                <div class="widget-content">
+                    <table class="table table-striped table-bordered" id="tbGestion">
+                        <thead>
+                            <tr>
+                                <th class="span2">@Html.DisplayNameFor(model => model.First().Fecha) </th>
+                                <th class="span3">@Html.DisplayNameFor(model => model.First().Cliente)</th>
+                                <th class="span5">@Html.DisplayNameFor(model => model.First().Observaciones) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fecha)
+                                    </td>
+                                    <td>
+                                        @(Html.Raw(item.ClienteID == 0 ? item.Cliente : "<a href=\"/Clientes/Edit/" + item.ClienteID + "\">" + item.Cliente + "</a>"))
+                                    </td>
+                                    @if (item.Tipo == "G")
+                                    {
+                                        <td style="color: #00ba8b !important; font-weight:bold">
+                                            @Html.DisplayFor(modelItem => item.Observaciones)
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color: #e74c3c; font-weight:bold">
+                                            @Html.DisplayFor(modelItem => item.Observaciones)
+                                        </td>
+                                    }
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /widget-content -->
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="pagedList span4 offset5" data-gestion-target="#recontactoList">
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+        </div>
+
+        <!-- /row -->
+    </div>
+</div>
+<!-- /container -->

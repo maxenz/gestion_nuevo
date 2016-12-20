@@ -1,0 +1,169 @@
+﻿@using Gestion.HtmlHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Shaman Gesti&oacute;n</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+          rel="stylesheet">
+    @Styles.Render("~/bundles/gestion_css")
+    @Scripts.Render("~/bundles/mapa")
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </a><a class="brand" href="/">
+                    Shaman Gesti&oacute;n
+                </a>
+                <div class="nav-collapse">
+                    <ul class="nav pull-right">
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            @Html.Action("Recontacto", "Home")
+                        }
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-user"></i> @User.Identity.Name <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/">Inicio</a></li>
+                                <li>
+                                    <a href="#" id="cerrarSesion">Cerrar Sesi&oacute;n</a>
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                    }
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /navbar-inner -->
+    </div>
+    <!-- /navbar -->
+    <div class="subnavbar">
+        <div class="subnavbar-inner">
+            <div class="container">
+                <ul class="mainnav">
+
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-folder-open"></i><span>Maestros</span> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Licencias", "Index", "Licencias")</li>
+                                <li>@Html.ActionLink("Países", "Index", "Paises")</li>
+                                <li>@Html.ActionLink("Estados", "Index", "Estados")</li>
+                                <li>@Html.ActionLink("Medios de difusión", "Index", "MediosDifusion")</li>
+                                <li>@Html.ActionLink("Terminales", "Index", "TipoTerminales")</li>
+                                <li>@Html.ActionLink("Productos", "Index", "Productos")</li>
+                                <li>@Html.ActionLink("Revendedores", "Index", "Revendedores")</li>
+                                <li>@Html.ActionLink("Logs del Sistema", "Index", "LogsRegistrosSistema")</li>
+                                <li>@Html.ActionLink("Sitios", "Index", "Sitios")</li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Clientes")">
+                                <i class="icon-user"></i>
+                                <span>Clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Contactos")">
+                                <i class="icon-group"></i>
+                                <span>Contactos</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Account")">
+                                <i class="icon-key"></i>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Logs")">
+                                <i class="icon-copy"></i>
+                                <span>Logs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Recontactos")">
+                                <i class="icon-phone"></i>
+                                <span>Recontactos</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Mapa")">
+                                <i class="icon-globe"></i>
+                                <span>Mapa</span>
+                            </a>
+                        </li>
+
+                    }
+
+                    else if (User.IsInRole("Cliente"))
+                    {
+                        @HtmlHelpers.getPageLink("/CuentaCorriente", "icon-money", "Cuenta Corriente")
+                    }
+
+                    <li>
+                        <a href="@Url.Action("Index", "MisTickets")">
+                            <i class="icon-comment"></i>
+                            <span>Consultas</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Videos")">
+                            <i class="icon-facetime-video"></i>
+                            <span>Videos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "MisProductos")">
+                            <i class="icon-money"></i>
+                            <span>Mis Productos</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /subnavbar-inner -->
+    </div>
+    <!-- /subnavbar -->
+    <section>
+        @RenderBody()
+    </section>
+    <!-- /main-inner -->
+    <!-- /main -->
+    <!-- /footer -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    @Scripts.Render("~/bundles/libraries_js")
+    @Scripts.Render("~/bundles/general_js")
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

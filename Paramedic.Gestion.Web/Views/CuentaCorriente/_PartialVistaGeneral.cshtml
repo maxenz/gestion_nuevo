@@ -1,0 +1,94 @@
+﻿@model List<Gestion.ViewModels.CuentaCorrienteViewModel>
+@using Gestion.HtmlHelpers
+
+@{
+    
+    var hoy = DateTime.Now.ToShortDateString();
+    var deudor = ViewBag.Deudor;
+    var saldo = Convert.ToDouble(ViewBag.Saldo);
+    
+}
+
+<div id="ctaCorrienteList">
+                    <div class="row">
+                        <div class="span4 offset4">
+                            <div class="well well-sm centrado">
+                                Saldo al @hoy:
+                                @if (deudor == 1)
+                                {
+                                    <span class="rojo negrita" style="margin-left:10px">@String.Format("{0:C}", saldo)</span>
+                                }
+                                else
+                                {
+                                    <span class="verde negrita" style="margin-left:10px">@String.Format("{0:C}", saldo)</span>
+                                } 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10 offset1" >
+                            <table class="table table-hover table-striped table-bordered tableIndex">
+                                <thead>
+                                    <tr>
+                                        <th class="span2 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Fecha)
+                                        </th>
+                                        <th class="span1 centrado">
+                                            @Html.DisplayNameFor(model => model.First().TipoComprobante)
+                                        </th>
+                                        <th class="span3 centrado">
+                                            @Html.DisplayNameFor(model => model.First().NroComprobante)
+                                        </th>
+                                        <th class="span2 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Debe)
+                                        </th>
+                                        <th class="span2 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Haber)
+                                        </th>
+                                        <th class="span2 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Saldo)
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="span2 centrado">
+                                                @Html.DisplayFor(modelItem => item.Fecha)
+                                            </td>
+                                            <td class="span1 centrado">
+                                                @Html.DisplayFor(modelItem => item.TipoComprobante)
+                                            </td>
+                                            <td class="span3 centrado mail">
+                                                @Html.DisplayFor(modelItem => item.NroComprobante)
+                                            </td>
+                                            <td class="span2 right">
+                                                @if (item.Debe != 0.00)
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.Debe)
+                                                }
+                                            </td>
+                                            <td class="span2 right">
+                                                @if (item.Haber != 0.00)
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.Haber)
+                                                }
+                                            </td>
+                                            <td class="span2 right">
+                                                @if (item.Saldo != 0.00)
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.Saldo)
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>

@@ -1,0 +1,64 @@
+﻿@model IList<Gestion.Models.ClientesContacto>
+
+<div id="clientesContactosList">
+
+    <div class="row">
+        <div class="span10 offset1">
+            <table class="table table-hover table-striped table-bordered tableIndex">
+                <thead>
+                    <tr>
+                        <th class="span3 centrado">
+                            @Html.DisplayNameFor(model => model.First().Nombre)
+                        </th>
+                        <th class="span3 centrado">
+                            @Html.DisplayNameFor(model => model.First().Telefono)
+                        </th>
+                        <th class="span3 centrado">
+                            @Html.DisplayNameFor(model => model.First().Email)
+                        </th>
+                        <th class="span2 centrado">
+                            @Html.DisplayNameFor(model => model.First().Otros)
+                        </th>
+                        <th class="span1 centrado"></th>
+                        <th class="span1 centrado"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="span3 centrado">
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td class="span2 centrado">
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td class="span3 centrado">
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td class="span2 centrado">
+                                @Html.DisplayFor(modelItem => item.Otros)
+                            </td>
+                            <td class="centrado">
+                                <a href="@item.ClienteID/ClientesContactos/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
+                            </td>
+                            <td class="centrado">
+                                <a href="@item.ClienteID/ClientesContactos/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesContactosList"><i class="btn-icon-only icon-remove"> </i></a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+            <div class="row">
+                <div class="span4 offset4 ">
+                    <a href="@Model[0].ClienteID/ClientesContactos/Create" class="btn btn-block  btn-primary btnSubmit btn-actions" title="Agregar Contacto">Agregar Contacto</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

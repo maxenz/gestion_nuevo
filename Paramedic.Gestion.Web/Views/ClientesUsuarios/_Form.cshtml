@@ -1,0 +1,50 @@
+﻿@model Gestion.Models.ClientesUsuario
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="span6 offset3">
+                <div class="widget">
+                    <div class="widget-header">
+                        <i class="icon-key"></i>
+                        <h3>Registro de Usuario</h3>
+                    </div>
+                    <div class="widget-content">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="Usuario">Usuario</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.UsuarioID, new SelectList(ViewBag.Usuarios, "UserId", "UserName"), new { @class = "span5" })
+                                    @Html.ValidationMessageFor(model => model.UsuarioID)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="ShamanExpressID">Shaman Express ID</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.ShamanExpressID, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.ShamanExpressID)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="ShamanFullID">Shaman Full ID</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.ShamanFullID, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.ShamanFullID)
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
+                                <button class="btn">Cancelar</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

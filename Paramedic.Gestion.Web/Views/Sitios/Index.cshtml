@@ -1,0 +1,43 @@
+﻿@model PagedList.IPagedList<Gestion.Models.Sitio>
+@using PagedList.Mvc; 
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="row" style="margin-top: -20px">
+                <div class="span10 offset1">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <i class="icon-filter"></i>
+                            <h3>Filtros</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+                            <form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#sitiosList" style="margin-bottom:0">
+                                <div class="row">
+                                    <div class="span3">
+                                        <input type="text" class="search-query span3" id="searchName" name="searchName" placeholder="Buscar..." style="width: 90%">
+                                    </div>
+                                    <div class="span1">
+                                        <button class="btn btn-primary btn-small btn-actions" style="width: 100%" type="submit" id="search_button" name="search_button"><i class="btn-icon-only icon-search"></i></button>
+                                    </div>
+                                    <div class="span1">
+                                        <a href="/Sitios/Create" class="btn btn-primary btn-small btn-actions" style="width:80%" id="new_button"><i class="btn-icon-only icon-plus-sign"></i></a>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <!-- /bar-chart -->
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+                </div>
+            </div>
+
+            @Html.Partial("_Sitios", Model)
+
+        </div>
+        <!-- /main-inner -->
+    </div>
+</div>
+

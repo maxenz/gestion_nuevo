@@ -1,0 +1,63 @@
+﻿@model IList<Gestion.Models.ClientesUsuario>
+
+<div id="clientesUsuariosList">
+                    <div class="row">
+                        <div class="span10 offset1" >
+                            <table class="table table-hover table-striped table-bordered tableIndex">
+                                <thead>
+                                    <tr>
+                                        <th class="span2 centrado">
+                                            @Html.DisplayNameFor(model => model.First().Usuario.UserName)
+                                        </th>
+                                        <th class="span2 centrado">
+                                            @Html.DisplayNameFor(model => model.First().ShamanFullID)
+                                        </th>
+                                        <th class="span2 centrado">
+                                            @Html.DisplayNameFor(model => model.First().ShamanExpressID)
+                                        </th>
+ 
+                                        <th class="span1 centrado"></th>
+                                        <th class="span1 centrado"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="span2 centrado">
+                                                @Html.DisplayFor(modelItem => item.Usuario.UserName)
+                                            </td>
+                                            <td class="span2 centrado">
+                                                @Html.DisplayFor(modelItem => item.ShamanFullID)
+                                            </td>
+                                            <td class="span2 centrado">
+                                                @Html.DisplayFor(modelItem => item.ShamanExpressID)
+                                            </td>
+                                            <td class="centrado">
+                                                <a href="@item.ClienteID/ClientesUsuarios/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
+                                            </td>
+                                            <td class="centrado">
+                                                <a href="@item.ClienteID/ClientesUsuarios/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesUsuariosList"><i class="btn-icon-only icon-remove"> </i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+
+                            <div class="row">
+
+                                <div class="span4 offset4 ">
+                                    <a href="@ViewBag.Cliente_ID/ClientesUsuarios/Create" class="btn btn-block  btn-primary btnSubmit btn-actions">Agregar Usuario</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+

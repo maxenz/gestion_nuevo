@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=7,8,9" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="//vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="Scripts/sbadmin/map.js"></script>
+
+
+    @Styles.Render("~/bundles/AdminCss")
+
+    <title>Shaman SGE - Gesti&oacute;n</title>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" id="tituloShaman" href="/">Shaman Gesti&oacute;n</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="glyphicon glyphicon-align-justify"></span></button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <div id="sidebar-wrapper">
+                    <ul class="nav navbar-nav side-nav" id="navOptions">
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-download glyph-nav-bar"></span>Maestros <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Licencias"><span class="glyphicon glyphicon-book glyph-nav-bar"></span>Licencias</a></li>
+                                    <li><a href="~/Paises"><span class="glyphicon glyphicon-globe glyph-nav-bar"></span>Pa&iacute;ses</a></li>
+                                    <li><a href="~/Estados"><span class="glyphicon glyphicon-cog glyph-nav-bar"></span>Estados</a></li>
+                                    <li><a href="~/MediosDifusion"><span class="glyphicon glyphicon-map-marker glyph-nav-bar"></span>Medios de Difusi&oacute;n</a></li>
+                                    <li><a href="~/TipoTerminales"><span class="glyphicon glyphicon-phone glyph-nav-bar"></span>Terminales</a></li>
+                                    <li><a href="~/Productos"><span class="glyphicon glyphicon-shopping-cart glyph-nav-bar"></span>Productos</a></li>
+                                    <li><a href="~/Revendedores"><span class="glyphicon glyphicon-usd glyph-nav-bar"></span>Revendedores</a></li>
+                                    <li><a href="~/LogsRegistrosSistema"><span class="glyphicon glyphicon-file glyph-nav-bar"></span>Registros - Log</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="~/Clientes"><span class="glyphicon glyphicon-play-circle glyph-nav-bar"></span>Clientes</a></li>
+                            <li><a href="~/Contactos"><span class="glyphicon glyphicon-user glyph-nav-bar"></span>Contactos</a></li>
+                            <li><a href="~/Videos"><span class="glyphicon glyphicon-facetime-video glyph-nav-bar"></span>Videos</a></li>
+                            <li><a href="~/Account"><span class="glyphicon glyphicon-hand-right glyph-nav-bar"></span>Usuarios</a></li>
+                            <li><a href="~/Logs"><span class="glyphicon glyphicon-info-sign glyph-nav-bar"></span>Logs</a></li>                                             
+                            <li><a href="~/Recontactos"><span class="glyphicon glyphicon-earphone glyph-nav-bar"></span>Recontactos</a></li>
+                            <li><a href="~/MisTickets"><span class="glyphicon glyphicon-envelope glyph-nav-bar"></span>Consultas</a></li>
+                            <li><a href="~/Mapa"><span class="glyphicon glyphicon-globe glyph-nav-bar"></span>Mapa</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/MisProductos"><span class="glyphicon glyphicon-shopping-cart glyph-nav-bar"></span>Mis Productos</a></li>
+                            <li><a href="~/MisTickets"><span class="glyphicon glyphicon-envelope glyph-nav-bar"></span>Mis Tickets</a></li>
+                            <li><a href="~/CuentaCorriente"><span class="glyphicon glyphicon-usd glyph-nav-bar"></span>Cuenta Corriente</a></li>  
+                            <li><a href="~/Videos"><span class="glyphicon glyphicon-facetime-video glyph-nav-bar"></span>Videos</a></li>                      
+                        }
+                    </ul>
+
+                </div>
+
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        @Html.Action("Recontacto", "Home")
+                    }
+                    <li class="dropdown user-dropdown ">
+                        <a href="#" class="dropdown-toggle opciones" data-toggle="dropdown"><span class="glyphicon glyphicon-user glyph-nav-bar"></span>@User.Identity.Name <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/"><span class="glyphicon glyphicon-home iconRightMenu"></span>Inicio</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" id="cerrarSesion"><span class="glyphicon glyphicon-off iconRightMenu"></span>Cerrar Sesi&oacute;n</a></li>
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            }
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            @RenderSection("featured", required: false)
+            <section>
+                @RenderBody()
+            </section>
+
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- JavaScript -->
+    @Scripts.Render("~/bundles/AdminJs")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

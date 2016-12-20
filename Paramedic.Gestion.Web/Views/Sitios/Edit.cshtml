@@ -1,0 +1,10 @@
+﻿@model Gestion.Models.Sitio
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.ID)
+    
+    @Html.Partial("_Form",Model)
+}

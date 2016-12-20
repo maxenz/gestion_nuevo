@@ -1,0 +1,155 @@
+﻿@model Gestion.Models.ClientesLicencia
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="span6 offset3">
+                <div class="widget">
+                    <div class="widget-header">
+                        <i class="icon-key"></i>
+                        <h3>Registro de Contacto</h3>
+                    </div>
+                    <div class="widget-content">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="Licencia">Licencia</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.LicenciaID, new SelectList(ViewBag.Licencias, "ID", "Serial"), new { @class = " span5" })
+                                    @Html.ValidationMessageFor(model => model.LicenciaID)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="CnnDataSource">Data Source</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.CnnDataSource, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.CnnDataSource)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="CnnCatalog">Catalog</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.CnnCatalog, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.CnnCatalog)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="CnnUser">User</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.CnnUser, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.CnnUser)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="CnnPassword">Password</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.CnnPassword, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.CnnPassword)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="CnnServidor">Servidor</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.ConexionServidor, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.ConexionServidor)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="FechaDeVencimiento">Fecha de Vencimiento</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.FechaDeVencimiento, "{0:dd/MM/yyyy}", new { @class = "span5 datepicker" })
+                                    @Html.ValidationMessageFor(model => model.FechaDeVencimiento)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="SitioWeb">Sitio Web</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.SitioID, new SelectList(ViewBag.Sites, "ID", "Descripcion"), "Seleccione Sitio Web", new { @class = "span5" })
+                                </div>
+                                <!-- /controls -->
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="Puerto">Puerto</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.SitioPuerto, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.SitioPuerto)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="SubDominio">Sub dominio</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.SitioSubDominio, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.SitioSubDominio)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="Alias">Alias</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Alias, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.Alias)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="AndroidPassword">Password para Android</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.AndroidPassword, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.AndroidPassword)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="AndroidUrl">Url para Android</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.AndroidUrl, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.AndroidUrl)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="FtpAndroidDir">Dirección Ftp para archivos de Android</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.FtpAndroidDir, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.FtpAndroidDir)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="FtpAndroidUser">Usuario Ftp para archivos de Android</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.FtpAndroidUser, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.FtpAndroidUser)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="FtpAndroidPassword">Password Ftp para archivos de Android</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.FtpAndroidPassword, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.FtpAndroidPassword)
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
+                                <button class="btn">Cancelar</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,14 @@
+﻿@model PagedList.IPagedList<Gestion.Models.Video>
+@using PagedList.Mvc;
+
+
+@foreach (var item in Model)
+{
+    string srcVideo = "http://200.49.156.125:57774/videos_shaman/" + @item.Alias + ".mp4";
+    <div id="@item.ID" style="display: none">
+        <video class="video-js vjs-default-skin"
+               controls preload="auto" width="640" height="264">
+            <source src="@srcVideo" type='video/mp4' />
+        </video>
+    </div>
+}

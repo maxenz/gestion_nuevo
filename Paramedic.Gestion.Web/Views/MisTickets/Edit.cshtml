@@ -1,0 +1,67 @@
+﻿@model Gestion.Models.Ticket
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+
+            <div class="row" style="margin-top: -20px">
+                <div class="span8 offset2">
+                    <div class="widget">
+                        <div class="widget-header">
+
+                            <i class="icon-remove-circle"></i>
+                            <h3>@Model.Asunto</h3>
+
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content">
+                            <div style="text-align:right">
+                                @if (@User.IsInRole("Administrador"))
+                                {
+                                    @Html.LabelFor(x => x.FuturaMejora, new { style = "display: inline; margin-right:5px" })
+                                    @Html.EditorFor(x => x.FuturaMejora)
+                                    @Html.HiddenFor(x => x.ID)
+                                }
+                                <hr />
+                            </div>
+                            @Html.Partial("_ListaEventos", Model)
+
+                            <!-- /bar-chart -->
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+
+                    <div id="bottomEditTicket">
+
+                        @if (Model.Resuelto)
+                        {
+                            @Html.Partial("_Cerrado")
+                        }
+                        else if (User.IsInRole("Administrador"))
+                        {
+                            @Html.Partial("_BotonResponder")
+                        }
+                        else
+                        {
+                            @Html.Partial("_BotonConsultaCerrar")
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /main-inner -->
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

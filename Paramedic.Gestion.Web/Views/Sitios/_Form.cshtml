@@ -1,0 +1,48 @@
+﻿@model Gestion.Models.Sitio
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="span6 offset3">
+                <div class="widget">
+                    <div class="widget-header">
+                        <i class="icon-key"></i>
+                        <h3>Registro de Sitios</h3>
+                    </div>
+
+                    <div class="widget-content">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="Descripcion">Descripci&oacute;n</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Descripcion, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.Descripcion)
+                                </div> <!-- /controls -->
+                            </div> <!-- /control-group -->
+
+                            <div class="control-group">
+                                <label class="control-label" for="Url">Url</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Url, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.Url)
+                                </div> <!-- /controls -->
+                            </div> <!-- /control-group -->
+
+                            <br>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
+                                <button class="btn">Cancelar</button>
+                            </div> <!-- /form-actions -->
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /container -->
+</div>
+
+
+

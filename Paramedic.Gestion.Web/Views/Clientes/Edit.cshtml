@@ -1,0 +1,83 @@
+﻿@model Gestion.Models.Cliente
+
+@{
+    var cliCont = Model.ClientesContactos;
+    var cliGest = Model.ClientesGestiones;    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.ID)
+ 
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row" style="margin-top: -20px">
+                    <div class="span12">
+                        <div class="widget">
+                            <div class="widget-header">
+                                <i class="icon-filter"></i>
+                                <h3>Ficha de Cliente</h3>
+                            </div>
+                            <!-- /widget-header -->
+                            <div class="widget-content">
+                                <ul class="nav nav-tabs" id="tabsCliente">
+                                    <li class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
+                                    <li><a href="#contactos" data-toggle="tab">Contactos</a></li>
+                                    <li><a href="#licencias" data-toggle="tab">Licencias</a></li>
+                                    <li><a href="#gestiones" data-toggle="tab">Gestiones</a></li>
+                                    <li><a href="#terminales" data-toggle="tab">Terminales</a></li>
+                                    <li><a href="#usuarios" data-toggle="tab">Usuarios</a></li>
+                                    <li><a href="#ctaCorriente" data-toggle="tab">Cuenta Corriente</a></li>
+                                    <li><a href="#productos" data-toggle="tab">Productos</a></li>
+                                </ul>
+
+                                @if (TempData["noMoreLicence"] != null)
+                                {
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        @TempData["noMoreLicence"]
+                                    </div>
+                                }
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="datosGrales">
+                                        @Html.Partial("_Form", Model)
+                                        @Html.Partial("_BottomForm", Model)
+                                    </div>
+                                    <div class="tab-pane fade" id="contactos">
+                                        @Html.Action("Index", "ClientesContactos", routeValues: new { ClienteID = Model.ID })
+                                    </div>
+                                    <div class="tab-pane fade" id="licencias">
+                                        @Html.Action("Index", "ClientesLicencias", routeValues: new { ClienteID = Model.ID })
+                                    </div>
+                                    <div class="tab-pane fade" id="gestiones">
+                                        @Html.Action("Index", "ClientesGestiones", routeValues: new { ClienteID = Model.ID })
+                                    </div>
+                                    <div class="tab-pane fade" id="terminales">
+                                        @Html.Action("Index", "ClientesTerminales", routeValues: new { ClienteID = Model.ID })
+                                    </div>
+                                    <div class="tab-pane fade" id="usuarios">
+                                        @Html.Action("Index", "ClientesUsuarios", routeValues: new { ClienteID = Model.ID })
+                                    </div>
+                                    <div class="tab-pane fade" id="ctaCorriente">
+                                        @Html.Action("Index", "CuentaCorriente", routeValues: new { ClienteID = Model.ID })
+                                    </div>
+                                    <div class="tab-pane fade" id="productos">
+                                        @Html.Action("Index", "MisProductos", routeValues: new { ClienteID = Model.ID })
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /widget-content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /main-inner -->
+        </div>
+    </div>
+   
+}

@@ -1,0 +1,44 @@
+﻿@{
+    var medios = ViewBag.MediosDifusion;
+}
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="row" style="margin-top: -20px">
+                <div class="span10 offset1">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <i class="icon-filter"></i>
+                            <h3>Filtros</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+                            @foreach (var item in medios)
+                            {
+                                <div class="span3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" class="chkMediosDifusion" value="@item.ID" />
+                                        </span>
+                                        <input type="text" class="form-control txtMediosDifusion" readonly="true" value="@item.Descripcion" />
+                                    </div>
+                                </div>
+                            }
+                            <!-- /bar-chart -->
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+        <!-- /main-inner -->
+    </div>
+</div>

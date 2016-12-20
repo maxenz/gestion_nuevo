@@ -1,0 +1,69 @@
+﻿@model PagedList.IPagedList<Gestion.Models.LogRegistroSistema>
+@using PagedList.Mvc;
+
+<div id="logsRegistroSistemaList">
+    <div class="row">
+        <div class="span10 offset1">
+            <div class="widget widget-table action-table">
+                <div class="widget-header">
+                    <i class="icon-th-list"></i>
+                    <h3>Logs del Registro de Sistema</h3>
+                </div>
+                <!-- /widget-header -->
+                <div class="widget-content">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="span3">@Html.DisplayNameFor(model => model.First().DescripcionAccion) </th>
+                                <th class="span3">@Html.DisplayNameFor(model => model.First().ObservacionesAccion)</th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.First().UserProfile.UserName) </th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.First().Fecha) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DescripcionAccion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ObservacionesAccion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fecha)
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /widget-content -->
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="pagedList span4 offset5" data-gestion-target="#logsRegistroSistemaList">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+
+        <!-- /row -->
+    </div>
+</div>
+<!-- /container -->
+
+
+
+
+
+
+
+
+
+

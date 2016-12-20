@@ -1,0 +1,57 @@
+﻿@model Gestion.Models.Ticket
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="span6 offset3">
+                <div class="widget">
+                    <div class="widget-header">
+                        <i class="icon-key"></i>
+                        <h3>Registro de Ticket</h3>
+                    </div>
+
+                    <div class="widget-content">
+                        <fieldset>
+
+                            <div class="control-group">
+                                <label class="control-label" for="Asunto">Asunto</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Asunto, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.Asunto)
+                                </div> <!-- /controls -->
+                            </div> <!-- /control-group -->
+
+                            <div class="control-group">
+                                <label class="control-label" for="Descripcion">Descripci&oacute;n</label>
+                                <div class="controls">
+                                    @Html.TextArea("Descripcion", new { @class = "span5 consulta", rows = "6" })
+                                
+                                </div> <!-- /controls -->
+                            </div> <!-- /control-group -->
+
+
+                            <div class="control-group">
+                                <label class="control-label" for="image">Imagen</label>
+                                <div class="controls">
+                                    <input type="file" name="image" accept="image/x-png, image/gif, image/jpeg" />
+                                </div> <!-- /controls -->
+                            </div> <!-- /control-group -->
+
+                            <br>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
+                                <button class="btn">Cancelar</button>
+                            </div> <!-- /form-actions -->
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- /container -->
+</div>
+
+
