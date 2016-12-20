@@ -2,19 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Gestion.Models
+namespace Paramedic.Gestion.Model
 {
     [Table("TicketEstados")]
-    public class TicketEstado
+    public class TicketEstado : AuditableEntity<int>
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
         [Required]
         [Display(Name = "Estado de Ticket")]
         public String Descripcion { get; set; }
-
-
     }
 }
