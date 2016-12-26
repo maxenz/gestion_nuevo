@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Paramedic.Gestion.Repository
+namespace Paramedic.Gestion.Service
 {
-    public interface IProvinciaRepository : IGenericRepository<Provincia>
+    public interface ITicketService : IEntityService<Ticket>
     {
-         Provincia GetById(int id);
+        Ticket GetById(int id);
     }
 }

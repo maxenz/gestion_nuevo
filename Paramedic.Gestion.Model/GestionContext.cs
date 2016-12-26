@@ -9,15 +9,29 @@ namespace Paramedic.Gestion.Model
     public class GestionContext : DbContext
     {
 
-        public GestionContext()
-            : base("Name=GestionContext")
-        {
-            Database.SetInitializer<GestionContext>(new CreateDatabaseIfNotExists<GestionContext>());
-        }
+        #region DbSets
 
         public DbSet<Pais> Paises { get; set; }
         public DbSet<Provincia> Provincias { get; set; }
         public DbSet<Localidad> Localidades { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketEstado> TicketEstado { get; set; }
+        public DbSet<TicketEvento> TicketEventos { get; set; }
+        public DbSet<TicketTipoEvento> TicketTipoEventos { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public GestionContext() : base("Name=GestionContext")
+        {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<GestionContext>());
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public override int SaveChanges()
         {
@@ -50,5 +64,8 @@ namespace Paramedic.Gestion.Model
 
             return base.SaveChanges();
         }
+
+        #endregion
+
     }
 }

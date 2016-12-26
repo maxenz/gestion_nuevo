@@ -21,7 +21,8 @@ namespace Gestion
         protected void Application_Start()
         {
 
-            //Autofac Configuration
+            #region Autofac
+
             var builder = new Autofac.ContainerBuilder();
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
@@ -34,17 +35,25 @@ namespace Gestion
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
+            #endregion
+
+            #region Database
+
             WebSecurity.InitializeDatabaseConnection("GestionContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-            //WebSecurity.InitializeDatabaseConnection("200.49.156.125" + Convert.ToChar(92) + "SQLEXPRESS", "Gestion", "dbaadmin", "yeike", autoCreateTables: true);
+
+            #endregion
+
+            #region Registration
 
             AreaRegistration.RegisterAllAreas();
 
-            //WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-           
+
+            #endregion
+
         }
     }
 }

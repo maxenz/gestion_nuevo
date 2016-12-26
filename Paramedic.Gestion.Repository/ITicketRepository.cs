@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Paramedic.Gestion.Repository
 {
-    public interface IProvinciaRepository : IGenericRepository<Provincia>
+    public interface ITicketRepository : IGenericRepository<Ticket>
     {
-         Provincia GetById(int id);
+        Ticket GetById(int id);
+
     }
 }

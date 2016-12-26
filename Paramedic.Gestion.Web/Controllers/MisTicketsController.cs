@@ -10,33 +10,27 @@ using Gestion.ViewModels;
 using PagedList;
 using System.Net.Mail;
 using System.Text;
+using System.Web.Configuration;
+using Paramedic.Gestion.Service;
 
 namespace Gestion.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class MisTicketsController : Controller
     {
-        private GestionDb db = new GestionDb();
-        private const string emailAdministrator = "jnigrelli@paramedic.com.ar";
+        ITicketService _TicketService;
+
+        public MisTicketsController(ITicketService TicketService)
+        {
+            _TicketService = TicketService;
+        }
+        private string emailAdministrator = WebConfigurationManager.AppSettings["administratorEmail"];
         //
         // GET: /MisTickets/
 
-        private bool isAdministrator()
-        {
-
-            if (User.IsInRole("Administrador"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
         public ActionResult Index(string searchName = null,string chkFutureFeatures = null, int page = 1)
         {
+
             int userID = GetCurrentUserID();
 
             IQueryable<Ticket> allTickets = null;
@@ -71,13 +65,13 @@ namespace Gestion.Controllers
                                 
                 qTickets.Add(new TicketsPrincipal
                 {
-                    ID = ticket.ID,
+                    Id = ticket.ID,
                     FechaHora = ticket.FechaCreacion,
                     Asunto = ticket.Asunto,
                     Estado = estado,
                     Usuario = ticket.Usuario.UserName,
                     Cliente = cli.RazonSocial,
-                    ClienteID = cli.ID,
+                    ClienteId = cli.ID,
                     FuturaMejora = ticket.FuturaMejora
                 });
             }
@@ -100,19 +94,6 @@ namespace Gestion.Controllers
             }
 
             return View(qTickets.ToPagedList(page, 6));
-        }
-
-        //
-        // GET: /MisTickets/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Ticket ticket = db.Tickets.Find(id);
-            if (ticket == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ticket);
         }
 
         //

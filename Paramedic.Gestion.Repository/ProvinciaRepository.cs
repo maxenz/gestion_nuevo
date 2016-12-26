@@ -18,7 +18,7 @@ namespace Paramedic.Gestion.Repository
             return _entities.Set<Provincia>().Include(x => x.Pais).AsEnumerable();
         }
 
-        public Provincia GetById(long id)
+        public Provincia GetById(int id)
         {
             return _dbset.Include(x => x.Pais).Where(x => x.Id == id).FirstOrDefault();
         }
