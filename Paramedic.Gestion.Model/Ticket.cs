@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Paramedic.Gestion.Model.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,25 +12,21 @@ namespace Paramedic.Gestion.Model
         [Display(Name = "Asunto")]
         public string Asunto { get; set; }
 
-        public bool Resuelto { get; set; }
-
         [Required]
         [Display(Name = "Usuario")]
-        public int UsuarioId { get; set; }
+        public int UserProfileId { get; set; }
 
         [Required]
         [Display(Name = "Estado de ticket")]
-        public int TicketEstadoId { get; set; }
+        public TicketEstadoType TicketEstadoType { get; set; }
 
         [Display(Name = "Futura mejora")]
         public bool FuturaMejora { get; set; }
 
-        public virtual IEnumerable<TicketEvento> TicketEventos { get; set; }
+        public virtual ICollection<TicketEvento> TicketEventos { get; set; }
 
-        [ForeignKey("UsuarioId")]
+        [ForeignKey("UserProfileId")]
         public virtual UserProfile Usuario { get; set; }
 
-        [ForeignKey("TicketEstadoId")]
-        public virtual TicketEstado TicketEstado { get; set; }
     }
 }

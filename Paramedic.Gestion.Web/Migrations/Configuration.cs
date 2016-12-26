@@ -1,23 +1,24 @@
 namespace Gestion.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
     using System.Web.Security;
     using WebMatrix.WebData;
+    using Paramedic.Gestion.Model;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Gestion.Models.GestionDb>
+    internal sealed class Configuration : DbMigrationsConfiguration<GestionContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            // --> OJO con estos parametros cuando pase esto a produccion.
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
+
         }
 
-        protected override void Seed(Gestion.Models.GestionDb context)
+        protected override void Seed(GestionContext context)
         {
-            WebSecurity.InitializeDatabaseConnection("DefaultConnection",
-               "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            WebSecurity.InitializeDatabaseConnection("GestionContext",
+               "UserProfile", "Id", "UserName", autoCreateTables: true);
             if (!WebSecurity.UserExists("mpoggio"))
             {
                 var roles = (SimpleRoleProvider)Roles.Provider;
@@ -26,20 +27,6 @@ namespace Gestion.Migrations
                 roles.CreateRole("Administrador");
                 roles.AddUsersToRoles(new[] { "mpoggio" }, new[] { "Administrador" });
             }
-
-
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

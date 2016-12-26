@@ -1,4 +1,6 @@
-﻿@model PagedList.IPagedList<Gestion.ViewModels.TicketsPrincipal>
+﻿@using System.Web.Mvc.Html;
+@using Paramedic.Gestion.Web.HtmlHelpers;
+@model PagedList.IPagedList<Paramedic.Gestion.Model.Ticket>
 @using PagedList.Mvc;
 
 <div id="misTicketsList">
@@ -14,11 +16,11 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="span3">@Html.DisplayNameFor(model => model.First().FechaHora) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Usuario)</th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Cliente) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Asunto) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Estado) </th>
+                                <th class="span3">@Html.DisplayNameFor(model => model.FirstOrDefault().UpdatedDate) </th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Usuario)</th>
+                                @*<th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Cliente) </th>*@
+                                <th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Asunto) </th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Asunto) </th>
                                 <th class="span1"></th>
                             </tr>
                         </thead>
@@ -27,38 +29,22 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.FechaHora)
+                                        @Html.DisplayFor(modelItem => item.UpdatedDate)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Usuario)
+                                        @Html.DisplayFor(modelItem => item.Usuario.UserName)
                                     </td>
-                                    <td>
-                                        @Html.ActionLink(item.Cliente, "Edit", "Clientes", new { id = item.ClienteID }, null)
-                                    </td>
+                                    @*<td>
+                                            @Html.ActionLink(item.Cliente, "Edit", "Clientes", new { id = item.ClienteID }, null)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Asunto)
                                     </td>
-                                    @if (item.Estado == "RESUELTO")
-                                    {
-                                        <td class="span2 centrado rojo negrita">
-                                            @Html.DisplayFor(modelItem => item.Estado)
-                                        </td>
-                                    }
-                                    else if (item.Estado == "Respondido")
-                                    {
-                                        <td class="span2 centrado verde negrita">
-                                            @Html.DisplayFor(modelItem => item.Estado)
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td class="span2 centrado">
-                                            @Html.DisplayFor(modelItem => item.Estado)
-                                        </td>
-                                    }
+
+                                    @TicketHtmlHelper.getTicketState(item.TicketEstadoType)
 
                                     <td class="centrado">
-                                        <a href="MisTickets/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"></i></a>
+                                        <a href="MisTickets/Edit/@item.Id" class="btn btn-small btn-success btn-actions"><i class="btn btn-icon-only icon-pencil"></i></a>
                                     </td>
                                 </tr>
 
@@ -83,4 +69,3 @@
     </div>
 </div>
 <!-- /container -->
-

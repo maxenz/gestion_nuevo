@@ -1,9 +1,7 @@
 ﻿using Paramedic.Gestion.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Paramedic.Gestion.Service
 {
@@ -15,5 +13,6 @@ namespace Paramedic.Gestion.Service
         void Delete(T entity);
         IEnumerable<T> GetAll();
         void Update(T entity);
+        IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, Expression<Func<T, dynamic>> orderExp, int pageSize, int page = 1);
     }
 }

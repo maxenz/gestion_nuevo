@@ -17,6 +17,7 @@ namespace Paramedic.Gestion.Model
         public string CreatedBy { get; set; }
 
         [ScaffoldColumn(false)]
+        [Display(Name ="Última actualización")]
         public DateTime UpdatedDate { get; set; }
 
         [MaxLength(256)]

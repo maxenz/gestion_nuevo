@@ -1,8 +1,8 @@
-﻿@model Gestion.Models.Ticket
-
+﻿@model Paramedic.Gestion.Model.Ticket
+@using Paramedic.Gestion.Model.Enums
 @{
-    var tkEventos = Model.TicketEventos.OrderBy(p => p.FechaCreacion);
-    var lastItemID = tkEventos.LastOrDefault().ID; 
+    var tkEventos = Model.TicketEventos.OrderBy(p => p.CreatedDate);
+    var lastItemId = tkEventos.LastOrDefault().Id;
 }
 
 <div id="listaEventos">
@@ -10,43 +10,46 @@
 
         @foreach (var item in tkEventos)
         {
-            bool isLastItem = item.ID == lastItemID;
+            bool isLastItem = item.Id == lastItemId;
             string tipeOfMessage = "";
             string imageToShow = "";
 
-            tipeOfMessage = item.TicketTipoEventoID == 1 ? "from_user left" : "by_myself right";
-            imageToShow = item.TicketTipoEventoID == 1 ? "img_usuario.png" : "img_admin.jpg";
-                 
+            tipeOfMessage = item.TicketTipoEventoType == TicketEventoType.Answer ? "from_user left" : "by_myself right";
+            imageToShow = item.TicketTipoEventoType == TicketEventoType.Answer ? "img_usuario.png" : "img_admin.jpg";
+
             <li class="@tipeOfMessage">
                 <a href="#" class="avatar">
-                    <img src="~/img/@imageToShow"></a>
+                    <img src="~/img/@imageToShow">
+                </a>
                 <div class="message_wrap">
                     <span class="arrow"></span>
                     <div class="info">
-                        <a class="name">@item.UserProfile.UserName</a> <span class="time">
-                            @item.FechaCreacion.ToShortDateString(), a las @item.FechaCreacion.ToShortTimeString()</span>
+                        <a class="name">@item.Usuario.UserName</a> <span class="time">
+                            @item.CreatedDate.ToShortDateString(), a las @item.CreatedDate.ToShortTimeString()
+                        </span>
 
                         @if ((ViewBag.Editable == 1 && isLastItem) || (item.ImageData != null))
                         {
                             <div class="options_arrow">
                                 <div class="dropdown pull-right">
-                                    <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"><i class=" icon-caret-down"></i></a>
+                                    <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"><i class="icon-caret-down"></i></a>
                                     <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
                                         @if (ViewBag.Editable == 1 && isLastItem)
                                         {
-                                            <li><a href="#" data-ref="/MisTickets/EditTicketEvento/@item.ID" data-evento-id="@item.ID"  class="btnEditCreateEvento">
-                                                <i class=" icon-pencil icon-large" style="margin-right:5px"></i>Editar
-                                            </a>
-                                            </li>                                    
+                                            <li>
+                                                <a href="#" data-ref="/MisTickets/EditTicketEvento/@item.Id" data-evento-id="@item.Id" class="btnEditCreateEvento">
+                                                    <i class="icon-pencil icon-large" style="margin-right:5px"></i>Editar
+                                                </a>
+                                            </li>
                                         }
 
                                         @if (item.ImageData != null)
                                         {
                                             <li>
-                                                <a href="/MisTickets/GetImage/@item.ID" class="group single_image" rel="fancy">
+                                                <a href="@Url.Action("GetImage", "MisTickets",new {id = item.Id })" class="group single_image" rel="fancy">
                                                     <i class="icon-camera icon-large" style="margin-right:5px"></i>Ver adjunto
                                                 </a>
-                                            </li>    
+                                            </li>
                                         }
 
                                     </ul>

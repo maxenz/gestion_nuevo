@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading;
 
@@ -16,9 +17,7 @@ namespace Paramedic.Gestion.Model
         public DbSet<Localidad> Localidades { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<TicketEstado> TicketEstado { get; set; }
         public DbSet<TicketEvento> TicketEventos { get; set; }
-        public DbSet<TicketTipoEvento> TicketTipoEventos { get; set; }
 
         #endregion
 
@@ -65,7 +64,11 @@ namespace Paramedic.Gestion.Model
             return base.SaveChanges();
         }
 
-        #endregion
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
 
+        #endregion
     }
 }

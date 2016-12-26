@@ -56,12 +56,14 @@
     <Compile Include="IProvinciaRepository.cs" />
     <Compile Include="ITicketRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IUserProfileRepository.cs" />
     <Compile Include="LocalidadRepository.cs" />
     <Compile Include="PaisRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaRepository.cs" />
     <Compile Include="TicketRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
+    <Compile Include="UserProfileRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paramedic.Gestion.Model\Paramedic.Gestion.Model.csproj">

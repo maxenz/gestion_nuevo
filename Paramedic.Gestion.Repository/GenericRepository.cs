@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Paramedic.Gestion.Repository
 {
@@ -21,14 +22,28 @@ namespace Paramedic.Gestion.Repository
 
         public virtual IEnumerable<T> GetAll()
         {
-
             return _dbset.AsEnumerable<T>();
         }
 
-        public IEnumerable<T> FindBy(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
-
             IEnumerable<T> query = _dbset.Where(predicate).AsEnumerable();
+            return query;
+        }
+
+        public IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, Expression<Func<T, dynamic>> orderExp, int pageSize, int page = 1)
+        {
+            IEnumerable<T> query;
+
+            if (whereExp != null)
+            {
+                query = _dbset.Where(whereExp).OrderBy(orderExp).Skip((page - 1) * pageSize).Take(pageSize);
+            }
+            else
+            {
+                query = _dbset.OrderBy(orderExp).Skip((page - 1) * pageSize).Take(pageSize);
+            }
+
             return query;
         }
 
