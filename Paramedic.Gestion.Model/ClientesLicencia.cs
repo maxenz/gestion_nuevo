@@ -5,38 +5,35 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Gestion.Models
+namespace Paramedic.Gestion.Model
 {
     [Table("ClientesLicencias")]
-    public class ClientesLicencia
+    public class ClientesLicencia : AuditableEntity<int>
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
 
         [Required]
-        [ForeignKey("Licencia")]
-        public int LicenciaID { get; set; }
+        [Display(Name = "Licencia")]
+        public int LicenciaId { get; set; }
 
         [Required]
-        [ForeignKey("Cliente")]
-        public int ClienteID { get; set; }
+        [Display(Name = "Cliente")]
+        public int ClienteId { get; set; }
 
         [Required]
         [Display(Name = "DataSource")]
-        public String CnnDataSource { get; set; }
+        public string CnnDataSource { get; set; }
 
         [Required]
         [Display(Name = "Catalog")]
-        public String CnnCatalog { get; set; }
+        public string CnnCatalog { get; set; }
 
         [Required]
         [Display(Name = "Usuario")]
-        public String CnnUser { get; set; }
+        public string CnnUser { get; set; }
 
         [Required]
         [Display(Name = "Password")]
-        public String CnnPassword { get; set; }
+        public string CnnPassword { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "DateTime2")]
@@ -44,19 +41,18 @@ namespace Gestion.Models
         public DateTime FechaDeVencimiento { get; set; }
 
         [Display(Name = "Servidor")]
-        public String ConexionServidor { get; set; }
+        public string ConexionServidor { get; set; }
 
         [Display(Name = "Sitio")]
-        [ForeignKey("Sitio")]
-        public int? SitioID { get; set; }
+        public int? SitioId { get; set; }
 
         [Display(Name = "Puerto del Sitio")]
         [Range(0, int.MaxValue, ErrorMessage = "Por favor, ingrese un número válido para el puerto.")]
         public int? SitioPuerto { get; set; }
-        
+
         public string Alias { get; set; }
 
-        [Display(Name =" Password configurable en Android app")]
+        [Display(Name = "Password configurable en Android app")]
         public string AndroidPassword { get; set; }
 
         [Display(Name = "Url configurable en Android app")]
@@ -73,25 +69,29 @@ namespace Gestion.Models
 
         public string SitioSubDominio { get; set; }
 
+        [ForeignKey("ClienteId")]
         public virtual Cliente Cliente { get; set; }
+        [ForeignKey("LicenciaId")]
         public virtual Licencia Licencia { get; set; }
+        [ForeignKey("SitioId")]
         public virtual Sitio Sitio { get; set; }
-        public virtual IList<ClientesLicenciasProducto> ClientesLicenciasProductos { get; set; }
+        public virtual ICollection<ClientesLicenciasProducto> ClientesLicenciasProductos { get; set; }
 
         public virtual string FullUrl
         {
-           get
+            get
             {
                 if (this.Sitio == null) return string.Empty;
                 if (this.SitioPuerto > 0)
                 {
                     return string.Format("{0}:{1}", this.Sitio.Url, this.SitioPuerto);
-                } else
+                }
+                else
                 {
                     return this.Sitio.Url;
                 }
             }
-      
+
         }
 
         public virtual string ConnectionString
@@ -109,7 +109,8 @@ namespace Gestion.Models
                         this.CnnCatalog,
                         this.CnnUser,
                         this.CnnPassword);
-                } else
+                }
+                else
                 {
                     return null;
                 }

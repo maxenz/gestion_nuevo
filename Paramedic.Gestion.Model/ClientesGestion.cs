@@ -1,30 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
-namespace Gestion.Models
+namespace Paramedic.Gestion.Model
 {
     [Table("ClientesGestiones")]
-    public class ClientesGestion
+    public class ClientesGestion : AuditableEntity<int>
     {
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        [Required]
+        [Display(Name ="Estado")]
+        public int EstadoId { get; set; }
 
         [Required]
-        [ForeignKey("Estado")]
-        public int EstadoID { get; set; }
+        [Display(Name ="Cliente")]
+        public int ClienteId { get; set; }
 
         [Required]
-        [ForeignKey("Cliente")]
-        public int ClienteID { get; set; }
-
-        [Required]
-        public String Observaciones { get; set; }
+        public string Observaciones { get; set; }
 
         public byte[] PdfGestion{ get; set; }
 
@@ -37,7 +30,9 @@ namespace Gestion.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaRecontacto { get; set; }
 
+        [ForeignKey("ClienteId")]
         public virtual Cliente Cliente { get; set; }
+        [ForeignKey("EstadoId")]
         public virtual Estado Estado { get; set; }
 
     }

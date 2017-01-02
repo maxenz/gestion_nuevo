@@ -27,7 +27,7 @@ namespace Paramedic.Gestion.Service
         public IEnumerable<Ticket> GetTickets(TicketQueryControllerParametersDTO queryParameters)
         {
             var predicate = getPredicateByConditions(queryParameters);
-            return FindByPage(predicate, (x => x.CreatedDate), queryParameters.PageSize, queryParameters.Page);
+            return FindByPage(predicate, "CreatedDate DESC", queryParameters.PageSize, queryParameters.Page);
         }
 
         public IEnumerable<Ticket> FindBy(TicketQueryControllerParametersDTO queryParameters)

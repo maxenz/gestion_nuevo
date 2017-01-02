@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Linq.Dynamic;
 
 namespace Paramedic.Gestion.Repository
 {
@@ -31,7 +32,7 @@ namespace Paramedic.Gestion.Repository
             return query;
         }
 
-        public IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, Expression<Func<T, dynamic>> orderExp, int pageSize, int page = 1)
+        public IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExp, int pageSize, int page = 1)
         {
             IEnumerable<T> query;
 

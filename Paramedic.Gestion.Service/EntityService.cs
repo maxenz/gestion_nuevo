@@ -3,6 +3,7 @@ using Paramedic.Gestion.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Linq;
 
 namespace Paramedic.Gestion.Service
 {
@@ -28,7 +29,6 @@ namespace Paramedic.Gestion.Service
             _unitOfWork.Commit();
         }
 
-
         public virtual void Update(T entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
@@ -42,15 +42,32 @@ namespace Paramedic.Gestion.Service
             _repository.Delete(entity);
             _unitOfWork.Commit();
         }
-
         public virtual IEnumerable<T> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public virtual IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, Expression<Func<T, dynamic>> orderExp, int pageSize, int page = 1)
+        public virtual IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExp, int pageSize, int page = 1)
         {
-           return _repository.FindByPage(whereExp, orderExp, pageSize, page);
+            return _repository.FindByPage(whereExp, orderExp, pageSize, page);
+        }
+
+        public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> whereExp)
+        {
+            return _repository.FindBy(whereExp);
+        }
+
+        public virtual int GetCount(Expression<Func<T, bool>> whereExp)
+        {
+            if (whereExp == null)
+            {
+                return _repository.GetAll().Count();
+            }
+            else
+            {
+                return FindBy(whereExp).Count();
+            }
+
         }
 
     }

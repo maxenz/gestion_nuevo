@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web;
 
-namespace Gestion.Models
+namespace Paramedic.Gestion.Model
 {
     [Table("ClientesContactos")]
-    public class ClientesContacto
+    public class ClientesContacto : AuditableEntity<int>
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        public String Email { get; set; }
+        public string Email { get; set; }
 
-        public String Otros { get; set; }
+        public string Otros { get; set; }
 
         [Required]
         [Display(Name="Principal")]
@@ -28,15 +22,17 @@ namespace Gestion.Models
         public bool esInstitucional { get; set; }
 
         [Required]
-        public String Nombre { get; set; }
+        public string Nombre { get; set; }
 
         [Display(Name="Teléfono")]
         [DataType(DataType.PhoneNumber)]
         public String Telefono { get; set; }
 
         [Required]
-        public int ClienteID { get; set; }
+        [Display(Name = "Cliente")]
+        public int ClienteId { get; set; }
 
+        [ForeignKey("ClienteId")]
         public virtual Cliente Cliente { get; set; }
 
     }

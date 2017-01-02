@@ -39,7 +39,7 @@ namespace Gestion
 
             #region Database
 
-            //WebSecurity.InitializeDatabaseConnection("GestionContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            WebSecurity.InitializeDatabaseConnection("GestionContext", "UserProfile", "Id", "UserName", autoCreateTables: true);
 
             #endregion
 

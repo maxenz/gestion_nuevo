@@ -29,7 +29,9 @@
                                     <div class="span1">
                                         @if (User.IsInRole("Cliente"))
                                         {
-                                            <a href="MisTickets/Create" class="btn btn-primary btn-small btn-actions" style="width:80%" id="new_button"><i class="btn-icon-only icon-plus-sign"></i></a>
+                                            <a href="@Url.Action("Create", "MisTickets")" class="btn btn-primary btn-small btn-actions" style="width:80%" id="new_button">
+                                                <i class="btn btn-icon-only icon-plus-sign"></i>
+                                            </a>
                                         }
                                     </div>
                                 </div>

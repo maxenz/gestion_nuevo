@@ -1,32 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web;
 
-namespace Gestion.Models
+namespace Paramedic.Gestion.Model
 {
     [Table("LogsRegistrosSistema")]
-    public class LogRegistroSistema
+    public class LogRegistroSistema : AuditableEntity<int>
     {
         public LogRegistroSistema(string desc, int userID, string observ = null)
         {
-            this.UserProfileID = userID;
+            this.UserProfileId = userID;
             this.DescripcionAccion = desc;
             this.ObservacionesAccion = observ;
             this.Fecha = DateTime.Now;
         }
 
-        public LogRegistroSistema() { }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public LogRegistroSistema() { } //EF
 
         [Required]
-        [ForeignKey("UserProfile")]
-        public int UserProfileID { get; set; }
+        [Display(Name ="Usuario")]
+        public int UserProfileId { get; set; }
 
         [Required]
         [Display(Name="Descripción del Log")]
@@ -38,6 +31,7 @@ namespace Gestion.Models
         [DataType(DataType.Date)]
         public DateTime Fecha { get; set; }
 
+        [ForeignKey("UserProfileId")]
         public virtual UserProfile UserProfile { get; set; }
 
         

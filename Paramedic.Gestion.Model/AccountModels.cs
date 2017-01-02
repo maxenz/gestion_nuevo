@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Globalization;
-using System.Web.Security;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Gestion.Models
+namespace Paramedic.Gestion.Model
 {
-  
     public class RegisterExternalLoginModel
     {
         [Required]
@@ -52,27 +45,24 @@ namespace Gestion.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterModel
+    public class RegisterModel : Entity<int>
     {
-        [Required]
+        [Required(ErrorMessage ="Debe ingresar el usuario")]
         [Display(Name = "Usuario")]
         public string UserName { get; set; }
 
-        [Required]
-        public int ID { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        [Required(ErrorMessage = "Debe ingresar el password")]
+        [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} caracteres.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirme password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "El password y su confirmación no son iguales.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe ingresar el email")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Email { get; set; }

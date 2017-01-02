@@ -13,6 +13,8 @@ namespace Paramedic.Gestion.Service
         void Delete(T entity);
         IEnumerable<T> GetAll();
         void Update(T entity);
-        IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, Expression<Func<T, dynamic>> orderExp, int pageSize, int page = 1);
+        IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExpression, int pageSize, int page = 1);
+        IEnumerable<T> FindBy(Expression<Func<T, bool>> whereExp);
+        int GetCount(Expression<Func<T, bool>> whereExp);
     }
 }

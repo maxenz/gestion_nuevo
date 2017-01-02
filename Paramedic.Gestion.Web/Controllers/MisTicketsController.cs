@@ -29,7 +29,7 @@ namespace Gestion.Controllers
 
         private string emailAdministrator = WebConfigurationManager.AppSettings["administratorEmail"];
         private string roleAdministratorName = WebConfigurationManager.AppSettings["administratorRoleName"];
-        private int controllersPageSize = Convert.ToInt32(WebConfigurationManager.AppSettings["controllersPageSize"]);
+        private int controllersPageSize = 6;
 
         #endregion
 

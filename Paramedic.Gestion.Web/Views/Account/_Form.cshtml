@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.RegisterModel
+﻿@model Paramedic.Gestion.Model.RegisterModel
 
 <div class="main">
     <div class="main-inner">
@@ -17,65 +17,68 @@
                                 <label class="control-label" for="UserName">Nombre de Usuario</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.UserName, new { @class = "span5", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.UserName)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>
+                                @Html.ValidationMessageFor(model => model.UserName)
+                            </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="Nombre">Nombre</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Nombre, new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.Nombre)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Nombre)
+                            </div>
 
 
                             <div class="control-group">
                                 <label class="control-label" for="Apellido">Apellido</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Apellido, new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.Apellido)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>@Html.ValidationMessageFor(model => model.Apellido)
+
+                            </div>
 
 
                             <div class="control-group">
                                 <label class="control-label" for="Password">Password</label>
                                 <div class="controls">
                                     @Html.PasswordFor(model => model.Password, new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.Password)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="ConfirmPassword">Confirmar Password</label>
                                 <div class="controls">
                                     @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                            </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="Email">Email</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Email, new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.Email)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="selectedRole">Rol</label>
                                 <div class="controls">
                                     @Html.DropDownList("selectedRole", (SelectList)ViewBag.Roles, new { @class = "span5" })
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>
+                            </div>
 
                             <br>
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
-                                <button class="btn">Cancelar</button>
-                            </div> <!-- /form-actions -->
+
+                                <a href="@Url.Action("Index", "Account")" class="btn" >
+                                    Cancelar
+                                </a>  
+                            </div>
                         </fieldset>
                     </div>
                 </div>
