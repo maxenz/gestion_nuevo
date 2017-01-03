@@ -234,36 +234,14 @@
     <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AndroidController.cs" />
-    <Compile Include="Controllers\ClientesContactosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClientesGestionesController.cs" />
-    <Compile Include="Controllers\ClientesLicenciasController.cs" />
-    <Compile Include="Controllers\ClientesTerminalesController.cs" />
-    <Compile Include="Controllers\ClientesUsuariosController.cs" />
-    <Compile Include="Controllers\ContactosController.cs" />
-    <Compile Include="Controllers\CuentaCorrienteController.cs" />
-    <Compile Include="Controllers\EstadosController.cs" />
-    <Compile Include="Controllers\ExternalLoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LicenciasController.cs" />
-    <Compile Include="Controllers\LicenciasLogsController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
-    <Compile Include="Controllers\LogsRegistrosSistemaController.cs" />
-    <Compile Include="Controllers\MapaController.cs" />
-    <Compile Include="Controllers\MediosDifusionController.cs" />
-    <Compile Include="Controllers\MisProductosController.cs" />
     <Compile Include="Controllers\MisTicketsController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
-    <Compile Include="Controllers\ProductosController.cs" />
-    <Compile Include="Controllers\ProductosModulosController.cs" />
     <Compile Include="Controllers\ProvinciasController.cs" />
     <Compile Include="Controllers\RecontactosController.cs" />
-    <Compile Include="Controllers\RevendedoresController.cs" />
-    <Compile Include="Controllers\SitiosController.cs" />
-    <Compile Include="Controllers\TipoTerminalesController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
-    <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Converters\TicketConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -287,6 +265,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ClientesPrincipal.cs" />
+    <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\CuentaCorrienteViewModel.cs" />
     <Compile Include="ViewModels\GeoPositions.cs" />
     <Compile Include="ViewModels\LogPrincipal.cs" />

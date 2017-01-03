@@ -10,19 +10,28 @@ namespace Gestion.ViewModels
 {
     public class ClientesPrincipal
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
+
         [Display(Name="Razón Social")]
-        public String RazonSocial { get; set; }
-        public String Email { get; set; }
+
+        public string RazonSocial { get; set; }
+
+        public string Email { get; set; }
+
         [Display(Name="Teléfono")]
-        public String Telefono { get; set; }
+        public string Telefono { get; set; }
+
         [Display(Name="País")]
-        public String Pais { get; set; }
-        public String Provincia { get; set; }
-        public String Localidad { get; set; }
+        public string Pais { get; set; }
+
+        public string Provincia { get; set; }
+
+        public string Localidad { get; set; }
+
         [Display(Name = "Gestión")]
-        public String Gestion { get; set; }
+        public string Gestion { get; set; }
+
         [Display(Name = "Fecha Ult. Gestión")]
-        public String FecUltGestion { get; set; }
+        public string FecUltGestion { get; set; }
     }
 }

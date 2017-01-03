@@ -9,7 +9,7 @@ using Paramedic.Gestion.Service;
 
 namespace Gestion.Controllers
 {
-    //[Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador")]
     public class PaisesController : Controller
     {
 
@@ -20,8 +20,6 @@ namespace Gestion.Controllers
             _PaisService = PaisService;
         }
 
-        //
-        // GET: /Paises/
 
         public ActionResult Index(string searchName = null, int page = 1)
         {

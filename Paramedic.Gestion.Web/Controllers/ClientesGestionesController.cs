@@ -1,66 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesGestionesController : Controller
     {
-        private GestionDb db = new GestionDb();
 
-        //
-        // GET: /ClientesGestiones/
+        #region Properties
 
-        public ActionResult Index(int ClienteID, String searchName = null, int page = 1)
+        IClienteService _ClienteService;
+        IClientesGestionService _ClientesGestionService;
+        IEstadoService _EstadoService;
+        private int controllersPageSize = 12;
+
+        #endregion
+
+        #region Constructors
+
+        public ClientesGestionesController(IClienteService ClienteService, IClientesGestionService ClientesGestionService, IEstadoService EstadoService)
+        {
+            _ClienteService = ClienteService;
+            _ClientesGestionService = ClientesGestionService;
+            _EstadoService = EstadoService;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public ActionResult Index(int ClienteID, string searchName = null, int page = 1)
         {
 
-            var qGestiones = from g in db.ClientesGestiones where g.ClienteID == ClienteID select g;
+            Cliente cliente = _ClienteService.FindBy(x => x.Id == ClienteID).FirstOrDefault();
 
-            if (qGestiones == null)
+            IEnumerable<ClientesGestion> gestiones = cliente.ClientesGestiones.OrderByDescending(x => x.Fecha);
+
+            if (gestiones == null)
             {
                 return HttpNotFound();
             }
 
-            qGestiones = qGestiones.OrderByDescending(p => p.Fecha);
+            ViewBag.Cliente_ID = cliente.Id;
 
-            ViewBag.Cliente_ID = ClienteID;
-
-            return PartialView("_ClientesGestiones", qGestiones.ToList());
+            return PartialView("_ClientesGestiones", gestiones);
 
         }
-
-
-        //
-        // GET: /ClientesGestiones/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            ClientesGestion clientesgestion = db.ClientesGestiones.Find(id);
-            if (clientesgestion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientesgestion);
-        }
-
-        //
-        // GET: /ClientesGestiones/Create
 
         public ActionResult Create()
         {
             ViewBag.ClienteID = RouteData.Values["ClienteID"];
-            ViewBag.Estados = db.Estados.ToList();
+            ViewBag.Estados = _EstadoService.GetAll();
             return View();
         }
-
-        //
-        // POST: /ClientesGestiones/Create
 
         [HttpPost]
         public ActionResult Create(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
@@ -79,17 +77,18 @@ namespace Gestion.Controllers
                         clientesgestion.PdfGestion = new byte[pdfDoc.ContentLength];
                         pdfDoc.InputStream.Read(clientesgestion.PdfGestion, 0, pdfDoc.ContentLength);
                     }
-                    db.ClientesGestiones.Add(clientesgestion);
-                    db.SaveChanges();
 
+                    _ClientesGestionService.Create(clientesgestion);
 
-                    return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.ClienteID });
+                    return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.Cliente.Id });
                 }
 
-                ViewBag.ClienteID = clientesgestion.ClienteID;
+                ViewBag.ClienteID = clientesgestion.Cliente.Id;
                 return RedirectToAction("Create");
-            } catch {
-                
+            }
+            catch
+            {
+
                 return RedirectToAction("Create");
             }
 
@@ -97,28 +96,20 @@ namespace Gestion.Controllers
 
         public FileResult PDFDisplay(int id)
         {
-            byte[] fileData = db.ClientesGestiones.Find(id).PdfGestion;
-
-            return File(fileData, "application/pdf");
+            ClientesGestion gestion = _ClientesGestionService.FindBy(x => x.Id == id).FirstOrDefault();
+            return File(gestion.PdfGestion, "application/pdf");
         }
-
-        //
-        // GET: /ClientesGestiones/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            ViewBag.Estados = db.Estados.ToList();
-            ClientesGestion clientesgestion = db.ClientesGestiones.Find(id);
-            if (clientesgestion == null)
+            ClientesGestion gestion = _ClientesGestionService.FindBy(x => x.Id == id).FirstOrDefault();
+            if (gestion == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Estados = db.Estados.ToList();
-            return View(clientesgestion);
+            ViewBag.Estados = _EstadoService.GetAll();
+            return View(gestion);
         }
-
-        //
-        // POST: /ClientesGestiones/Edit/5
 
         [HttpPost]
         public ActionResult Edit(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
@@ -137,48 +128,25 @@ namespace Gestion.Controllers
                     pdfDoc.InputStream.Read(clientesgestion.PdfGestion, 0, pdfDoc.ContentLength);
                 }
 
-                db.Entry(clientesgestion).State = EntityState.Modified;
-                db.SaveChanges();
+                _ClientesGestionService.Update(clientesgestion);
 
-                return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.ClienteID });
+                return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.Cliente.Id });
             }
 
-            ViewBag.Estados = db.Estados.ToList();
+            ViewBag.Estados = _EstadoService.GetAll();
 
             return View(clientesgestion);
         }
-
-        //
-        // GET: /ClientesGestiones/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            ClientesGestion clientesgestion = db.ClientesGestiones.Find(id);
-            if (clientesgestion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientesgestion);
-        }
-
-        //
-        // POST: /ClientesGestiones/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-
-            ClientesGestion clientesgestion = db.ClientesGestiones.Find(id);
-            var cliente_id = clientesgestion.ClienteID;
-            db.ClientesGestiones.Remove(clientesgestion);
-            db.SaveChanges();
-            return RedirectToAction("Index", routeValues: new { ClienteID = cliente_id });
+            ClientesGestion gestion = _ClientesGestionService.FindBy(x => x.Id == id).FirstOrDefault();
+            _ClientesGestionService.Delete(gestion);
+            return RedirectToAction("Index", routeValues: new { ClienteID = gestion.Cliente.Id });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
+
     }
 }

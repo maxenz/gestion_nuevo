@@ -9,20 +9,38 @@ using Gestion.Models;
 using Gestion.ViewModels;
 using System.Net;
 using Paramedic.Gestion.Web.wsCuentaCorriente;
+using Paramedic.Gestion.Model;
+using Paramedic.Gestion.Service;
 
 namespace Gestion.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
+
+        IClientesGestionService _ClientesGestionService;
+
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public HomeController(IClientesGestionService ClientesGestionService)
+        {
+            _ClientesGestionService = ClientesGestionService;            
+        }
+
+        #endregion
 
         [ChildActionOnly]
         public ActionResult Recontacto()
         {
-            var margenMayor = DateTime.Now.AddDays(7);
-            var hoy = DateTime.Now;
-            var recontactos = db.ClientesGestiones.Where(a => a.FechaRecontacto >= hoy && a.FechaRecontacto <= margenMayor).ToList();
+            DateTime from = DateTime.Now;
+            DateTime to = DateTime.Now.AddDays(7);
+
+            IEnumerable<ClientesGestion> recontactos = _ClientesGestionService.GetRecontactos(from, to);
             return PartialView("~/Views/Shared/_NotificacionRecontacto.cshtml",recontactos);
         }
 

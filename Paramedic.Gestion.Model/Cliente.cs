@@ -8,8 +8,10 @@ namespace Paramedic.Gestion.Model
     [Table("Clientes")]
     public class Cliente : AuditableEntity<int>
     {
+        #region Properties
+
         [Required]
-        [Display(Name="Razón Social")]
+        [Display(Name = "Razón Social")]
         public string RazonSocial { get; set; }
 
         public string Calle { get; set; }
@@ -22,7 +24,7 @@ namespace Paramedic.Gestion.Model
 
         public string Domicilio { get; set; }
 
-        [Display(Name="Sitio Web")]
+        [Display(Name = "Sitio Web")]
         [DataType(DataType.Url)]
         public string SitioWeb { get; set; }
         public string Referencia { get; set; }
@@ -58,5 +60,14 @@ namespace Paramedic.Gestion.Model
         [ForeignKey("MedioDifusionId")]
         public virtual MedioDifusion MedioDifusion { get; set; }
 
+        public virtual string GeoAddress
+        {
+            get
+            {
+                return string.Format("{0} {1}, {2}, {3}, {4}", this.Altura, this.Calle, this.Localidad.Descripcion, this.Localidad.Provincia.Descripcion, this.Localidad.Provincia.Pais.Descripcion);
+            }
+        }
+
+        #endregion
     }
 }

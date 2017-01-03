@@ -1,256 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
-using Gestion.ViewModels;
 using PagedList;
-using System.Net;
-using System.IO;
-using Newtonsoft.Json.Linq;
-using System.Xml.Linq;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
+using Paramedic.Gestion.Model.Enums;
+using Paramedic.Gestion.Web.ViewModels;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        private List<ClientesPrincipal> GetInfoClientes(List<Cliente> clientes, string searchName = null)
+        IClienteService _ClienteService;
+        ILocalidadService _LocalidadService;
+        IMedioDifusionService _MedioDifusionService;
+        IRevendedorService _RevendedorService;
+        GeolocalizationService _GeolocalizationService;
+        private int controllersPageSize = 12;
+
+        #endregion
+
+        #region Constructors
+
+        public ClientesController(IClienteService ClienteService, ILocalidadService LocalidadService, IMedioDifusionService MedioDifusionService, IRevendedorService RevendedorService, GeolocalizationService GeolocalizationService)
         {
-            var qClientes = new List<ClientesPrincipal>();
-
-            foreach (var cliente in clientes)
-            {
-                qClientes.Add(new ClientesPrincipal
-                {
-                    ID = cliente.ID,
-                    RazonSocial = cliente.RazonSocial,
-                    Email = (getContactoPrincipal(cliente).Email ?? "").ToString(),
-                    Telefono = (getContactoPrincipal(cliente).Telefono ?? "").ToString(),
-                    Pais = cliente.Localidad.Provincia.Pais.Descripcion,
-                    Provincia = cliente.Localidad.Provincia.Descripcion,
-                    Localidad = cliente.Localidad.Descripcion,
-                    Gestion = getEstadoUltGestion(cliente),
-                    FecUltGestion = getFechaUltGestion(cliente)
-                });
-            }
-
-            if (!String.IsNullOrEmpty(searchName))
-            {
-
-                qClientes = qClientes
-                            .Where(p => p.RazonSocial.ToUpper().Contains(searchName.ToUpper()) ||
-                                p.Pais.ToUpper().Contains(searchName.ToUpper()) ||
-                                p.Email.ToString().ToUpper().Contains(searchName.ToUpper()) ||
-                                p.Provincia.ToUpper().Contains(searchName.ToUpper()) ||
-                                p.Localidad.ToUpper().Contains(searchName.ToUpper())).ToList();
-            }
-
-            qClientes = qClientes.OrderBy(p => p.RazonSocial).ToList();
-
-            return qClientes;
+            _ClienteService = ClienteService;
+            _LocalidadService = LocalidadService;
+            _MedioDifusionService = MedioDifusionService;
+            _RevendedorService = RevendedorService;
+            _GeolocalizationService = GeolocalizationService;
         }
 
-        private String getEstadoUltGestion(Cliente cliente)
-        {
+        #endregion
 
-            var est = cliente.ClientesGestiones
-                 .OrderByDescending(c => c.Fecha)
-                 .Select(c => c.Estado).FirstOrDefault();
-            if (est == null)
-            {
-                return "";
-            }
+        #region Public Methods
 
-            else
-            {
-                return est.Descripcion;
-            }
-
-        }
-
-        private String getFechaUltGestion(Cliente cliente)
-        {
-
-            var fec = cliente.ClientesGestiones
-                .OrderByDescending(c => c.Fecha)
-                .Select(c => c.Fecha).FirstOrDefault();
-
-            return fec.ToString().Substring(0, 10);
-        }
-
-        public String ValidarLocalidad(int id = 0)
+        public string ValidarLocalidad(int id = 0)
         {
             if (id != 0)
             {
-                String prov = db.Localidades.Find(id).Provincia.Descripcion;
-                String pais = db.Localidades.Find(id).Provincia.Pais.Descripcion;
-                return prov + "&" + pais;
-            }
-            else
-            {
-                return "";
+                Localidad localidad = _LocalidadService.FindBy(x => x.Id == id).FirstOrDefault();
+                return string.Format("{0}&{1}", localidad.Provincia.Descripcion, localidad.Provincia.Pais.Descripcion);
             }
 
+            return "";
         }
-
 
         public ActionResult Index(string searchName = null, int page = 1, int selTipoClientes = 1, int selDatosSegunVista = 1)
         {
+            ClientControllerParametersDTO queryParameters = new ClientControllerParametersDTO(searchName, controllersPageSize, page, (ClientType)selTipoClientes, selDatosSegunVista);
+            IList<ClienteViewModel> clientesViewModel = new List<ClienteViewModel>();
+            IEnumerable<Cliente> clientes = _ClienteService.GetClientsByType(queryParameters);
 
-            //var paises = 
+            foreach (Cliente cliente in clientes)
+            {
+                clientesViewModel.Add(new ClienteViewModel(cliente));
+            }
 
-
-            var allClientes = GetClientesSegunEstado(selTipoClientes);
-
-            var qClientes = GetInfoClientes(allClientes, searchName);
+            int count = _ClienteService.GetCount(_ClienteService.getPredicateByConditions(queryParameters));
+            var resultAsPagedList = new StaticPagedList<ClienteViewModel>(clientesViewModel, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
                 if (selDatosSegunVista.Equals(1))
                 {
-                    return PartialView("_Clientes", qClientes.ToPagedList(page, 12));
+                    return PartialView("_Clientes", resultAsPagedList);
                 }
                 else
                 {
-                    return PartialView("_ClientesGestion", qClientes.ToPagedList(page, 12));
+                    return PartialView("_ClientesGestion", resultAsPagedList);
                 }
 
             }
 
-            return View(qClientes.ToPagedList(page, 12));
+            return View(resultAsPagedList);
 
         }
-
-        private void getLocalidades()
-        {
-
-            List<Localidad> localidades = new List<Localidad>();
-
-            localidades = db.Localidades.OrderBy(p => p.Descripcion).ToList();
-
-            ViewBag.Localidades = localidades;
-
-        }
-
-        private void getMediosDifusion()
-        {
-            List<MedioDifusion> mediosDifusion = new List<MedioDifusion>();
-
-            mediosDifusion = db.MediosDifusion.OrderBy(p => p.Descripcion).ToList();
-
-            ViewBag.MediosDifusion = mediosDifusion;
-
-        }
-
-        private void getRevendedores()
-        {
-
-            List<Revendedor> revendedores = new List<Revendedor>();
-
-            revendedores = db.Revendedores.ToList();
-
-            ViewBag.Revendedores = revendedores;
-
-        }
-
-        private ClientesContacto getContactoPrincipal(Cliente cliente)
-        {
-            return cliente.ClientesContactos.Where(c => c.flgPrincipal == 1).FirstOrDefault();
-        }
-
-        public List<Cliente> GetClientesSegunEstado(int tipoCliente)
-        {
-
-            var clientes = new List<Cliente>();
-
-            switch (tipoCliente)
-            {
-                case 1:
-                    //Todos
-                    clientes = db.Clientes.ToList();
-                    break;
-                case 2:
-                    //Vendidos
-                    clientes = db.Clientes.Where(c => c.ClientesLicencias.Count > 0).ToList();
-                    break;
-                case 3:
-                    //En Gestión
-                    clientes = db.Clientes
-                                    .Where(c => c.ClientesLicencias.Count == 0)
-                                    .Where(c => c.ClientesGestiones.Count > 0).ToList();
-                    break;
-            }
-
-            return clientes;
-
-        }
-
-
-        //
-        // GET: /Clientes/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Cliente cliente = db.Clientes.Find(id);
-
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cliente);
-        }
-
-        //
-        // GET: /Clientes/Create
 
         public ActionResult Create()
         {
-            getLocalidades();
-            getRevendedores();
-            getMediosDifusion();
-
-            // GetContactoPrincipal();
+            setDropdowns();
 
             return View();
-        }
-
-        private Cliente validarGeoreferenciacion(Cliente cli)
-        {
-            string altura = cli.Altura;
-            string calle = cli.Calle;
-            string localidad = db.Localidades.Find(cli.LocalidadID).Descripcion;
-            string provincia = db.Localidades.Find(cli.LocalidadID).Provincia.Descripcion;
-            string pais = db.Localidades.Find(cli.LocalidadID).Provincia.Pais.Descripcion;
-            string address = altura + " " + calle + "," + localidad + "," + provincia + "," + pais;
-            string latLong = getGeofString(address);
-            string[] vPos = latLong.Split('&');
-            string lat = vPos[0];
-            string lng = vPos[1];
-            cli.Latitud = lat;
-            cli.Longitud = lng;
-            return cli;
-        }
-
-        private string getGeofString(string address)
-        {
-            var requestUri = string.Format("http://maps.googleapis.com/maps/api/geocode/xml?address={0}&sensor=false", Uri.EscapeDataString(address));
-
-            var request = WebRequest.Create(requestUri);
-            var response = request.GetResponse();
-            var xdoc = XDocument.Load(response.GetResponseStream());
-
-            var result = xdoc.Element("GeocodeResponse").Element("result");
-            var locationElement = result.Element("geometry").Element("location");
-            string lat = locationElement.Element("lat").Value.ToString();
-            string lng = locationElement.Element("lng").Value.ToString();
-            string latLong = lat + "&" + lng;
-            return latLong;
         }
 
         [HttpPost]
@@ -259,37 +94,29 @@ namespace Gestion.Controllers
             if (ModelState.IsValid)
             {
                 cliente = validarGeoreferenciacion(cliente);
-                cliente.ClientesContactos[0].flgPrincipal = 1;
-                db.Clientes.Add(cliente);
-                db.SaveChanges();
+                cliente.ClientesContactos.FirstOrDefault().flgPrincipal = 1;
+                _ClienteService.Create(cliente);
 
                 return RedirectToAction("Index");
             }
 
-            getLocalidades();
-            getRevendedores();
-            getMediosDifusion();
+            setDropdowns();
             return View(cliente);
         }
 
         public ActionResult Edit(int id = 0)
         {
-            getLocalidades();
-            getRevendedores();
-            getMediosDifusion();
-            Cliente cliente = db.Clientes.Find(id);
+            setDropdowns();
+            Cliente cliente = _ClienteService.FindBy(x => x.Id == id).FirstOrDefault();
             if (cliente == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.Contactos = cliente.ClientesContactos.ToList();
+            ViewBag.Contactos = cliente.ClientesContactos;
 
             return View(cliente);
         }
-
-        //
-        // POST: /Clientes/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -298,45 +125,41 @@ namespace Gestion.Controllers
             if (ModelState.IsValid)
             {
                 cli = validarGeoreferenciacion(cli);
-                db.Entry(cli).State = EntityState.Modified;
-                db.SaveChanges();
+                _ClienteService.Update(cli);
                 return RedirectToAction("Index");
             }
-            getLocalidades();
-            getRevendedores();
-            getMediosDifusion();
+            setDropdowns();
             return View(cli);
         }
-
-        //
-        // GET: /Clientes/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Cliente cliente = db.Clientes.Find(id);
-            if (cliente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cliente);
-        }
-
-        //
-        // POST: /Clientes/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Clientes.Find(id);
-            db.Clientes.Remove(cliente);
-            db.SaveChanges();
+            Cliente cliente = _ClienteService.FindBy(x => x.Id == id).FirstOrDefault();
+            _ClienteService.Delete(cliente);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        #endregion
+
+        #region Private Methods
+
+        private void setDropdowns()
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            ViewBag.Localidades = _LocalidadService.GetAll().OrderBy(x => x.Descripcion);
+            ViewBag.MediosDifusion = _MedioDifusionService.GetAll().OrderBy(x => x.Descripcion);
+            ViewBag.Revendedores = _RevendedorService.GetAll().OrderBy(x => x.Nombre);
         }
+
+        private Cliente validarGeoreferenciacion(Cliente cli)
+        {
+            Geopoint point = _GeolocalizationService.GetLocalization(cli.GeoAddress);
+            cli.Latitud = point.Latitude;
+            cli.Longitud = point.Longitude;
+
+            return cli;
+        }
+
+        #endregion
     }
 }

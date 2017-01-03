@@ -54,19 +54,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountRepository.cs" />
+    <Compile Include="ClienteRepository.cs" />
+    <Compile Include="ClientesGestionRepository.cs" />
+    <Compile Include="EstadoRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IAccountRepository.cs" />
+    <Compile Include="IClienteRepository.cs" />
+    <Compile Include="IClientesGestionRepository.cs" />
+    <Compile Include="IEstadoRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="ILocalidadRepository.cs" />
+    <Compile Include="IMedioDifusionRepository.cs" />
     <Compile Include="IPaisRepository.cs" />
     <Compile Include="IProvinciaRepository.cs" />
+    <Compile Include="IRevendedorRepository.cs" />
     <Compile Include="ITicketRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUserProfileRepository.cs" />
     <Compile Include="LocalidadRepository.cs" />
+    <Compile Include="MedioDifusionRepository.cs" />
     <Compile Include="PaisRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaRepository.cs" />
+    <Compile Include="RevendedorRepository.cs" />
     <Compile Include="TicketRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UserProfileRepository.cs" />
