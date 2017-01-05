@@ -33,7 +33,7 @@ namespace Paramedic.Gestion.Model
                 this.DateTo = Convert.ToDateTime(to);
             }
 
-            this.GestionType = GestionType;
+            this.GestionType = gestionType;
         }
 
         #endregion

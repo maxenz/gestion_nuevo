@@ -1,138 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using System.Collections.Generic;
+using Paramedic.Gestion.Model;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
-    [Authorize(Roles="Administrador")]
-
+    [Authorize(Roles = "Administrador")]
     public class EstadosController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        //
-        // GET: /Estados/
+        IEstadoService _EstadoService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public EstadosController(IEstadoService EstadoService)
+        {
+            _EstadoService = EstadoService;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var qEstados = from p in db.Estados select p;
+            var predicate = PredicateBuilder.New<Estado>();
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            if (!String.IsNullOrEmpty(searchName))
-            {
-
-                qEstados = qEstados.Where(p => p.Descripcion.ToUpper().Contains(searchName.ToUpper()));
-            }
-
-            qEstados = qEstados.OrderBy(p => p.Numero);
+            IEnumerable<Estado> estados = _EstadoService.FindByPage(predicate, "Numero ASC", controllersPageSize, page);
+            int count = _EstadoService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<Estado>(estados, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_Estados", qEstados.ToPagedList(page, 6));
+                return PartialView("_Estados", resultAsPagedList);
             }
 
-            return View(qEstados.ToPagedList(page, 6));
+            return View(resultAsPagedList);
+
         }
-
-        //
-        // GET: /Estados/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Estado estado = db.Estados.Find(id);
-            if (estado == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estado);
-        }
-
-        //
-        // GET: /Estados/Create
 
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // POST: /Estados/Create
-
         [HttpPost]
         public ActionResult Create(Estado estado)
         {
             if (ModelState.IsValid)
             {
-                db.Estados.Add(estado);
-                db.SaveChanges();
+                _EstadoService.Create(estado);
                 return RedirectToAction("Index");
             }
 
             return View(estado);
         }
 
-        //
-        // GET: /Estados/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
-            Estado estado = db.Estados.Find(id);
+            Estado estado = _EstadoService.FindBy(x => x.Id == id).FirstOrDefault();
             if (estado == null)
             {
                 return HttpNotFound();
             }
             return View(estado);
         }
-
-        //
-        // POST: /Estados/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Estado estado)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(estado).State = EntityState.Modified;
-                db.SaveChanges();
+                _EstadoService.Update(estado);
                 return RedirectToAction("Index");
             }
             return View(estado);
         }
 
-        //
-        // GET: /Estados/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Estado estado = db.Estados.Find(id);
-            if (estado == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estado);
-        }
-
-        //
-        // POST: /Estados/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Estado estado = db.Estados.Find(id);
-            db.Estados.Remove(estado);
-            db.SaveChanges();
+            Estado estado = _EstadoService.FindBy(x => x.Id == id).FirstOrDefault();
+            _EstadoService.Delete(estado);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+
+        #endregion
     }
 }

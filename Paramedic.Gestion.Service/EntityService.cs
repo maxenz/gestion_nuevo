@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
+using LinqKit;
 
 namespace Paramedic.Gestion.Service
 {
@@ -49,11 +50,19 @@ namespace Paramedic.Gestion.Service
 
         public virtual IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExp, int pageSize, int page = 1)
         {
+            if (whereExp != null)
+            {
+                whereExp = whereExp.Expand();
+            }
             return _repository.FindByPage(whereExp, orderExp, pageSize, page);
         }
 
         public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> whereExp)
         {
+            if (whereExp != null)
+            {
+                whereExp = whereExp.Expand();
+            }
             return _repository.FindBy(whereExp);
         }
 
@@ -65,7 +74,7 @@ namespace Paramedic.Gestion.Service
             }
             else
             {
-                return FindBy(whereExp).Count();
+                return FindBy(whereExp.Expand()).Count();
             }
 
         }

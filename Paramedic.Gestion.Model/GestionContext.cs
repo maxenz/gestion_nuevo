@@ -87,6 +87,13 @@ namespace Paramedic.Gestion.Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<Licencia>()
+            .HasOptional(cli => cli.ClientesLicencia)
+            .WithRequired(lic => lic.Licencia);
+
+            modelBuilder.Entity<ProductosModulo>().HasKey(t => new { t.ProductoId, t.Id });
+
         }
 
         #endregion

@@ -8,10 +8,7 @@ namespace Paramedic.Gestion.Model
     public class Licencia : AuditableEntity<int>
     {
 
-        public Licencia()
-        {
-            Productos = new List<Producto>();
-        }
+        #region Properties
 
         [Required]
         public string Serial { get; set; }
@@ -20,6 +17,55 @@ namespace Paramedic.Gestion.Model
         public string NumeroDeLlave { get; set; }
 
         public virtual ICollection<Producto> Productos { get; set; }
+
+        public virtual ClientesLicencia ClientesLicencia { get; set; }
+
+        public virtual string FormattedProducts
+        {
+            get
+            {
+                string strProductos = "";
+
+                foreach (var prod in this.Productos)
+                {
+                    if (string.IsNullOrEmpty(strProductos))
+                    {
+                        strProductos = prod.Numero.ToString();
+                    }
+                    else
+                    {
+                        strProductos = string.Format("{0} / {1}", strProductos, prod.Numero.ToString());
+                    }
+                }
+
+                return strProductos;
+            }
+        }
+
+        public virtual string Estado
+        {
+            get
+            {
+                if (this.ClientesLicencia != null)
+                {
+                    return this.ClientesLicencia.Cliente.RazonSocial;
+                }
+
+                return null;
+
+            }
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public Licencia()
+        {
+            Productos = new List<Producto>();
+        }
+
+        #endregion
 
     }
 }

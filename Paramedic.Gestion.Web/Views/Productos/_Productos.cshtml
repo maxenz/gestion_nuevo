@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Gestion.Models.Producto>
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.Producto>
 @using PagedList.Mvc;
 
 <div id="productosList">
@@ -9,7 +9,6 @@
                     <i class="icon-th-list"></i>
                     <h3>Productos</h3>
                 </div>
-                <!-- /widget-header -->
                 <div class="widget-content">
                     <table class="table table-striped table-bordered">
                         <thead>
@@ -32,13 +31,20 @@
                                         @Html.DisplayFor(modelItem => item.Descripcion)
                                     </td>
                                     <td class="centrado">
-                                        <a href="Productos/@item.ID/ProductosModulos" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-search"> </i></a>
+                                        <a href="@Url.Action("Index","Productos/" + item.Id + "/ProductosModulos")" class="btn btn-small btn-success btn-actions">
+                                            <i class="btn-icon-only icon-search"></i>
+                                        </a>
+                                    </td>
+
+                                    <td class="centrado">
+                                        <a href="@Url.Action("Edit", "Productos", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                            <i class="btn-icon-only icon-pencil"></i>
+                                        </a>
                                     </td>
                                     <td class="centrado">
-                                        <a href="Productos/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
-                                    </td>
-                                    <td class="centrado">
-                                        <a href="Productos/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#productosList"><i class="btn-icon-only icon-remove"> </i></a>
+                                        <a href="@Url.Action("Delete","Productos", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#productosList">
+                                            <i class="btn-icon-only icon-remove"></i>
+                                        </a>
                                     </td>
                                 </tr>
 
@@ -47,19 +53,13 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- /widget-content -->
             </div>
 
         </div>
     </div>
     <div class="row">
         <div class="pagedList span7 offset5" data-gestion-target="#productosList">
-
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
         </div>
-
-        <!-- /row -->
     </div>
 </div>
-<!-- /container -->

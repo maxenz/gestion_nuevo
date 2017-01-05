@@ -1,11 +1,11 @@
-﻿@model Gestion.Models.Licencia
+﻿@model Paramedic.Gestion.Model.Licencia
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.Id)
        
     @Html.Partial("_Form", Model)
 

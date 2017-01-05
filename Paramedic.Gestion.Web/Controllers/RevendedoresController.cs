@@ -1,138 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using System.Collections.Generic;
+using Paramedic.Gestion.Model;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
-        [Authorize(Roles = "Administrador")]
-
+    [Authorize(Roles = "Administrador")]
     public class RevendedoresController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        //
-        // GET: /Revendedores/
+        IRevendedorService _RevendedorService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public RevendedoresController(IRevendedorService RevendedorService)
+        {
+            _RevendedorService = RevendedorService;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var qRevendedores = from p in db.Revendedores select p;
+            var predicate = PredicateBuilder.New<Revendedor>();
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Nombre.Contains(searchName)) : null;
 
-            if (!String.IsNullOrEmpty(searchName))
-            {
-
-                qRevendedores = qRevendedores.Where(p => p.Nombre.ToUpper().Contains(searchName.ToUpper()));
-            }
-
-            qRevendedores = qRevendedores.OrderBy(p => p.Nombre);
+            IEnumerable<Revendedor> revendedores = _RevendedorService.FindByPage(predicate, "Nombre ASC", controllersPageSize, page);
+            int count = _RevendedorService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<Revendedor>(revendedores, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_Revendedores", qRevendedores.ToPagedList(page, 6));
+                return PartialView("_Revendedores", resultAsPagedList);
             }
 
-            return View(qRevendedores.ToPagedList(page, 6));
+            return View(resultAsPagedList);
+
         }
-
-        //
-        // GET: /Revendedores/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Revendedor revendedor = db.Revendedores.Find(id);
-            if (revendedor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(revendedor);
-        }
-
-        //
-        // GET: /Revendedores/Create
 
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // POST: /Revendedores/Create
-
         [HttpPost]
         public ActionResult Create(Revendedor revendedor)
         {
             if (ModelState.IsValid)
             {
-                db.Revendedores.Add(revendedor);
-                db.SaveChanges();
+                _RevendedorService.Create(revendedor);
                 return RedirectToAction("Index");
             }
 
             return View(revendedor);
         }
 
-        //
-        // GET: /Revendedores/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
-            Revendedor revendedor = db.Revendedores.Find(id);
+            Revendedor revendedor = _RevendedorService.FindBy(x => x.Id == id).FirstOrDefault();
             if (revendedor == null)
             {
                 return HttpNotFound();
             }
             return View(revendedor);
         }
-
-        //
-        // POST: /Revendedores/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Revendedor revendedor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(revendedor).State = EntityState.Modified;
-                db.SaveChanges();
+                _RevendedorService.Update(revendedor);
                 return RedirectToAction("Index");
             }
             return View(revendedor);
         }
 
-        //
-        // GET: /Revendedores/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Revendedor revendedor = db.Revendedores.Find(id);
-            if (revendedor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(revendedor);
-        }
-
-        //
-        // POST: /Revendedores/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Revendedor revendedor = db.Revendedores.Find(id);
-            db.Revendedores.Remove(revendedor);
-            db.SaveChanges();
+            Revendedor revendedor = _RevendedorService.FindBy(x => x.Id == id).FirstOrDefault();
+            _RevendedorService.Delete(revendedor);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+
+        #endregion
     }
 }

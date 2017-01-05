@@ -1,138 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using System.Collections.Generic;
+using Paramedic.Gestion.Model;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ProductosController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        //
-        // GET: /Productos/
+        IProductoService _ProductoService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public ProductosController(IProductoService ProductoService)
+        {
+            _ProductoService = ProductoService;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var qProductos = from p in db.Productos select p;
+            var predicate = PredicateBuilder.New<Producto>();
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            if (!String.IsNullOrEmpty(searchName))
-            {
-
-                qProductos = qProductos.Where(p => p.Descripcion.ToUpper().Contains(searchName.ToUpper()));
-            }
-
-            qProductos = qProductos.OrderBy(p => p.Numero);
+            IEnumerable<Producto> productos = _ProductoService.FindByPage(predicate, "Numero ASC", controllersPageSize, page);
+            int count = _ProductoService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<Producto>(productos, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_Productos", qProductos.ToPagedList(page, 6));
+                return PartialView("_Productos", resultAsPagedList);
             }
 
-            return View(qProductos.ToPagedList(page, 6));
+            return View(resultAsPagedList);
+
         }
-
-
-        //
-        // GET: /Productos/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Producto producto = db.Productos.Find(id);
-            if (producto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(producto);
-        }
-
-        //
-        // GET: /Productos/Create
 
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // POST: /Productos/Create
-
         [HttpPost]
         public ActionResult Create(Producto producto)
         {
             if (ModelState.IsValid)
             {
-                db.Productos.Add(producto);
-                db.SaveChanges();
+                _ProductoService.Create(producto);
                 return RedirectToAction("Index");
             }
 
             return View(producto);
         }
 
-        //
-        // GET: /Productos/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
-            Producto producto = db.Productos.Find(id);
+            Producto producto = _ProductoService.FindBy(x => x.Id == id).FirstOrDefault();
             if (producto == null)
             {
                 return HttpNotFound();
             }
             return View(producto);
         }
-
-        //
-        // POST: /Productos/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Producto producto)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(producto).State = EntityState.Modified;
-                db.SaveChanges();
+                _ProductoService.Update(producto);
                 return RedirectToAction("Index");
             }
             return View(producto);
         }
 
-        //
-        // GET: /Productos/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Producto producto = db.Productos.Find(id);
-            if (producto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(producto);
-        }
-
-        //
-        // POST: /Productos/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Producto producto = db.Productos.Find(id);
-            db.Productos.Remove(producto);
-            db.SaveChanges();
+            Producto producto = _ProductoService.FindBy(x => x.Id == id).FirstOrDefault();
+            _ProductoService.Delete(producto);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+
+        #endregion
     }
 }

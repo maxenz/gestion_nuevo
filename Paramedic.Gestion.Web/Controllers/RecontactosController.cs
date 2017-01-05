@@ -35,32 +35,14 @@ namespace Gestion.Controllers
         public ActionResult Index(string searchName = null, int page = 1, string fechaDesde = null, string fechaHasta = null, int selTipoGestion = 3)
         {
 
-            DateTime from = DateTime.Now;
-            DateTime to = DateTime.Now.AddDays(30);
-            ViewBag.dftDesde = from.ToShortDateString();
-            ViewBag.dftHasta = to.ToShortDateString();
-
             RecontactosControllerParametersDTO queryParameters = new RecontactosControllerParametersDTO(searchName, controllersPageSize, page, fechaDesde, fechaHasta, (GestionType)selTipoGestion);
 
             IEnumerable<ClientesGestion> gestiones = _ClientesGestionService.GetRecontactosByPage(queryParameters);
             int count = _ClientesGestionService.GetCount(_ClientesGestionService.GetPredicateByConditions(queryParameters));
             var resultAsPagedList = new StaticPagedList<ClientesGestion>(gestiones, page, controllersPageSize, count);
 
-            //if (!String.IsNullOrEmpty(fechaDesde))
-            //{
-            //    fechaDesde = fechaDesde + " 00:00";
-            //    fechaHasta = fechaHasta + " 23:59";
-
-            //    DateTime dtDesde = DateTime.ParseExact(fechaDesde, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-            //    DateTime dtHasta = DateTime.ParseExact(fechaHasta, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-
-            //    qRecontactos = qRecontactos.Where(a => a.Fecha >= dtDesde && a.Fecha <= dtHasta).ToList();
-            //}
-            //else
-            //{
-            //    DateTime dtLocal = hoy.AddDays(-1);
-            //    qRecontactos = qRecontactos.Where(a => a.Fecha >= dtLocal && a.Fecha <= margenMayor).ToList();
-            //}
+            ViewBag.dftDesde = DateTime.Now.ToShortDateString();
+            ViewBag.dftHasta = DateTime.Now.AddDays(30).ToShortDateString();
 
             if (Request.IsAjaxRequest())
             {

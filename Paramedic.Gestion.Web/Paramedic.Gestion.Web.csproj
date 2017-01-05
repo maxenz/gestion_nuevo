@@ -236,12 +236,20 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClientesGestionesController.cs" />
+    <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LicenciasController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
+    <Compile Include="Controllers\MediosDifusionController.cs" />
     <Compile Include="Controllers\MisTicketsController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ProductosModulosController.cs" />
     <Compile Include="Controllers\ProvinciasController.cs" />
     <Compile Include="Controllers\RecontactosController.cs" />
+    <Compile Include="Controllers\RevendedoresController.cs" />
+    <Compile Include="Controllers\SitiosController.cs" />
+    <Compile Include="Controllers\TipoTerminalesController.cs" />
     <Compile Include="Converters\TicketConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

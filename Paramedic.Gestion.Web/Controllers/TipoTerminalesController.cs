@@ -1,66 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using LinqKit;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class TipoTerminalesController : Controller
     {
-        private GestionDb db = new GestionDb();
 
-        //
-        // GET: /TipoTerminales/
+        #region Properties
+
+        ITipoTerminalService _TipoTerminalService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public TipoTerminalesController(ITipoTerminalService TipoTerminalService)
+        {
+            _TipoTerminalService = TipoTerminalService;
+        }
+
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var tTerminales = from t in db.TipoTerminales
-                              select t;
-            if (!String.IsNullOrEmpty(searchName))
-            {
-                tTerminales = tTerminales.Where(t => t.Descripcion.ToUpper().Contains(searchName.ToUpper()));
-            }
+            var predicate = PredicateBuilder.New<TipoTerminal>();
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            tTerminales = tTerminales.OrderBy(t => t.Descripcion);
-
+            IEnumerable<TipoTerminal> tipoTerminales = _TipoTerminalService.FindByPage(predicate, "Descripcion ASC", controllersPageSize, page);
+            int count = _TipoTerminalService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<TipoTerminal>(tipoTerminales, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_TipoTerminales", tTerminales.ToPagedList(page, 6));
+                return PartialView("_TipoTerminales", resultAsPagedList);
             }
 
-            return View(tTerminales.ToPagedList(page, 6));
+            return View(resultAsPagedList);
         }
-
-        //
-        // GET: /TipoTerminales/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            TipoTerminal tipoterminal = db.TipoTerminales.Find(id);
-            if (tipoterminal == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tipoterminal);
-        }
-
-        //
-        // GET: /TipoTerminales/Create
 
         public ActionResult Create()
         {
             return View();
         }
-
-        //
-        // POST: /TipoTerminales/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,20 +59,16 @@ namespace Gestion.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TipoTerminales.Add(tipoterminal);
-                db.SaveChanges();
+                _TipoTerminalService.Create(tipoterminal);
                 return RedirectToAction("Index");
             }
 
             return View(tipoterminal);
         }
 
-        //
-        // GET: /TipoTerminales/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
-            TipoTerminal tipoterminal = db.TipoTerminales.Find(id);
+            TipoTerminal tipoterminal = _TipoTerminalService.FindBy(x => x.Id == id).FirstOrDefault();
             if (tipoterminal == null)
             {
                 return HttpNotFound();
@@ -89,17 +76,13 @@ namespace Gestion.Controllers
             return View(tipoterminal);
         }
 
-        //
-        // POST: /TipoTerminales/Edit/5
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TipoTerminal tipoterminal)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tipoterminal).State = EntityState.Modified;
-                db.SaveChanges();
+                _TipoTerminalService.Update(tipoterminal);
                 return RedirectToAction("Index");
             }
             return View(tipoterminal);
@@ -108,16 +91,12 @@ namespace Gestion.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            TipoTerminal tipoterminal = db.TipoTerminales.Find(id);
-            db.TipoTerminales.Remove(tipoterminal);
-            db.SaveChanges();
+            TipoTerminal tipoterminal = _TipoTerminalService.FindBy(x => x.Id == id).FirstOrDefault();
+            _TipoTerminalService.Delete(tipoterminal);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
+
     }
 }

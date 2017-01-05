@@ -42,14 +42,17 @@ namespace Paramedic.Gestion.Service
         {
             var predicate = PredicateBuilder.New<ClientesGestion>();
 
-            if (queryParameters.DateFrom != null && queryParameters.DateTo != null)
+            DateTime genericFrom = DateTime.Now.AddDays(-1);
+            DateTime genericTo = DateTime.Now.AddDays(30);
+
+            if (queryParameters.DateFrom != DateTime.MinValue && queryParameters.DateTo != DateTime.MinValue)
             { 
                 predicate = predicate.And(x => x.FechaRecontacto >= queryParameters.DateFrom);
                 predicate = predicate.And(x => x.FechaRecontacto <= queryParameters.DateTo);
             } else
             {
-                predicate = predicate.And(x => x.FechaRecontacto >= DateTime.Now.AddDays(-1));
-                predicate = predicate.And(x => x.FechaRecontacto <= DateTime.Now.AddDays(30));
+                predicate = predicate.And(x => x.FechaRecontacto >= genericFrom);
+                predicate = predicate.And(x => x.FechaRecontacto <= genericTo);
             }
 
             if (!string.IsNullOrEmpty(queryParameters.SearchDescription))

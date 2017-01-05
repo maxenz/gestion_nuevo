@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Gestion.ViewModels.ClientesPrincipal>
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Web.ViewModels.ClienteViewModel>
 @using PagedList.Mvc;
 
 <div id="clientesList">
@@ -47,10 +47,14 @@
                                         @Html.DisplayFor(modelItem => item.Localidad)
                                     </td>
                                     <td class="centrado">
-                                        <a href="Clientes/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"></i></a>
+                                        <a href="@Url.Action("Edit", "Clientes", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                            <i class="btn-icon-only icon-pencil"></i>
+                                        </a>
                                     </td>
                                     <td class="centrado">
-                                        <a href="Clientes/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesList"><i class="btn-icon-only icon-remove"></i></a>
+                                        <a href="@Url.Action("Delete","Clientes", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesList">
+                                            <i class="btn-icon-only icon-remove"></i>
+                                        </a>
                                     </td>
                                 </tr>
 

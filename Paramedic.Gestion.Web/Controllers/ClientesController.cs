@@ -26,13 +26,13 @@ namespace Gestion.Controllers
 
         #region Constructors
 
-        public ClientesController(IClienteService ClienteService, ILocalidadService LocalidadService, IMedioDifusionService MedioDifusionService, IRevendedorService RevendedorService, GeolocalizationService GeolocalizationService)
+        public ClientesController(IClienteService ClienteService, ILocalidadService LocalidadService, IMedioDifusionService MedioDifusionService, IRevendedorService RevendedorService)
         {
             _ClienteService = ClienteService;
             _LocalidadService = LocalidadService;
             _MedioDifusionService = MedioDifusionService;
             _RevendedorService = RevendedorService;
-            _GeolocalizationService = GeolocalizationService;
+            _GeolocalizationService = new GeolocalizationService();
         }
 
         #endregion

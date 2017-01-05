@@ -1,137 +1,98 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using LinqKit;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
     public class MediosDifusionController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        //
-        // GET: /MediosDifusion/
+        IMedioDifusionService _MedioDifusionService;
+        private int controllersPageSize = 6;
 
+        #endregion
+
+        #region Constructors
+
+        public MediosDifusionController(IMedioDifusionService MedioDifusionService)
+        {
+            _MedioDifusionService = MedioDifusionService;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var qMediosDif = from p in db.MediosDifusion select p;
+            var predicate = PredicateBuilder.New<MedioDifusion>();
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            if (!String.IsNullOrEmpty(searchName))
-            {
-
-                qMediosDif = qMediosDif.Where(p => p.Descripcion.ToUpper().Contains(searchName.ToUpper()));
-            }
-
-            qMediosDif = qMediosDif.OrderBy(p => p.Descripcion);
+            IEnumerable<MedioDifusion> medios = _MedioDifusionService.FindByPage(predicate, "Descripcion ASC", controllersPageSize, page);
+            int count = _MedioDifusionService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<MedioDifusion>(medios, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_MediosDifusion", qMediosDif.ToPagedList(page, 6));
+                return PartialView("_MediosDifusion", resultAsPagedList);
             }
 
-            return View(qMediosDif.ToPagedList(page, 6));
+            return View(resultAsPagedList);
+
         }
-
-        //
-        // GET: /MediosDifusion/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            MedioDifusion mediodifusion = db.MediosDifusion.Find(id);
-            if (mediodifusion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mediodifusion);
-        }
-
-        //
-        // GET: /MediosDifusion/Create
 
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // POST: /MediosDifusion/Create
-
         [HttpPost]
-        public ActionResult Create(MedioDifusion mediodifusion)
+        public ActionResult Create(MedioDifusion medio)
         {
             if (ModelState.IsValid)
             {
-                db.MediosDifusion.Add(mediodifusion);
-                db.SaveChanges();
+                _MedioDifusionService.Create(medio);
                 return RedirectToAction("Index");
             }
 
-            return View(mediodifusion);
+            return View(medio);
         }
-
-        //
-        // GET: /MediosDifusion/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            MedioDifusion mediodifusion = db.MediosDifusion.Find(id);
-            if (mediodifusion == null)
+            MedioDifusion medio = _MedioDifusionService.FindBy(x => x.Id == id).FirstOrDefault();
+            if (medio == null)
             {
                 return HttpNotFound();
             }
-            return View(mediodifusion);
+            return View(medio);
         }
 
-        //
-        // POST: /MediosDifusion/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(MedioDifusion mediodifusion)
+        public ActionResult Edit(MedioDifusion medio)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(mediodifusion).State = EntityState.Modified;
-                db.SaveChanges();
+                _MedioDifusionService.Update(medio);
                 return RedirectToAction("Index");
             }
-            return View(mediodifusion);
+            return View(medio);
         }
-
-        //
-        // GET: /MediosDifusion/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            MedioDifusion mediodifusion = db.MediosDifusion.Find(id);
-            if (mediodifusion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mediodifusion);
-        }
-
-        //
-        // POST: /MediosDifusion/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            MedioDifusion mediodifusion = db.MediosDifusion.Find(id);
-            db.MediosDifusion.Remove(mediodifusion);
-            db.SaveChanges();
+            MedioDifusion medio = _MedioDifusionService.FindBy(x => x.Id == id).FirstOrDefault();
+            _MedioDifusionService.Delete(medio);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
+
     }
 }

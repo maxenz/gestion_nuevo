@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.ProductosModulo
+﻿@model Paramedic.Gestion.Model.ProductosModulo
 
 <div class="main">
     <div class="main-inner">
@@ -16,31 +16,29 @@
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Codigo, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Codigo)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div> 
+                            </div> 
 
                             <div class="control-group">
                                 <label class="control-label" for="Descripcion">Descripci&oacute;n</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Descripcion, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Descripcion)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div> 
+                            </div> 
 
                             <br>
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
                                 <button class="btn">Cancelar</button>
-                            </div> <!-- /form-actions -->
+                            </div>
                         </fieldset>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- /container -->
 </div>
 
 

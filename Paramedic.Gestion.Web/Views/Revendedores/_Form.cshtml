@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.Revendedor
+﻿@model Paramedic.Gestion.Model.Revendedor
 
 <div class="main">
     <div class="main-inner">
@@ -17,9 +17,8 @@
                                     @Html.TextBoxFor(model => model.Nombre, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Nombre)
                                 </div>
-                                <!-- /controls -->
+
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="Comision">Comisi&oacute;n</label>
@@ -27,18 +26,17 @@
                                     @Html.TextBoxFor(model => model.Comision, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Comision)
                                 </div>
-                                <!-- /controls -->
+
                             </div>
-                            <!-- /control-group -->
+
                             <div class="control-group">
                                 <label class="control-label" for="BajoContrato">Bajo contrato?</label>
                                 <div class="controls">
                                     @Html.EditorFor(model => model.BajoContrato, new { @class = "form-control", @placeholder = "Contrato?" })
                                     @Html.ValidationMessageFor(model => model.BajoContrato)
                                 </div>
-                                <!-- /controls -->
+
                             </div>
-                            <!-- /control-group -->
 
                             <br>
 
@@ -46,7 +44,7 @@
                                 <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
                                 <button class="btn">Cancelar</button>
                             </div>
-                            <!-- /form-actions -->
+
                         </fieldset>
                     </div>
                 </div>
@@ -54,5 +52,4 @@
         </div>
     </div>
 
-    <!-- /container -->
 </div>

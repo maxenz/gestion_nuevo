@@ -1,63 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 using System.Net;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
-    //[Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador")]
     public class LocalidadesController : Controller
     {
+        #region Properties
+
         ILocalidadService _LocalidadService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
 
         public LocalidadesController(ILocalidadService LocalidadService)
         {
             _LocalidadService = LocalidadService;
         }
 
-        //
-        // GET: /Provincias/
+
+        #endregion
+
+        #region Public Methods
+
         public ActionResult Index(int ProvinciaID, String searchName = null, int page = 1)
         {
-            IEnumerable<Localidad> localidades = _LocalidadService
-                .GetAll()
-                .Where(x => x.ProvinciaId == ProvinciaID)
-                .OrderBy(x => x.Descripcion);
+            var predicate = PredicateBuilder.New<Localidad>();
+            predicate = predicate.And(x => x.ProvinciaId == ProvinciaID);
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            if (!String.IsNullOrEmpty(searchName))
+            IEnumerable<Localidad> localidades = _LocalidadService.FindByPage(predicate, "Descripcion ASC", controllersPageSize, page);
+            int count = _LocalidadService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<Localidad>(localidades, page, controllersPageSize, count);
+
+            if (Request.IsAjaxRequest())
             {
-
-                localidades = localidades.Where(p => p.Descripcion.ToUpper().Contains(searchName.ToUpper()));
+                return PartialView("_Localidades", resultAsPagedList);
             }
 
-            if (Request != null)
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return PartialView("_Localidades", localidades.ToPagedList(page, 6));
-                }
-            }
-
-            return View(localidades.ToPagedList(page, 6));
+            return View(resultAsPagedList);
         }
-
-        //
-        // GET: /Provincias/Create
 
         public ActionResult Create()
         {
             return View();
         }
-
-        //
-        // POST: /Provincias/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,9 +67,6 @@ namespace Gestion.Controllers
 
             return View(localidad);
         }
-
-        //
-        // GET: /Provincias/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -89,9 +82,6 @@ namespace Gestion.Controllers
             return View(localidad);
         }
 
-        //
-        // POST: /Provincias/Edit/5
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Localidad localidad)
@@ -104,11 +94,6 @@ namespace Gestion.Controllers
             return View(localidad);
         }
 
-
-
-        //
-        // POST: /Provincias/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -116,6 +101,8 @@ namespace Gestion.Controllers
             _LocalidadService.Delete(localidad);
             return RedirectToAction("Index");
         }
+
+        #endregion
 
     }
 }

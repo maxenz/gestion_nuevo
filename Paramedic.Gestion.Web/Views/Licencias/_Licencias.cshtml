@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Gestion.ViewModels.LicenciasEstados>
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.Licencia>
 @using PagedList.Mvc;
 
 <div id="licenciasList">
@@ -15,7 +15,7 @@
                         <thead>
                             <tr>
                                 <th class="span3">@Html.DisplayNameFor(model => model.First().Serial) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().NumeroLlave)</th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.First().NumeroDeLlave)</th>
                                 <th class="span3">@Html.DisplayNameFor(model => model.First().Estado) </th>
                                 <th class="span1"></th>
                                 <th class="span1"></th>
@@ -29,28 +29,32 @@
                                         @Html.DisplayFor(modelItem => item.Serial)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.NumeroLlave)
+                                        @Html.DisplayFor(modelItem => item.NumeroDeLlave)
                                     </td>
                                     <td>
-                                        @if (item.Estado == "SIN ASIGNAR")
+                                        @if (item.Estado == null)
                                         {
                                             <span style="color: green; font-weight: bold">
-                                                @Html.DisplayFor(modelItem => item.Estado)
+                                                SIN ASIGNAR
                                             </span>
                                         }
                                         else
                                         {
                                             <span style="color: red; font-weight: bold">
-                                                @Html.DisplayFor(modelItem => item.Estado)
+                                                ASIGNADO A  + @item.Estado
                                             </span>
                                         }
                                     </td>
 
                                     <td class="centrado">
-                                        <a href="Licencias/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
+                                        <a href="@Url.Action("Edit", "Licencias", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                            <i class="btn-icon-only icon-pencil"></i>
+                                        </a>
                                     </td>
                                     <td class="centrado">
-                                        <a href="Licencias/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#licenciasList"><i class="btn-icon-only icon-remove"> </i></a>
+                                        <a href="@Url.Action("Delete","Licencias", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#licenciasList">
+                                            <i class="btn-icon-only icon-remove"></i>
+                                        </a>
                                     </td>
                                 </tr>
 
@@ -59,9 +63,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- /widget-content -->
             </div>
-
         </div>
     </div>
     <div class="row">
@@ -71,7 +73,5 @@
 
         </div>
 
-        <!-- /row -->
     </div>
 </div>
-<!-- /container -->

@@ -28,7 +28,16 @@ namespace Paramedic.Gestion.Repository
 
         public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
-            IEnumerable<T> query = _dbset.Where(predicate).AsEnumerable();
+            IEnumerable<T> query;
+            if (predicate != null)
+            {
+                query = _dbset.Where(predicate).AsEnumerable();
+            }
+            else
+            {
+                query = _dbset.AsEnumerable();
+            }
+
             return query;
         }
 

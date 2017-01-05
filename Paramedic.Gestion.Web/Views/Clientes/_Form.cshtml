@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.Cliente
+﻿@model Paramedic.Gestion.Model.Cliente
 
 @{
     var latlng = "";
@@ -27,9 +27,7 @@
                                     @Html.TextBoxFor(model => model.RazonSocial, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.RazonSocial)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="SitioWeb">Sitio Web</label>
@@ -37,56 +35,44 @@
                                     @Html.TextBoxFor(model => model.SitioWeb, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.SitioWeb)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="Revendedor">Revendedor</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(x => x.RevendedorID, new SelectList(ViewBag.Revendedores, "ID", "Nombre"), "Seleccione Revendedor", new { @class = "span5" })
+                                    @Html.DropDownListFor(x => x.RevendedorId, new SelectList(ViewBag.Revendedores, "ID", "Nombre"), "Seleccione Revendedor", new { @class = "span5" })
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="Localidad">Localidad</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(x => x.LocalidadID, new SelectList(ViewBag.Localidades, "ID", "Descripcion"), new { @class = "selectLoc span5", data_validar_localidad = "true" })
-                                    @Html.ValidationMessageFor(model => model.LocalidadID)
+                                    @Html.DropDownListFor(x => x.LocalidadId, new SelectList(ViewBag.Localidades, "ID", "Descripcion"), new { @class = "selectLoc span5", data_validar_localidad = "true" })
+                                    @Html.ValidationMessageFor(model => model.LocalidadId)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="Pais">Pa&iacute;s</label>
                                 <div class="controls">
                                     <input type="text" disabled="disabled" id="paisCliente" class="span5" />
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="Provincia">Provincia</label>
                                 <div class="controls">
                                     <input type="text" disabled="disabled" id="provCliente" class="form-control" />
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="CuentaCorrienteID">Cuenta Corriente ID</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.CuentaCorrienteID, new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.CuentaCorrienteID)
+                                    @Html.TextBoxFor(model => model.CuentaCorrienteId, new { @class = "span5" })
+                                    @Html.ValidationMessageFor(model => model.CuentaCorrienteId)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
 
                             <div class="control-group">
                                 <label class="control-label" for="Calle">Calle</label>
@@ -94,10 +80,7 @@
                                     @Html.TextBoxFor(model => model.Calle, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Calle)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
-
 
                             <div class="control-group">
                                 <label class="control-label" for="Altura">Altura</label>
@@ -105,10 +88,7 @@
                                     @Html.TextBoxFor(model => model.Altura, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Altura)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
-
 
                             <div class="control-group">
                                 <label class="control-label" for="Departamento">Departamento</label>
@@ -116,10 +96,7 @@
                                     @Html.TextBoxFor(model => model.Departamento, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Departamento)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
-
 
                             <div class="control-group">
                                 <label class="control-label" for="Piso">Piso</label>
@@ -127,9 +104,8 @@
                                     @Html.TextBoxFor(model => model.Piso, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Piso)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->
+
                             @if ((Model != null))
                             {
                                 if (Model.Latitud != null)
@@ -141,18 +117,15 @@
                                         <a href="@latlng" class="btn btn-primary various fancybox.iframe btn-actions"><i class="icon-globe"></i>Ver Ubicación</a>
 
                                     </div>
-                                    <!-- /controls -->
                                 </div>
-                                <!-- /control-group -->
+
                                 }
                             }
 
                             <div class="control-group">
                                 <label class="control-label" for="MedioDifusionID">Medio de Difusi&oacute;n</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(x => x.MedioDifusionID, new SelectList(ViewBag.MediosDifusion, "ID", "Descripcion"), new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.MedioDifusionID)
+                                    @Html.DropDownListFor(x => x.MedioDifusionId, new SelectList(ViewBag.MediosDifusion, "ID", "Descripcion"), new { @class = "span5" })
+                                    @Html.ValidationMessageFor(model => model.MedioDifusionId)
                                 </div>
-                                <!-- /controls -->
                             </div>
-                            <!-- /control-group -->

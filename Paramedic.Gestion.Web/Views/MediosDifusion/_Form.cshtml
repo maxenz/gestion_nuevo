@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.MedioDifusion
+﻿@model Paramedic.Gestion.Model.MedioDifusion
 
 <div class="main">
     <div class="main-inner">
@@ -20,7 +20,7 @@
                             </div> <!-- /control-group -->
 
                             <div class="control-group">
-                                <label class="control-label" for="Descripcion">Mapa es Visible?</label>
+                                <label class="control-label" for="Descripcion">Visible en mapa?</label>
                                 <div class="controls">
                                     @Html.EditorFor(model => model.MapaVisible, new { @class = "span5"})
                                     @Html.ValidationMessageFor(model => model.MapaVisible)
@@ -31,7 +31,7 @@
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
-                                <button class="btn">Cancelar</button>
+                                <a href="@Url.Action("Index", "MediosDifusion")" class="btn">Cancelar</a>
                             </div> <!-- /form-actions -->
                         </fieldset>
                     </div>

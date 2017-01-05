@@ -1,37 +1,37 @@
-﻿@model Gestion.Models.Cliente
+﻿@model Paramedic.Gestion.Model.Cliente
 
-<div class="control-group">
-    <label class="control-label" for="Referencia">Referencia</label>
-    <div class="controls">
-        @Html.TextBoxFor(model => model.Referencia, new { @class = "span5" })
-        @Html.ValidationMessageFor(model => model.Referencia)
-    </div>
-    <!-- /controls -->
-</div>
+    <div class="control-group">
+        <label class="control-label" for="Referencia">Referencia</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Referencia, new { @class = "span5" })
+            @Html.ValidationMessageFor(model => model.Referencia)
+        </div>
 
-<div class="control-group">
-    <label class="control-label" for="Nombre">Nombre</label>
-    <div class="controls">
-        @Html.TextBoxFor(model => model.ClientesContactos[0].Nombre, new { @class = "span5" })
-        @Html.ValidationMessageFor(model => model.ClientesContactos[0].Nombre)
     </div>
-    <!-- /controls -->
-</div>
 
-<div class="control-group">
-    <label class="control-label" for="Email">Email</label>
-    <div class="controls">
-        @Html.TextBoxFor(model => model.ClientesContactos[0].Email, new { @class = "span5" })
-        @Html.ValidationMessageFor(model => model.ClientesContactos[0].Email)
-    </div>
-    <!-- /controls -->
-</div>
+    <div class="control-group">
+        <label class="control-label" for="Nombre">Nombre</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.ClientesContactos.FirstOrDefault().Nombre, new { @class = "span5" })
+            @Html.ValidationMessageFor(model => model.ClientesContactos.FirstOrDefault().Nombre)
+        </div>
 
-<div class="control-group">
-    <label class="control-label" for="Telefono">Tel&eacute;fono</label>
-    <div class="controls">
-        @Html.TextBoxFor(model => model.ClientesContactos[0].Telefono, new { @class = "span5" })
-        @Html.ValidationMessageFor(model => model.ClientesContactos[0].Telefono)
     </div>
-    <!-- /controls -->
-</div>
+
+    <div class="control-group">
+        <label class="control-label" for="Email">Email</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.ClientesContactos.FirstOrDefault().Email, new { @class = "span5" })
+            @Html.ValidationMessageFor(model => model.ClientesContactos.FirstOrDefault().Email)
+        </div>
+
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="Telefono">Tel&eacute;fono</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.ClientesContactos.FirstOrDefault().Telefono, new { @class = "span5" })
+            @Html.ValidationMessageFor(model => model.ClientesContactos.FirstOrDefault().Telefono)
+        </div>
+
+    </div>

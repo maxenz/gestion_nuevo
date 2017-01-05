@@ -71,8 +71,9 @@ namespace Paramedic.Gestion.Model
 
         [ForeignKey("ClienteId")]
         public virtual Cliente Cliente { get; set; }
-        [ForeignKey("LicenciaId")]
+
         public virtual Licencia Licencia { get; set; }
+
         [ForeignKey("SitioId")]
         public virtual Sitio Sitio { get; set; }
         public virtual ICollection<ClientesLicenciasProducto> ClientesLicenciasProductos { get; set; }

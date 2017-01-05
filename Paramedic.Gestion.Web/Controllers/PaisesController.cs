@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Paramedic.Gestion.Model;
 using PagedList;
 using Paramedic.Gestion.Service;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
@@ -13,55 +12,46 @@ namespace Gestion.Controllers
     public class PaisesController : Controller
     {
 
+        #region Properties
+
         IPaisService _PaisService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
 
         public PaisesController(IPaisService PaisService)
         {
             _PaisService = PaisService;
         }
 
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
 
-            //var paisesFromRepo = _PaisService.GetAll();
+            var predicate = PredicateBuilder.New<Pais>();
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            IEnumerable<Pais> paises;
+            IEnumerable<Pais> paises = _PaisService.FindByPage(predicate, "Descripcion ASC", controllersPageSize, page);
+            int count = _PaisService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<Pais>(paises, page, controllersPageSize, count);
 
-            if (!String.IsNullOrEmpty(searchName))
+            if (Request.IsAjaxRequest())
             {
-                paises = _PaisService.GetAll()
-                    .Where(p => p.Descripcion.ToUpper()
-                    .Contains(searchName.ToUpper()))
-                    .OrderBy(p => p.Descripcion);
-            }
-            else
-            {
-                paises = _PaisService.GetAll()
-                .OrderBy(p => p.Descripcion);
+                return PartialView("_Paises", resultAsPagedList);
             }
 
-            if (Request != null)
-            {
-                if (Request.IsAjaxRequest())
-                {
-                    return PartialView("_Paises", paises.ToPagedList(page, 6));
-                }
-            }
-
-            return View(paises.ToPagedList(page, 6));
+            return View(resultAsPagedList);
         }
-
-        //
-        // GET: /Paises/Create
 
         public ActionResult Create()
         {
             return View();
         }
-
-        //
-        // POST: /Paises/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -76,9 +66,6 @@ namespace Gestion.Controllers
             return View(pais);
         }
 
-        //
-        // GET: /Paises/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             Pais pais = _PaisService.GetById(id);
@@ -88,9 +75,6 @@ namespace Gestion.Controllers
             }
             return View(pais);
         }
-
-        //
-        // POST: /Paises/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Pais pais)
@@ -103,9 +87,6 @@ namespace Gestion.Controllers
             return View(pais);
         }
 
-        //
-        // GET: /Paises/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             Pais pais = _PaisService.GetById(id);
@@ -116,9 +97,6 @@ namespace Gestion.Controllers
             return View(pais);
         }
 
-        //
-        // POST: /Paises/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -126,6 +104,8 @@ namespace Gestion.Controllers
             _PaisService.Delete(pais);
             return RedirectToAction("Index");
         }
+
+        #endregion
 
     }
 }

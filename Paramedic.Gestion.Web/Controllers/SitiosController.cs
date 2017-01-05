@@ -1,43 +1,50 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using System.Collections.Generic;
+using Paramedic.Gestion.Model;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class SitiosController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
+
+        ISitioService _SitioService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public SitiosController(ISitioService SitioService)
+        {
+            _SitioService = SitioService;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var sites = from s in db.Sitios select s;
+            var predicate = PredicateBuilder.New<Sitio>();
+            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                sites = sites.Where(s => s.Descripcion.ToUpper().Contains(searchName.ToUpper()));
-            }
-
-            sites = sites.OrderBy(p => p.Descripcion);
+            IEnumerable<Sitio> sitios = _SitioService.FindByPage(predicate, "Descripcion ASC", controllersPageSize, page);
+            int count = _SitioService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<Sitio>(sitios, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_Sitios", sites.ToPagedList(page, 6));
+                return PartialView("_Sitios", resultAsPagedList);
             }
 
-            return View(sites.ToPagedList(page, 6));
-        }
-        public ActionResult Details(int id = 0)
-        {
-            Sitio site = db.Sitios.Find(id);
-            if (site == null)
-            {
-                return HttpNotFound();
-            }
-            return View(site);
+            return View(resultAsPagedList);
+
         }
 
         public ActionResult Create()
@@ -46,62 +53,47 @@ namespace Gestion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Sitio site)
+        public ActionResult Create(Sitio sitio)
         {
             if (ModelState.IsValid)
             {
-                db.Sitios.Add(site);
-                db.SaveChanges();
+                _SitioService.Create(sitio);
                 return RedirectToAction("Index");
             }
 
-            return View(site);
+            return View(sitio);
         }
 
         public ActionResult Edit(int id = 0)
         {
-            Sitio site = db.Sitios.Find(id);
-            if (site == null)
+            Sitio sitio = _SitioService.FindBy(x => x.Id == id).FirstOrDefault();
+            if (sitio == null)
             {
                 return HttpNotFound();
             }
-            return View(site);
+            return View(sitio);
         }
 
         [HttpPost]
-        public ActionResult Edit(Sitio site)
+        public ActionResult Edit(Sitio sitio)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(site).State = EntityState.Modified;
-                db.SaveChanges();
+                _SitioService.Update(sitio);
                 return RedirectToAction("Index");
             }
-            return View(site);
-        }
-
-        public ActionResult Delete(int id = 0)
-        {
-            Sitio site = db.Sitios.Find(id);
-            if (site == null)
-            {
-                return HttpNotFound();
-            }
-            return View(site);
+            return View(sitio);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Sitio site = db.Sitios.Find(id);
-            db.Sitios.Remove(site);
-            db.SaveChanges();
+            Sitio sitio = _SitioService.FindBy(x => x.Id == id).FirstOrDefault();
+            _SitioService.Delete(sitio);
             return RedirectToAction("Index");
         }
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+
+
+        #endregion
     }
 }

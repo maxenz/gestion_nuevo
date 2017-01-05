@@ -16,7 +16,7 @@ using LinqKit;
 
 namespace Gestion.Controllers
 {
-    //[Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador")]
     public class AccountController : Controller
     {
         #region Properties

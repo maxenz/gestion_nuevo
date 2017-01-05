@@ -1,48 +1,46 @@
-﻿@model Gestion.Models.Licencia
+﻿@model Paramedic.Gestion.Model.Licencia
 
-<div class="main">
-    <div class="main-inner">
-        <div class="container">
-            <div class="span6 offset3">
-                <div class="widget">
-                    <div class="widget-header">
-                        <i class="icon-key"></i>
-                        <h3>Registro de Licencias</h3>
-                    </div>
+    <div class="main">
+        <div class="main-inner">
+            <div class="container">
+                <div class="span6 offset3">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <i class="icon-key"></i>
+                            <h3>Registro de Licencias</h3>
+                        </div>
 
-                    <div class="widget-content">
-                        <fieldset>
-                            <div class="control-group">
-                                <label class="control-label" for="Serial">Serial</label>
-                                <div class="controls">
-                                    @Html.TextBoxFor(model => model.Serial, new { @class = "span5", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.Serial)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                        <div class="widget-content">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="Serial">Serial</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.Serial, new { @class = "span5", autofocus = "" })
+                                        @Html.ValidationMessageFor(model => model.Serial)
+                                    </div>
+                                </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="NumeroDeLlave">Nro. de Llave</label>
-                                <div class="controls">
-                                    @Html.TextBoxFor(model => model.NumeroDeLlave, new { @class = "span5", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.NumeroDeLlave)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                <div class="control-group">
+                                    <label class="control-label" for="NumeroDeLlave">Nro. de Llave</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.NumeroDeLlave, new { @class = "span5", autofocus = "" })
+                                        @Html.ValidationMessageFor(model => model.NumeroDeLlave)
+                                    </div>
+                                </div>
 
-                            <br>
+                                <br>
 
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
-                                <button class="btn">Cancelar</button>
-                            </div> <!-- /form-actions -->
-                        </fieldset>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
+                                    <button class="btn">Cancelar</button>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- /container -->
-</div>
 
 
 
