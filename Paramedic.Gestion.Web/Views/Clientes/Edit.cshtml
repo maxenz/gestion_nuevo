@@ -1,9 +1,4 @@
-﻿@model Gestion.Models.Cliente
-
-@{
-    var cliCont = Model.ClientesContactos;
-    var cliGest = Model.ClientesGestiones;    
-}
+﻿@model Paramedic.Gestion.Web.ViewModels.ClienteViewModel
 
 @using (Html.BeginForm())
 {
@@ -22,7 +17,7 @@
                                 <i class="icon-filter"></i>
                                 <h3>Ficha de Cliente</h3>
                             </div>
-                            <!-- /widget-header -->
+
                             <div class="widget-content">
                                 <ul class="nav nav-tabs" id="tabsCliente">
                                     <li class="active"><a href="#datosGrales" data-toggle="tab">Datos Generales</a></li>
@@ -49,34 +44,32 @@
                                         @Html.Partial("_BottomForm", Model)
                                     </div>
                                     <div class="tab-pane fade" id="contactos">
-                                        @Html.Action("Index", "ClientesContactos", routeValues: new { ClienteID = Model.ID })
+                                        @Html.Action("Index", "ClientesContactos", routeValues: new { ClienteID = Model.Id })
                                     </div>
-                                    <div class="tab-pane fade" id="licencias">
-                                        @Html.Action("Index", "ClientesLicencias", routeValues: new { ClienteID = Model.ID })
-                                    </div>
+                                    @*<div class="tab-pane fade" id="licencias">
+                                        @Html.Action("Index", "ClientesLicencias", routeValues: new { ClienteID = Model.Id })
+                                    </div>*@
                                     <div class="tab-pane fade" id="gestiones">
-                                        @Html.Action("Index", "ClientesGestiones", routeValues: new { ClienteID = Model.ID })
+                                        @Html.Action("Index", "ClientesGestiones", routeValues: new { ClienteID = Model.Id })
                                     </div>
-                                    <div class="tab-pane fade" id="terminales">
-                                        @Html.Action("Index", "ClientesTerminales", routeValues: new { ClienteID = Model.ID })
+                                    @*<div class="tab-pane fade" id="terminales">
+                                        @Html.Action("Index", "ClientesTerminales", routeValues: new { ClienteID = Model.Id })
                                     </div>
                                     <div class="tab-pane fade" id="usuarios">
-                                        @Html.Action("Index", "ClientesUsuarios", routeValues: new { ClienteID = Model.ID })
+                                        @Html.Action("Index", "ClientesUsuarios", routeValues: new { ClienteID = Model.Id })
                                     </div>
                                     <div class="tab-pane fade" id="ctaCorriente">
-                                        @Html.Action("Index", "CuentaCorriente", routeValues: new { ClienteID = Model.ID })
+                                        @Html.Action("Index", "CuentaCorriente", routeValues: new { ClienteID = Model.Id })
                                     </div>
                                     <div class="tab-pane fade" id="productos">
-                                        @Html.Action("Index", "MisProductos", routeValues: new { ClienteID = Model.ID })
-                                    </div>
+                                        @Html.Action("Index", "MisProductos", routeValues: new { ClienteID = Model.Id })
+                                    </div>*@
                                 </div>
                             </div>
-                            <!-- /widget-content -->
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /main-inner -->
         </div>
     </div>
    

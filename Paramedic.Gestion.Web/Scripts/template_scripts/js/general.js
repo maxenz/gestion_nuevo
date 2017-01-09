@@ -353,16 +353,14 @@ $(function () {
 
         var $obj = $(".selectLoc[data-validar-localidad='true']");
         var $loc_id = $obj.val();
-        var $url = "/Clientes/ValidarLocalidad/" + $loc_id;
+        var $url = base_url_gestion+ "Clientes/ValidarLocalidad/" + $loc_id;
         $.ajax({
             url: $url,
             type: 'GET',
             success: function (data) {
-                if (data != "") {
-                    var arr = [];
-                    arr = data.split("&");
-                    $('#paisCliente').val(arr[1]);
-                    $('#provCliente').val(arr[0]);
+                if (data) {
+                    $('#paisCliente').val(data.pais);
+                    $('#provCliente').val(data.provincia);
                 }
             },
             error: function (error) {
@@ -395,7 +393,7 @@ $(function () {
 
     $("form[data-gestion-ajax='true']").submit(ajaxFormSubmit);
 
-    $(".selectpicker[data-validar-localidad='true']").on('change', validarLocalidad);
+    $(".selectLoc[data-validar-localidad='true']").on('change', validarLocalidad);
 
     $(document).on("click", ".pagedList a", getPage);
 
@@ -453,7 +451,7 @@ $(function () {
     verifPrivacidadVideo();
     $('#esPublico').on('click', verifPrivacidadVideo);
 
-    //validarLocalidad();
+    validarLocalidad();
     setFormatTables();
 
     $(".various").on('click', function () {

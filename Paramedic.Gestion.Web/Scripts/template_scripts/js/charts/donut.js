@@ -9,7 +9,7 @@ $(function () {
 
 	$.plot($("#donut-chart"), data,
 	{
-		colors: ["#19bc9c", "#3398db", "#fad231", "#9b59b6"],
+		colors: ["#8bc541", "#3398db", "#fad231", "#9b59b6"],
 	        series: {
 	            pie: { 
 	                innerRadius: 0.5,

@@ -11,10 +11,10 @@ namespace Paramedic.Gestion.Model
 
         [Required]
         [MaxLength(3)]
-        public String Codigo { get; set; }
+        public string Codigo { get; set; }
 
         [Required]
-        public String Descripcion { get; set; }
+        public string Descripcion { get; set; }
 
         [Required]
         [Display(Name = "Provincia")]

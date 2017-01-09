@@ -1,16 +1,29 @@
 ﻿using System.Data;
 using System.Linq;
 using System.Web.Mvc;
-using Gestion.Models;
-using System.Net;
-using System.Web.Http;
 using System;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
     public class AndroidController : Controller
     {
-        private GestionDb context = new GestionDb();
+
+        #region Properties
+
+        IClienteService _ClienteService;
+
+        #endregion
+
+        #region Constructors
+
+        public AndroidController(IClienteService ClienteService)
+        {
+            _ClienteService = ClienteService;
+        }
+
+        #endregion
 
         public JsonResult Login(string user, string password, string log)
         {

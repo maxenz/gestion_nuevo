@@ -1,10 +1,14 @@
-﻿@model Gestion.Models.ClientesGestion
+﻿@model Paramedic.Gestion.Model.ClientesGestion
 
-<form action="/Clientes/Edit/@ViewBag.ClienteID/ClientesGestiones/Create" enctype="multipart/form-data" method="post">
+@using (Html.BeginForm("Create", "ClientesGestiones",
+                FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-    @Html.Partial("_Form",Model)
+    @Html.HiddenFor(m => m.ClienteId, new { Value = ViewBag.ClienteId })
 
-</form>
-
+    @Html.Partial("_Form", Model)
+}
 
 

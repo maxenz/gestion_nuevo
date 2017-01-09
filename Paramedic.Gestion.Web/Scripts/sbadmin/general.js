@@ -367,7 +367,7 @@ $(function () {
 
     $("form[data-gestion-ajax='true']").submit(ajaxFormSubmit);
 
-    $(".selectpicker[data-validar-localidad='true']").on('change', validarLocalidad);
+    $(".selectLoc[data-validar-localidad='true']").on('change', validarLocalidad);
 
     $(document).on("click", ".pagedList a", getPage);
 

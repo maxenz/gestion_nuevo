@@ -1,4 +1,4 @@
-﻿@model IList<Gestion.Models.ClientesContacto>
+﻿@model IList<Paramedic.Gestion.Model.ClientesContacto>
 
 <div id="clientesContactosList">
 
@@ -40,12 +40,15 @@
                                 @Html.DisplayFor(modelItem => item.Otros)
                             </td>
                             <td class="centrado">
-                                <a href="@item.ClienteID/ClientesContactos/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
+                                <a href="@Url.Action("Edit", "ClientesContactos", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions">
+                                    <i class="btn-icon-only icon-pencil"></i>
+                                </a>
                             </td>
                             <td class="centrado">
-                                <a href="@item.ClienteID/ClientesContactos/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesContactosList"><i class="btn-icon-only icon-remove"> </i></a>
-                            </td>
-
+                                <a href="@Url.Action("Delete","ClientesContactos", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesContactosList">
+                                    <i class="btn-icon-only icon-remove"></i>
+                                </a>
+                            </td>                   
                         </tr>
                     }
                 </tbody>
@@ -54,7 +57,9 @@
 
             <div class="row">
                 <div class="span4 offset4 ">
-                    <a href="@Model[0].ClienteID/ClientesContactos/Create" class="btn btn-block  btn-primary btnSubmit btn-actions" title="Agregar Contacto">Agregar Contacto</a>
+                    <a href="@Url.Action("Create","ClientesContactos", new { clienteId = Model.FirstOrDefault().ClienteId })" class="btn btn-block  btn-primary btnSubmit btn-actions">
+                        Agregar contacto
+                    </a>                    
                 </div>
             </div>
         </div>

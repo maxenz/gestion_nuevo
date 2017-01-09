@@ -17,7 +17,7 @@ namespace Paramedic.Gestion.Model
         [Required]
         public String Descripcion { get; set; }
 
-        public virtual IEnumerable<Provincia> Provincias { get; set; }
+        public virtual ICollection<Provincia> Provincias { get; set; }
 
         #endregion
     }

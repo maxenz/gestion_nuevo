@@ -7,6 +7,7 @@ namespace Paramedic.Gestion.Model
     [Table("ClientesContactos")]
     public class ClientesContacto : AuditableEntity<int>
     {
+        #region Properties
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -14,7 +15,7 @@ namespace Paramedic.Gestion.Model
         public string Otros { get; set; }
 
         [Required]
-        [Display(Name="Principal")]
+        [Display(Name = "Principal")]
         public int flgPrincipal { get; set; }
 
         [Required]
@@ -24,7 +25,7 @@ namespace Paramedic.Gestion.Model
         [Required]
         public string Nombre { get; set; }
 
-        [Display(Name="Teléfono")]
+        [Display(Name = "Teléfono")]
         [DataType(DataType.PhoneNumber)]
         public String Telefono { get; set; }
 
@@ -34,6 +35,22 @@ namespace Paramedic.Gestion.Model
 
         [ForeignKey("ClienteId")]
         public virtual Cliente Cliente { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public ClientesContacto() { } // EF
+
+        public ClientesContacto(string Nombre, string Email, string Telefono, int Principal)
+        {
+            this.Nombre = Nombre;
+            this.Email = Email;
+            this.Telefono = Telefono;
+            this.flgPrincipal = Principal;
+        }
+
+        #endregion
 
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.ClientesContacto
+﻿@model Paramedic.Gestion.Model.ClientesContacto
 
 <div class="main">
     <div class="main-inner">
@@ -11,45 +11,46 @@
                     </div>
                     <div class="widget-content">
                         <fieldset>
+
                             <div class="control-group">
-                                <label class="control-label" for="Nombre">Nombre</label>
+                                @Html.LabelFor(model => model.Nombre, new { @class = "control-label" })
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Nombre, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Nombre)
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Telefono">Tel&eacute;fono</label>
+                                @Html.LabelFor(model => model.Telefono, new { @class = "control-label" })
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Telefono, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Telefono)
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Email">Email</label>
+                                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Email, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Email)
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Otros">Otros</label>
+                                @Html.LabelFor(model => model.Otros, new { @class = "control-label" })
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Otros, new { @class = "span5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Otros)
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Descripcion">Institucional</label>
+                                @Html.LabelFor(model => model.esInstitucional, new { @class = "control-label" })
                                 <div class="controls">
                                     @Html.EditorFor(model => model.esInstitucional)
                                     @Html.ValidationMessageFor(model => model.esInstitucional)
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
 
                             <br>
 

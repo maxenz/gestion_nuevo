@@ -4,6 +4,8 @@ namespace Gestion.Migrations
     using System.Web.Security;
     using WebMatrix.WebData;
     using Paramedic.Gestion.Model;
+    using Paramedic.Gestion.Repository;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<GestionContext>
     {
@@ -26,7 +28,7 @@ namespace Gestion.Migrations
                 membership.CreateUserAndAccount("mpoggio", "elmaxo");
                 roles.CreateRole("Administrador");
                 roles.AddUsersToRoles(new[] { "mpoggio" }, new[] { "Administrador" });
-            }
+            }          
         }
     }
 }

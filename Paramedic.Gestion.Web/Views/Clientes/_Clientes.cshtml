@@ -9,7 +9,7 @@
                     <i class="icon-th-list"></i>
                     <h3>Clientes</h3>
                 </div>
-                <!-- /widget-header -->
+
                 <div class="widget-content">
                     <table class="table table-striped table-bordered">
                         <thead>
@@ -63,19 +63,14 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- /widget-content -->
             </div>
 
         </div>
     </div>
     <div class="row">
         <div class="pagedList span7 offset4" data-gestion-target="#clientesList">
-
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
         </div>
 
-        <!-- /row -->
     </div>
 </div>
-<!-- /container -->

@@ -1,96 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
-using PagedList;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesContactosController : Controller
     {
-        private GestionDb db = new GestionDb();
 
-        //
-        // GET: /ClientesContactos/
+        #region Properties
 
-        public ActionResult Index(int ClienteID, String searchName = null, int page = 1)
+        IClientesContactoService _ClientesContactoService;
+        IClienteService _ClienteService;
+
+        #endregion
+
+        #region Constructors
+
+        public ClientesContactosController(IClientesContactoService ClientesContactoService, IClienteService ClienteService )
         {
+            _ClientesContactoService = ClientesContactoService;
+            _ClienteService = ClienteService;
+        }
 
-            var qContactos = from c in db.ClientesContactos where c.ClienteID == ClienteID select c;
+        #endregion
 
-            if (qContactos == null)
+        #region Public Methods
+
+        public ActionResult Index(int ClienteID, string searchName = null, int page = 1)
+        {
+            ICollection<ClientesContacto> contactos =
+                _ClientesContactoService
+                .FindBy(x => x.ClienteId == ClienteID)
+                .OrderBy(x => x.Nombre)
+                .ToList();
+
+            if (contactos == null)
             {
                 return HttpNotFound();
             }
 
-            qContactos = qContactos.OrderBy(p => p.Nombre);
-
-
-            return PartialView("_ClientesContactos", qContactos.ToList());
-  
+            return PartialView("_ClientesContactos", contactos);
         }
 
-        //
-        // GET: /ClientesContactos/Details/5
-
-        public ActionResult Details(int id = 0)
+        public ActionResult Create(int clienteId)
         {
-            ClientesContacto clientescontacto = db.ClientesContactos.Find(id);
-            if (clientescontacto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientescontacto);
-        }
-
-        //
-        // GET: /ClientesContactos/Create
-
-        public ActionResult Create()
-        {
+            ViewBag.ClienteId = clienteId;
             return View();
         }
-
-        //
-        // POST: /ClientesContactos/Create
 
         [HttpPost]
         public ActionResult Create(ClientesContacto clientescontacto)
         {
             if ((ModelState.IsValid) & validateContacto(clientescontacto))
             {
-                db.ClientesContactos.Add(clientescontacto);
-                db.SaveChanges();
-                return RedirectToAction("Edit", "Clientes", new { id = clientescontacto.ClienteID });
+                _ClientesContactoService.Create(clientescontacto);
+
+                return RedirectToAction("Edit", "Clientes", new { id = clientescontacto.ClienteId });
             }
 
             return View(clientescontacto);
         }
 
-        private bool validateContacto(ClientesContacto clientescontacto) {
+        private bool validateContacto(ClientesContacto clientescontacto)
+        {
 
-            if (!(clientescontacto.Email == null) | !(clientescontacto.Otros == null) | !(clientescontacto.Telefono == null)) 
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            bool hasMail = clientescontacto.Email != null;
+            bool hasOther = clientescontacto.Otros != null;
+            bool hasTelephone = clientescontacto.Telefono != null;
+
+            return hasMail || hasOther || hasTelephone;
 
         }
 
-        //
-        // GET: /ClientesContactos/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
-            ClientesContacto clientescontacto = db.ClientesContactos.Find(id);
+            ClientesContacto clientescontacto = _ClientesContactoService.FindBy(x => x.Id == id).FirstOrDefault();
             if (clientescontacto == null)
             {
                 return HttpNotFound();
@@ -98,59 +87,37 @@ namespace Gestion.Controllers
 
             return View(clientescontacto);
         }
-
-        //
-        // POST: /ClientesContactos/Edit/5
 
         [HttpPost]
         public ActionResult Edit(ClientesContacto clientescontacto)
         {
             if (ModelState.IsValid & validateContacto(clientescontacto))
             {
-                db.Entry(clientescontacto).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Edit", "Clientes", new { id = clientescontacto.ClienteID });
+                _ClientesContactoService.Update(clientescontacto);
+                return RedirectToAction("Edit", "Clientes", new { id = clientescontacto.ClienteId});
             }
             return View(clientescontacto);
         }
-
-        //
-        // GET: /ClientesContactos/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            ClientesContacto clientescontacto = db.ClientesContactos.Find(id);
-            if (clientescontacto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientescontacto);
-        }
-
-        //
-        // POST: /ClientesContactos/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ClientesContacto clientescontacto = db.ClientesContactos.Find(id);
-            var cliente_id = clientescontacto.ClienteID;
-            if (db.ClientesContactos.Count() > 1)
-            {            
+            ClientesContacto clientescontacto = _ClientesContactoService.FindBy(x => x.Id == id).FirstOrDefault();
+            Cliente cliente = _ClienteService.FindBy(x => x.Id == clientescontacto.ClienteId).FirstOrDefault();
+
+            if (cliente.ClientesContactos.Count > 1)
+            {
                 if (clientescontacto.flgPrincipal == 0)
                 {
-                    db.ClientesContactos.Remove(clientescontacto);
-                    db.SaveChanges();
+                    _ClientesContactoService.Delete(clientescontacto);
                 }
             }
 
-            return RedirectToAction("Index", routeValues: new { ClienteID = cliente_id });
+            return RedirectToAction("Index", new { ClienteID = cliente.Id });
+
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
+
     }
 }

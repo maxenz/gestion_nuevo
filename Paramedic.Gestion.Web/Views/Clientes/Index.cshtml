@@ -11,7 +11,6 @@
                             <i class="icon-filter"></i>
                             <h3>Filtros</h3>
                         </div>
-                        <!-- /widget-header -->
                         <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
                             <form action="@Url.Action("Index")" method="get" id="frmSearchClientes" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#clientesList" style="margin-bottom:-10px">
                                 <div class="row">
@@ -41,14 +40,11 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- /bar-chart -->
                         </div>
-                        <!-- /widget-content -->
                     </div>
                 </div>
             </div>
             @Html.Partial("_Clientes", Model)
         </div>
-        <!-- /main-inner -->
     </div>
 </div>

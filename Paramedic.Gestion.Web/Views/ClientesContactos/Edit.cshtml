@@ -1,10 +1,10 @@
-﻿@model Gestion.Models.ClientesContacto
+﻿@model Paramedic.Gestion.Model.ClientesContacto
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.flgPrincipal)
     
     @Html.Partial("_Form",Model)

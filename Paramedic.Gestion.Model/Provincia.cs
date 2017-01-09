@@ -24,7 +24,7 @@ namespace Paramedic.Gestion.Model
         [ForeignKey("PaisId")]
         public virtual Pais Pais { get; set; }
 
-        public virtual IEnumerable<Localidad> Localidades { get; set; }
+        public virtual ICollection<Localidad> Localidades { get; set; }
 
         #endregion
     }

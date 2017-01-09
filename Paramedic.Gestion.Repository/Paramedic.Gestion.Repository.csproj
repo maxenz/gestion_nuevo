@@ -55,11 +55,13 @@
   <ItemGroup>
     <Compile Include="AccountRepository.cs" />
     <Compile Include="ClienteRepository.cs" />
+    <Compile Include="ClientesContactoRepository.cs" />
     <Compile Include="ClientesGestionRepository.cs" />
     <Compile Include="EstadoRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IAccountRepository.cs" />
     <Compile Include="IClienteRepository.cs" />
+    <Compile Include="IClientesContactoRepository.cs" />
     <Compile Include="IClientesGestionRepository.cs" />
     <Compile Include="IEstadoRepository.cs" />
     <Compile Include="IGenericRepository.cs" />

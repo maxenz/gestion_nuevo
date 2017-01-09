@@ -1,5 +1,4 @@
-﻿@model PagedList.IPagedList<Gestion.ViewModels.Recontacto>
-@using PagedList.Mvc;
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.ClientesGestion>
 
 <div class="main">
     <div class="main-inner">
@@ -11,7 +10,7 @@
                             <i class="icon-filter"></i>
                             <h3>Filtros</h3>
                         </div>
-                        <!-- /widget-header -->
+
                         <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
                             <form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#recontactoList" style="margin-bottom:-10px">
                                 <div class="row">
@@ -37,16 +36,16 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- /bar-chart -->
+
                         </div>
-                        <!-- /widget-content -->
+
                     </div>
                 </div>
             </div>
             @Html.Partial("_Recontactos", Model)
 
         </div>
-        <!-- /main-inner -->
+
     </div>
 </div>
 

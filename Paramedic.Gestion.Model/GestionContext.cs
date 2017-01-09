@@ -92,9 +92,22 @@ namespace Paramedic.Gestion.Model
             .HasOptional(cli => cli.ClientesLicencia)
             .WithRequired(lic => lic.Licencia);
 
+            modelBuilder.Entity<Licencia>()
+                .HasMany(pr => pr.Productos)
+                .WithMany(lic => lic.Licencias)
+                .Map(mc =>
+                {
+                    mc.ToTable("Licencias_Productos");
+                    mc.MapLeftKey("LicenciaId");
+                    mc.MapRightKey("ProductoId");
+                }
+            );
+
             modelBuilder.Entity<ProductosModulo>().HasKey(t => new { t.ProductoId, t.Id });
 
         }
+
+
 
         #endregion
     }

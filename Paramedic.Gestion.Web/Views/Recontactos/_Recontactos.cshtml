@@ -1,5 +1,6 @@
-﻿@model PagedList.IPagedList<Gestion.ViewModels.Recontacto>
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.ClientesGestion>
 @using PagedList.Mvc;
+@using Paramedic.Gestion.Model.Enums;
 
 <div id="recontactoList">
     <div class="row">
@@ -9,12 +10,12 @@
                     <i class="icon-th-list"></i>
                     <h3>Usuarios</h3>
                 </div>
-                <!-- /widget-header -->
+
                 <div class="widget-content">
                     <table class="table table-striped table-bordered" id="tbGestion">
                         <thead>
                             <tr>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Fecha) </th>
+                                <th class="span2">@Html.DisplayNameFor(model => model.First().UpdatedDate) </th>
                                 <th class="span3">@Html.DisplayNameFor(model => model.First().Cliente)</th>
                                 <th class="span5">@Html.DisplayNameFor(model => model.First().Observaciones) </th>
                             </tr>
@@ -27,9 +28,9 @@
                                         @Html.DisplayFor(modelItem => item.Fecha)
                                     </td>
                                     <td>
-                                        @(Html.Raw(item.ClienteID == 0 ? item.Cliente : "<a href=\"/Clientes/Edit/" + item.ClienteID + "\">" + item.Cliente + "</a>"))
+                                        @(Html.Raw(item.ClienteId == 0 ? item.Cliente.RazonSocial : "<a href=\"/Clientes/Edit/" + item.ClienteId + "\">" + item.Cliente.RazonSocial + "</a>"))
                                     </td>
-                                    @if (item.Tipo == "G")
+                                    @if (item.GestionType == GestionType.Management)
                                     {
                                         <td style="color: #00ba8b !important; font-weight:bold">
                                             @Html.DisplayFor(modelItem => item.Observaciones)
@@ -48,7 +49,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- /widget-content -->
+
             </div>
 
         </div>
@@ -60,7 +61,5 @@
 
         </div>
 
-        <!-- /row -->
     </div>
 </div>
-<!-- /container -->

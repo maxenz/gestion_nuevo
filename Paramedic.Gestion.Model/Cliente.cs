@@ -69,5 +69,18 @@ namespace Paramedic.Gestion.Model
         }
 
         #endregion
+
+        #region Constructors
+
+        public Cliente()
+        {
+            this.ClientesContactos = new List<ClientesContacto>();
+            this.ClientesGestiones = new List<ClientesGestion>();
+            this.ClientesLicencias = new List<ClientesLicencia>();
+            this.ClientesTerminales = new List<ClientesTerminal>();
+            this.ClientesUsuarios = new List<ClientesUsuario>();
+        }
+
+        #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.ClientesGestion
+﻿@model Paramedic.Gestion.Model.ClientesGestion
 
 @using (Html.BeginForm("Edit","ClientesGestiones",new { ClienteID = ViewBag.ClienteID},
     FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.Id)
     
     @Html.Partial("_Form",Model)
 }

@@ -234,6 +234,7 @@
     <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientesContactosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClientesGestionesController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
@@ -272,7 +273,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ClientesPrincipal.cs" />
     <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\CuentaCorrienteViewModel.cs" />
     <Compile Include="ViewModels\GeoPositions.cs" />
@@ -280,7 +280,6 @@
     <Compile Include="ViewModels\ModulosExcluidos.cs" />
     <Compile Include="ViewModels\LicenciasEstados.cs" />
     <Compile Include="ViewModels\ProductosAsignados.cs" />
-    <Compile Include="ViewModels\Recontacto.cs" />
     <Compile Include="ViewModels\TicketsPrincipal.cs" />
     <Compile Include="Web References\wsCuentaCorriente\Reference.cs">
       <AutoGen>True</AutoGen>

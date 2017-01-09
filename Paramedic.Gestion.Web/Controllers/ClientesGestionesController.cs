@@ -18,7 +18,6 @@ namespace Gestion.Controllers
         IClienteService _ClienteService;
         IClientesGestionService _ClientesGestionService;
         IEstadoService _EstadoService;
-        private int controllersPageSize = 12;
 
         #endregion
 
@@ -38,24 +37,26 @@ namespace Gestion.Controllers
         public ActionResult Index(int ClienteID, string searchName = null, int page = 1)
         {
 
-            Cliente cliente = _ClienteService.FindBy(x => x.Id == ClienteID).FirstOrDefault();
-
-            IEnumerable<ClientesGestion> gestiones = cliente.ClientesGestiones.OrderByDescending(x => x.Fecha);
+            IEnumerable<ClientesGestion> gestiones =
+                _ClientesGestionService
+                .FindBy(x => x.ClienteId == ClienteID)
+                .OrderByDescending(x => x.Fecha)
+                .ToList();
 
             if (gestiones == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.Cliente_ID = cliente.Id;
+            ViewBag.Cliente_ID = ClienteID;
 
             return PartialView("_ClientesGestiones", gestiones);
 
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int clienteId)
         {
-            ViewBag.ClienteID = RouteData.Values["ClienteID"];
+            ViewBag.ClienteId = clienteId;
             ViewBag.Estados = _EstadoService.GetAll();
             return View();
         }
@@ -63,14 +64,15 @@ namespace Gestion.Controllers
         [HttpPost]
         public ActionResult Create(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
         {
+            ViewBag.ClienteID = clientesgestion.ClienteId;
             try
             {
                 if (clientesgestion.FechaRecontacto < DateTime.Now)
                 {
-                    clientesgestion.FechaRecontacto = new DateTime(1900, 1, 1);
+                    clientesgestion.FechaRecontacto = DateTime.MinValue;
                 }
 
-                if ((clientesgestion.Fecha != new DateTime(1, 1, 1)) && (clientesgestion.Observaciones != ""))
+                if ((clientesgestion.Fecha != DateTime.MinValue) && (!string.IsNullOrEmpty(clientesgestion.Observaciones)))
                 {
                     if (pdfDoc != null)
                     {
@@ -80,17 +82,16 @@ namespace Gestion.Controllers
 
                     _ClientesGestionService.Create(clientesgestion);
 
-                    return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.Cliente.Id });
+                    return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.ClienteId });
                 }
-
-                ViewBag.ClienteID = clientesgestion.Cliente.Id;
-                return RedirectToAction("Create");
             }
             catch
             {
 
                 return RedirectToAction("Create");
             }
+
+            return RedirectToAction("Create");
 
         }
 
@@ -119,7 +120,7 @@ namespace Gestion.Controllers
             {
                 if (clientesgestion.FechaRecontacto < DateTime.Now)
                 {
-                    clientesgestion.FechaRecontacto = new DateTime(1900, 1, 1);
+                    clientesgestion.FechaRecontacto = DateTime.MinValue;
                 }
 
                 if (pdfDoc != null)
@@ -130,7 +131,7 @@ namespace Gestion.Controllers
 
                 _ClientesGestionService.Update(clientesgestion);
 
-                return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.Cliente.Id });
+                return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.ClienteId });
             }
 
             ViewBag.Estados = _EstadoService.GetAll();
@@ -143,7 +144,7 @@ namespace Gestion.Controllers
         {
             ClientesGestion gestion = _ClientesGestionService.FindBy(x => x.Id == id).FirstOrDefault();
             _ClientesGestionService.Delete(gestion);
-            return RedirectToAction("Index", routeValues: new { ClienteID = gestion.Cliente.Id });
+            return RedirectToAction("Index", routeValues: new { ClienteID = gestion.ClienteId});
         }
 
         #endregion

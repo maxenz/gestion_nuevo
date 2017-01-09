@@ -2,7 +2,7 @@
 
 namespace Paramedic.Gestion.Repository
 {
-    public interface IClientesGestionRepository : IGenericRepository<ClientesGestion>
+    public interface IClientesContactoRepository : IGenericRepository<ClientesContacto>
     {
     }
 }

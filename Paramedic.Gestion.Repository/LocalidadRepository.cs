@@ -20,7 +20,7 @@ namespace Paramedic.Gestion.Repository
 
         public Localidad GetById(long id)
         {
-            return _dbset.Include(x => x.Provincia).Where(x => x.Id == id).FirstOrDefault();
+            return _dbset.Include(x => x.Provincia).Include(x => x.Provincia.Pais).Where(x => x.Id == id).FirstOrDefault();
         }
     }
 }

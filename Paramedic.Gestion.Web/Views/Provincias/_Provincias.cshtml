@@ -32,7 +32,7 @@
                                         @Html.DisplayFor(modelItem => item.Descripcion)
                                     </td>
                                     <td class="centrado">
-                                        <a href="@Url.Action("Index","Provincias/" + item.Id + "/Localidades")" class="btn btn-small btn-success btn-actions">
+                                        <a href="@Url.Action("Index",string.Format("Paises/{0}/Provincias/{1}/Localidades", item.Pais.Id, item.Id))" class="btn btn-small btn-success btn-actions">
                                             <i class="btn-icon-only icon-search"></i>
                                         </a>
                                     </td>

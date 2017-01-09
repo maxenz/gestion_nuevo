@@ -39,15 +39,18 @@ namespace Gestion.Controllers
 
         #region Public Methods
 
-        public string ValidarLocalidad(int id = 0)
+        public JsonResult ValidarLocalidad(int id = 0)
         {
             if (id != 0)
             {
                 Localidad localidad = _LocalidadService.FindBy(x => x.Id == id).FirstOrDefault();
-                return string.Format("{0}&{1}", localidad.Provincia.Descripcion, localidad.Provincia.Pais.Descripcion);
+                return Json( new {
+                    provincia = localidad.Provincia.Descripcion,
+                    pais = localidad.Provincia.Pais.Descripcion
+                }, JsonRequestBehavior.AllowGet);
             }
 
-            return "";
+            return null;
         }
 
         public ActionResult Index(string searchName = null, int page = 1, int selTipoClientes = 1, int selDatosSegunVista = 1)
@@ -89,13 +92,13 @@ namespace Gestion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Cliente cliente)
+        public ActionResult Create(ClienteViewModel cliente)
         {
             if (ModelState.IsValid)
             {
-                cliente = validarGeoreferenciacion(cliente);
-                cliente.ClientesContactos.FirstOrDefault().flgPrincipal = 1;
-                _ClienteService.Create(cliente);
+                Cliente cli = cliente.ClienteViewModelToCliente(cliente);
+                cli = validarGeoreferenciacion(cli);
+                _ClienteService.Create(cli);
 
                 return RedirectToAction("Index");
             }
@@ -108,14 +111,15 @@ namespace Gestion.Controllers
         {
             setDropdowns();
             Cliente cliente = _ClienteService.FindBy(x => x.Id == id).FirstOrDefault();
-            if (cliente == null)
+            ClienteViewModel viewModel = new ClienteViewModel(cliente);
+            if (viewModel == null)
             {
                 return HttpNotFound();
             }
 
             ViewBag.Contactos = cliente.ClientesContactos;
 
-            return View(cliente);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -153,6 +157,7 @@ namespace Gestion.Controllers
 
         private Cliente validarGeoreferenciacion(Cliente cli)
         {
+            cli.Localidad = _LocalidadService.GetById(cli.LocalidadId);
             Geopoint point = _GeolocalizationService.GetLocalization(cli.GeoAddress);
             cli.Latitud = point.Latitude;
             cli.Longitud = point.Longitude;

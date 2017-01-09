@@ -11,21 +11,57 @@ namespace Paramedic.Gestion.Web.ViewModels
 
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "Razón Social")]
-
         public string RazonSocial { get; set; }
 
-        public string Email { get; set; }
+        public string Calle { get; set; }
 
-        [Display(Name = "Teléfono")]
-        public string Telefono { get; set; }
+        public string Altura { get; set; }
 
-        [Display(Name = "País")]
+        public string Piso { get; set; }
+
+        public string Departamento { get; set; }
+
+        public string Domicilio { get; set; }
+
+        public string Latitud { get; set; }
+
+        public string Longitud { get; set; }
+
         public string Pais { get; set; }
 
         public string Provincia { get; set; }
 
         public string Localidad { get; set; }
+
+        [Display(Name = "Sitio Web")]
+        [DataType(DataType.Url)]
+        public string SitioWeb { get; set; }
+
+        public string Referencia { get; set; }
+
+        [Required]
+        [Display(Name = "Localidad")]
+        public int LocalidadId { get; set; }
+
+        [Display(Name = "Revendedor")]
+        public int? RevendedorId { get; set; }
+
+        [Display(Name = "Cuenta Corriente")]
+        public int? CuentaCorrienteId { get; set; }
+
+        [Display(Name = "Medio de difusión")]
+        public int? MedioDifusionId { get; set; }
+
+        [Display(Name = "Email del contacto principal")]
+        public string Email { get; set; }
+
+        [Display(Name = "Teléfono del contacto principal")]
+        public string Telefono { get; set; }
+
+        [Display(Name = "Nombre del contacto principal")]
+        public string Nombre { get; set; }
 
         [Display(Name = "Gestión")]
         public string Gestion { get; set; }
@@ -68,8 +104,27 @@ namespace Paramedic.Gestion.Web.ViewModels
 
         }
 
+        public Cliente ClienteViewModelToCliente(ClienteViewModel clienteViewModel)
+        {
+            Cliente cliente = new Cliente();
+            cliente.Calle = clienteViewModel.Calle;
+            cliente.Altura = clienteViewModel.Altura;
+            cliente.CuentaCorrienteId = clienteViewModel.CuentaCorrienteId;
+            cliente.Departamento = clienteViewModel.Departamento;
+            cliente.LocalidadId = clienteViewModel.LocalidadId;
+            cliente.MedioDifusionId = clienteViewModel.MedioDifusionId;
+            cliente.Piso = clienteViewModel.Piso;
+            cliente.RazonSocial = clienteViewModel.RazonSocial;
+            cliente.Referencia = clienteViewModel.Referencia;
+            cliente.RevendedorId = clienteViewModel.RevendedorId;
+            cliente.SitioWeb = clienteViewModel.SitioWeb;
+
+            ClientesContacto principal = new ClientesContacto(clienteViewModel.Nombre, clienteViewModel.Email, clienteViewModel.Telefono, 1);
+            cliente.ClientesContactos.Add(principal);
+
+            return cliente;
+        }
+
         #endregion
-
-
     }
 }

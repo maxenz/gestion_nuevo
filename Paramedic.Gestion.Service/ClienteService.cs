@@ -11,15 +11,25 @@ namespace Paramedic.Gestion.Service
 {
     public class ClienteService : EntityService<Cliente>, IClienteService
     {
+        #region Properties
+
         IUnitOfWork _unitOfWork;
         IClienteRepository _clienteRepository;
 
+        #endregion
+
+        #region Constructors
+
         public ClienteService(IUnitOfWork unitOfWork, IClienteRepository clienteRepository)
-            : base(unitOfWork, clienteRepository)
+    : base(unitOfWork, clienteRepository)
         {
             _unitOfWork = unitOfWork;
             _clienteRepository = clienteRepository;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public IEnumerable<Cliente> GetClientsByType(ClientControllerParametersDTO parameters)
         {
@@ -31,6 +41,8 @@ namespace Paramedic.Gestion.Service
         public Expression<Func<Cliente, bool>> getPredicateByConditions(ClientControllerParametersDTO parameters)
         {
             var predicate = PredicateBuilder.New<Cliente>();
+
+            if (string.IsNullOrEmpty(parameters.SearchDescription) && parameters.SelectedClientType == ClientType.Default) return null;
 
             if (!string.IsNullOrEmpty(parameters.SearchDescription))
             {
@@ -50,6 +62,16 @@ namespace Paramedic.Gestion.Service
 
             return predicate;
         }
+
+        //public override void Create(Cliente cliente)
+        //{
+        //    ClientesContacto contactoPrincipal = new ClientesContacto(cliente.Nombre)
+
+
+        //    base.Create(entity);
+        //}
+
+        #endregion
 
     }
 }
