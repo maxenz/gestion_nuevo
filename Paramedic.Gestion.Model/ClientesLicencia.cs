@@ -10,8 +10,8 @@ namespace Paramedic.Gestion.Model
     [Table("ClientesLicencias")]
     public class ClientesLicencia : AuditableEntity<int>
     {
-
-        [Required]
+        [Key]
+        [ForeignKey("Licencia")]
         [Display(Name = "Licencia")]
         public int LicenciaId { get; set; }
 
@@ -69,13 +69,12 @@ namespace Paramedic.Gestion.Model
 
         public string SitioSubDominio { get; set; }
 
-        [ForeignKey("ClienteId")]
         public virtual Cliente Cliente { get; set; }
 
         public virtual Licencia Licencia { get; set; }
 
-        [ForeignKey("SitioId")]
         public virtual Sitio Sitio { get; set; }
+
         public virtual ICollection<ClientesLicenciasProducto> ClientesLicenciasProductos { get; set; }
 
         public virtual string FullUrl

@@ -89,10 +89,6 @@ namespace Paramedic.Gestion.Model
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             modelBuilder.Entity<Licencia>()
-            .HasOptional(cli => cli.ClientesLicencia)
-            .WithRequired(lic => lic.Licencia);
-
-            modelBuilder.Entity<Licencia>()
                 .HasMany(pr => pr.Productos)
                 .WithMany(lic => lic.Licencias)
                 .Map(mc =>

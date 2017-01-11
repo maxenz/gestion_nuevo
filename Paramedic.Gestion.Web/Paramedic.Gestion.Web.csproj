@@ -237,6 +237,7 @@
     <Compile Include="Controllers\ClientesContactosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClientesGestionesController.cs" />
+    <Compile Include="Controllers\ClientesLicenciasController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LicenciasController.cs" />
@@ -874,7 +875,6 @@
     <Content Include="Views\ClientesUsuarios\_Header.cshtml" />
     <Content Include="Views\Contactos\Index.cshtml" />
     <Content Include="Views\Contactos\_Contactos.cshtml" />
-    <Content Include="Views\ClientesLicencias\Index.cshtml" />
     <Content Include="Views\ClientesLicencias\Create.cshtml" />
     <Content Include="Views\ClientesLicencias\Edit.cshtml" />
     <Content Include="Views\ClientesLicencias\_ClientesLicencias.cshtml" />

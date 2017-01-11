@@ -1,81 +1,85 @@
-﻿@model IList<Gestion.Models.ClientesLicencia>
+﻿@model IList<Paramedic.Gestion.Model.ClientesLicencia>
 
 <div id="clientesLicenciasList">
-                    <div class="row">
-                        <div class="span10 offset1">
-                            <table class="table table-hover table-striped table-bordered tableIndex">
-                                <thead>
-                                    <tr>
-                                        <th class="span2 centrado">
-                                            @Html.DisplayNameFor(model => model.First().Licencia.Serial)
-                                        </th>
-                                        <th class="span2 centrado">
-                                            @Html.DisplayNameFor(model => model.First().CnnDataSource)
-                                        </th>
-                                        <th class="span1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().CnnCatalog)
-                                        </th>
-                                        <th class="span1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().CnnUser)
-                                        </th>
-                                        <th class="span1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().CnnPassword)
-                                        </th>
-                                        <th class="span2 centrado">
-                                            @Html.DisplayNameFor(model => model.First().ConexionServidor)
-                                        </th>
-                                        <th class="span1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().FechaDeVencimiento)
-                                        </th>
-                                        <th class="span1 centrado"></th>
-                                        <th class="span1 centrado"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td class="span2 centrado">
-                                                @Html.DisplayFor(modelItem => item.Licencia.Serial)
-                                            </td>
-                                            <td class="span2 centrado">
-                                                @Html.DisplayFor(modelItem => item.CnnDataSource)
-                                            </td>
-                                            <td class="span1 centrado">
-                                                @Html.DisplayFor(modelItem => item.CnnCatalog)
-                                            </td>
-                                            <td class="span1 centrado">
-                                                @Html.DisplayFor(modelItem => item.CnnUser)
-                                            </td>
-                                            <td class="span1 centrado">
-                                                @Html.DisplayFor(modelItem => item.CnnPassword)
-                                            </td>
-                                            <td class="span2 centrado">
-                                                @Html.DisplayFor(modelItem => item.ConexionServidor)
-                                            </td>
-                                            <td class="span1 centrado">
-                                                @Html.DisplayFor(modelItem => item.FechaDeVencimiento)
-                                            </td>
-                                            <td class="centrado">
-                                                <a href="@item.ClienteID/ClientesLicencias/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
-                                            </td>
-                                            <td class="centrado">
-                                                <a href="@item.ClienteID/ClientesLicencias/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesLicenciasList"><i class="btn-icon-only icon-remove"> </i></a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
+    <div class="row">
+        <div class="span10 offset1">
+            <table class="table table-hover table-striped table-bordered tableIndex">
+                <thead>
+                    <tr>
+                        <th class="span2 centrado">
+                            @Html.DisplayNameFor(model => model.First().Licencia.Serial)
+                        </th>
+                        <th class="span2 centrado">
+                            @Html.DisplayNameFor(model => model.First().CnnDataSource)
+                        </th>
+                        <th class="span1 centrado">
+                            @Html.DisplayNameFor(model => model.First().CnnCatalog)
+                        </th>
+                        <th class="span1 centrado">
+                            @Html.DisplayNameFor(model => model.First().CnnUser)
+                        </th>
+                        <th class="span1 centrado">
+                            @Html.DisplayNameFor(model => model.First().CnnPassword)
+                        </th>
+                        <th class="span2 centrado">
+                            @Html.DisplayNameFor(model => model.First().ConexionServidor)
+                        </th>
+                        <th class="span1 centrado">
+                            @Html.DisplayNameFor(model => model.First().FechaDeVencimiento)
+                        </th>
+                        <th class="span1 centrado"></th>
+                        <th class="span1 centrado"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="span2 centrado">
+                                @Html.DisplayFor(modelItem => item.Licencia.Serial)
+                            </td>
+                            <td class="span2 centrado">
+                                @Html.DisplayFor(modelItem => item.CnnDataSource)
+                            </td>
+                            <td class="span1 centrado">
+                                @Html.DisplayFor(modelItem => item.CnnCatalog)
+                            </td>
+                            <td class="span1 centrado">
+                                @Html.DisplayFor(modelItem => item.CnnUser)
+                            </td>
+                            <td class="span1 centrado">
+                                @Html.DisplayFor(modelItem => item.CnnPassword)
+                            </td>
+                            <td class="span2 centrado">
+                                @Html.DisplayFor(modelItem => item.ConexionServidor)
+                            </td>
+                            <td class="span1 centrado">
+                                @Html.DisplayFor(modelItem => item.FechaDeVencimiento)
+                            </td>
+                            <td class="centrado">
+                                <a href="@Url.Action("Edit", "ClientesLicencias", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions">
+                                    <i class="btn-icon-only icon-pencil"></i>
+                                </a>
+                            </td>
+                            <td class="centrado">
+                                <a href="@Url.Action("Delete","ClientesLicencias", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesLicenciasList">
+                                    <i class="btn-icon-only icon-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
-                            </table>
+            </table>
 
-                            <div class="row">
-
-                                <div class="span4 offset4 ">
-                                    <a href="@ViewBag.Cliente_ID/ClientesLicencias/Create" class="btn btn-block  btn-primary btnSubmit btn-actions" title="Agregar Contacto">Agregar Licencia</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="span4 offset4">
+                    <a href="@Url.Action("Create", "ClientesLicencias",new { ClienteId = @ViewBag.Cliente_ID })" class="btn btn-block  btn-primary btnSubmit btn-actions">
+                        Agregar Licencia
+                    </a>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 

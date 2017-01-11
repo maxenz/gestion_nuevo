@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.ClientesLicencia
+﻿@model Paramedic.Gestion.Model.ClientesLicencia
 
 <div class="main">
     <div class="main-inner">
@@ -14,8 +14,8 @@
                             <div class="control-group">
                                 <label class="control-label" for="Licencia">Licencia</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.LicenciaID, new SelectList(ViewBag.Licencias, "ID", "Serial"), new { @class = " span5" })
-                                    @Html.ValidationMessageFor(model => model.LicenciaID)
+                                    @Html.DropDownListFor(model => model.LicenciaId, new SelectList(ViewBag.Licencias, "Id", "Serial"), new { @class = " span5" })
+                                    @Html.ValidationMessageFor(model => model.LicenciaId)
                                 </div>
                             </div>
 
@@ -70,9 +70,8 @@
                             <div class="control-group">
                                 <label class="control-label" for="SitioWeb">Sitio Web</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(x => x.SitioID, new SelectList(ViewBag.Sites, "ID", "Descripcion"), "Seleccione Sitio Web", new { @class = "span5" })
+                                    @Html.DropDownListFor(x => x.SitioId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Sitio Web", new { @class = "span5" })
                                 </div>
-                                <!-- /controls -->
                             </div>
 
                             <div class="control-group">

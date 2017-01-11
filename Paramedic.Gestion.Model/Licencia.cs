@@ -18,6 +18,7 @@ namespace Paramedic.Gestion.Model
 
         public virtual ICollection<Producto> Productos { get; set; }
 
+        [ForeignKey("ClientesLicenciaId")]
         public virtual ClientesLicencia ClientesLicencia { get; set; }
 
         public virtual string FormattedProducts
@@ -55,6 +56,7 @@ namespace Paramedic.Gestion.Model
 
             }
         }
+
 
         #endregion
 

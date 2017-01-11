@@ -97,9 +97,16 @@ namespace Gestion.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Localidad localidad = _LocalidadService.GetById(id);
-            _LocalidadService.Delete(localidad);
-            return RedirectToAction("Index");
+            try
+            {
+                Localidad localidad = _LocalidadService.GetById(id);
+                _LocalidadService.Delete(localidad);
+                return RedirectToAction("Index");
+            } catch
+            {
+                return RedirectToAction("Index");
+            }
+
         }
 
         #endregion
