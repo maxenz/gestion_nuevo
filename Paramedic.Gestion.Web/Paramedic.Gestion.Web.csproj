@@ -233,6 +233,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientesContactosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
@@ -258,7 +259,6 @@
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelpers.cs" />
     <Compile Include="HtmlHelpers\TicketHtmlHelper.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -964,6 +964,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\sbadmin\images\" />
     <Folder Include="Filters\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -6,6 +6,8 @@ namespace Paramedic.Gestion.Model
     [Table("ProductosModulos")]
     public class ProductosModulo : AuditableEntity<int>
     {
+        #region Properties
+
         [Required]
         [Display(Name = "Producto")]
         public int ProductoId { get; set; }
@@ -18,5 +20,6 @@ namespace Paramedic.Gestion.Model
         [ForeignKey("ProductoId")]
         public virtual Producto Producto { get; set; }
 
+        #endregion
     }
 }

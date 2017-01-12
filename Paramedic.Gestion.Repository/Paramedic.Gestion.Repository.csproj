@@ -58,6 +58,8 @@
     <Compile Include="ClientesContactoRepository.cs" />
     <Compile Include="ClientesGestionRepository.cs" />
     <Compile Include="ClientesLicenciaRepository.cs" />
+    <Compile Include="ClientesLicenciasProductoRepository.cs" />
+    <Compile Include="ClientesLicenciasProductosModuloRepository.cs" />
     <Compile Include="EstadoRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IAccountRepository.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="IClientesContactoRepository.cs" />
     <Compile Include="IClientesGestionRepository.cs" />
     <Compile Include="IClientesLicenciaRepository.cs" />
+    <Compile Include="IClientesLicenciasProductoRepository.cs" />
+    <Compile Include="IClientesLicenciasProductosModuloRepository.cs" />
     <Compile Include="IEstadoRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="ILicenciaRepository.cs" />

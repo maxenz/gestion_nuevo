@@ -19,5 +19,14 @@ namespace Paramedic.Gestion.Model
         public virtual ICollection<Provincia> Provincias { get; set; }
 
         #endregion
+
+        #region Constructors
+
+        public Pais()
+        {
+            this.Provincias = new List<Provincia>();
+        }
+
+        #endregion
     }
 }

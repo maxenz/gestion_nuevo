@@ -13,24 +13,28 @@ namespace Gestion.Controllers
     [Authorize(Roles = "Administrador")]
     public class ClientesLicenciasController : Controller
     {
-
         #region Properties
 
         IClientesLicenciaService _ClientesLicenciaService;
         ILicenciaService _LicenciaService;
         IClienteService _ClienteService;
         ISitioService _SitioService;
-
+        IProductoService _ProductoService;
+        IClientesLicenciasProductoService _ClientesLicenciasProductoService;
+        IClientesLicenciasProductosModuloService _ClientesLicenciasProductosModuloService;
         #endregion
 
         #region Constructors
 
-        public ClientesLicenciasController(IClientesLicenciaService ClientesLicenciaService, ILicenciaService LicenciaService, IClienteService ClienteService, ISitioService SitioService)
+        public ClientesLicenciasController(IClientesLicenciaService ClientesLicenciaService, ILicenciaService LicenciaService, IClienteService ClienteService, ISitioService SitioService, IProductoService ProductoService, IClientesLicenciasProductoService ClientesLicenciasProductoService, IClientesLicenciasProductosModuloService ClientesLicenciasProductosModuloService)
         {
             _ClientesLicenciaService = ClientesLicenciaService;
             _LicenciaService = LicenciaService;
             _ClienteService = ClienteService;
             _SitioService = SitioService;
+            _ProductoService = ProductoService;
+            _ClientesLicenciasProductoService = ClientesLicenciasProductoService;
+            _ClientesLicenciasProductosModuloService = ClientesLicenciasProductosModuloService;
         }
 
         #endregion
@@ -55,37 +59,30 @@ namespace Gestion.Controllers
             return PartialView("_ClientesLicencias", licencias);
         }
 
-        //public ActionResult GetModExcluidos(int ClientesLicenciaID, int ProductoID)
-        //{
+        public ActionResult GetModExcluidos(int clientesLicenciaId, int productoId)
+        {
+            IList<ProductosModulo> modulos = _ProductoService.FindBy(x => x.Id == productoId).FirstOrDefault().ProductosModulos.ToList();
+            LlenarProductosModulosExcluidos(modulos, clientesLicenciaId, productoId);
 
-        //    var prodMod = db.Productos.Find(ProductoID).ProductosModulos.ToList();
-        //    Producto producto = db.Productos
-        //        .Include(p => p.ProductosModulos)
-        //        .Where(p => p.ID == ProductoID)
-        //        .Single();
-        //    LlenarProductosModulosExcluidos(producto.ProductosModulos, ClientesLicenciaID, ProductoID);
+            return PartialView("_ModulosExcluidos", modulos);
+        }
 
-        //    return PartialView("_ModulosExcluidos", prodMod);
-        //}
+        public string SetModExcluidos(int clientesLicenciaId, int productoId, string[] vModExc)
+        {
+            ClientesLicenciasProducto licenciasProducto =
+                _ClientesLicenciaService
+                .FindBy(x => x.Id == clientesLicenciaId)
+                .FirstOrDefault()
+                .ClientesLicenciasProductos
+                .Where(x => x.ProductoId == productoId)
+                .FirstOrDefault();
 
-        //public string SetModExcluidos(int ClientesLicenciaID, int ProductoID, string[] vModExc)
-        //{
+            UpdateProductosModulosExc(vModExc, licenciasProducto);
 
-        //    var cliProd = db.ClientesLicenciasProductos
-        //        .Where(l => l.ClientesLicenciaID == ClientesLicenciaID)
-        //        .Where(l => l.ProductoID == ProductoID)
-        //        .Single();
+            return "ok";
 
-        //    UpdateProductosModulosExc(vModExc, cliProd);
+        }
 
-
-        //    db.Entry(cliProd).State = EntityState.Modified;
-        //    db.SaveChanges();
-
-        //    return "ok";
-
-        //}
-      
         public ActionResult Create()
         {
             if (getLicenciasDisponibles().Count > 0)
@@ -115,7 +112,7 @@ namespace Gestion.Controllers
 
             ViewBag.ClienteID = new SelectList(_ClienteService.GetAll().ToList(), "Id", "RazonSocial", clienteslicencia.ClienteId);
             ViewBag.Licencias = getLicenciasDisponibles();
-            ViewBag.Sites = _SitioService.GetAll().ToList();
+            ViewBag.Sitios = _SitioService.GetAll().ToList();
 
             return View(clienteslicencia);
         }
@@ -125,7 +122,7 @@ namespace Gestion.Controllers
 
             ClientesLicencia clienteslicencia = _ClientesLicenciaService.GetById(id);
 
-            //LlenarProductosAsignados(clienteslicencia);
+            LlenarProductosAsignados(clienteslicencia);
             if (clienteslicencia == null)
             {
                 return HttpNotFound();
@@ -149,12 +146,9 @@ namespace Gestion.Controllers
                 _ClientesLicenciaService.Update(cliLic);
             }
 
-            //var licenciaToUpdate = db.ClientesLicencias
-            //    .Where(l => l.ID == cliLic.ID)
-            //    .Include(l => l.ClientesLicenciasProductos)
-            //    .Single();
+            ClientesLicencia licenciaToUpdate = _ClientesLicenciaService.GetById(cliLic.Id);
 
-            //UpdateLicenciasProductos(selectedProductos, licenciaToUpdate);
+            UpdateLicenciasProductos(selectedProductos, licenciaToUpdate);
 
             ViewBag.Sitios = _SitioService.GetAll().ToList();
 
@@ -174,142 +168,140 @@ namespace Gestion.Controllers
 
         #region Private Methods
 
-        //private void UpdateProductosModulosExc(string[] selectedModulos, ClientesLicenciasProducto cliLicProd)
-        //{
-        //    var licProdMod = db.ClientesLicenciasProductos.Find(cliLicProd.ID).ClientesLicenciasProductosModulos.ToList();
+        private void UpdateProductosModulosExc(string[] selectedModulos, ClientesLicenciasProducto cliLicProd)
+        {
+            var licProdMod = _ClientesLicenciasProductoService.FindBy(x => x.Id == cliLicProd.Id).FirstOrDefault().ClientesLicenciasProductosModulos.ToList();
+            
+            if (selectedModulos == null)
+            {
 
-        //    if (selectedModulos == null)
-        //    {
+                foreach (var lpm in licProdMod)
+                {
+                    _ClientesLicenciasProductosModuloService.Delete(lpm);                    
+                }               
+                return;
+            }
 
-        //        foreach (var lpm in licProdMod)
-        //        {
-        //            db.ClientesLicenciasProductosModulos.Remove(lpm);
-        //        }
-        //        db.SaveChanges();
-        //        return;
-        //    }
+            var selectedModulosHS = new HashSet<string>(selectedModulos);
+            var prodMod = new HashSet<int>
+                (cliLicProd.ClientesLicenciasProductosModulos.Select(l => l.ProductosModuloId));
 
-        //    var selectedModulosHS = new HashSet<string>(selectedModulos);
-        //    var prodMod = new HashSet<int>
-        //        (cliLicProd.ClientesLicenciasProductosModulos.Select(l => l.ProductosModuloID));
-        //    foreach (var modulo in db.Productos.Find(cliLicProd.ProductoID).ProductosModulos)
-        //    {
-        //        if (selectedModulosHS.Contains(modulo.ID.ToString()))
-        //        {
-        //            if (!prodMod.Contains(modulo.ID))
-        //            {
-        //                var cliLicProdMod = new ClientesLicenciasProductosModulo();
-        //                cliLicProdMod.ClientesLicenciasProductoID = cliLicProd.ID;
-        //                cliLicProdMod.ProductosModuloID = modulo.ID;
-        //                db.Entry(cliLicProdMod).State = EntityState.Added;
-        //            }
-        //        }
-        //        else
-        //        {
+            IList<ProductosModulo> productosModulos = _ProductoService.FindBy(x => x.Id == cliLicProd.ProductoId).FirstOrDefault().ProductosModulos.ToList();
 
-        //            if (prodMod.Contains(modulo.ID))
-        //            {
-        //                var cliLicProdMod = db.ClientesLicenciasProductosModulos
-        //                    .Where(c => c.ClientesLicenciasProductoID == cliLicProd.ID)
-        //                    .Where(c => c.ProductosModuloID == modulo.ID).FirstOrDefault();
-        //                db.Entry(cliLicProdMod).State = EntityState.Deleted;
+            foreach (var modulo in productosModulos)
+            {
+                if (selectedModulosHS.Contains(modulo.Id.ToString()))
+                {
+                    if (!prodMod.Contains(modulo.Id))
+                    {
+                        var cliLicProdMod = new ClientesLicenciasProductosModulo();
+                        cliLicProdMod.ClientesLicenciasProductoId = cliLicProd.Id;
+                        cliLicProdMod.ProductosModuloId = modulo.Id;
+                        _ClientesLicenciasProductosModuloService.Create(cliLicProdMod);
+                    }
+                }
+                else
+                {
 
-        //            }
+                    if (prodMod.Contains(modulo.Id))
+                    {
+                        ClientesLicenciasProductosModulo cliLicProdMod = _ClientesLicenciasProductosModuloService
+                            .FindBy(x => x.ClientesLicenciasProductoId == cliLicProd.Id && x.ProductosModuloId == modulo.Id)
+                            .FirstOrDefault();
 
-        //        }
+                        _ClientesLicenciasProductosModuloService.Delete(cliLicProdMod);
 
-        //    }
+                    }
 
-        //}
+                }
 
-        //private void LlenarProductosModulosExcluidos(IList<ProductosModulo> pMod, int clID, int prodID)
-        //{
-        //    var allProductosModulos = pMod;
-        //    var cliLic = db.ClientesLicencias.Find(clID);
-        //    var clProd = cliLic.ClientesLicenciasProductos.Where(x => x.ProductoID == prodID).FirstOrDefault();
+            }
 
-        //    var prodModExc = new HashSet<int>(clProd.ClientesLicenciasProductosModulos.Select(p => p.ProductosModuloID));
-        //    var viewModel = new List<ModulosExcluidos>();
-        //    foreach (var mod in allProductosModulos)
-        //    {
-        //        viewModel.Add(new ModulosExcluidos
-        //        {
-        //            ProductoModuloID = mod.Id,
-        //            Descripcion = mod.Descripcion.Length > 15 ? string.Format("{0}...", mod.Descripcion.Substring(0, 12)) : mod.Descripcion,
-        //            Asignado = prodModExc.Contains(mod.Id)
-        //        });
-        //    }
+            _ClientesLicenciasProductoService.Update(cliLicProd);
 
-        //    ViewBag.ProdModExc = viewModel;
+        }
 
-        //}
+        private void LlenarProductosModulosExcluidos(IList<ProductosModulo> pMod, int clientesLicenciaId, int productoId)
+        {
+            var allProductosModulos = pMod;
+            ClientesLicencia cliLic = _ClientesLicenciaService.GetById(clientesLicenciaId);
+            ClientesLicenciasProducto cliLicProd = cliLic.ClientesLicenciasProductos.FirstOrDefault(x => x.ProductoId == productoId);
 
-        //private void UpdateLicenciasProductos(string[] selectedProductos, ClientesLicencia licenciaToUpdate)
-        //{
+            var prodModExc = new HashSet<int>(cliLicProd.ClientesLicenciasProductosModulos.Select(p => p.ProductosModuloId));
+            var viewModel = new List<ModulosExcluidos>();
+            foreach (var mod in allProductosModulos)
+            {
+                viewModel.Add(new ModulosExcluidos
+                {
+                    ProductoModuloID = mod.Id,
+                    Descripcion = mod.Descripcion.Length > 15 ? string.Format("{0}...", mod.Descripcion.Substring(0, 12)) : mod.Descripcion,
+                    Asignado = prodModExc.Contains(mod.Id)
+                });
+            }
 
-        //    if (selectedProductos == null)
-        //    {
-        //        var licProd = db.ClientesLicencias.Find(licenciaToUpdate.ID).ClientesLicenciasProductos.ToList();
-        //        if (licProd.Count() > 0)
-        //        {
-        //            foreach (var lp in licProd)
-        //            {
-        //                db.ClientesLicenciasProductos.Remove(lp);
-        //            }
-        //            db.SaveChanges();
-        //        }
-        //        return;
-        //    }
+            ViewBag.ProdModExc = viewModel;
 
-        //    var selectedProductosHS = new HashSet<string>(selectedProductos);
-        //    var licenciasProductos = new HashSet<int>
-        //        (licenciaToUpdate.ClientesLicenciasProductos.Select(l => l.ProductoID));
-        //    foreach (var prod in db.Productos)
-        //    {
-        //        if (selectedProductosHS.Contains(prod.ID.ToString()))
-        //        {
-        //            if (!licenciasProductos.Contains(prod.ID))
-        //            {
-        //                var cliLicProd = new ClientesLicenciasProducto();
-        //                cliLicProd.ProductoID = prod.ID;
-        //                cliLicProd.ClientesLicenciaID = licenciaToUpdate.ID;
-        //                db.Entry(cliLicProd).State = EntityState.Added;
-        //                // licenciaToUpdate.ClientesLicenciasProductos.Add(cliLicProd);
-        //            }
-        //        }
-        //        else
-        //        {
+        }
 
-        //            if (licenciasProductos.Contains(prod.ID))
-        //            {
-        //                var cliLicProd = db.ClientesLicenciasProductos.Where(c => c.ProductoID == prod.ID).Where(c => c.ClientesLicenciaID == licenciaToUpdate.ID).FirstOrDefault();
-        //                db.Entry(cliLicProd).State = EntityState.Deleted;
+        private void UpdateLicenciasProductos(string[] selectedProductos, ClientesLicencia licenciaToUpdate)
+        {
+            if (selectedProductos == null)
+            {
+                var licProd = _ClientesLicenciaService.GetById(licenciaToUpdate.Id).ClientesLicenciasProductos.ToList();
+                
+                if (licProd.Count() > 0)
+                {
+                    foreach (var lp in licProd)
+                    {
+                        _ClientesLicenciasProductoService.Delete(lp);
+                    }
+                }
+                return;
+            }
 
-        //            }
+            var selectedProductosHS = new HashSet<string>(selectedProductos);
+            var licenciasProductos = new HashSet<int>
+                (licenciaToUpdate.ClientesLicenciasProductos.Select(l => l.ProductoId));
+            foreach (var prod in _ProductoService.GetAll().ToList())
+            {
+                if (selectedProductosHS.Contains(prod.Id.ToString()))
+                {
+                    if (!licenciasProductos.Contains(prod.Id))
+                    {
+                        var cliLicProd = new ClientesLicenciasProducto();
+                        cliLicProd.ProductoId = prod.Id;
+                        cliLicProd.ClientesLicenciaId = licenciaToUpdate.Id;
+                        _ClientesLicenciasProductoService.Create(cliLicProd);
+                    }
+                }
+                else
+                {
+                    if (licenciasProductos.Contains(prod.Id))
+                    {
+                        var cliLicProd = _ClientesLicenciasProductoService.FindBy(x => x.ProductoId == prod.Id && x.ClientesLicenciaId == licenciaToUpdate.Id).FirstOrDefault();
+                        _ClientesLicenciasProductoService.Delete(cliLicProd);                                                
+                    }
+                }
+            }
+        }
 
-        //        }
+        private void LlenarProductosAsignados(ClientesLicencia licencia)
+        {
+            ICollection<Producto> allProductos = _ProductoService.GetAll().ToList();
+            var licenciasProductos = new HashSet<int>(licencia.ClientesLicenciasProductos.Select(p => p.ProductoId));
+            var viewModel = new List<ProductosAsignados>();
+            foreach (var producto in allProductos)
+            {
+                viewModel.Add(new ProductosAsignados
+                {
+                    ProductoID = producto.Id,
+                    Descripcion = producto.Descripcion,
+                    Asignado = licenciasProductos.Contains(producto.Id)
+                });
+            }
 
-        //    }
-
-        //}
-
-        //private void LlenarProductosAsignados(ClientesLicencia licencia)
-        //{
-        //    var allProductos = db.Productos;
-        //    var licenciasProductos = new HashSet<int>(licencia.ClientesLicenciasProductos.Select(p => p.ProductoID));
-        //    var viewModel = new List<ProductosAsignados>();
-        //    foreach (var producto in allProductos)
-        //    {
-        //        viewModel.Add(new ProductosAsignados
-        //        {
-        //            ProductoID = producto.ID,
-        //            Descripcion = producto.Descripcion,
-        //            Asignado = licenciasProductos.Contains(producto.ID)
-        //        });
-        //    }
-
-        //    ViewBag.Productos = viewModel;
-        //}
+            ViewBag.Productos = viewModel;
+        }
 
         private ICollection<Licencia> getLicenciasDisponibles(int idLic = 0)
         {

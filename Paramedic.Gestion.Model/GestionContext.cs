@@ -99,8 +99,6 @@ namespace Paramedic.Gestion.Model
                 }
             );
 
-            modelBuilder.Entity<ProductosModulo>().HasKey(t => new { t.ProductoId, t.Id });
-
         }
 
 

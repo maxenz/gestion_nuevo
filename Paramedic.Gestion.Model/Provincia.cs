@@ -27,5 +27,14 @@ namespace Paramedic.Gestion.Model
         public virtual ICollection<Localidad> Localidades { get; set; }
 
         #endregion
+
+        #region Constructors
+
+        public Provincia()
+        {
+            this.Localidades = new List<Localidad>();
+        }
+
+        #endregion
     }
 }

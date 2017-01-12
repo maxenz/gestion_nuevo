@@ -7,6 +7,8 @@ namespace Paramedic.Gestion.Model
     [Table("Productos")]
     public class Producto : AuditableEntity<int>
     {
+        #region Properties
+
         [Required]
         public int Numero { get; set; }
 
@@ -14,6 +16,9 @@ namespace Paramedic.Gestion.Model
         public string Descripcion { get; set; }
 
         public virtual ICollection<ProductosModulo> ProductosModulos { get; set; }
+
         public virtual ICollection<Licencia> Licencias { get; set; }
+
+        #endregion
     }
 }
