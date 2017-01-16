@@ -48,6 +48,11 @@ namespace Gestion.Controllers
                 return HttpNotFound();
             }
 
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                gestiones = gestiones.Where(x => x.FullDescription.Contains(searchName)).ToList();
+            }
+
             ViewBag.Cliente_ID = ClienteID;
 
             return PartialView("_ClientesGestiones", gestiones);

@@ -1,56 +1,33 @@
 ﻿@model Paramedic.Gestion.Model.LoginModel
 
-@{
-    ViewBag.Title = "Logueo de Usuarios";
-}
 
-<div class="account-container">
-    <div class="content clearfix">
+<div class="form">
 
-        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    <div>
+        <h1>Shaman Gestión</h1>
+    </div>
+
+    <div class="thumbnail"><i class="fa fa-lock fa-5x"></i></div>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
         {
-            @Html.AntiForgeryToken()
-            if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
-            {
-                <div class="row">
-                    <div class="span3">
-                        <div class="alert alert-danger">
-                            <a class="close" data-dismiss="alert">×</a>
-                            @Html.ValidationSummary(true)
-                        </div>
+            <div class="row">
+                <div class="span3">
+                    <div class="alert alert-danger">
+                        <a class="close" data-dismiss="alert">×</a>
+                        @Html.ValidationSummary(true)
                     </div>
                 </div>
-            }
-
-            <h1>@ViewBag.Title</h1>
-
-            <div class="login-fields">
-                <p>Por favor ingrese sus datos</p>
-                <div class="field">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "login username-field", autofocus = "", placeholder = "Usuario" })
-                </div>
-
-                <div class="field">
-                    @Html.PasswordFor(m => m.Password, new { @class = "login password-field", placeholder = "Contraseña" })
-                </div>
-            </div>
-
-            <div class="login-actions">
-                <a href="#" class="login-link" id="forgotPassword">Olvidaste tu contraseña?</a>
-                <button class="button btn btn-success btn-large btn-actions">Ingresar</button>
             </div>
         }
 
-    </div>
+        @Html.TextBoxFor(m => m.UserName, new { autofocus = "", placeholder = "Usuario", })
+
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Contraseña" })
+        <button>Ingresar</button>
+
+    }
 
 </div>
-
-
-
-
-
-
-
-
-
-

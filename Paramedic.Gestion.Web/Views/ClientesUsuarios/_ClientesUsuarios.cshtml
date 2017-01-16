@@ -1,4 +1,4 @@
-﻿@model IList<Gestion.Models.ClientesUsuario>
+﻿@model IList<Paramedic.Gestion.Model.ClientesUsuario>
 
 <div id="clientesUsuariosList">
                     <div class="row">
@@ -10,10 +10,10 @@
                                             @Html.DisplayNameFor(model => model.First().Usuario.UserName)
                                         </th>
                                         <th class="span2 centrado">
-                                            @Html.DisplayNameFor(model => model.First().ShamanFullID)
+                                            @Html.DisplayNameFor(model => model.First().ShamanFullId)
                                         </th>
                                         <th class="span2 centrado">
-                                            @Html.DisplayNameFor(model => model.First().ShamanExpressID)
+                                            @Html.DisplayNameFor(model => model.First().ShamanExpressId)
                                         </th>
  
                                         <th class="span1 centrado"></th>
@@ -28,16 +28,20 @@
                                                 @Html.DisplayFor(modelItem => item.Usuario.UserName)
                                             </td>
                                             <td class="span2 centrado">
-                                                @Html.DisplayFor(modelItem => item.ShamanFullID)
+                                                @Html.DisplayFor(modelItem => item.ShamanFullId)
                                             </td>
                                             <td class="span2 centrado">
-                                                @Html.DisplayFor(modelItem => item.ShamanExpressID)
+                                                @Html.DisplayFor(modelItem => item.ShamanExpressId)
                                             </td>
                                             <td class="centrado">
-                                                <a href="@item.ClienteID/ClientesUsuarios/Edit/@item.ID" class="btn btn-small btn-success btn-actions"><i class="btn-icon-only icon-pencil"> </i></a>
+                                                <a href="@Url.Action("Edit", "ClientesUsuarios", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                                    <i class="btn-icon-only fa fa-edit"></i>
+                                                </a>
                                             </td>
                                             <td class="centrado">
-                                                <a href="@item.ClienteID/ClientesUsuarios/Delete/@item.ID" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesUsuariosList"><i class="btn-icon-only icon-remove"> </i></a>
+                                                <a href="@Url.Action("Delete","ClientesUsuarios", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesUsuariosList">
+                                                    <i class="btn-icon-only fa fa-times"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     }
@@ -48,7 +52,9 @@
                             <div class="row">
 
                                 <div class="span4 offset4 ">
-                                    <a href="@ViewBag.Cliente_ID/ClientesUsuarios/Create" class="btn btn-block  btn-primary btnSubmit btn-actions">Agregar Usuario</a>
+                                    <a href="@Url.Action("Create","ClientesUsuarios", new { clienteId = ViewBag.ClienteID })" class="btn btn-block btn-primary btnSubmit btn-actions">
+                                        Agregar Usuario
+                                    </a>
                                 </div>
 
                             </div>

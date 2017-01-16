@@ -1,55 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
+using System.Collections.Generic;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesUsuariosController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        //
-        // GET: /ClientesUsuarios/
+        IClientesUsuarioService _ClientesUsuarioService;
+        IClienteService _ClienteService;
+        IUserProfileService _UserProfileService;
 
-        public ActionResult Index(int ClienteID, String searchName = null, int page = 1)
+        #endregion
+
+        #region Constructors
+
+        public ClientesUsuariosController(IClientesUsuarioService ClientesUsuarioService, IClienteService ClienteService, IUserProfileService UserProfileService)
         {
+            _ClientesUsuarioService = ClientesUsuarioService;
+            _ClienteService = ClienteService;
+            _UserProfileService = UserProfileService;
+        }
 
-            var qUsuarios = from u in db.ClientesUsuarios where u.ClienteID == ClienteID select u;
+        #endregion
 
-            if (qUsuarios == null)
+        #region Public Methods
+
+        public ActionResult Index(int ClienteID, string searchName = null, int page = 1)
+        {
+            IEnumerable<ClientesUsuario> usuarios =
+                _ClientesUsuarioService
+                .FindBy(x => x.ClienteId == ClienteID)
+                .OrderBy(x => x.Usuario.UserName).ToList();
+
+            if (usuarios == null)
             {
                 return HttpNotFound();
             }
 
-            qUsuarios = qUsuarios.OrderBy(p => p.Usuario.UserName);
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                usuarios = usuarios.Where(x => x.Usuario.UserName.Contains(searchName)).ToList();
+            }
 
             ViewBag.Cliente_ID = ClienteID;
 
-            return PartialView("_ClientesUsuarios", qUsuarios.ToList());
-
+            return PartialView("_ClientesTerminales", usuarios);
         }
-
-        //
-        // GET: /ClientesUsuarios/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            ClientesUsuario clientesusuario = db.ClientesUsuarios.Find(id);
-            if (clientesusuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientesusuario);
-        }
-
-        //
-        // GET: /ClientesUsuarios/Create
 
         public ActionResult Create()
         {
@@ -59,41 +61,35 @@ namespace Gestion.Controllers
 
         private void setGeneralData()
         {
-            ViewBag.Usuarios = db.UserProfiles.ToList();
-            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "RazonSocial");
-            ViewBag.UsuarioID = new SelectList(db.UserProfiles, "UserId", "UserName");
+            ViewBag.Usuarios = _UserProfileService.GetAll();
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial");
+            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName");
         }
 
         private void setGeneralDataSelected(ClientesUsuario clientesusuario)
         {
-            ViewBag.Usuarios = db.UserProfiles.ToList();
-            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "RazonSocial", clientesusuario.ClienteID);
-            ViewBag.UsuarioID = new SelectList(db.UserProfiles, "UserId", "UserName", clientesusuario.UsuarioID);
+            ViewBag.Usuarios = _UserProfileService.GetAll();
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesusuario.ClienteId);
+            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName", clientesusuario.ClienteId);
         }
-
-        //
-        // POST: /ClientesUsuarios/Create
 
         [HttpPost]
         public ActionResult Create(ClientesUsuario clientesusuario)
         {
             if (ModelState.IsValid)
             {
-                db.ClientesUsuarios.Add(clientesusuario);
-                db.SaveChanges();
-                return RedirectToAction("Edit", "Clientes", new { id = clientesusuario.ClienteID });
+                _ClientesUsuarioService.Create(clientesusuario);                                
+                return RedirectToAction("Edit", "Clientes", new { id = clientesusuario.ClienteId });
             }
 
             setGeneralDataSelected(clientesusuario);
             return View(clientesusuario);
         }
 
-        //
-        // GET: /ClientesUsuarios/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
-            ClientesUsuario clientesusuario = db.ClientesUsuarios.Find(id);
+            ClientesUsuario clientesusuario = _ClientesUsuarioService.FindBy(x => x.Id == id).FirstOrDefault();
+            
             if (clientesusuario == null)
             {
                 return HttpNotFound();
@@ -101,53 +97,27 @@ namespace Gestion.Controllers
             setGeneralDataSelected(clientesusuario);
             return View(clientesusuario);
         }
-
-        //
-        // POST: /ClientesUsuarios/Edit/5
 
         [HttpPost]
         public ActionResult Edit(ClientesUsuario clientesusuario)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(clientesusuario).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Edit", "Clientes", new { id = clientesusuario.ClienteID });
+                _ClientesUsuarioService.Update(clientesusuario);                
+                return RedirectToAction("Edit", "Clientes", new { id = clientesusuario.ClienteId });
             }
             setGeneralDataSelected(clientesusuario);
             return View(clientesusuario);
         }
 
-        //
-        // GET: /ClientesUsuarios/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            ClientesUsuario clientesusuario = db.ClientesUsuarios.Find(id);
-            if (clientesusuario == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientesusuario);
-        }
-
-        //
-        // POST: /ClientesUsuarios/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ClientesUsuario clientesusuario = db.ClientesUsuarios.Find(id);
-            var cliente_id = clientesusuario.ClienteID;
-            db.ClientesUsuarios.Remove(clientesusuario);
-            db.SaveChanges();
-            return RedirectToAction("Index", routeValues: new { ClienteID = cliente_id });
+            ClientesUsuario clientesusuario = _ClientesUsuarioService.FindBy(x => x.Id == id).FirstOrDefault();
+            _ClientesUsuarioService.Delete(clientesusuario);
+            return RedirectToAction("Index", routeValues: new { ClienteID = clientesusuario.ClienteId });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
     }
 }

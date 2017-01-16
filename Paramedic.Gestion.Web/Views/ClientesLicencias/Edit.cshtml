@@ -14,7 +14,7 @@
         <div class="span6 offset3">
             <div class="widget">
                 <div class="widget-header">
-                    <i class="icon-key"></i>
+                    <i class="fa fa-key"></i>
                     <h3>Productos y M&oacute;dulos</h3>
                 </div>
                 <div class="widget-content">
@@ -24,7 +24,7 @@
                             <div class="make-switch make-switch-full span3 offset1" data-text-label="@prod.Descripcion"
                                  data-on-label="
                                 <i class='icon-ok'></i>"
-                                data-off-label="<i class='icon-remove'></i>">
+                                data-off-label="<i class='fa fa-times'></i>">
                                 <input type="checkbox" name="selectedProductos" value="@prod.ProductoID" id="@prod.ProductoID" @(Html.Raw(prod.Asignado ? "checked" : "")) />
                             </div>
 
@@ -40,7 +40,7 @@
                                         clientesLicenciaId = Model.Id,
                                         productoId = @prod.ProductoID
                                     })">
-                                @(Html.Raw(prod.Asignado ? "<i class=\"icon-search lupasModulos\"></i>" : ""))
+                                @(Html.Raw(prod.Asignado ? "<i class=\"fa fa-search lupasModulos\"></i>" : ""))
                             </a>
 
                         </div>

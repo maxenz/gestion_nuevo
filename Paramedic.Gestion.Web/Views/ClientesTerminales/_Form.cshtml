@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.ClientesTerminal
+﻿@model Paramedic.Gestion.Model.ClientesTerminal
 
 <div class="main">
     <div class="main-inner">
@@ -6,55 +6,55 @@
             <div class="span6 offset3">
                 <div class="widget">
                     <div class="widget-header">
-                        <i class="icon-key"></i>
+                        <i class="fa fa-key"></i>
                         <h3>Registro de Terminal</h3>
                     </div>
                     <div class="widget-content">
                         <fieldset>
                             <div class="control-group">
-                                <label class="control-label" for="TipoTerminalID">Tipo de Terminal</label>
+                                @Html.LabelFor(model => model.TipoTerminalId, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.TipoTerminalID, new SelectList(ViewBag.TipoTerminales, "id", "descripcion"), new { @class = " span5" })
-                                    @Html.ValidationMessageFor(model => model.TipoTerminalID)
+                                    @Html.DropDownListFor(model => model.TipoTerminalId, new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion"), new { @class = " span5" })
+                                    @Html.ValidationMessageFor(model => model.TipoTerminalId)
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Referencia">Referencia</label>
+                                @Html.LabelFor(model => model.Referencia, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Referencia, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Referencia, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Referencia)
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Valor1">Valor 1</label>
+                                @Html.LabelFor(model => model.Valor1, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Valor1, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Valor1, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Valor1)
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Valor2">Valor 2</label>
+                                @Html.LabelFor(model => model.Valor2, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Valor2, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Valor2, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Valor2)
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Valor3">Valor 3</label>
+                                @Html.LabelFor(model => model.Valor3, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.EditorFor(model => model.Valor3)
+                                    @Html.TextBoxFor(model => model.Valor3, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Valor3)
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="Valor4">Valor 4</label>
+                                @Html.LabelFor(model => model.Valor4, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.EditorFor(model => model.Valor4)
+                                    @Html.TextBoxFor(model => model.Valor4, new { @class = "span5" })
                                     @Html.ValidationMessageFor(model => model.Valor4)
                                 </div>
                             </div>

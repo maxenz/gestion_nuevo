@@ -1,147 +1,119 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesTerminalesController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        //
-        // GET: /ClientesTerminales/
+        IClientesTerminalService _ClientesTerminalService;
+        ITipoTerminalService _TipoTerminalService;
+        IClienteService _ClienteService;
 
-        public ActionResult Index(int ClienteID, String searchName = null, int page = 1)
+        #endregion
+
+        #region Constructors
+
+        public ClientesTerminalesController(IClientesTerminalService ClientesTerminalService, ITipoTerminalService TipoTerminalService, IClienteService ClienteService)
         {
+            _ClientesTerminalService = ClientesTerminalService;
+            _TipoTerminalService = TipoTerminalService;
+            _ClienteService = ClienteService;
+        }
 
-            var qTerminales = from t in db.ClientesTerminales where t.ClienteID == ClienteID select t;
+        #endregion
 
-            if (qTerminales == null)
+        #region Public Methods
+
+        public ActionResult Index(int ClienteID, string searchName = null, int page = 1)
+        {
+            IEnumerable<ClientesTerminal> terminales =
+                _ClientesTerminalService
+                .FindBy(x => x.ClienteId == ClienteID)
+                .OrderBy(x => x.TipoTerminal.Descripcion).ToList();
+
+            if (terminales == null)
             {
                 return HttpNotFound();
             }
 
-            qTerminales = qTerminales.OrderBy(p => p.TipoTerminal.Descripcion);
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                terminales = terminales.Where(x => x.TipoTerminal.Descripcion.Contains(searchName)).ToList();
+            }
 
             ViewBag.Cliente_ID = ClienteID;
 
-            return PartialView("_ClientesTerminales", qTerminales.ToList());
-
+            return PartialView("_ClientesTerminales", terminales);
         }
-
-        //
-        // GET: /ClientesTerminales/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            ClientesTerminal clientesterminal = db.ClientesTerminales.Find(id);
-            if (clientesterminal == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientesterminal);
-        }
-
-        //
-        // GET: /ClientesTerminales/Create
 
         public ActionResult Create()
         {
-            ViewBag.TipoTerminales = db.TipoTerminales.ToList();
-            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "RazonSocial");
-            ViewBag.TipoTerminalID = new SelectList(db.TipoTerminales, "id", "descripcion");
+            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", ViewBag.ClienteID);
+            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion");
             return View();
         }
-
-        //
-        // POST: /ClientesTerminales/Create
-
+        
         [HttpPost]
         public ActionResult Create(ClientesTerminal clientesterminal)
         {
             if (ModelState.IsValid)
             {
-                db.ClientesTerminales.Add(clientesterminal);
-                db.SaveChanges();
-                return RedirectToAction("Edit", "Clientes", new { id = clientesterminal.ClienteID });
+                _ClientesTerminalService.Create(clientesterminal);                                
+                return RedirectToAction("Edit", "Clientes", new { id = clientesterminal.ClienteId });
             }
 
-            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "RazonSocial", clientesterminal.ClienteID);
-            ViewBag.TipoTerminalID = new SelectList(db.TipoTerminales, "id", "descripcion", clientesterminal.TipoTerminalID);
-            ViewBag.TipoTerminales = db.TipoTerminales.ToList();
+            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal.ClienteId);
+            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion");
             return View(clientesterminal);
         }
 
-        //
-        // GET: /ClientesTerminales/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
-            ViewBag.TipoTerminales = db.TipoTerminales.ToList();
-            ClientesTerminal clientesterminal = db.ClientesTerminales.Find(id);
+            ClientesTerminal clientesterminal = _ClientesTerminalService.FindBy(x => x.Id == id).FirstOrDefault();
             if (clientesterminal == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "RazonSocial", clientesterminal.ClienteID);
-           // ViewBag.TipoTerminalID = new SelectList(db.TipoTerminales, "ID", "Descripcion", clientesterminal.TipoTerminalID);
+
+            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal.ClienteId);
+            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion", clientesterminal.TipoTerminalId);
+
             return View(clientesterminal);
         }
-
-        //
-        // POST: /ClientesTerminales/Edit/5
 
         [HttpPost]
         public ActionResult Edit(ClientesTerminal clientesterminal)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(clientesterminal).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Edit", "Clientes", new { id = clientesterminal.ClienteID });
+                _ClientesTerminalService.Update(clientesterminal);
+                return RedirectToAction("Edit", "Clientes", new { id = clientesterminal.ClienteId });
             }
 
-            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "RazonSocial", clientesterminal.ClienteID);
-            ViewBag.TipoTerminalID = new SelectList(db.TipoTerminales, "ID", "Descripcion", clientesterminal.TipoTerminalID);
+            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal.ClienteId);
+            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion", clientesterminal.TipoTerminalId);
             return View(clientesterminal);
         }
-
-        //
-        // GET: /ClientesTerminales/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            ClientesTerminal clientesterminal = db.ClientesTerminales.Find(id);
-            if (clientesterminal == null)
-            {
-                return HttpNotFound();
-            }
-            return View(clientesterminal);
-        }
-
-        //
-        // POST: /ClientesTerminales/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ClientesTerminal clientesterminal = db.ClientesTerminales.Find(id);
-            var cliente_id = clientesterminal.ClienteID;
-            db.ClientesTerminales.Remove(clientesterminal);
-            db.SaveChanges();
-            return RedirectToAction("Index", routeValues: new { ClienteID = cliente_id });
+            ClientesTerminal clientesterminal = _ClientesTerminalService.FindBy(x => x.Id == id).FirstOrDefault();
+            _ClientesTerminalService.Delete(clientesterminal);
+            return RedirectToAction("Index", routeValues: new { ClienteID = clientesterminal.ClienteId });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
     }
 }

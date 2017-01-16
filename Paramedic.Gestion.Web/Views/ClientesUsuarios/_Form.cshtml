@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.ClientesUsuario
+﻿@model Paramedic.Gestion.Model.ClientesUsuario
 
 <div class="main">
     <div class="main-inner">
@@ -6,7 +6,7 @@
             <div class="span6 offset3">
                 <div class="widget">
                     <div class="widget-header">
-                        <i class="icon-key"></i>
+                        <i class="fa fa-key"></i>
                         <h3>Registro de Usuario</h3>
                     </div>
                     <div class="widget-content">
@@ -14,24 +14,24 @@
                             <div class="control-group">
                                 <label class="control-label" for="Usuario">Usuario</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.UsuarioID, new SelectList(ViewBag.Usuarios, "UserId", "UserName"), new { @class = "span5" })
-                                    @Html.ValidationMessageFor(model => model.UsuarioID)
+                                    @Html.DropDownListFor(model => model.UsuarioId, new SelectList(ViewBag.Usuarios, "Id", "UserName"), new { @class = "span5" })
+                                    @Html.ValidationMessageFor(model => model.UsuarioId)
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="ShamanExpressID">Shaman Express ID</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.ShamanExpressID, new { @class = "span5", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.ShamanExpressID)
+                                    @Html.TextBoxFor(model => model.ShamanExpressId, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.ShamanExpressId)
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="ShamanFullID">Shaman Full ID</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.ShamanFullID, new { @class = "span5", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.ShamanFullID)
+                                    @Html.TextBoxFor(model => model.ShamanFullId, new { @class = "span5", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.ShamanFullId)
                                 </div>
                             </div>
 

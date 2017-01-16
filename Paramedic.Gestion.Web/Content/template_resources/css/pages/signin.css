@@ -1,247 +1,149 @@
-/*------------------------------------------------------------------
-Bootstrap Admin Template by EGrappler.com
-------------------------------------------------------------------*/
-
-
-
-
-/** Base Body Styles **/
-body{ background: url(../../img/body-bg.png); color:#838383; font: 13px/1.7em 'Open Sans';}
-
-
-.account-container {
-	width: 380px; 
-	display: block;
-	margin: 60px auto 0 auto;
-	
-	background: #f9f9f9;
-	
-	border: 1px solid #d5d5d5;
-	
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-
-	box-shadow:  0px 0px 2px #dadada, inset 0px -3px 0px #e6e6e6;
+/* Form */
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 300px;
+  margin: 0 auto 100px;
+  padding: 30px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  text-align: center;
+  margin-top:150px;
+}
+.form .thumbnail {
+  background: #8bc541;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 30px;
+  padding: 50px 30px;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 100%;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  box-sizing: border-box;
+  position:relative;
+}
+.form .thumbnail i {
+  display: block;
+  width: 100%;
+  position:relative;
+  top: -8px;
+  color:white;
+}
+.form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 22px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  outline: 0;
+  background: #8bc541;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #8bc541;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
 }
 
-.content {
-	padding: 16px 28px 23px;
-} 
-
-.login-fields {
-	
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #8bc541;
 }
 
-.login-fields .field {
-	margin-bottom: 1.25em;
+/* END Form */
+/* Demo Purposes */
+body {
+  background: #ccc;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  background: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  height: 100%;
 }
 
-.login-fields label {
-	display: none;
+#video {
+  z-index: -99;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
 }
 
-.login-fields input {
-	font-family: 'Open Sans';
-	font-size: 13px;
-	color: #8e8d8d;
-	padding: 11px 15px 10px 50px;
-	background-color: #fdfdfd;
-	width: 255px;
-	display: block;
-	margin: 0;
-	box-shadow: inset 2px 2px 4px #f1f1f1;
-}
-
-.username-field { background: url(../../img/signin/user.png) no-repeat; }
-
-.password-field { background: url(../../img/signin/password.png) no-repeat; }
-
-
-
-
-.login-actions {
-	float: left;
-	
-	width: 100%;
-	
-	margin-top: -1em;
-	margin-bottom: 1.25em;
-}
-
-.login-social {
-	float: left;
-	
-	padding: 10px 0 15px;
-	
-	border: 1px dotted #CCC;
-	border-right: none;
-	border-left: none;	
-}
-
-span.login-checkbox {
-	float: left;
-	margin-top: 31px;
-}
-
-span.login-checkbox > input[type='checkbox'] {
-    opacity: 0;
-    float: left;
-    width: 15px;
-}
-
-span.login-checkbox > input[type='checkbox'] + label {    
-    clear: none;
-    
-	height: 15px; 
-	display: block;
-    padding: 0 0 0 22px;
-    margin: 0;
-    
-    font-size: 12px;
-    line-height: 1.2em;
-    
-    background: url(../../img/signin/check.png) no-repeat 0 0;
-    
-    cursor: pointer;
-}
-
-span.login-checkbox > input[type='checkbox']:checked + label {	
-	background-position: 0 -15px;
-}
-
-/** Text Under Box**/
-.login-extra {
-	display: block; 
-	width: 300px; 
-	margin: 1.5em auto;
-	 
-	text-align: left;
-	line-height: 19px; 
-	
-	text-shadow: 1px 1px 0px #fff; 	
-}
-
-
-.account-container h1 {
-	margin-bottom: .4em;
-	
-	color: #525252;
-}
-
-/** Buttons **/
-.twitter, .fb {
-	position: relative;
-	
-	height: 32px; 
-	width: 157px; 
-	display: block;
-	
-	background: url(../../img/signin/twitter_btn.png) no-repeat; 
-	
-}
-
-.fb {
-	width: 162px; 
-	
-	background: url(../../img/signin/fb_btn.png) no-repeat; 	
-}
-
-.twitter:active, .fb:active {
-	top: 1px;
-}
-
-.twitter:hover, .fb:hover {
-	background-position: 0 -32px;
-}
-
-.twitter a, .fb a {
-	padding: 5px 0 0 35px; 
-	text-shadow: -1px -1px 0px rgba(0,0,0,.3); 
-	color:#fff; 
-	font-weight: bold; 
-	font-size: 11px; 
-	height: 32px; 
-	display: block;	
-}
-
-.fb a {
-	padding: 5px 0 0 31px; 
-	
-}
-
-.twitter, .fb {
-	display: inline-block;
-}
-
-.twitter a:hover, .fb a:hover {
-	color: #FFF;
-	text-decoration: none;
-}
-
-.button {-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; display: inline-block; float: right; margin-top: 18px;}
-
-
-
-
-
-
-.register .login-social {
-	margin-bottom: 1em;
-}
-
-.register .login-actions {
-	margin-bottom: 0;
-}
-
-.register .login-fields input {
-	width: 299px;
-	padding-left: 6px;
-}
-
-.register h1 {
-	color: #444;
-}
-
-.register span.login-checkbox {
-	position: relative;
-	top: -6px;
-	
-	width: 200px;
-}
-
-.register span.login-checkbox > input[type="checkbox"] + label {
-	
-	position: relative;
-	
-	line-height: 1.3em;
-}
-
-
-
-@media (max-width: 480px) {
-	
-	.account-container {
-		width: 280px;	
-		margin-top: 35px;
-	}
-	
-	.login-fields input {
-		width: 160px;
-	}
-	
-	.login-social {
-		width: 100%;
-	}
-	
-	.twitter {
-		display: block;
-		margin-bottom: 1em;
-	}
-	
-	.register .login-fields input {
-		width: 204px;
-		padding-left: 6px;
-	}
-	
+h1 {
+    font-size: 36px !important;
+    font-weight: normal !important;
+    margin-bottom:30px;
 }

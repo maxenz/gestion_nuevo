@@ -33,17 +33,17 @@
                                     </td>
                                     <td class="centrado">
                                         <a href="@Url.Action("Index",string.Format("Paises/{0}/Provincias/{1}/Localidades", item.Pais.Id, item.Id))" class="btn btn-small btn-success btn-actions">
-                                            <i class="btn-icon-only icon-search"></i>
+                                            <i class="btn-icon-only fa fa-search"></i>
                                         </a>
                                     </td>
                                     <td class="centrado">
                                         <a href="@Url.Action("Edit", "Provincias", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
-                                            <i class="btn-icon-only icon-pencil"></i>
+                                            <i class="btn-icon-only fa fa-edit"></i>
                                         </a>
                                     </td>
                                     <td class="centrado">
                                         <a href="@Url.Action("Delete","Provincias", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#provinciasList">
-                                            <i class="btn-icon-only icon-remove"></i>
+                                            <i class="btn-icon-only fa fa-times"></i>
                                         </a>
                                     </td>
                                 </tr>

@@ -63,6 +63,8 @@
     <Compile Include="ClientesLicenciaService.cs" />
     <Compile Include="ClientesLicenciasProductoService.cs" />
     <Compile Include="ClientesLicenciasProductosModuloService.cs" />
+    <Compile Include="ClientesTerminalService.cs" />
+    <Compile Include="ClientesUsuarioService.cs" />
     <Compile Include="EntityService.cs" />
     <Compile Include="EstadoService.cs" />
     <Compile Include="GeolocalizationService.cs" />
@@ -73,6 +75,8 @@
     <Compile Include="IClientesLicenciaService.cs" />
     <Compile Include="IClientesLicenciasProductoService.cs" />
     <Compile Include="IClientesLicenciasProductosModuloService.cs" />
+    <Compile Include="IClientesTerminalService.cs" />
+    <Compile Include="IClientesUsuarioService.cs" />
     <Compile Include="IEntityService.cs" />
     <Compile Include="IEstadoService.cs" />
     <Compile Include="ILicenciaService.cs" />
