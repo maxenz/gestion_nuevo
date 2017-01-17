@@ -3,7 +3,7 @@
 
 <div id="productosList">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-xs-10 col-xs-offset-1">
             <div class="widget widget-table action-table" style="margin-bottom:0">
                 <div class="widget-header">
                     <i class="icon-th-list"></i>
@@ -13,11 +13,11 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Numero) </th>
-                                <th class="span5">@Html.DisplayNameFor(model => model.First().Descripcion)</th>
-                                <th class="span1"></th>
-                                <th class="span1"></th>
-                                <th class="span1"></th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Numero) </th>
+                                <th class="col-xs-5">@Html.DisplayNameFor(model => model.First().Descripcion)</th>
+                                <th class="col-xs-1"></th>
+                                <th class="col-xs-1"></th>
+                                <th class="col-xs-1"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="pagedList span7 offset5" data-gestion-target="#productosList">
+        <div class="pagedList col-xs-7 col-xs-offset-5" data-gestion-target="#productosList">
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
         </div>
     </div>

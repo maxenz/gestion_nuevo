@@ -2,58 +2,58 @@
 
 <div id="clientesLicenciasList">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-xs-10 col-xs-offset-1">
             <table class="table table-hover table-striped table-bordered tableIndex">
                 <thead>
                     <tr>
-                        <th class="span2 centrado">
+                        <th class="col-xs-2 centrado">
                             @Html.DisplayNameFor(model => model.First().Licencia.Serial)
                         </th>
-                        <th class="span2 centrado">
+                        <th class="col-xs-2 centrado">
                             @Html.DisplayNameFor(model => model.First().CnnDataSource)
                         </th>
-                        <th class="span1 centrado">
+                        <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().CnnCatalog)
                         </th>
-                        <th class="span1 centrado">
+                        <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().CnnUser)
                         </th>
-                        <th class="span1 centrado">
+                        <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().CnnPassword)
                         </th>
-                        <th class="span2 centrado">
+                        <th class="col-xs-2 centrado">
                             @Html.DisplayNameFor(model => model.First().ConexionServidor)
                         </th>
-                        <th class="span1 centrado">
+                        <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().FechaDeVencimiento)
                         </th>
-                        <th class="span1 centrado"></th>
-                        <th class="span1 centrado"></th>
+                        <th class="col-xs-1 centrado"></th>
+                        <th class="col-xs-1 centrado"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.Licencia.Serial)
                             </td>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.CnnDataSource)
                             </td>
-                            <td class="span1 centrado">
+                            <td class="col-xs-1 centrado">
                                 @Html.DisplayFor(modelItem => item.CnnCatalog)
                             </td>
-                            <td class="span1 centrado">
+                            <td class="col-xs-1 centrado">
                                 @Html.DisplayFor(modelItem => item.CnnUser)
                             </td>
-                            <td class="span1 centrado">
+                            <td class="col-xs-1 centrado">
                                 @Html.DisplayFor(modelItem => item.CnnPassword)
                             </td>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.ConexionServidor)
                             </td>
-                            <td class="span1 centrado">
+                            <td class="col-xs-1 centrado">
                                 @Html.DisplayFor(modelItem => item.FechaDeVencimiento)
                             </td>
                             <td class="centrado">
@@ -73,7 +73,7 @@
             </table>
 
             <div class="row">
-                <div class="span4 offset4">
+                <div class="col-xs-4 col-xs-offset-4">
                     <a href="@Url.Action("Create", "ClientesLicencias",new { ClienteId = @ViewBag.Cliente_ID })" class="btn btn-block  btn-primary btnSubmit btn-actions">
                         Agregar Licencia
                     </a>

@@ -50,7 +50,7 @@ namespace Gestion.Controllers
 
             ViewBag.Cliente_ID = ClienteID;
 
-            return PartialView("_ClientesTerminales", usuarios);
+            return PartialView("_ClientesUsuarios", usuarios);
         }
 
         public ActionResult Create()
@@ -61,16 +61,14 @@ namespace Gestion.Controllers
 
         private void setGeneralData()
         {
-            ViewBag.Usuarios = _UserProfileService.GetAll();
             ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial");
             ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName");
         }
 
         private void setGeneralDataSelected(ClientesUsuario clientesusuario)
         {
-            ViewBag.Usuarios = _UserProfileService.GetAll();
             ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesusuario.ClienteId);
-            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName", clientesusuario.ClienteId);
+            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName", clientesusuario.UsuarioId);
         }
 
         [HttpPost]

@@ -3,7 +3,7 @@
 
 <div id="videosList">
     <div class="row">
-        <div class="span10 offset1" style="margin-bottom:-30px">
+        <div class="col-xs-10 col-xs-offset-1" style="margin-bottom:-30px">
             <div class="widget widget-table action-table">
                 <div class="widget-header">
                     <i class="icon-th-list"></i>
@@ -14,10 +14,10 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="span2">Tema </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Fecha)</th>
-                                <th class="span2">Car&aacute;cter </th>
-                                <th class="span1"></th>
+                                <th class="col-xs-2">Tema </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Fecha)</th>
+                                <th class="col-xs-2">Car&aacute;cter </th>
+                                <th class="col-xs-1"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,11 +33,11 @@
 
                                     @if (item.esPublico)
                                     {
-                                        <td class="span2 centrado verde">P&uacute;blico</td>
+                                        <td class="col-xs-2 centrado verde">P&uacute;blico</td>
                                     }
                                     else
                                     {
-                                        <td class="span2 centrado rojo">Privado</td>
+                                        <td class="col-xs-2 centrado rojo">Privado</td>
                                     }
 
                                     <td class="centrado">
@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="pagedList span7 offset5" data-gestion-target="#videosList">
+        <div class="pagedList col-xs-7 col-xs-offset-5" data-gestion-target="#videosList">
 
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 

@@ -3,7 +3,7 @@
 <div class="main">
     <div class="main-inner">
         <div class="container">
-            <div class="span6 offset3">
+            <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
                         <i class="fa fa-key"></i>
@@ -14,7 +14,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Nombre">Nombre</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Nombre)
                                 </div>
 
@@ -23,7 +23,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Comision">Comisi&oacute;n</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Comision, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Comision, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Comision)
                                 </div>
 

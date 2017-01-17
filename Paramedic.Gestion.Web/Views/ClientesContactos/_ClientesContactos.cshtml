@@ -3,40 +3,40 @@
 <div id="clientesContactosList">
 
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-xs-10 col-xs-offset-1">
             <table class="table table-hover table-striped table-bordered tableIndex">
                 <thead>
                     <tr>
-                        <th class="span3 centrado">
+                        <th class="col-xs-3 centrado">
                             @Html.DisplayNameFor(model => model.First().Nombre)
                         </th>
-                        <th class="span3 centrado">
+                        <th class="col-xs-3 centrado">
                             @Html.DisplayNameFor(model => model.First().Telefono)
                         </th>
-                        <th class="span3 centrado">
+                        <th class="col-xs-3 centrado">
                             @Html.DisplayNameFor(model => model.First().Email)
                         </th>
-                        <th class="span2 centrado">
+                        <th class="col-xs-2 centrado">
                             @Html.DisplayNameFor(model => model.First().Otros)
                         </th>
-                        <th class="span1 centrado"></th>
-                        <th class="span1 centrado"></th>
+                        <th class="col-xs-1 centrado"></th>
+                        <th class="col-xs-1 centrado"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="span3 centrado">
+                            <td class="col-xs-3 centrado">
                                 @Html.DisplayFor(modelItem => item.Nombre)
                             </td>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.Telefono)
                             </td>
-                            <td class="span3 centrado">
+                            <td class="col-xs-3 centrado">
                                 @Html.DisplayFor(modelItem => item.Email)
                             </td>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.Otros)
                             </td>
                             <td class="centrado">
@@ -56,7 +56,7 @@
             </table>
 
             <div class="row">
-                <div class="span4 offset4 ">
+                <div class="col-xs-4 col-xs-offset-4 ">
                     <a href="@Url.Action("Create","ClientesContactos", new { clienteId = Model.FirstOrDefault().ClienteId })" class="btn btn-block  btn-primary btnSubmit btn-actions">
                         Agregar contacto
                     </a>                    

@@ -3,7 +3,7 @@
 <div class="main">
     <div class="main-inner">
         <div class="container">
-            <div class="span6 offset3">
+            <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
                         <i class="fa fa-key"></i>
@@ -14,7 +14,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Licencia">Licencia</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.LicenciaId, new SelectList(ViewBag.Licencias, "Id", "Serial"), new { @class = " span5" })
+                                    @Html.DropDownListFor(model => model.LicenciaId, new SelectList(ViewBag.Licencias, "Id", "Serial"), new { @class = " col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.LicenciaId)
                                 </div>
                             </div>
@@ -22,7 +22,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="CnnDataSource">Data Source</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.CnnDataSource, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.CnnDataSource, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.CnnDataSource)
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="CnnCatalog">Catalog</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.CnnCatalog, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.CnnCatalog, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.CnnCatalog)
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="CnnUser">User</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.CnnUser, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.CnnUser, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.CnnUser)
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="CnnPassword">Password</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.CnnPassword, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.CnnPassword, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.CnnPassword)
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="CnnServidor">Servidor</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.ConexionServidor, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.ConexionServidor, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.ConexionServidor)
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="FechaDeVencimiento">Fecha de Vencimiento</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FechaDeVencimiento, "{0:dd/MM/yyyy}", new { @class = "span5 datepicker" })
+                                    @Html.TextBoxFor(model => model.FechaDeVencimiento, "{0:dd/MM/yyyy}", new { @class = "col-xs-5 datepicker" })
                                     @Html.ValidationMessageFor(model => model.FechaDeVencimiento)
                                 </div>
                             </div>
@@ -70,14 +70,14 @@
                             <div class="control-group">
                                 <label class="control-label" for="SitioWeb">Sitio Web</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(x => x.SitioId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Sitio Web", new { @class = "span5" })
+                                    @Html.DropDownListFor(x => x.SitioId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Sitio Web", new { @class = "col-xs-5" })
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="Puerto">Puerto</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.SitioPuerto, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.SitioPuerto, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.SitioPuerto)
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="SubDominio">Sub dominio</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.SitioSubDominio, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.SitioSubDominio, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.SitioSubDominio)
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Alias">Alias</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Alias, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Alias, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Alias)
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="AndroidPassword">Password para Android</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.AndroidPassword, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.AndroidPassword, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.AndroidPassword)
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="AndroidUrl">Url para Android</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.AndroidUrl, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.AndroidUrl, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.AndroidUrl)
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="FtpAndroidDir">Dirección Ftp para archivos de Android</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FtpAndroidDir, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.FtpAndroidDir, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.FtpAndroidDir)
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="FtpAndroidUser">Usuario Ftp para archivos de Android</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FtpAndroidUser, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.FtpAndroidUser, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.FtpAndroidUser)
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="FtpAndroidPassword">Password Ftp para archivos de Android</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FtpAndroidPassword, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.FtpAndroidPassword, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.FtpAndroidPassword)
                                 </div>
                             </div>

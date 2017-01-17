@@ -3,7 +3,7 @@
 <div class="main">
     <div class="main-inner">
         <div class="container">
-            <div class="span6 offset3">
+            <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
                         <i class="fa fa-key"></i>
@@ -14,7 +14,7 @@
                             <div class="control-group">
                                 @Html.LabelFor(model => model.TipoTerminalId, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.TipoTerminalId, new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion"), new { @class = " span5" })
+                                    @Html.DropDownList("TipoTerminalID", null, new { @class = "col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.TipoTerminalId)
                                 </div>
                             </div>
@@ -22,7 +22,7 @@
                             <div class="control-group">
                                 @Html.LabelFor(model => model.Referencia, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Referencia, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Referencia, new { @class = "col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.Referencia)
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                             <div class="control-group">
                                 @Html.LabelFor(model => model.Valor1, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Valor1, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Valor1, new { @class = "col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.Valor1)
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                             <div class="control-group">
                                 @Html.LabelFor(model => model.Valor2, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Valor2, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Valor2, new { @class = "col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.Valor2)
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                             <div class="control-group">
                                 @Html.LabelFor(model => model.Valor3, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Valor3, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Valor3, new { @class = "col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.Valor3)
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                             <div class="control-group">
                                 @Html.LabelFor(model => model.Valor4, new { @class = "control-label" })
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Valor4, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Valor4, new { @class = "col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.Valor4)
                                 </div>
                             </div>

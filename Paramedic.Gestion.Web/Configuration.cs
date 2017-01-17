@@ -28,6 +28,8 @@ namespace Paramedic.Gestion.Web
                 var membership = (SimpleMembershipProvider)Membership.Provider;
                 membership.CreateUserAndAccount("mpoggio", "elmaxo");
                 roles.CreateRole("Administrador");
+                roles.CreateRole("Cliente");
+                roles.CreateRole("Cliente ticket");
                 roles.AddUsersToRoles(new[] { "mpoggio" }, new[] { "Administrador" });
             }
 

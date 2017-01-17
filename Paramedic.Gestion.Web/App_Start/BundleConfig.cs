@@ -21,6 +21,7 @@ namespace Gestion
                   "~/Scripts/sbadmin/messenger.min.js",
                   "~/Scripts/sbadmin/messenger-theme-future.min.js",
                   "~/Scripts/sbadmin/general.js"
+
              ));
 
             bundles.Add(new ScriptBundle("~/bundles/libraries_js").Include(
@@ -36,6 +37,12 @@ namespace Gestion
                 "~/Scripts/sbadmin/messenger-theme-future.min.js",
                 "~/Scripts/template_scripts/js/base.js",
                 "~/Scripts/template_scripts/js/jquery.blockUI.js"
+
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/tabs").Include(
+                "~/Scripts/tabs/modernizr.custom.js",
+                "~/Scripts/tabs/cbpFWTabs.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/login_js").Include(
@@ -47,25 +54,28 @@ namespace Gestion
             ));
 
             bundles.Add(new StyleBundle("~/bundles/gestion_css").Include(
-                    "~/Content/template_resources/css/bootstrap.min.css",
-                    "~/Content/template_resources/css/bootstrap-responsive.min.css",
+                    "~/Content/template_resources/css/bootstrap.css",
+                    //"~/Content/template_resources/css/bootstrap-responsive.min.css",
                     "~/Content/template_resources/css/font-awesome.css",
-                    "~/Content/template_resources/css/style.css",
+                    "~/Content/template_resources/css/tabs/*.css",
                     "~/Content/sbadmin/jquery.fancybox.css",
                     "~/Content/sbadmin/datepicker.css",
                     "~/Content/sbadmin/messenger.min.css",
                     "~/Content/sbadmin/messenger-theme-future.min.css",
-                    "~/Content/sbadmin/bootstrap-switch.css"           
+                    "~/Content/sbadmin/bootstrap-switch.css",
+                    "~/Content/template_resources/css/style.css",
+                    "~/Content/template_resources/css/ct-navbar.css"
+
             ));
 
             bundles.Add(new StyleBundle("~/bundles/signin_css").Include(
-                    "~/Content/template_resources/css/pages/signin.css"  
+                    "~/Content/template_resources/css/pages/signin.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/mapa").Include(
                         "~/Scripts/sbadmin/map.js"
                         ));
-                             
+
             bundles.Add(new StyleBundle("~/bundles/AdminCss").Include(
                    "~/Content/sbadmin/bootstrap.css",
                    "~/Content/font-awesome/css/font-awesome.css",

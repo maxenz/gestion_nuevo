@@ -3,7 +3,7 @@
 
 <div id="contactosList">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-xs-10 col-xs-offset-1">
             <div class="widget widget-table action-table">
                 <div class="widget-header">
                     <i class="icon-th-list"></i>
@@ -14,30 +14,30 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="span3">@Html.DisplayNameFor(model => model.First().Cliente.RazonSocial) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Nombre)</th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Email) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Telefono) </th>
-                                <th class="span1">@Html.DisplayNameFor(model => model.First().flgPrincipal) </th>
+                                <th class="col-xs-3">@Html.DisplayNameFor(model => model.First().Cliente.RazonSocial) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Nombre)</th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Email) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Telefono) </th>
+                                <th class="col-xs-1">@Html.DisplayNameFor(model => model.First().flgPrincipal) </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td class="span3">
+                                    <td class="col-xs-3">
                                         @Html.DisplayFor(modelItem => item.Cliente.RazonSocial)
                                     </td>
-                                    <td class="span2">
+                                    <td class="col-xs-2">
                                         @Html.DisplayFor(modelItem => item.Nombre)
                                     </td>
-                                    <td class="span2">
+                                    <td class="col-xs-2">
                                         @Html.DisplayFor(modelItem => item.Email)
                                     </td>
-                                    <td class="span2">
+                                    <td class="col-xs-2">
                                         @Html.DisplayFor(modelItem => item.Telefono)
                                     </td>
-                                    <td class="span1 centrado">
+                                    <td class="col-xs-1 centrado">
                                         @{
                                             if (item.flgPrincipal == 1)
                                             {                                        
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="pagedList span7 offset3" data-gestion-target="#contactosList">
+        <div class="pagedList col-xs-7 col-xs-offset-3" data-gestion-target="#contactosList">
 
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 

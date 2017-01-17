@@ -2,44 +2,44 @@
 
 <div id="clientesUsuariosList">
                     <div class="row">
-                        <div class="span10 offset1" >
+                        <div class="col-xs-10 col-xs-offset-1" >
                             <table class="table table-hover table-striped table-bordered tableIndex">
                                 <thead>
                                     <tr>
-                                        <th class="span2 centrado">
+                                        <th class="col-xs-2 centrado">
                                             @Html.DisplayNameFor(model => model.First().Usuario.UserName)
                                         </th>
-                                        <th class="span2 centrado">
+                                        <th class="col-xs-2 centrado">
                                             @Html.DisplayNameFor(model => model.First().ShamanFullId)
                                         </th>
-                                        <th class="span2 centrado">
+                                        <th class="col-xs-2 centrado">
                                             @Html.DisplayNameFor(model => model.First().ShamanExpressId)
                                         </th>
  
-                                        <th class="span1 centrado"></th>
-                                        <th class="span1 centrado"></th>
+                                        <th class="col-xs-1 centrado"></th>
+                                        <th class="col-xs-1 centrado"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td class="span2 centrado">
+                                            <td class="col-xs-2 centrado">
                                                 @Html.DisplayFor(modelItem => item.Usuario.UserName)
                                             </td>
-                                            <td class="span2 centrado">
+                                            <td class="col-xs-2 centrado">
                                                 @Html.DisplayFor(modelItem => item.ShamanFullId)
                                             </td>
-                                            <td class="span2 centrado">
+                                            <td class="col-xs-2 centrado">
                                                 @Html.DisplayFor(modelItem => item.ShamanExpressId)
                                             </td>
                                             <td class="centrado">
-                                                <a href="@Url.Action("Edit", "ClientesUsuarios", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                                <a href="@Url.Action("Edit", "ClientesUsuarios", new { id = item.Id , clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions">
                                                     <i class="btn-icon-only fa fa-edit"></i>
                                                 </a>
                                             </td>
                                             <td class="centrado">
-                                                <a href="@Url.Action("Delete","ClientesUsuarios", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesUsuariosList">
+                                                <a href="@Url.Action("Delete","ClientesUsuarios", new { id = item.Id , clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesUsuariosList">
                                                     <i class="btn-icon-only fa fa-times"></i>
                                                 </a>
                                             </td>
@@ -51,7 +51,7 @@
 
                             <div class="row">
 
-                                <div class="span4 offset4 ">
+                                <div class="col-xs-4 col-xs-offset-4 ">
                                     <a href="@Url.Action("Create","ClientesUsuarios", new { clienteId = ViewBag.ClienteID })" class="btn btn-block btn-primary btnSubmit btn-actions">
                                         Agregar Usuario
                                     </a>

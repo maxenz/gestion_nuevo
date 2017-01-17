@@ -1,0 +1,17 @@
+
+.no-flexbox .support {
+	display: block;
+}
+
+.hidden {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	opacity: 0;
+}
+
+.container > section {
+	font-size: 1.25em;
+	min-height: 100%;
+}

@@ -189,7 +189,7 @@ namespace Gestion.Controllers
                 return RedirectToLocal(returnUrl);
             }
 
-            ModelState.AddModelError("", "Usuario y/o contraseña incorrecto/s.");
+            ModelState.AddModelError("", "Datos incorrectos.");
             return View("Login", "_TemplateGestion_Login", model);
         }
 

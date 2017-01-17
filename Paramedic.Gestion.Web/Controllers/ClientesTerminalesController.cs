@@ -55,9 +55,7 @@ namespace Gestion.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
-            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", ViewBag.ClienteID);
-            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion");
+            setGeneralViewData(null);
             return View();
         }
         
@@ -70,9 +68,7 @@ namespace Gestion.Controllers
                 return RedirectToAction("Edit", "Clientes", new { id = clientesterminal.ClienteId });
             }
 
-            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
-            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal.ClienteId);
-            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion");
+            setGeneralViewData(clientesterminal);
             return View(clientesterminal);
         }
 
@@ -84,9 +80,7 @@ namespace Gestion.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
-            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal.ClienteId);
-            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion", clientesterminal.TipoTerminalId);
+            setGeneralViewData(clientesterminal);
 
             return View(clientesterminal);
         }
@@ -100,9 +94,7 @@ namespace Gestion.Controllers
                 return RedirectToAction("Edit", "Clientes", new { id = clientesterminal.ClienteId });
             }
 
-            ViewBag.TipoTerminales = _TipoTerminalService.GetAll();
-            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal.ClienteId);
-            ViewBag.TipoTerminalID = new SelectList(ViewBag.TipoTerminales, "Id", "Descripcion", clientesterminal.TipoTerminalId);
+            setGeneralViewData(clientesterminal);
             return View(clientesterminal);
         }
 
@@ -112,6 +104,16 @@ namespace Gestion.Controllers
             ClientesTerminal clientesterminal = _ClientesTerminalService.FindBy(x => x.Id == id).FirstOrDefault();
             _ClientesTerminalService.Delete(clientesterminal);
             return RedirectToAction("Index", routeValues: new { ClienteID = clientesterminal.ClienteId });
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void setGeneralViewData(ClientesTerminal clientesterminal)
+        {
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal != null ? clientesterminal.ClienteId : ViewBag.ClienteID);
+            ViewBag.TipoTerminalID = new SelectList(_TipoTerminalService.GetAll(), "Id", "Descripcion", clientesterminal != null ? clientesterminal.TipoTerminalId : 0);
         }
 
         #endregion

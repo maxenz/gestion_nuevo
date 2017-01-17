@@ -4,7 +4,7 @@
 
 <div id="logsList">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-xs-10 col-xs-offset-1">
             <div class="widget widget-table action-table">
                 <div class="widget-header">
                     <i class="icon-th-list"></i>
@@ -15,11 +15,11 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Cliente) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Serial)</th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().FechaHora) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().IP) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Referencia) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Cliente) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Serial)</th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().FechaHora) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().IP) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Referencia) </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="pagedList span7 offset3" data-gestion-target="#logsList">
+        <div class="pagedList col-xs-7 col-xs-offset-3" data-gestion-target="#logsList">
 
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 

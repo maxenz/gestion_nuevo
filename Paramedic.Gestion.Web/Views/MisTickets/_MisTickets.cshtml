@@ -5,7 +5,7 @@
 
 <div id="misTicketsList">
     <div class="row">
-        <div class="span10 offset1" style="margin-bottom: -30px">
+        <div class="col-xs-10 col-xs-offset-1" style="margin-bottom: -30px">
             <div class="widget widget-table action-table">
                 <div class="widget-header">
                     <i class="icon-th-list"></i>
@@ -16,12 +16,12 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="span3">@Html.DisplayNameFor(model => model.FirstOrDefault().UpdatedDate) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Usuario)</th>
-                                @*<th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Cliente) </th>*@
-                                <th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Asunto) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.FirstOrDefault().Asunto) </th>
-                                <th class="span1"></th>
+                                <th class="col-xs-3">@Html.DisplayNameFor(model => model.FirstOrDefault().UpdatedDate) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Usuario)</th>
+                                @*<th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Cliente) </th>*@
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Asunto) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Asunto) </th>
+                                <th class="col-xs-1"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,7 +59,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="pagedList span7 offset5" data-gestion-target="#misTicketsList">
+        <div class="pagedList col-xs-7 col-xs-offset-5" data-gestion-target="#misTicketsList">
 
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 

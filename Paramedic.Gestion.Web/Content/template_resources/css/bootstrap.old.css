@@ -1018,7 +1018,6 @@ table {
 	border: 1px solid #dddddd;
 	border-left: 0;
 	border-collapse: separate;
-*border-collapse:collapsed;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
@@ -2479,7 +2478,8 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 	border-color: #ddd #ddd #ddd transparent;
 *border-left-color:#ffffff;
 }
-.navbar {
+
+/*.navbar {
 *position:relative;
 *z-index:2;
 	overflow: visible;
@@ -2778,7 +2778,7 @@ color:#cccccc;
 .navbar .nav.pull-right .dropdown-menu:after, .navbar .nav .dropdown-menu.pull-right:after {
 	left: auto;
 	right: 13px;
-}
+}*/
 .breadcrumb {
 	padding: 7px 14px;
 	margin: 0 0 18px;

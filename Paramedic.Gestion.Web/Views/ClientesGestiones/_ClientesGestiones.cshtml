@@ -2,26 +2,26 @@
 
 <div id="clientesGestionesList">
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-xs-10 col-xs-offset-1">
             <table class="table table-hover table-striped table-bordered tableIndex" id="tbGestion">
                 <thead>
                     <tr>
-                        <th class="span2 centrado">
+                        <th class="col-xs-2 centrado">
                             @Html.DisplayNameFor(model => model.First().Fecha)
                         </th>
-                        <th class="span2 centrado">
+                        <th class="col-xs-2 centrado">
                             @Html.DisplayNameFor(model => model.First().Estado.Descripcion)
                         </th>
-                        <th class="span4 centrado">
+                        <th class="col-xs-4 centrado">
                             @Html.DisplayNameFor(model => model.First().Observaciones)
                         </th>
-                        <th class="span2 centrado">
+                        <th class="col-xs-2 centrado">
                             @Html.DisplayNameFor(model => model.First().FechaRecontacto)
                         </th>
 
-                        <th class="span1 centrado">PDF</th>
-                        <th class="span1 centrado"></th>
-                        <th class="span1 centrado"></th>
+                        <th class="col-xs-1 centrado">PDF</th>
+                        <th class="col-xs-1 centrado"></th>
+                        <th class="col-xs-1 centrado"></th>
 
                     </tr>
                 </thead>
@@ -29,19 +29,19 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.Fecha)
                             </td>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.Estado.Descripcion)
                             </td>
-                            <td class="span4 centrado">
+                            <td class="col-xs-4 centrado">
                                 @Html.DisplayFor(modelItem => item.Observaciones)
                             </td>
-                            <td class="span2 centrado">
+                            <td class="col-xs-2 centrado">
                                 @Html.DisplayFor(modelItem => item.FechaRecontacto)
                             </td>
-                            <td class="span1 centrado">
+                            <td class="col-xs-1 centrado">
                                 @if (item.PdfGestion != null)
                                 {
                                     <a href="@Url.Action("PdfDisplay", "ClientesGestiones", new { id = item.Id, clienteId = item.ClienteId })" target="_blank">
@@ -67,7 +67,7 @@
 
             <div class="row">
 
-                <div class="span4 offset4">
+                <div class="col-xs-4 col-xs-offset-4">
                     <a href="@Url.Action("Create", "ClientesGestiones",new { ClienteId = @ViewBag.Cliente_ID })" class="btn btn-block  btn-primary btnSubmit btn-actions">
                         Agregar Gesti&oacute;n
                     </a>

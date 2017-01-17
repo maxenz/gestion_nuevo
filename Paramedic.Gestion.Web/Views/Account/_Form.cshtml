@@ -3,7 +3,7 @@
 <div class="main">
     <div class="main-inner">
         <div class="container">
-            <div class="span6 offset3">
+            <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
                         <i class="fa fa-key"></i>
@@ -16,7 +16,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="UserName">Nombre de Usuario</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.UserName, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.UserName, new { @class = "col-xs-5", autofocus = "" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.UserName)
                             </div>
@@ -24,7 +24,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Nombre">Nombre</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "col-xs-5" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Nombre)
                             </div>
@@ -33,7 +33,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Apellido">Apellido</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Apellido, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Apellido, new { @class = "col-xs-5" })
                                 </div>@Html.ValidationMessageFor(model => model.Apellido)
 
                             </div>
@@ -42,7 +42,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Password">Password</label>
                                 <div class="controls">
-                                    @Html.PasswordFor(model => model.Password, new { @class = "span5" })
+                                    @Html.PasswordFor(model => model.Password, new { @class = "col-xs-5" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Password)
                             </div>
@@ -50,7 +50,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="ConfirmPassword">Confirmar Password</label>
                                 <div class="controls">
-                                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "span5" })
+                                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "col-xs-5" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword)
                             </div>
@@ -58,7 +58,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Email">Email</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Email, new { @class = "span5" })
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "col-xs-5" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Email)
                             </div>
@@ -66,7 +66,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="selectedRole">Rol</label>
                                 <div class="controls">
-                                    @Html.DropDownList("selectedRole", (SelectList)ViewBag.Roles, new { @class = "span5" })
+                                    @Html.DropDownList("selectedRole", (SelectList)ViewBag.Roles, new { @class = "col-xs-5" })
                                 </div>
                             </div>
 

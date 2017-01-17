@@ -3,7 +3,7 @@
 
 <div id="clientesList">
     <div class="row">
-        <div class="span12 " style="margin-bottom: -30px">
+        <div class="col-xs-12 " style="margin-bottom: -30px">
             <div class="widget widget-table action-table">
                 <div class="widget-header">
                     <i class="icon-th-list"></i>
@@ -14,14 +14,14 @@
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().RazonSocial) </th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Pais)</th>
-                                <th class="span2">@Html.DisplayNameFor(model => model.First().Provincia) </th>
-                                <th class="span1">@Html.DisplayNameFor(model => model.First().Localidad) </th>
-                                <th class="span1">@Html.DisplayNameFor(model => model.First().Gestion) </th>
-                                <th class="span1">@Html.DisplayNameFor(model => model.First().FecUltGestion) </th>
-                                <th class="span1"></th>
-                                <th class="span1"></th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().RazonSocial) </th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Pais)</th>
+                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Provincia) </th>
+                                <th class="col-xs-1">@Html.DisplayNameFor(model => model.First().Localidad) </th>
+                                <th class="col-xs-1">@Html.DisplayNameFor(model => model.First().Gestion) </th>
+                                <th class="col-xs-1">@Html.DisplayNameFor(model => model.First().FecUltGestion) </th>
+                                <th class="col-xs-1"></th>
+                                <th class="col-xs-1"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,7 +69,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="pagedList span7 offset5" data-gestion-target="#clientesList">
+        <div class="pagedList col-xs-7 col-xs-offset-5" data-gestion-target="#clientesList">
 
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 

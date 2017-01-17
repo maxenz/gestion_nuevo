@@ -11,7 +11,7 @@
 
     List<Gestion.ViewModels.ProductosAsignados> prodAsig = ViewBag.Productos;
     <div class="container">
-        <div class="span6 offset3">
+        <div class="col-xs-6 col-xs-offset-3">
             <div class="widget">
                 <div class="widget-header">
                     <i class="fa fa-key"></i>
@@ -21,7 +21,7 @@
                     @foreach (var prod in prodAsig)
                     {
                         <div class="row">
-                            <div class="make-switch make-switch-full span3 offset1" data-text-label="@prod.Descripcion"
+                            <div class="make-switch make-switch-full col-xs-3 col-xs-offset-1" data-text-label="@prod.Descripcion"
                                  data-on-label="
                                 <i class='icon-ok'></i>"
                                 data-off-label="<i class='fa fa-times'></i>">
@@ -33,8 +33,8 @@
                                         clientesLicenciaId = Model.Id,
                                         productoId = @prod.ProductoID
                                     })"
-                               class="modExcluidos span1"
-                               data-gestion-setmode class="modExcluidos span1"
+                               class="modExcluidos col-xs-1"
+                               data-gestion-setmode class="modExcluidos col-xs-1"
                                data-gestion-setmodexc="@Url.Action("SetModExcluidos","ClientesLicencias",
                                  new {
                                         clientesLicenciaId = Model.Id,

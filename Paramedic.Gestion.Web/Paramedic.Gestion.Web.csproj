@@ -246,6 +246,7 @@
     <Compile Include="Controllers\LicenciasController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
     <Compile Include="Controllers\MediosDifusionController.cs" />
+    <Compile Include="Controllers\MisProductosController.cs" />
     <Compile Include="Controllers\MisTicketsController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
@@ -348,9 +349,8 @@
     <Content Include="Content\template_resources\css\base-admin-responsive.css" />
     <Content Include="Content\template_resources\css\bootstrap-responsive.min.css" />
     <Content Include="Content\template_resources\css\bootstrap.css" />
-    <Content Include="Content\template_resources\css\bootstrap.min.css" />
-    <Content Include="Content\template_resources\css\font-awesome-ie7.css" />
-    <Content Include="Content\template_resources\css\font-awesome-ie7.min.css" />
+    <Content Include="Content\template_resources\css\bootstrap.old.css" />
+    <Content Include="Content\template_resources\css\ct-navbar.css" />
     <Content Include="Content\template_resources\css\font-awesome.css" />
     <Content Include="Content\template_resources\css\font-awesome.min.css" />
     <Content Include="Content\template_resources\css\fonts.css" />
@@ -360,8 +360,11 @@
     <Content Include="Content\template_resources\css\pages\reports.css" />
     <Content Include="Content\template_resources\css\pages\signin.css" />
     <Content Include="Content\template_resources\css\style.css" />
-    <Content Include="Content\template_resources\font\fontawesome-webfont.svg" />
-    <Content Include="Content\template_resources\font\fontawesome-webfont.svgz" />
+    <Content Include="Content\template_resources\css\tabs\demo.css" />
+    <Content Include="Content\template_resources\css\tabs\normalize.css" />
+    <Content Include="Content\template_resources\css\tabs\tabs.css" />
+    <Content Include="Content\template_resources\css\tabs\tabstyles.css" />
+    <Content Include="Content\template_resources\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\template_resources\img\body-bg.png" />
     <Content Include="Content\template_resources\img\glyphicons-halflings-white.html" />
     <Content Include="Content\template_resources\img\glyphicons-halflings.html" />
@@ -479,11 +482,6 @@
     <Content Include="Content\bootstrap\navs.less" />
     <Content Include="Content\bootstrap\navbar.less" />
     <Content Include="Content\bootstrap\button-groups.less" />
-    <Content Include="Content\template_resources\font\fontawesome-webfont.eot" />
-    <Content Include="Content\template_resources\font\fontawesome-webfont.ttf" />
-    <Content Include="Content\template_resources\font\fontawesome-webfont.woff" />
-    <Content Include="Content\template_resources\font\fontawesome-webfontd41d.eot" />
-    <Content Include="Content\template_resources\font\FontAwesome.otf" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
@@ -593,6 +591,11 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <Content Include="Content\template_resources\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\template_resources\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\template_resources\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\template_resources\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\template_resources\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\Maxo.pubxml" />
     <Content Include="img\body-bg.png" />
     <Content Include="img\glyphicons-halflings-white.html" />
@@ -739,6 +742,8 @@
     <Content Include="Scripts\sbadmin\morris\chart-data-morris.js" />
     <Content Include="Scripts\sbadmin\tablesorter\jquery.tablesorter.js" />
     <Content Include="Scripts\sbadmin\tablesorter\tables.js" />
+    <Content Include="Scripts\tabs\cbpFWTabs.js" />
+    <Content Include="Scripts\tabs\modernizr.custom.js" />
     <Content Include="Scripts\template_scripts\js\general.js" />
     <Content Include="Scripts\template_scripts\js\base.js" />
     <Content Include="Scripts\template_scripts\js\bootstrap.js" />

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
-using PagedList;
 using System.Data.SqlClient;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Service;
@@ -20,14 +16,18 @@ namespace Gestion.Controllers
         #region Properties
 
         IClienteService _ClienteService;
+        IClientesUsuarioService _ClienteUsuarioService;
+        IUserProfileService _UserProfileService;
 
         #endregion
 
         #region Constructors
 
-        public MisProductosController(IClienteService ClienteService)
+        public MisProductosController(IClienteService ClienteService, IClientesUsuarioService ClienteUsuarioService, IUserProfileService UserProfileService)
         {
             _ClienteService = ClienteService;
+            _ClienteUsuarioService = ClienteUsuarioService;
+            _UserProfileService = UserProfileService;
         }
 
         #endregion
@@ -45,7 +45,7 @@ namespace Gestion.Controllers
                 }
                 else
                 {
-                    Cliente cli = db.Clientes.Find(ClienteID);
+                    Cliente cli = _ClienteService.FindBy(x => x.Id == ClienteID).FirstOrDefault();
                     var productos = setProductos(cli);
                     if (productos != null)
                     {
@@ -61,9 +61,10 @@ namespace Gestion.Controllers
             else
             {
                 var userName = User.Identity.Name;
-                var userID = db.UserProfiles.Where(x => x.UserName == userName).FirstOrDefault().UserId;
 
-                ClientesUsuario cliUsr = db.ClientesUsuarios.Where(x => x.UsuarioID == userID).FirstOrDefault();
+                int userId = _UserProfileService.FindBy(x => x.UserName == userName).FirstOrDefault().Id;
+
+                ClientesUsuario cliUsr = _ClienteUsuarioService.FindBy(x => x.UsuarioId == userId).FirstOrDefault();                
 
                 getUserForShamanWeb(1, cliUsr);
 
@@ -87,11 +88,11 @@ namespace Gestion.Controllers
             int shmID;
             if (typeShaman == 1)
             {
-                shmID = Convert.ToInt32(cliUsr.ShamanExpressID);
+                shmID = Convert.ToInt32(cliUsr.ShamanExpressId);
             }
             else
             {
-                shmID = Convert.ToInt32(cliUsr.ShamanFullID);
+                shmID = Convert.ToInt32(cliUsr.ShamanFullId);
             }
 
             if (shmID == 0)
@@ -144,7 +145,8 @@ namespace Gestion.Controllers
 
         private IList<ClientesLicenciasProducto> setProductos(Cliente cliente)
         {
-            var cliLic = db.Clientes.Find(cliente.ID).ClientesLicencias.FirstOrDefault();
+            ClientesLicencia cliLic = _ClienteService.FindBy(x => x.Id == cliente.Id).FirstOrDefault().ClientesLicencias.FirstOrDefault();
+
             if (cliLic == null)
             {
                 return null;

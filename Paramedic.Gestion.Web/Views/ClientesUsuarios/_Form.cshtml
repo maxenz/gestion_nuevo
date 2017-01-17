@@ -3,7 +3,7 @@
 <div class="main">
     <div class="main-inner">
         <div class="container">
-            <div class="span6 offset3">
+            <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
                         <i class="fa fa-key"></i>
@@ -14,7 +14,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Usuario">Usuario</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.UsuarioId, new SelectList(ViewBag.Usuarios, "Id", "UserName"), new { @class = "span5" })
+                                    @Html.DropDownList("UsuarioID",null, new { @class = "col-xs-5" })
                                     @Html.ValidationMessageFor(model => model.UsuarioId)
                                 </div>
                             </div>
@@ -22,7 +22,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="ShamanExpressID">Shaman Express ID</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.ShamanExpressId, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.ShamanExpressId, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.ShamanExpressId)
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="ShamanFullID">Shaman Full ID</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.ShamanFullId, new { @class = "span5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.ShamanFullId, new { @class = "col-xs-5", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.ShamanFullId)
                                 </div>
                             </div>
