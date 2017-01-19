@@ -6,7 +6,6 @@
         <div class="col-xs-12 " style="margin-bottom: -30px">
             <div class="widget widget-table action-table">
                 <div class="widget-header">
-                    
                     <h3>Clientes</h3>
                 </div>
 
@@ -67,10 +66,7 @@
 
         </div>
     </div>
-    <div class="row">
-        <div class="pagedList col-xs-7 col-xs-offset-4" data-gestion-target="#clientesList">
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-        </div>
-
+    <div class="pagedList centered" data-gestion-target="#clientesList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
     </div>
 </div>

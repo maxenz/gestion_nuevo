@@ -257,6 +257,7 @@
     <Compile Include="Controllers\RevendedoresController.cs" />
     <Compile Include="Controllers\SitiosController.cs" />
     <Compile Include="Controllers\TipoTerminalesController.cs" />
+    <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Converters\TicketConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -286,6 +287,7 @@
     <Compile Include="ViewModels\LicenciasEstados.cs" />
     <Compile Include="ViewModels\ProductosAsignados.cs" />
     <Compile Include="ViewModels\TicketsPrincipal.cs" />
+    <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Web References\wsCuentaCorriente\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

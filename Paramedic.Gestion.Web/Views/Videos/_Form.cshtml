@@ -1,4 +1,4 @@
-﻿@model Gestion.Models.Video
+﻿@model Paramedic.Gestion.Web.ViewModels.VideoViewModel
 
 <div class="main">
     <div class="main-inner">
@@ -6,68 +6,54 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
-                        
                         <h3>Videos</h3>
                     </div>
 
                     <div class="widget-content">
-                            <fieldset>
-                                
-                                <div class="control-group">
-                                    <label class="control-label" for="Descripcion">Descripci&oacute;n</label>
-                                    <div class="controls">
-                                        @Html.TextBoxFor(model => model.Descripcion, new { @class ="col-xs-5" })
-                                        @Html.ValidationMessageFor(model => model.Descripcion,null,new {@class = "col-xs-5"})
-                                    </div> <!-- /controls -->
-                                </div> <!-- /control-group -->
+                        <fieldset>
 
-                                <div class="control-group">
-                                    <label class="control-label" for="vidCliente">Cliente</label>
-                                    <div class="controls">
-                                        @Html.DropDownList("vidCliente", new SelectList(ViewBag.Clientes, "ID", "RazonSocial"), "Seleccione Cliente", new { @class = "col-xs-5" })
-                                    </div> <!-- /controls -->
-                                </div> <!-- /control-group -->
+                            <div class="control-group">
+                                <label class="control-label" for="Descripcion">Descripci&oacute;n</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Descripcion, new { @class = "col-xs-12 form-control", autofocus = "" })
+                                    @Html.ValidationMessageFor(model => model.Descripcion)
+                                </div>
+                            </div>
 
+                            <div class="control-group">
+                                <label class="control-label" for="vidCliente">Cliente</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.ClienteId, new SelectList(ViewBag.Clientes, "Id", "RazonSocial"), null, new { @class = "col-xs-12 form-control" })
+                                </div>
+                            </div>
 
-                                <div class="control-group">
-                                    <label class="control-label" for="esPublico">Es P&uacute;blico?</label>
-                                    <div class="controls">
-                                        @Html.CheckBoxFor(model => model.esPublico)
-                                        @Html.ValidationMessageFor(model => model.esPublico,null, new { @class = "col-xs-5" })
-                                    </div> <!-- /controls -->
-                                </div> <!-- /control-group -->
+                            <div class="control-group">
+                                <label class="control-label" for="esPublico">Es P&uacute;blico?</label>
+                                <div class="controls margin-left-5">
+                                    @Html.CheckBoxFor(model => model.EsPublico)
+                                    @Html.ValidationMessageFor(model => model.EsPublico)
+                                </div>
+                            </div>
 
+                            <div class="control-group">
+                                <label class="control-label" for="Alias">Alias</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Alias, new { @class = "col-xs-12 form-control" })
+                                    @Html.ValidationMessageFor(model => model.Alias)
+                                </div>
+                            </div>
 
-                                <div class="control-group">
-                                    <label class="control-label" for="Alias">Alias</label>
-                                    <div class="controls">
-                                        @Html.TextBoxFor(model => model.Alias, new { @class = "col-xs-5"})
-                                        @Html.ValidationMessageFor(model => model.Alias, null, new { @class = "col-xs-5" })
-                                    </div> <!-- /controls -->
-                                </div> <!-- /control-group -->
+                            <br>
 
-                                <div class="control-group">
-                                    <label class="control-label" for="Fecha">Fecha</label>
-                                    <div class="controls">
-                                        @Html.TextBoxFor(model => model.Fecha, "{0:dd/MM/yyyy}", new { @class = "datepicker col-xs-5" })
-                                        @Html.ValidationMessageFor(model => model.Fecha, null, new { @class = "col-xs-5" })
-                                    </div> <!-- /controls -->
-                                </div> <!-- /control-group -->
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success btn-outline">Guardar</button>
+                                <a href="@Url.Action("Index")" class="btn btn-danger btn-outline">Cancelar</a>
+                            </div>
 
-                                <br>
-
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-success btn-outline">Guardar</button>
-                                    <a href="@Url.Action("Index")" class="btn btn-danger btn-outline">Cancelar</a>
-                                </div> <!-- /form-actions -->
-                            </fieldset>
+                        </fieldset>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
-    <!-- /container -->
 </div>
-

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
@@ -71,7 +72,8 @@ namespace Paramedic.Gestion.Model
                         entity.CreatedBy = identityName;
                         entity.CreatedDate = now;
                     }
-                    else {
+                    else
+                    {
                         base.Entry(entity).Property(x => x.CreatedBy).IsModified = false;
                         base.Entry(entity).Property(x => x.CreatedDate).IsModified = false;
                     }
@@ -98,6 +100,13 @@ namespace Paramedic.Gestion.Model
                     mc.MapRightKey("ProductoId");
                 }
             );
+
+            modelBuilder.Entity<VideosCliente>()
+            .HasKey(c => new { c.Id, c.VideoId });
+
+            modelBuilder.Entity<VideosCliente>()
+                        .Property(c => c.Id)
+                        .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
         }
 

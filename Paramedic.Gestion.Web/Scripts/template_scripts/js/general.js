@@ -435,21 +435,21 @@ $(function () {
 
     var verifPrivacidadVideo = function () {
 
-        if ($('#esPublico').is(':checked')) {
+        if ($('#EsPublico').is(':checked')) {
 
-            $('select[name="vidCliente"]').attr('disabled', 'disabled');
+            $('select[name="ClienteId"]').attr('disabled', 'disabled');
             $('.btn.selectpicker').attr('disabled', 'disabled');
 
         } else {
 
-            $('select[name="vidCliente"]').removeAttr('disabled');
+            $('select[name="ClienteId"]').removeAttr('disabled');
             $('.btn.selectpicker').removeAttr('disabled');
         }
 
     };
 
     verifPrivacidadVideo();
-    $('#esPublico').on('click', verifPrivacidadVideo);
+    $('#EsPublico').on('click', verifPrivacidadVideo);
 
     validarLocalidad();
     setFormatTables();

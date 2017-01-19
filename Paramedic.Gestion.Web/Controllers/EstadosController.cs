@@ -44,7 +44,6 @@ namespace Gestion.Controllers
             }
 
             return View(resultAsPagedList);
-
         }
 
         public ActionResult Create()

@@ -91,6 +91,7 @@
     <Compile Include="ITicketService.cs" />
     <Compile Include="ITipoTerminalService.cs" />
     <Compile Include="IUserProfileService.cs" />
+    <Compile Include="IVideoService.cs" />
     <Compile Include="LicenciaService.cs" />
     <Compile Include="LocalidadService.cs" />
     <Compile Include="MedioDifusionService.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="TicketService.cs" />
     <Compile Include="TipoTerminalService.cs" />
     <Compile Include="UserProfileService.cs" />
+    <Compile Include="VideoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paramedic.Gestion.Model\Paramedic.Gestion.Model.csproj">

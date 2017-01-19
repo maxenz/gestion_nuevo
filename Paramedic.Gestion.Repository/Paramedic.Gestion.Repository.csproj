@@ -87,6 +87,7 @@
     <Compile Include="ITicketRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUserProfileRepository.cs" />
+    <Compile Include="IVideoRepository.cs" />
     <Compile Include="LicenciaRepository.cs" />
     <Compile Include="LocalidadRepository.cs" />
     <Compile Include="MedioDifusionRepository.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="TicketRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UserProfileRepository.cs" />
+    <Compile Include="VideoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paramedic.Gestion.Model\Paramedic.Gestion.Model.csproj">

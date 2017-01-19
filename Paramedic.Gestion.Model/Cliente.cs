@@ -27,8 +27,11 @@ namespace Paramedic.Gestion.Model
         [Display(Name = "Sitio Web")]
         [DataType(DataType.Url)]
         public string SitioWeb { get; set; }
+
         public string Referencia { get; set; }
+
         public string Latitud { get; set; }
+
         public string Longitud { get; set; }
 
         [Column(TypeName = "DateTime2")]
@@ -49,10 +52,16 @@ namespace Paramedic.Gestion.Model
         public int? MedioDifusionId { get; set; }
 
         public virtual ICollection<ClientesContacto> ClientesContactos { get; set; }
+
         public virtual ICollection<ClientesGestion> ClientesGestiones { get; set; }
+
         public virtual ICollection<ClientesTerminal> ClientesTerminales { get; set; }
+
         public virtual ICollection<ClientesUsuario> ClientesUsuarios { get; set; }
+
         public virtual ICollection<ClientesLicencia> ClientesLicencias { get; set; }
+
+        public virtual ICollection<VideosCliente> ClientesVideos { get; set; }
 
         [ForeignKey("LocalidadId")]
         public virtual Localidad Localidad { get; set; }

@@ -11,7 +11,6 @@
 
                     <div class="widget-content">
                         <fieldset>
-
                             <div class="control-group">
                                 <label class="control-label" for="UserName">Nombre de Usuario</label>
                                 <div class="controls">
@@ -28,15 +27,12 @@
                                 @Html.ValidationMessageFor(model => model.Nombre)
                             </div>
 
-
                             <div class="control-group">
                                 <label class="control-label" for="Apellido">Apellido</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Apellido, new { @class = "col-xs-12 form-control" })
                                 </div>@Html.ValidationMessageFor(model => model.Apellido)
-
                             </div>
-
 
                             <div class="control-group">
                                 <label class="control-label" for="Password">Password</label>

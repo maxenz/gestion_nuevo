@@ -1,278 +1,189 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
+using Paramedic.Gestion.Web.ViewModels;
 
 namespace Gestion.Controllers
 {
     [Authorize]
     public class VideosController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-        private bool isAdministrator()
+        IVideoService _VideoService;
+        IClienteService _ClienteService;
+        IUserProfileService _UserProfileService;
+        IClientesUsuarioService _ClientesUsuarioService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public VideosController(IVideoService VideoService, IClienteService ClienteService, IUserProfileService UserProfileService, IClientesUsuarioService ClientesUsuarioService)
         {
-
-            if (User.IsInRole("Administrador"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            _VideoService = VideoService;
+            _ClienteService = ClienteService;
+            _UserProfileService = UserProfileService;
+            _ClientesUsuarioService = ClientesUsuarioService;
         }
 
-        private int GetCurrentUserID()
-        {
+        #endregion
 
-            var user = db.UserProfiles.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-            return user.UserId;
-
-        }
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
+            int currentUserId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
+            ICollection<Video> videos = new List<Video>();
 
-            IList<Video> allVideos = new List<Video>();
-
-            if (isAdministrator())
+            if (User.IsInRole("Administrador"))
             {
-                allVideos = db.Videos.ToList();
+                videos = _VideoService.GetAll().ToList();
             }
             else
             {
-                var vd = db.Videos;
-                foreach (var v in vd)
+                Cliente cliente =
+                    _ClientesUsuarioService
+                    .FindBy(x => x.Id == currentUserId)
+                    .Select(x => x.Cliente).FirstOrDefault();
+
+                foreach (Video video in _VideoService.GetAll())
                 {
-                    int user_id = GetCurrentUserID();
-                    int cli_video_id = db.VideosClientes.Where(g => g.VideoID == v.ID).Select(g => g.ClienteID).FirstOrDefault();
-                    int cli_id = db.ClientesUsuarios.Where(c => c.UsuarioID == user_id).Select(c => c.ClienteID).FirstOrDefault();
-                    if ((v.esPublico) || (cli_video_id == cli_id))
+                    if (video.EsPublico || video.ClientesVideos.Any(x => x.ClienteId == cliente.Id))
                     {
-                        allVideos.Add(v);
+                        videos.Add(video);
                     }
                 }
             }
 
-
-            if (!String.IsNullOrEmpty(searchName))
+            if (!string.IsNullOrEmpty(searchName))
             {
-
-                allVideos = allVideos.Where(p => p.Descripcion.ToUpper().Contains(searchName.ToUpper())).ToList();
+                videos = videos.Where(p => p.Descripcion.ToUpper().Contains(searchName.ToUpper())).ToList();
             }
 
-            allVideos = allVideos.OrderBy(p => p.Descripcion).ToList();
+            int count = videos.Count;
+            var resultAsPagedList = new StaticPagedList<Video>(videos.AsEnumerable<Video>(), page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_Videos", allVideos.ToPagedList(page, 6));
+                return PartialView("_Videos", resultAsPagedList);
             }
 
-            return View(allVideos.ToPagedList(page, 6));
+            return View(resultAsPagedList);
         }
 
-        //
-        // GET: /Videos/Details/5
-
-        private void getClientes()
-        {
-
-            List<Cliente> clientes = new List<Cliente>();
-
-            clientes = db.Clientes.OrderBy(p => p.RazonSocial).ToList();
-
-            ViewBag.Clientes = clientes;
-
-        }
-
-        public ActionResult Details(int id = 0)
-        {
-            Video video = db.Videos.Find(id);
-            if (video == null)
-            {
-                return HttpNotFound();
-            }
-            return View(video);
-        }
-
-        //
-        // GET: /Videos/Create
-        [Authorize(Roles="Administrador")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Create()
         {
-            getClientes();
+            ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
             return View();
         }
 
-        //
-        // POST: /Videos/Create
         [Authorize(Roles = "Administrador")]
         [HttpPost]
-        public ActionResult Create(Video video, string vidCliente)
+        public ActionResult Create(VideoViewModel vm)
         {
+            ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
 
-            getClientes();
-
-            if (!video.esPublico)
+            if (!vm.EsPublico)
             {
-                if (vidCliente.Equals(null))
+                if (vm.ClienteId == 0)
                 {
-                    return View(video);
+                    return View(vm);
                 }
             }
 
             if (ModelState.IsValid)
             {
-                db.Videos.Add(video);
-                db.SaveChanges();
-                if (vidCliente != null)
-                {
-
-                    VideosCliente vidCli = new VideosCliente();
-                    vidCli.ClienteID = Convert.ToInt32(vidCliente);
-                    vidCli.VideoID = video.ID;
-                    db.VideosClientes.Add(vidCli);
-                    db.SaveChanges();
-
-                }
-
+                Video video = vm.ConvertVideoViewModelToVideo();
+                _VideoService.Create(video);
 
                 return RedirectToAction("Index");
             }
 
-            return View(video);
+            return View(vm);
         }
 
-        //
-        // GET: /Videos/Edit/5
         [Authorize(Roles = "Administrador")]
         public ActionResult Edit(int id = 0)
         {
-            Video video = db.Videos.Find(id);
-            VideosCliente vc = db.VideosClientes.Where(v => v.VideoID == video.ID).FirstOrDefault();
-            if ( vc != null)
-            {
-                ViewBag.vidCliente = vc.ClienteID;
-            }
+            Video video = _VideoService.FindBy(x => x.Id == id).FirstOrDefault();
+            VideoViewModel vm = new VideoViewModel(video);
+
             if (video == null)
             {
                 return HttpNotFound();
             }
 
-            getClientes();
-            return View(video);
+            ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
+            return View(vm);
         }
 
-        //
-        // POST: /Videos/Edit/5
         [Authorize(Roles = "Administrador")]
         [HttpPost]
-        public ActionResult Edit(Video video, string vidCliente)
+        public ActionResult Edit(VideoViewModel vm)
         {
-
-            VideosCliente vc = db.VideosClientes.Where(v => v.VideoID == video.ID).FirstOrDefault();
-
-            if (vidCliente == null)
-            {
-                vidCliente = "";
-            }
-
             if (ModelState.IsValid)
             {
-                db.Entry(video).State = EntityState.Modified;
-                db.SaveChanges();
+                Video video = _VideoService.FindBy(x => x.Id == vm.Id).FirstOrDefault();
 
-                if (video.esPublico)
+                if (video.EsPublico)
                 {
-                    if (vc != null)
+                    if (!vm.EsPublico)
                     {
-                        db.VideosClientes.Remove(vc);
-                        db.SaveChanges();
+                        VideosCliente vc = new VideosCliente();
+                        vc.ClienteId = vm.ClienteId;
+                        vc.VideoId = video.Id;
+                        video.ClientesVideos.Add(vc);
                     }
-
-                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    if (vidCliente == "")
+
+                    if (vm.EsPublico)
                     {
-                        return anyError(video, vc);
+                        video.ClientesVideos.Clear();
                     }
                     else
                     {
-                        if (vc != null)
+                        if (video.ClientesVideos.FirstOrDefault().ClienteId != vm.ClienteId)
                         {
-                            vc.ClienteID = Convert.ToInt32(vidCliente);
-                            db.Entry(vc).State = EntityState.Modified;
-                            db.SaveChanges();
+                            video.ClientesVideos.FirstOrDefault().ClienteId = vm.ClienteId;
                         }
-                        else
-                        {
-                            VideosCliente nvc = new VideosCliente();
-                            nvc.ClienteID = Convert.ToInt32(vidCliente);
-                            nvc.VideoID = video.ID;
-                            db.VideosClientes.Add(nvc);
-                            db.SaveChanges();
-                        }
-
-                        return RedirectToAction("Index");
                     }
+
                 }
 
+                video.Descripcion = vm.Descripcion;
+                video.Alias = vm.Alias;
+                video.EsPublico = vm.EsPublico;
+
+                _VideoService.Update(video);
+
+                return RedirectToAction("Index");
             }
-            else
-            {
-                return anyError(video, vc);
-            }
+
+            return View(vm);
 
         }
 
-        private ActionResult anyError(Video video, VideosCliente vc)
-        {
-            getClientes();
-            if (vc != null)
-            {
-                ViewBag.vidCliente = vc.ClienteID;
-            }
-            return View(video);
-        }
 
-        //
-        // GET: /Videos/Delete/5
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Delete(int id = 0)
-        {
-            Video video = db.Videos.Find(id);
-            if (video == null)
-            {
-                return HttpNotFound();
-            }
-            return View(video);
-        }
-
-        //
-        // POST: /Videos/Delete/5
         [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Video video = db.Videos.Find(id);
-            db.Videos.Remove(video);
-            db.SaveChanges();
+            Video video = _VideoService.FindBy(x => x.Id == id).FirstOrDefault();
+            video.ClientesVideos.Clear();
+            _VideoService.Delete(video);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
     }
 }
