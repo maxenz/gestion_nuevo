@@ -6,15 +6,15 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
-                        <i class="fa fa-key"></i>
-                        <h3>Registro de Productos</h3>
+                        
+                        <h3>Registro de Revendedores</h3>
                     </div>
                     <div class="widget-content">
                         <fieldset>
                             <div class="control-group">
                                 <label class="control-label" for="Nombre">Nombre</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "col-xs-5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "col-xs-12 form-control", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Nombre)
                                 </div>
 
@@ -23,7 +23,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Comision">Comisi&oacute;n</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Comision, new { @class = "col-xs-5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Comision, new { @class = "col-xs-12 form-control", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Comision)
                                 </div>
 
@@ -41,8 +41,8 @@
                             <br>
 
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
-                                <button class="btn">Cancelar</button>
+                                <button type="submit" class="btn btn-success btn-outline">Guardar</button>
+                                <a href="@Url.Action("Index")" class="btn btn-danger btn-outline">Cancelar</a>
                             </div>
 
                         </fieldset>

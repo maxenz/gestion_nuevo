@@ -6,7 +6,7 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="widget">
                     <div class="widget-header">
-                        <i class="fa fa-key"></i>
+                        
                         <h3>Registro de Medios de Difusi&oacute;n</h3>
                     </div>
                     <div class="widget-content">
@@ -14,7 +14,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Descripcion">Descripci&oacute;n</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Descripcion, new { @class = "col-xs-5", autofocus = "" })
+                                    @Html.TextBoxFor(model => model.Descripcion, new { @class = "col-xs-12 form-control", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Descripcion)
                                 </div> <!-- /controls -->
                             </div> <!-- /control-group -->
@@ -24,15 +24,15 @@
                                 <div class="controls">
                                     @Html.EditorFor(model => model.MapaVisible, new { @class = "col-xs-5"})
                                     @Html.ValidationMessageFor(model => model.MapaVisible)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div> 
+                            </div>
 
                             <br>
 
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary btn-actions">Guardar</button>
-                                <a href="@Url.Action("Index", "MediosDifusion")" class="btn">Cancelar</a>
-                            </div> <!-- /form-actions -->
+                                <button type="submit" class="btn btn-success btn-outline">Guardar</button>
+                                <a href="@Url.Action("Index")" class="btn btn-danger btn-outline">Cancelar</a>
+                            </div> 
                         </fieldset>
                     </div>
                 </div>
@@ -40,5 +40,4 @@
         </div>
     </div>
 
-    <!-- /container -->
 </div>

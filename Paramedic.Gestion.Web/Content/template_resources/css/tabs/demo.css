@@ -12,6 +12,9 @@
 }
 
 .container > section {
-	font-size: 1.25em;
 	min-height: 100%;
+}
+
+span.span-tab {
+    	font-size: 14px !important;
 }

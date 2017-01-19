@@ -58,11 +58,8 @@
 
         </div>
     </div>
-    <div class="row">
-        <div class="pagedList col-xs-7 col-xs-offset-5" data-gestion-target="#usuariosList">
+        <div class="pagedList centered" data-gestion-target="#usuariosList">
 
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
-        </div>
     </div>
 </div>

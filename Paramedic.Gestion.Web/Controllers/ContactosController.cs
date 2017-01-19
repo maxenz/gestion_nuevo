@@ -1,48 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
 using PagedList;
+using Paramedic.Gestion.Service;
+using LinqKit;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ContactosController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
+
+        IClientesContactoService _ClientesContactoService;
+        private int controllersPageSize = 6;
+
+        #endregion
+
+        #region Constructors
+
+        public ContactosController(IClientesContactoService ClientesContactoService)
+        {
+            _ClientesContactoService = ClientesContactoService;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var qCliCont = from c in db.ClientesContactos select c;
-
-            if (!String.IsNullOrEmpty(searchName))
+            var predicate = PredicateBuilder.New<ClientesContacto>();
+            if (!string.IsNullOrEmpty(searchName))
             {
-
-                qCliCont = qCliCont
-                            .Where(p => p.Cliente.RazonSocial.ToUpper().Contains(searchName.ToUpper()) ||
-                                    p.Nombre.ToUpper().Contains(searchName.ToUpper()) ||
-                                    p.Email.ToUpper().Contains(searchName.ToUpper()) ||
-                                    p.Telefono.ToUpper().Contains(searchName.ToUpper()));
+                predicate = predicate.Or(x => x.Cliente.RazonSocial.ToUpper().Contains(searchName.ToUpper()));
+                predicate = predicate.Or(x => x.Nombre.ToUpper().Contains(searchName.ToUpper()));
+                predicate = predicate.Or(x => x.Email.ToUpper().Contains(searchName.ToUpper()));
+            }
+            else
+            {
+                predicate = null;
             }
 
-            qCliCont = qCliCont.OrderBy(p => p.Cliente.RazonSocial);
+            IEnumerable<ClientesContacto> contactos =
+                _ClientesContactoService
+                .FindByPage(predicate, "Cliente.RazonSocial ASC", controllersPageSize, page);
+            int count = _ClientesContactoService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<ClientesContacto>(contactos, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_Contactos", qCliCont.ToPagedList(page, 6));
+                return PartialView("_Contactos", resultAsPagedList);
             }
 
-            return View(qCliCont.ToPagedList(page, 6));
+            return View(resultAsPagedList);
+
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion
     }
 }

@@ -1,83 +1,79 @@
 ﻿@model IList<Paramedic.Gestion.Model.ClientesTerminal>
 
 <div id="clientesTerminalesList">
-                    <div class="row">
-                        <div class="col-xs-10 col-xs-offset-1" >
-                            <table class="table table-hover table-striped table-bordered tableIndex">
-                                <thead>
-                                    <tr>
-                                        <th class="col-xs-3 centrado">
-                                            @Html.DisplayNameFor(model => model.First().TipoTerminal.Descripcion)
-                                        </th>
-                                        <th class="col-xs-3 centrado">
-                                            @Html.DisplayNameFor(model => model.First().Referencia)
-                                        </th>
-                                        <th class="col-xs-1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().Valor1)
-                                        </th>
-                                        <th class="col-xs-1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().Valor2)
-                                        </th>
-                                        <th class="col-xs-1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().Valor3)
-                                        </th>
-                                        <th class="col-xs-1 centrado">
-                                            @Html.DisplayNameFor(model => model.First().Valor4)
-                                        </th>
-                                        <th class="col-xs-1 centrado"></th>
-                                        <th class="col-xs-1 centrado"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td class="col-xs-3 centrado">
-                                                @Html.DisplayFor(modelItem => item.TipoTerminal.Descripcion)
-                                            </td>
-                                            <td class="col-xs-3 centrado">
-                                                @Html.DisplayFor(modelItem => item.Referencia)
-                                            </td>
-                                            <td class="col-xs-1 centrado">
-                                                @Html.DisplayFor(modelItem => item.Valor1)
-                                            </td>
-                                            <td class="col-xs-1 centrado">
-                                                @Html.DisplayFor(modelItem => item.Valor2)
-                                            </td>
-                                            <td class="col-xs-1 centrado">
-                                                @Html.DisplayFor(modelItem => item.Valor3)
-                                            </td>
-                                            <td class="col-xs-1 centrado">
-                                                @Html.DisplayFor(modelItem => item.Valor4)
-                                            </td>
-                                            <td class="centrado">
-                                                <a href="@Url.Action("Edit", "ClientesTerminales", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions">
-                                                    <i class="btn-icon-only fa fa-edit"></i>
-                                                </a>
-                                            </td>
-                                            <td class="centrado">
-                                                <a href="@Url.Action("Delete","ClientesTerminales",new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesTerminalesList">
-                                                    <i class="btn-icon-only fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <table class="table table-hover table-striped table-bordered tableIndex">
+                <thead>
+                    <tr>
+                        <th class="col-xs-3 centrado">
+                            @Html.DisplayNameFor(model => model.First().TipoTerminal.Descripcion)
+                        </th>
+                        <th class="col-xs-3 centrado">
+                            @Html.DisplayNameFor(model => model.First().Referencia)
+                        </th>
+                        <th class="col-xs-1 centrado">
+                            @Html.DisplayNameFor(model => model.First().Valor1)
+                        </th>
+                        <th class="col-xs-1 centrado">
+                            @Html.DisplayNameFor(model => model.First().Valor2)
+                        </th>
+                        <th class="col-xs-1 centrado">
+                            @Html.DisplayNameFor(model => model.First().Valor3)
+                        </th>
+                        <th class="col-xs-1 centrado">
+                            @Html.DisplayNameFor(model => model.First().Valor4)
+                        </th>
+                        <th class="col-xs-1 centrado"></th>
+                        <th class="col-xs-1 centrado"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col-xs-3 centrado">
+                                @Html.DisplayFor(modelItem => item.TipoTerminal.Descripcion)
+                            </td>
+                            <td class="col-xs-3 centrado">
+                                @Html.DisplayFor(modelItem => item.Referencia)
+                            </td>
+                            <td class="col-xs-1 centrado">
+                                @Html.DisplayFor(modelItem => item.Valor1)
+                            </td>
+                            <td class="col-xs-1 centrado">
+                                @Html.DisplayFor(modelItem => item.Valor2)
+                            </td>
+                            <td class="col-xs-1 centrado">
+                                @Html.DisplayFor(modelItem => item.Valor3)
+                            </td>
+                            <td class="col-xs-1 centrado">
+                                @Html.DisplayFor(modelItem => item.Valor4)
+                            </td>
+                            <td class="centrado">
+                                <a href="@Url.Action("Edit", "ClientesTerminales", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions">
+                                    <i class="btn-icon-only fa fa-edit"></i>
+                                </a>
+                            </td>
+                            <td class="centrado">
+                                <a href="@Url.Action("Delete","ClientesTerminales",new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesTerminalesList">
+                                    <i class="btn-icon-only fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
-                            </table>
+            </table>
 
-                            <div class="row">
-
-                                <div class="col-xs-4 col-xs-offset-4 ">
-                                    <a href="@Url.Action("Create","ClientesTerminales",new { clienteId = ViewBag.ClienteID })" class="btn btn-success" >
-                                        Agregar Terminal
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="centered">
+                <a href="@Url.Action("Create","ClientesTerminales",new { clienteId = ViewBag.ClienteID })" class="btn btn-success btn-outline btnSubmit">
+                    Agregar Terminal
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

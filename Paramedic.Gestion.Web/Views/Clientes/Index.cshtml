@@ -4,14 +4,14 @@
 <div class="main">
     <div class="main-inner">
         <div class="container">
-            <div class="row" style="margin-top: -20px">
+            <div class="row" >
                 <div class="col-xs-12">
                     <div class="widget">
                         <div class="widget-header">
-                            <i class="fa fa-filter"></i>
+                            
                             <h3>Filtros</h3>
                         </div>
-                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+                        @*<div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
                             <form action="@Url.Action("Index")" method="get" id="frmSearchClientes" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#clientesList" style="margin-bottom:-10px">
                                 <div class="row">
                                     <div class="col-xs-2">
@@ -40,7 +40,41 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>*@
+
+                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+                            <form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#clientesList" style="margin-bottom:0px">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="Buscar..." name="searchName">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-outline" type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <a href="@Url.Action("Create", "Clientes")" class="btn btn-success btn-outline">
+                                        Agregar cliente
+                                    </a>
+
+                                    <select id="selTipoClientes" name="selTipoClientes" class="btn btn-success btn-outline">
+                                        <option value="1">Todos</option>
+                                        <option value="2">Vendidos</option>
+                                        <option value="3">En Gesti&oacute;n</option>
+                                    </select>
+
+                                    <select id="selDatosSegunVista" name="selDatosSegunVista" class="btn btn-success btn-outline">
+                                        <option value="1">Datos Principales</option>
+                                        <option value="2">&Uacute;ltima Gesti&oacute;n</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
+
+
                     </div>
                 </div>
             </div>

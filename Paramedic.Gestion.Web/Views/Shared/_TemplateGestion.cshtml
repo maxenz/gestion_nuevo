@@ -24,43 +24,6 @@
     <meta name="description" content="Shaman Gestion" />
 </head>
 <body>
-    @*<div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </a><a class="brand" href="/">
-                        Shaman Gesti&oacute;n
-                    </a>
-                    <div class="nav-collapse">
-                        <ul class="nav pull-right">
-                            @if (User.IsInRole("Administrador"))
-                            {
-                                @Html.Action("Recontacto", "Home")
-                            }
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user"></i> @User.Identity.Name <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/">Inicio</a></li>
-                                    <li>
-                                        <a href="#" id="cerrarSesion">Cerrar Sesi&oacute;n</a>
-                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                        }
-                                    </li>
-
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-
     <div id="navbar-full">
         <div id="navbar">
             <!--
@@ -86,14 +49,10 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-envelope-o fa-2x">
-                                        <span class="label">23</span>
-                                    </i>
-                                    <p>Recontactos</p>
-                                </a>
-                            </li>
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                @Html.Action("Recontacto", "Home")
+                            }
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-user fa-2x"></i>
@@ -116,8 +75,8 @@
                     </div>
                 </div>
             </nav>
-        </div><!--  end navbar -->
-    </div> <!-- end menu-dropdown -->
+        </div>
+    </div> 
 
 
     <div class="subnavbar">
@@ -169,7 +128,7 @@
                         </li>
                         <li class="@(@Request.Path.Contains("Recontactos") ? "selected-menu-option" : "")">
                             <a href="@Url.Action("Index", "Recontactos")">
-                                <i class="fa fa-phone"></i>
+                                <i class="fa fa-envelope-o"></i>
                                 <span>Recontactos</span>
                             </a>
                         </li>

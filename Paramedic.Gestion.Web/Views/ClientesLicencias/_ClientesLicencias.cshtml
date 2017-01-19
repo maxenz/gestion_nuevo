@@ -72,12 +72,10 @@
 
             </table>
 
-            <div class="row">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <a href="@Url.Action("Create", "ClientesLicencias",new { ClienteId = @ViewBag.Cliente_ID })" class="btn btn-block  btn-primary btnSubmit btn-actions">
-                        Agregar Licencia
-                    </a>
-                </div>
+            <div class="centered">
+                <a href="@Url.Action("Create", "ClientesLicencias",new { ClienteId = @ViewBag.Cliente_ID })" class="btn btn-success btn-outline btnSubmit">
+                    Agregar Licencia
+                </a>
             </div>
         </div>
     </div>

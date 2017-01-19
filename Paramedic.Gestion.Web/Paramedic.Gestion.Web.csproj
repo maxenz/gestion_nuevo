@@ -241,6 +241,7 @@
     <Compile Include="Controllers\ClientesLicenciasController.cs" />
     <Compile Include="Controllers\ClientesTerminalesController.cs" />
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
+    <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LicenciasController.cs" />

@@ -65,13 +65,11 @@
                 </tbody>
             </table>
 
-            <div class="row">
+            <div class="centered">
 
-                <div class="col-xs-4 col-xs-offset-4">
-                    <a href="@Url.Action("Create", "ClientesGestiones",new { ClienteId = @ViewBag.Cliente_ID })" class="btn btn-block  btn-primary btnSubmit btn-actions">
-                        Agregar Gesti&oacute;n
-                    </a>
-                </div>
+                <a href="@Url.Action("Create", "ClientesGestiones",new { ClienteId = @ViewBag.Cliente_ID })" class="btn btn-success btn-outline btnSubmit">
+                    Agregar Gesti&oacute;n
+                </a>
 
             </div>
         </div>

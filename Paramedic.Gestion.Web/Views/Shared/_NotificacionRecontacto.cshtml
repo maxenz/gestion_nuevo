@@ -1,3 +1,10 @@
 ﻿@model IEnumerable<Paramedic.Gestion.Model.ClientesGestion>
 
-<li><a href="@Url.Action("Index", "Recontactos")" class="btn btn-primary">Recontactos<span class="badge">@Model.Count()</span></a></li>
+<li>
+    <a href="@Url.Action("Index", "Recontactos")">
+        <i class="fa fa-envelope-o fa-2x">
+            <span class="label">@Model.Count()</span>
+        </i>
+        <p>Recontactos</p>
+    </a>
+</li>
