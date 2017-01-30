@@ -1,29 +1,46 @@
-﻿using System.Data;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
+using Paramedic.Gestion.Model.Enums;
 
 namespace Gestion.Controllers
 {
     public class AndroidController : Controller
     {
-
         #region Properties
 
         IClienteService _ClienteService;
+        IClientesLicenciaService _ClientesLicenciaService;
+        ILicenciasLogService _LicenciasLogService;
 
         #endregion
 
         #region Constructors
 
-        public AndroidController(IClienteService ClienteService)
+        public AndroidController(IClienteService ClienteService, IClientesLicenciaService ClientesLicenciaService, ILicenciasLogService LicenciasLogService)
         {
             _ClienteService = ClienteService;
+            _ClientesLicenciaService = ClientesLicenciaService;
+            _LicenciasLogService = LicenciasLogService;
         }
 
         #endregion
+
+        #region Private Methods
+
+        private void setLoginLog(string log)
+        {
+            string description = string.Format("Android : {0}", log);
+            LicenciasLog licenciasLog = new LicenciasLog(LicenciasLogType.Android, description, "");
+            _LicenciasLogService.Create(licenciasLog);
+
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public JsonResult Login(string user, string password, string log)
         {
@@ -31,7 +48,7 @@ namespace Gestion.Controllers
             {
                 HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
                 setLoginLog(log);
-                ClientesLicencia objLogin = context.ClientesLicencias.Where(x => ((x.Alias == user) || (x.Licencia.Serial == user)) && (x.AndroidPassword == password)).FirstOrDefault();
+                ClientesLicencia objLogin = _ClientesLicenciaService.FindBy(x => ((x.Alias == user) || (x.Licencia.Serial == user)) && (x.AndroidPassword == password)).FirstOrDefault();
 
                 if (objLogin == null)
                 {
@@ -60,7 +77,7 @@ namespace Gestion.Controllers
             try
             {
                 HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
-                ClientesLicencia license = context.ClientesLicencias.Where(x => ((x.Licencia.Serial == serial))).FirstOrDefault();
+                ClientesLicencia license = _ClientesLicenciaService.FindBy(x => ((x.Licencia.Serial == serial))).FirstOrDefault();
 
                 if (license == null || license.ConnectionString == null)
                 {
@@ -87,7 +104,7 @@ namespace Gestion.Controllers
             try
             {
                 HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
-                ClientesLicencia license = context.ClientesLicencias.Where(x => ((x.Licencia.Serial == serial))).FirstOrDefault();
+                ClientesLicencia license = _ClientesLicenciaService.FindBy(x => ((x.Licencia.Serial == serial))).FirstOrDefault();
 
                 if (license == null || license.ConexionServidor == null)
                 {
@@ -114,7 +131,7 @@ namespace Gestion.Controllers
             try
             {
                 HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
-                ClientesLicencia license = context.ClientesLicencias.Where(x => ((x.Licencia.Serial == serial))).FirstOrDefault();
+                ClientesLicencia license = _ClientesLicenciaService.FindBy(x => ((x.Licencia.Serial == serial))).FirstOrDefault();
 
                 if (license == null)
                 {
@@ -153,18 +170,6 @@ namespace Gestion.Controllers
             }
         }
 
-        private void setLoginLog(string log)
-        {
-
-            LicenciasLog licenciasLog = new LicenciasLog();
-            licenciasLog.SolicitudID = 3;
-            licenciasLog.IP = "";
-            licenciasLog.GenericDescription = string.Format("Android : {0}", log);
-            licenciasLog.CreatedAt = DateTime.Now;
-            context.LicenciasLogs.Add(licenciasLog);
-            context.SaveChanges();
-
-
-        }
+        #endregion
     }
 }

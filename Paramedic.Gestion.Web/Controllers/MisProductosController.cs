@@ -12,7 +12,6 @@ namespace Gestion.Controllers
     [Authorize]
     public class MisProductosController : Controller
     {
-
         #region Properties
 
         IClienteService _ClienteService;

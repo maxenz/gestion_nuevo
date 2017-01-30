@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Paramedic.Gestion.Model.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Paramedic.Gestion.Model
@@ -6,21 +7,36 @@ namespace Paramedic.Gestion.Model
     [Table("LicenciasLogs")]
     public class LicenciasLog : AuditableEntity<int>
     {
+        #region Properties
 
         [Required]
         public int LicenciaId { get; set; }
 
-        public int SolicitudId { get; set; }
-
         [Required]
         public string IP { get; set; }
+
+        [ForeignKey("LicenciaId")]
+        public Licencia Licencia { get; set; }
+
+        public LicenciasLogType Type { get; set; }
 
         public string GenericDescription { get; set; }
 
         public string Referencias { get; set; }
 
-        [ForeignKey("LicenciaId")]
-        public Licencia Licencia { get; set; }
+        #endregion
 
+        #region Constructors
+
+        public LicenciasLog() { } // EF
+
+        public LicenciasLog(LicenciasLogType type, string description, string ip)
+        {
+            this.Type = type;
+            this.GenericDescription = description;
+            this.IP = ip;
+        }
+
+        #endregion
     }
 }

@@ -69,7 +69,7 @@ namespace Gestion.Controllers
         [HttpPost]
         public ActionResult Create(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
         {
-            ViewBag.ClienteID = clientesgestion.ClienteId;
+            ViewBag.ClienteId = clientesgestion.ClienteId;
             try
             {
                 if (clientesgestion.FechaRecontacto < DateTime.Now)

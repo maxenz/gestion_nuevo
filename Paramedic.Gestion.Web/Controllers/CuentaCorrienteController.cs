@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Gestion.Models;
 using Gestion.ViewModels;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model;
 
 namespace Gestion.Controllers
 {
-
     [Authorize(Roles = "Cliente,Administrador")]
     public class CuentaCorrienteController : Controller
     {
 
-        private GestionDb db = new GestionDb();
+        #region Properties
 
-      
+        IClienteService _ClienteService;
+        IClientesUsuarioService _ClientesUsuarioService;
+
+        #endregion
+
+        #region Constructors
+
+        public CuentaCorrienteController(IClienteService ClienteService, IClientesUsuarioService ClientesUsuarioService)
+        {
+            _ClienteService = ClienteService;
+            _ClientesUsuarioService = ClientesUsuarioService;
+        }
+
+        #endregion
+
         public ActionResult Index(int ClienteID = 0)
         {
-
             //si el que accede a cuentasCorrientes es Administrador
             if (User.IsInRole("Administrador"))
             {
@@ -31,17 +42,16 @@ namespace Gestion.Controllers
                 }
                 else
                 {
-                    Cliente cli = db.Clientes.Find(ClienteID);
-                    var ctaCorrID = cli.CuentaCorrienteID;
+                    Cliente cliente = _ClienteService.FindBy(x => x.Id == ClienteID).FirstOrDefault();
                     //El cliente tiene cuenta corriente id?
-                    if (ctaCorrID == null)
+                    if (cliente.CuentaCorrienteId == null)
                     {
                         return PartialView("NoCuentaCorriente");
                     }
                     else
                     {
                         //Le paso al partial de cuentas corrientes el objeto de cuenta corriente
-                        int cc = Convert.ToInt32(ctaCorrID);
+                        int cc = Convert.ToInt32(cliente.CuentaCorrienteId);
                         return PartialView("_PartialVistaGeneral", setCuentaCorriente(cc));
                     }
                 }
@@ -51,11 +61,11 @@ namespace Gestion.Controllers
                 //El que está ingresando a la vista es el mismo cliente que quiere ver su cuenta corriente
 
                 string actualUser = User.Identity.Name;
-                ClientesUsuario cliUsr = db.ClientesUsuarios
-                            .Where(x => x.Usuario.UserName == actualUser)
+                ClientesUsuario cliUsr = _ClientesUsuarioService
+                            .FindBy(x => x.Usuario.UserName == actualUser)
                             .FirstOrDefault();
 
-                var ctaCorrID = cliUsr.Cliente.CuentaCorrienteID;
+                var ctaCorrID = cliUsr.Cliente.CuentaCorrienteId;
 
                 if (ctaCorrID == null)
                 {

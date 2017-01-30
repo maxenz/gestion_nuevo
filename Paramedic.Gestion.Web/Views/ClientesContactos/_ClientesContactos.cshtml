@@ -56,7 +56,7 @@
             </table>
 
             <div class="centered">
-                <a href="@Url.Action("Create","ClientesContactos", new { clienteId = Model.FirstOrDefault().ClienteId })" class="btn btn-success btn-outline btnSubmit">
+                <a href="@Url.Action("Create","ClientesContactos", new { clienteId = ViewBag.ClienteId })" class="btn btn-success btn-outline btnSubmit">
                     Agregar contacto
                 </a>
             </div>

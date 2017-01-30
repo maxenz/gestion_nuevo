@@ -48,13 +48,14 @@ namespace Gestion.Controllers
                 terminales = terminales.Where(x => x.TipoTerminal.Descripcion.Contains(searchName)).ToList();
             }
 
-            ViewBag.Cliente_ID = ClienteID;
+            ViewBag.ClienteId = ClienteID;
 
             return PartialView("_ClientesTerminales", terminales);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int clienteId)
         {
+            ViewBag.ClienteId = clienteId;
             setGeneralViewData(null);
             return View();
         }
@@ -80,6 +81,7 @@ namespace Gestion.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.ClienteId = clientesterminal.ClienteId;
             setGeneralViewData(clientesterminal);
 
             return View(clientesterminal);
@@ -112,8 +114,7 @@ namespace Gestion.Controllers
 
         private void setGeneralViewData(ClientesTerminal clientesterminal)
         {
-            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial", clientesterminal != null ? clientesterminal.ClienteId : ViewBag.ClienteID);
-            ViewBag.TipoTerminalID = new SelectList(_TipoTerminalService.GetAll(), "Id", "Descripcion", clientesterminal != null ? clientesterminal.TipoTerminalId : 0);
+            ViewBag.TipoTerminalId = new SelectList(_TipoTerminalService.GetAll(), "Id", "Descripcion", clientesterminal != null ? clientesterminal.TipoTerminalId : 0);
         }
 
         #endregion

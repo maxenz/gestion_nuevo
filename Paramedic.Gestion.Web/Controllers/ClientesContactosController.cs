@@ -31,11 +31,11 @@ namespace Gestion.Controllers
 
         #region Public Methods
 
-        public ActionResult Index(int ClienteID, string searchName = null, int page = 1)
+        public ActionResult Index(int clienteId, string searchName = null, int page = 1)
         {
             ICollection<ClientesContacto> contactos =
                 _ClientesContactoService
-                .FindBy(x => x.ClienteId == ClienteID)
+                .FindBy(x => x.ClienteId == clienteId)
                 .OrderBy(x => x.Nombre)
                 .ToList();
 

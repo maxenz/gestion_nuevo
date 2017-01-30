@@ -49,11 +49,11 @@ $(function () {
         if ($evID == undefined) { //Creacion de consulta
 
             $message = "<form id=\"formAddConsulta\" action=\"/MisTickets/CreateTicketEvento/" + $ticketID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' placeholder='Ingrese su consulta...' autofocus='true' /><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /><input type=\"hidden\" id=\"tipoEvento\" name=\"tipoEvento\" value=\"1\" /></form>";
-            $title = "<span class='label label-primary'>Nueva consulta</span>";
+            $title = "<h4 class='bold'>Nueva consulta</h4>";
         } else if ($dataResponse == 1) { //Creacion de respuesta
 
             $message = "<form id=\"formAddRespuesta\" action=\"/MisTickets/CreateTicketEvento/" + $ticketID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' placeholder='Ingrese la respuesta...' autofocus='true' /><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /><input type=\"hidden\" id=\"tipoEvento\" name=\"tipoEvento\" value=\"2\" /></form>";
-            $title = "<span class='label label-primary'>Respuesta de consulta</span>";
+            $title = "<h4 class='bold'>Respuesta de consulta</h4>";
         } else { //Edición consulta/respuesta
 
             $description = $btn.closest('.alert').find('p').text();
@@ -69,7 +69,7 @@ $(function () {
             buttons: {
                 danger: {
                     label: "Aceptar",
-                    className: "btn-primary",
+                    className: "btn-success btn-outline",
                     callback: function () {
                         if ($evID == undefined) {
                             $('form#formAddConsulta').submit();
@@ -98,7 +98,7 @@ $(function () {
                 },
                 main: {
                     label: "Cancelar",
-                    className: "btn-primary",
+                    className: "btn-danger btn-outline",
                     callback: function () {
 
                     }
@@ -397,7 +397,7 @@ $(function () {
 
     $(document).on("click", ".pagedList a", getPage);
 
-    $('#selTipoClientes,#selDatosSegunVista,#selTipoGestion').on('change', execPrincipalForm);
+    $('#selTipoClientes,#selDatosSegunVista,#selTipoGestion, #chkFutureFeatures').on('change', execPrincipalForm);
 
     $('#btnCloseTicket').on('click', closeTicket);
 
@@ -457,12 +457,13 @@ $(function () {
     $(".various").on('click', function () {
 
         var vid_id = $(this).attr("href").replace('#','');
-        console.log(vid_id);
+        
+        var $url = base_url_gestion + "LogsRegistrosSistema/SetVideoLog/";
 
         $.ajax({
             type: 'POST',
             data: { idVideo: vid_id },
-            url: "/LogsRegistrosSistema/SetVideoLog",
+            url: $url,
             success: function (data) {
             },
             error: function (data) {
@@ -485,14 +486,14 @@ $(function () {
 
     function setViewOnMap() {
 
-        console.log(vMediosDifusion);
+        var $url = base_url_gestion + "Mapa/GetPositionsOfClients";
 
         $.ajax({
             type: 'GET',
             data: { vData: vMediosDifusion },
             traditional: true,
             dataType: 'json',
-            url: "/Mapa/GetPositionsOfClients",
+            url: $url,
             success: function (positions) {
                 if (positions != null) {
                     setMarkers(positions);
@@ -534,7 +535,7 @@ $(function () {
             var $option = $(this).parents()[1].children[1];
             if ($(this).val() == 1 || $(this).val() == 2) {
                 $(this).prop('checked', true);
-                $option.style.background = "#D7ECDD";
+                $option.style.background = "#8bc541";
             }
         });
         setViewOnMap();
@@ -573,7 +574,7 @@ $(function () {
 
         //Cambio color de icono dependiendo si esta en gestión o vendido.
 
-        switch (vInfoCliente.MedioDifusionID) {
+        switch (vInfoCliente.MedioDifusionId) {
             case 1:
                 marker.setIcon('https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=G|e74c3c|ecf0f1');
                 break;
@@ -651,7 +652,7 @@ $(function () {
               '<p>Email: ' + vInfoCliente.EmailPrincipal + ' </p>' +
               '<p>Tel&eacute;fono: ' + vInfoCliente.Telefono + ' </p>' +
               '<p>Sitio Web: ' + vInfoCliente.SitioWeb + ' </p>' +
-              '<p><a href="/Clientes/Edit/' + vInfoCliente.ID + '">Ver m&aacute;s</a></p>' +
+              '<p><a href="/Clientes/Edit/' + vInfoCliente.Id + '">Ver m&aacute;s</a></p>' +
               '</div>' +
               '</div>';
 
@@ -668,13 +669,14 @@ $(function () {
 
     $('#FuturaMejora').click(function () {
         blockInterface();
+        var $url = base_url_gestion + "MisTickets/SetFutureFeature";
         $.ajax({
-            url: '/MisTickets/SetFutureFeature',
+            url: $url,
             datatype: "json",
             traditional: true,
             data: {
                 'isFutureFeature': $(this).is(":checked"),
-                'ticketId' : $('#ID').val()
+                'ticketId' : $('#Id').val()
             },
             type: 'POST',
             success: function (data) {

@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.Ticket>
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Web.ViewModels.TicketViewModel>
 
 <div class="main">
     <div class="main-inner">
@@ -31,7 +31,13 @@
                                             Agregar ticket
                                         </a>
                                     }
-                                    <label style="display:inline-flex;margin-top:6px"><input type="checkbox" id="chkFutureFeatures" name="chkFutureFeatures" style="margin-right:10px" />Futuras Mejoras</label>
+                                    <div class="checkbox" style="padding-top:6px;">
+                                        <label style="font-size: 1.3em">
+                                            <input type="checkbox" name="chkFutureFeatures" id="chkFutureFeatures">
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                            Futura mejora
+                                        </label>
+                                    </div>                                
                                 </div>
                             </form>
                         </div>

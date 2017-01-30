@@ -6,27 +6,26 @@
     <div class="main-inner">
         <div class="container">
             <div class="row" >
-                <div class="col-xs-12" style="margin-bottom: -15px">
+                <div class="col-xs-12" style="margin-bottom: -10px">
                     <div class="widget">
 
-                        <div class="widget-content" style="border:1px solid #00ba8b  !important; padding-bottom: 10px">
+                        <div class="widget-content" style="border:1px solid #8bc541 !important; padding-bottom: 20px">
                             <div class="row">
-                                <div class="col-xs-10 col-xs-offset-1">
+                                <div class="col-xs-12">
                                     @foreach (var item in medios)
                                     {
-                                        <div class="col-xs-2">
+                                        <div class="col-xs-3">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
-                                                    <input type="checkbox" class="chkMediosDifusion" value="@item.ID" />
+                                                    <input type="checkbox" class="chkMediosDifusion" value="@item.Id" />
                                                 </span>
-                                                <input type="text" class="form-control txtMediosDifusion" readonly="true" value="@item.Descripcion" style="width:80%" />
+                                                <input type="text" class="form-control txtMediosDifusion" readonly="true" value="@item.Descripcion" />
                                             </div>
                                         </div>
                                     }
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -34,8 +33,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="widget">
-                        <div class="widget-header">
-                            
+                        <div class="widget-header">                      
                             <h3>Mapa</h3>
                         </div>
 
@@ -44,15 +42,11 @@
                             <script>
                                 initializeMapa();
                             </script>
-
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 

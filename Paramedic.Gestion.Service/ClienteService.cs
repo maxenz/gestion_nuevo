@@ -63,14 +63,6 @@ namespace Paramedic.Gestion.Service
             return predicate;
         }
 
-        //public override void Create(Cliente cliente)
-        //{
-        //    ClientesContacto contactoPrincipal = new ClientesContacto(cliente.Nombre)
-
-
-        //    base.Create(entity);
-        //}
-
         #endregion
 
     }

@@ -21,5 +21,6 @@ namespace Paramedic.Gestion.Model
                             .First()
                             .GetCustomAttribute<TAttribute>();
         }
+
     }
 }

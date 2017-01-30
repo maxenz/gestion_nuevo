@@ -81,39 +81,38 @@
                         @Html.Partial("_BottomForm", Model)
                     </section>
                     <section id="contactos">
-                        @Html.Action("Index", "ClientesContactos", routeValues: new { ClienteID = Model.Id })
+                        @Html.Action("Index", "ClientesContactos", routeValues: new { clienteId = Model.Id })
                     </section>
                     <section id="licencias">
-                        @Html.Action("Index", "ClientesLicencias", routeValues: new { ClienteID = Model.Id })
+                        @Html.Action("Index", "ClientesLicencias", routeValues: new { clienteId = Model.Id })
                     </section>
                     <section id="gestiones">
-                        @Html.Action("Index", "ClientesGestiones", routeValues: new { ClienteID = Model.Id })
+                        @Html.Action("Index", "ClientesGestiones", routeValues: new { clienteId = Model.Id })
                     </section>
                     <section id="terminales">
-                        @Html.Action("Index", "ClientesTerminales", routeValues: new { ClienteID = Model.Id })
+                        @Html.Action("Index", "ClientesTerminales", routeValues: new { clienteId = Model.Id })
                     </section>
                     <section id="usuarios">
-                        @Html.Action("Index", "ClientesUsuarios", routeValues: new { ClienteID = Model.Id })
+                        @Html.Action("Index", "ClientesUsuarios", routeValues: new { clienteId = Model.Id })
                     </section>
                     <section id="ctaCorriente">
-                        @*@Html.Action("Index", "CuentaCorriente", routeValues: new { ClienteID = Model.Id })*@
+                        @Html.Action("Index", "CuentaCorriente", routeValues: new { clienteId = Model.Id })
                     </section>
                     <section id="productos">
-                        @Html.Action("Index", "MisProductos", routeValues: new { ClienteID = Model.Id })
+                        @Html.Action("Index", "MisProductos", routeValues: new { clienteId = Model.Id })
                     </section>
                 </div>
             </div>
         </section>
     </div>
+    <script>
+        (function () {
 
-                <script>
-                    (function () {
+            [].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
+                new CBPFWTabs(el);
+            });
 
-                        [].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
-                            new CBPFWTabs(el);
-                        });
-
-                    })();
-                </script>
+        })();
+    </script>
 
 }

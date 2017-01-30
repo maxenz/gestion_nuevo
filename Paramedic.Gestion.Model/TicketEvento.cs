@@ -38,7 +38,7 @@ namespace Paramedic.Gestion.Model
         #endregion
 
         #region Constructors
-        protected TicketEvento() { } //EF
+        public TicketEvento() { } //EF
 
         public TicketEvento(string description, int userProfileId, TicketEventoType type)
         {

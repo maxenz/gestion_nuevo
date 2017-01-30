@@ -235,6 +235,7 @@
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AndroidController.cs" />
     <Compile Include="Controllers\ClientesContactosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClientesGestionesController.cs" />
@@ -242,10 +243,14 @@
     <Compile Include="Controllers\ClientesTerminalesController.cs" />
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
+    <Compile Include="Controllers\CuentaCorrienteController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
+    <Compile Include="Controllers\ExternalLoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LicenciasController.cs" />
+    <Compile Include="Controllers\LicenciasLogsController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
+    <Compile Include="Controllers\MapaController.cs" />
     <Compile Include="Controllers\MediosDifusionController.cs" />
     <Compile Include="Controllers\MisProductosController.cs" />
     <Compile Include="Controllers\MisTicketsController.cs" />
@@ -281,12 +286,12 @@
     </Compile>
     <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\CuentaCorrienteViewModel.cs" />
-    <Compile Include="ViewModels\GeoPositions.cs" />
-    <Compile Include="ViewModels\LogPrincipal.cs" />
+    <Compile Include="ViewModels\MapaViewModel.cs" />
+    <Compile Include="ViewModels\LicenciasLogViewModel.cs" />
     <Compile Include="ViewModels\ModulosExcluidos.cs" />
     <Compile Include="ViewModels\LicenciasEstados.cs" />
     <Compile Include="ViewModels\ProductosAsignados.cs" />
-    <Compile Include="ViewModels\TicketsPrincipal.cs" />
+    <Compile Include="ViewModels\TicketViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Web References\wsCuentaCorriente\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -736,7 +741,6 @@
     <Content Include="Scripts\sbadmin\flot\jquery.flot.pie.js" />
     <Content Include="Scripts\sbadmin\flot\jquery.flot.resize.js" />
     <Content Include="Scripts\sbadmin\flot\jquery.flot.tooltip.min.js" />
-    <Content Include="Scripts\sbadmin\general.js" />
     <Content Include="Scripts\sbadmin\jquery-2.0.3.min.js" />
     <Content Include="Scripts\sbadmin\jquery.fancybox.pack.js" />
     <Content Include="Scripts\sbadmin\map.js" />
@@ -917,8 +921,7 @@
     <Content Include="Views\MisTickets\_MisTickets.cshtml" />
     <Content Include="Views\MisTickets\_Form.cshtml" />
     <Content Include="Views\MisTickets\_Cerrado.cshtml" />
-    <Content Include="Views\MisTickets\_BotonConsultaCerrar.cshtml" />
-    <Content Include="Views\MisTickets\_ListaEventos.cshtml" />
+    <Content Include="Views\MisTickets\_ListaEventos-old.cshtml" />
     <Content Include="Views\MisTickets\_BotonResponder.cshtml" />
     <Content Include="Web References\wsCuentaCorriente\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -937,7 +940,6 @@
     <Content Include="Views\CuentaCorriente\_PartialVistaGeneral.cshtml" />
     <Content Include="Views\MisProductos\_NoProductos.cshtml" />
     <Content Include="Views\Mapa\Index.cshtml" />
-    <Content Include="Views\Mapa\_Header.cshtml" />
     <Content Include="Views\MediosDifusion\_Form.cshtml" />
     <Content Include="Views\MediosDifusion\_Header.cshtml" />
     <Content Include="Views\MediosDifusion\_MediosDifusion.cshtml" />
@@ -961,6 +963,9 @@
     <Content Include="Views\Sitios\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\MisTickets\_ListaEventos.cshtml" />
+    <Content Include="Views\MisTickets\TicketEvento.cshtml" />
+    <Content Include="Views\MisTickets\_FormTicketEvento.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -14,7 +14,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Estado">Estado</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.EstadoId, new SelectList(ViewBag.Estados, "ID", "Descripcion"), new { @class = "col-xs-5" })
+                                    @Html.DropDownListFor(model => model.EstadoId, new SelectList(ViewBag.Estados, "Id", "Descripcion"), new { @class = "col-xs-12 form-control" })
                                     @Html.ValidationMessageFor(model => model.EstadoId)
                                 </div>
                             </div>
@@ -22,7 +22,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Fecha">Fecha</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.Fecha, "{0:dd/MM/yyyy}", new { @class = "col-xs-5 datepicker" })
+                                    @Html.TextBoxFor(model => model.Fecha, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker" })
                                     @Html.ValidationMessageFor(model => model.Fecha)
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="FechaRecontacto">Fecha de Recontacto</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FechaRecontacto, "{0:dd/MM/yyyy}", new { @class = "col-xs-5 datepicker" })
+                                    @Html.TextBoxFor(model => model.FechaRecontacto, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker" })
                                     @Html.ValidationMessageFor(model => model.FechaRecontacto)
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="Observaciones">Observaciones</label>
                                 <div class="controls">
-                                    @Html.TextAreaFor(model => model.Observaciones, new { @class = "form-control", rows = 5,style="width:100%" })
+                                    @Html.TextAreaFor(model => model.Observaciones, new { @class = "col-xs-12 form-control", rows = 5})
                                     @Html.ValidationMessageFor(model => model.Observaciones)
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-success btn-outline">Guardar</button>
-                                <a href="@Url.Action("Index")" class="btn btn-danger btn-outline">Cancelar</a>
+                                <a href="@Url.Action("Edit","Clientes",new { id = ViewBag.ClienteId })" class="btn btn-danger btn-outline">Cancelar</a>
                             </div>
                         </fieldset>
                     </div>

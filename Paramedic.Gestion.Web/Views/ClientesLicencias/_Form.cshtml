@@ -7,14 +7,14 @@
                 <div class="widget">
                     <div class="widget-header">
                         
-                        <h3>Registro de Contacto</h3>
+                        <h3>Registro de Licencia</h3>
                     </div>
                     <div class="widget-content">
                         <fieldset>
                             <div class="control-group">
                                 <label class="control-label" for="Licencia">Licencia</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.LicenciaId, new SelectList(ViewBag.Licencias, "Id", "Serial"), new { @class = " col-xs-5" })
+                                    @Html.DropDownListFor(model => model.LicenciaId, new SelectList(ViewBag.Licencias, "Id", "Serial"), new { @class = " col-xs-12 form-control" })
                                     @Html.ValidationMessageFor(model => model.LicenciaId)
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="FechaDeVencimiento">Fecha de Vencimiento</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FechaDeVencimiento, "{0:dd/MM/yyyy}", new { @class = "col-xs-5 datepicker" })
+                                    @Html.TextBoxFor(model => model.FechaDeVencimiento, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker" })
                                     @Html.ValidationMessageFor(model => model.FechaDeVencimiento)
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="SitioWeb">Sitio Web</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(x => x.SitioId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Sitio Web", new { @class = "col-xs-5" })
+                                    @Html.DropDownListFor(x => x.SitioId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Sitio Web", new { @class = "col-xs-12 form-control" })
                                 </div>
                             </div>
 
@@ -142,7 +142,7 @@
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-success btn-outline">Guardar</button>
-                                <a href="@Url.Action("Index")" class="btn btn-danger btn-outline">Cancelar</a>
+                                <a href="@Url.Action("Edit", "Clientes", new { id = ViewBag.ClienteId })" class="btn btn-danger btn-outline">Cancelar</a>
                             </div>
                         </fieldset>
                     </div>

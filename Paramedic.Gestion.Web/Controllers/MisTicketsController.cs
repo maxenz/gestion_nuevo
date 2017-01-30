@@ -6,10 +6,10 @@ using System.Web.Mvc;
 using PagedList;
 using System.Web.Configuration;
 using Paramedic.Gestion.Service;
-using WebMatrix.WebData;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Model.Enums;
 using Paramedic.Gestion.Web.Converters;
+using Paramedic.Gestion.Web.ViewModels;
 
 namespace Gestion.Controllers
 {
@@ -21,6 +21,7 @@ namespace Gestion.Controllers
 
         ITicketService _TicketService;
         IUserProfileService _UserProfileService;
+        IClientesUsuarioService _ClientesUsuarioService;
 
         private string emailAdministrator = WebConfigurationManager.AppSettings["administratorEmail"];
         private string roleAdministratorName = WebConfigurationManager.AppSettings["administratorRoleName"];
@@ -30,10 +31,11 @@ namespace Gestion.Controllers
 
         #region Constructors
 
-        public MisTicketsController(ITicketService TicketService, IUserProfileService UserProfileService)
+        public MisTicketsController(ITicketService TicketService, IUserProfileService UserProfileService, IClientesUsuarioService ClientesUsuarioService)
         {
             _TicketService = TicketService;
             _UserProfileService = UserProfileService;
+            _ClientesUsuarioService = ClientesUsuarioService;
         }
 
         #endregion
@@ -43,14 +45,32 @@ namespace Gestion.Controllers
         public ActionResult Index(string searchName = null, string chkFutureFeatures = null, int page = 1)
         {
 
-            int userId = WebSecurity.CurrentUserId;
-            bool isAdmin = User.IsInRole(roleAdministratorName);
+            int userId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
+            bool isAdmin = User.IsInRole("Administrador");
+            IList<TicketViewModel> vmTickets = new List<TicketViewModel>();
 
             TicketQueryControllerParametersDTO queryParameters = new TicketQueryControllerParametersDTO(searchName, controllersPageSize, page, chkFutureFeatures, userId, isAdmin);
 
             IEnumerable<Ticket> tickets = _TicketService.GetTickets(queryParameters);
+
+            foreach (Ticket ticket in tickets)
+            {
+                int userProfileId = ticket.UserProfileId;
+                ClientesUsuario clientesUsuario = _ClientesUsuarioService
+                    .FindBy(x => x.UsuarioId == userProfileId)
+                    .FirstOrDefault();
+                TicketViewModel vm = new TicketViewModel(ticket);
+                if (clientesUsuario != null)
+                {
+                    vm.Cliente = clientesUsuario.Cliente.RazonSocial;
+                    vm.ClienteId = clientesUsuario.Cliente.Id;
+                }
+
+                vmTickets.Add(vm);
+            }
+
             int count = _TicketService.FindBy(queryParameters).Count();
-            var resultAsPagedList = new StaticPagedList<Ticket>(tickets, page, controllersPageSize, count);
+            var resultAsPagedList = new StaticPagedList<TicketViewModel>(vmTickets, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
@@ -68,22 +88,63 @@ namespace Gestion.Controllers
             return View();
         }
 
-        //private TicketEvento doTicketEvento(Ticket ticket, string descripcion, int tipoEvento, HttpPostedFileBase image)
-        //{
-        //    TicketEvento tkEvento = new TicketEvento();
-        //    tkEvento.Descripcion = descripcion == "" ? ticket.Asunto : descripcion;
-        //    tkEvento.FechaCreacion = DateTime.Now;
-        //    tkEvento.TicketID = ticket.ID;
-        //    tkEvento.UserID = GetCurrentUserID();
-        //    tkEvento.TicketTipoEventoID = tipoEvento;
+        [HttpPost]
+        public ActionResult CreateEditTicketEvento(TicketEvento ticketEvento, HttpPostedFileBase image = null)
+        {
+            TicketEventoType type = User.IsInRole("Administrador") ? TicketEventoType.Answer : TicketEventoType.Question;
+            int userProfileId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
 
-        //    setImageTicketEvento(tkEvento, image);
+            Ticket ticket = _TicketService.FindBy(x => x.Id == ticketEvento.TicketId).FirstOrDefault();
+            if (ticketEvento.Id == 0)
+            {
+                ticket = TicketConverter.CreateTicketWithEvent(ticket, ticketEvento.Descripcion, image, type, userProfileId);
+            }
 
-        //    db.TicketEventos.Add(tkEvento);
-        //    db.SaveChanges();
+            ticket.TicketEstadoType = type == TicketEventoType.Answer ? TicketEstadoType.Answered : TicketEstadoType.NotAnswered;
 
-        //    return tkEvento;
-        //}
+            _TicketService.Update(ticket);
+
+            return RedirectToAction("Edit", ticket);
+        }
+
+        [HttpGet]
+        public ActionResult TicketEvento(int ticketId, int ticketEventoId = 0)
+        {
+
+            Ticket ticket = _TicketService.FindBy(x => x.Id == ticketId).FirstOrDefault();
+            ViewBag.TicketAsunto = ticket.Asunto;
+            ViewBag.TicketId = ticketId;
+
+            if (User.IsInRole("Administrador"))
+            {
+                TicketEvento lastQuestion = ticket
+                    .TicketEventos
+                    .OrderByDescending(x => x.UpdatedDate)
+                    .FirstOrDefault(x => x.TicketTipoEventoType == Paramedic.Gestion.Model.Enums.TicketEventoType.Question);
+                ViewBag.lastRelevantData = lastQuestion != null ? lastQuestion.Descripcion : "";
+                ViewBag.lastRelevantLabel = "Última consulta";
+                ViewBag.title = string.Format("{0}: {1}", "Respuesta de", User.Identity.Name);
+
+            }
+            else
+            {
+                TicketEvento lastAnswer = ticket
+                    .TicketEventos
+                    .OrderByDescending(x => x.UpdatedDate)
+                    .FirstOrDefault(x => x.TicketTipoEventoType == Paramedic.Gestion.Model.Enums.TicketEventoType.Answer);
+
+                ViewBag.lastRelevantData = lastAnswer != null ? lastAnswer.Descripcion : "";
+                ViewBag.lastRelevantLabel = "Última respuesta";
+                ViewBag.title = string.Format("{0}: {1}", "Consulta de", User.Identity.Name);
+            }
+
+            if (ticketEventoId != 0)
+            {
+                TicketEvento ticketEvento = ticket.TicketEventos.FirstOrDefault(x => x.Id == ticketEventoId);
+                return View(ticketEvento);
+            }
+            return View();
+        }
 
         //private void doEmailAdministrator(TicketEvento tkEvento)
         //{
@@ -99,36 +160,6 @@ namespace Gestion.Controllers
         //    var subject = "Respuesta Shaman Gestión del " + DateTime.Now;
         //    string body = createBodyForCliente(tkEvento);
         //    sendEmail(tkEvento.Ticket.Usuario.Email, subject, body);
-
-        //}
-
-        //[HttpPost]
-        //public ActionResult CreateTicketEvento(int id, string descripcion, int tipoEvento, HttpPostedFileBase image)
-        //{
-        //    Ticket ticket = db.Tickets.Find(id);
-
-        //    TicketEvento tkEvento = doTicketEvento(ticket, descripcion, tipoEvento, image);
-
-        //    if (tipoEvento == 2)
-        //    {
-        //        ticket.TicketEstadoID = 1;
-        //        db.Entry(ticket).State = EntityState.Modified;
-        //        db.SaveChanges();
-
-        //        doEmailCliente(tkEvento);
-        //    }
-        //    else
-        //    {
-        //        ticket.TicketEstadoID = 2;
-        //        db.Entry(ticket).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        doEmailAdministrator(tkEvento);
-
-        //    }
-
-        //    setEditableTicket(ticket);
-
-        //    return RedirectToAction("Edit", ticket);
 
         //}
 
@@ -178,47 +209,15 @@ namespace Gestion.Controllers
 
         //}
 
-        //[HttpPost]
-        //public ActionResult EditTicketEvento(int ID, string descripcion, HttpPostedFileBase image)
-        //{
-
-        //    TicketEvento tkEvento = db.TicketEventos.Find(ID);
-        //    setImageTicketEvento(tkEvento, image);
-        //    tkEvento.Descripcion = descripcion == "" ? tkEvento.Descripcion : descripcion;
-        //    tkEvento.UserID = GetCurrentUserID();
-        //    tkEvento.FechaCreacion = DateTime.Now;
-        //    db.Entry(tkEvento).State = EntityState.Modified;
-        //    db.SaveChanges();
-
-        //    Ticket ticket = db.Tickets.Find(tkEvento.TicketID);
-
-        //    setEditableTicket(ticket);
-
-        //    return RedirectToAction("Edit", ticket);
-
-        //}
-
-        //public FileContentResult GetImage(int id)
-        //{
-        //    TicketEvento tkEvento = db.TicketEventos.FirstOrDefault(p => p.ID == id);
-        //    if (tkEvento != null)
-        //    {
-        //        return File(tkEvento.ImageData, tkEvento.ImageMimeType);
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
-
         [HttpPost]
         public ActionResult Create(Ticket ticket, string descripcion, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
+
                 ticket.TicketEstadoType = TicketEstadoType.NotAnswered;
-                ticket.UserProfileId = WebSecurity.CurrentUserId;
-                ticket = TicketConverter.CreateTicketWithEvent(ticket, descripcion, image, WebSecurity.CurrentUserId);
+                ticket.UserProfileId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
+                ticket = TicketConverter.CreateTicketWithEvent(ticket, descripcion, image, TicketEventoType.Question, ticket.UserProfileId);
                 _TicketService.Create(ticket);
 
                 //doEmailAdministrator(tkEvento);
@@ -231,152 +230,83 @@ namespace Gestion.Controllers
             return View(ticket);
         }
 
-        //private void setImageTicketEvento(TicketEvento tkEvento, HttpPostedFileBase image)
-        //{
-        //    if (image != null)
-        //    {
-        //        tkEvento.ImageMimeType = image.ContentType;
-        //        tkEvento.ImageData = new byte[image.ContentLength];
-        //        image.InputStream.Read(tkEvento.ImageData, 0, image.ContentLength);
-        //    }
-        //}
+        public ActionResult Edit(int id = 0)
+        {
+            Ticket ticket = _TicketService.FindBy(x => x.Id == id).FirstOrDefault();
+            int userId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
 
-        //private int GetCurrentUserID()
-        //{
+            if (User.IsInRole("Administrador"))
+            {
+                if (ticket == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+            else
+            {
+                if (ticket == null || ticket.UserProfileId != userId)
+                {
+                    return HttpNotFound();
+                }
+            }
 
-        //    var user = db.UserProfiles.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-        //    return user.UserId;
+            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName", ticket.UserProfileId);
+            ViewBag.TicketEstadoID = ticket.TicketEstadoType;
+            return View(ticket);
+        }
 
-        //}
+        [HttpPost]
+        public ActionResult CloseTicket(Ticket ticketForm)
+        {
+            Ticket ticket = _TicketService.FindBy(x => x.Id == ticketForm.Id).FirstOrDefault();
+            ticket.TicketEstadoType = TicketEstadoType.Resolved;
+            _TicketService.Update(ticket);
+            return RedirectToAction("Index");
+        }
 
-        ////
-        //// GET: /MisTickets/Edit/5
+        [HttpPost]
+        public ActionResult Edit(Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                _TicketService.Update(ticket);
+                return RedirectToAction("Index");
+            }
+            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName", ticket.UserProfileId);
+            ViewBag.TicketEstadoID = ticket.TicketEstadoType;
+            return View(ticket);
+        }
 
-        //public ActionResult Edit(int id = 0)
-        //{
-        //    Ticket ticket = db.Tickets.Find(id);
-        //    int userID = GetCurrentUserID();
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Ticket ticket = _TicketService.FindBy(x => x.Id == id).FirstOrDefault();
+            _TicketService.Delete(ticket);
+            return RedirectToAction("Index");
+        }
 
-        //    if (isAdministrator())
-        //    {
-        //        if (ticket == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (ticket == null || ticket.UsuarioID != userID)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //    }
+        [HttpPost]
+        public ActionResult SetFutureFeature(bool isFutureFeature, int ticketId)
+        {
+            Ticket ticket = _TicketService.FindBy(x => x.Id == ticketId).FirstOrDefault();
+            ticket.FuturaMejora = isFutureFeature;
+            _TicketService.Update(ticket);
+            return new HttpStatusCodeResult(200);
+        }
 
-        //    setEditableTicket(ticket);
-
-        //    ViewBag.UsuarioID = new SelectList(db.UserProfiles, "UserId", "UserName", ticket.UsuarioID);
-        //    ViewBag.TicketEstadoID = new SelectList(db.TicketEstados, "ID", "Descripcion", ticket.TicketEstadoID);
-        //    return View(ticket);
-        //}
-
-        //private void setEditableTicket(Ticket ticket)
-        //{
-        //    TicketEvento ultEvento = ticket.TicketEventos.OrderByDescending(p => p.FechaCreacion).FirstOrDefault();
-        //    string lastTipoEvento = db.TicketTipoEventos.Find(ultEvento.TicketTipoEventoID).Descripcion;
-
-        //    DateTime dtLastEvento = ultEvento.FechaCreacion;
-        //    DateTime dtNow = DateTime.Now;
-        //    TimeSpan span = dtNow - dtLastEvento;
-        //    double totalMinutes = span.TotalMinutes;
-
-        //    if (isAdministrator())
-        //    {
-        //        if (lastTipoEvento.Equals("Respuesta"))
-        //        {
-
-        //            if (totalMinutes <= 10 && ticket.Resuelto == false)
-        //            {
-        //                ViewBag.RtaEditable = 1;
-        //            }
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (lastTipoEvento.Equals("Consulta"))
-        //        {
-
-        //            if (totalMinutes <= 10 && ticket.Resuelto == false)
-        //            {
-        //                ViewBag.Editable = 1;
-        //            }
-
-        //        }
-        //    }
-
-        //}
-
-        //[HttpPost]
-        //public ActionResult CloseTicket(int ID)
-        //{
-        //    Ticket ticket = db.Tickets.Find(ID);
-        //    ticket.Resuelto = true;
-        //    db.Entry(ticket).State = EntityState.Modified;
-        //    db.SaveChanges();
-        //    return PartialView("_Cerrado");
-        //}
-
-        ////
-        //// POST: /MisTickets/Edit/5
-
-        //[HttpPost]
-        //public ActionResult Edit(Ticket ticket)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(ticket).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.UsuarioID = new SelectList(db.UserProfiles, "UserId", "UserName", ticket.UsuarioID);
-        //    ViewBag.TicketEstadoID = new SelectList(db.TicketEstados, "ID", "Descripcion", ticket.TicketEstadoID);
-        //    return View(ticket);
-        //}
-
-        ////
-        //// GET: /MisTickets/Delete/5
-
-        //public ActionResult Delete(int id = 0)
-        //{
-        //    Ticket ticket = db.Tickets.Find(id);
-        //    if (ticket == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(ticket);
-        //}
-
-        ////
-        //// POST: /MisTickets/Delete/5
-
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Ticket ticket = db.Tickets.Find(id);
-        //    db.Tickets.Remove(ticket);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
-        //[HttpPost]
-        //public ActionResult SetFutureFeature(bool isFutureFeature, int ticketId)
-        //{
-        //    Ticket ticket = db.Tickets.Find(ticketId);
-        //    ticket.FuturaMejora = isFutureFeature;
-        //    db.Entry(ticket).State = EntityState.Modified;
-        //    db.SaveChanges();
-        //    return new HttpStatusCodeResult(200);
-        //}
+        public FileContentResult GetImage(int id, int ticketId)
+        {
+            Ticket ticket = _TicketService.FindBy(x => x.Id == ticketId).FirstOrDefault();
+            TicketEvento tkEvento = ticket.TicketEventos.FirstOrDefault(x => x.Id == id);
+            if (tkEvento != null)
+            {
+                return File(tkEvento.ImageData, tkEvento.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
 
     }
 }

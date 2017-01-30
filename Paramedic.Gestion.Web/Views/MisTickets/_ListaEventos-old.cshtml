@@ -1,0 +1,70 @@
+﻿@model Paramedic.Gestion.Model.Ticket
+@using Paramedic.Gestion.Model.Enums
+@{
+    var tkEventos = Model.TicketEventos.OrderBy(p => p.CreatedDate);
+    var lastItemId = tkEventos.LastOrDefault().Id;
+}
+
+<div id="listaEventos">
+    <ul class="messages_layout">
+
+        @foreach (var item in tkEventos)
+        {
+            var messageClass = item.TicketTipoEventoType == TicketEventoType.Question ? "question" : "answer";
+            var icon = item.TicketTipoEventoType == TicketEventoType.Question ? "fa-envelope-o" : "fa-user-o";
+            bool isLastItem = item.Id == lastItemId;
+
+            <li class="row">
+                <div class="col-xs-1">
+                    <span class="fa-stack fa-lg @messageClass">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa @icon fa-stack-1x fa-inverse"></i>
+                    </span>
+                </div>
+
+                <div class="col-xs-11">
+
+                    <div class="message_wrap @messageClass">
+                        <span class="arrow"></span>
+                        <div class="info">
+                            <a class="name">@item.Usuario.UserName</a> <span class="time">
+                                @item.CreatedDate.ToShortDateString(), a las @item.CreatedDate.ToShortTimeString()
+                            </span>
+
+                            @if ((ViewBag.Editable == 1 && isLastItem) || (item.ImageData != null))
+                            {
+                                <div class="options_arrow">
+                                    <div class="dropdown pull-right">
+                                        <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"><i class="icon-caret-down"></i></a>
+                                        <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
+                                            @if (ViewBag.Editable == 1 && isLastItem)
+                                            {
+                                                <li>
+                                                    <a href="#" data-ref="/MisTickets/EditTicketEvento/@item.Id" data-evento-id="@item.Id" class="btnEditCreateEvento">
+                                                        <i class="fa fa-edit icon-large" style="margin-right:5px"></i>Editar
+                                                    </a>
+                                                </li>
+                                            }
+
+                                            @if (item.ImageData != null)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("GetImage", "MisTickets",new {id = item.Id })" class="group single_image" rel="fancy">
+                                                        <i class="icon-camera icon-large" style="margin-right:5px"></i>Ver adjunto
+                                                    </a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="text">@item.Descripcion</div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+</div>

@@ -80,6 +80,7 @@
     <Compile Include="IEntityService.cs" />
     <Compile Include="IEstadoService.cs" />
     <Compile Include="ILicenciaService.cs" />
+    <Compile Include="ILicenciasLogService.cs" />
     <Compile Include="ILocalidadService.cs" />
     <Compile Include="IMedioDifusionService.cs" />
     <Compile Include="IPaisService.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="IUserProfileService.cs" />
     <Compile Include="IVideoService.cs" />
     <Compile Include="LicenciaService.cs" />
+    <Compile Include="LicenciasLogService.cs" />
     <Compile Include="LocalidadService.cs" />
     <Compile Include="MedioDifusionService.cs" />
     <Compile Include="PaisService.cs" />

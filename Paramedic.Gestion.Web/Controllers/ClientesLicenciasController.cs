@@ -40,11 +40,11 @@ namespace Gestion.Controllers
 
         #region Public Methods
 
-        public ActionResult Index(int ClienteID, string searchName = null, int page = 1)
+        public ActionResult Index(int clienteId, string searchName = null, int page = 1)
         {
             IEnumerable<ClientesLicencia> licencias =
                 _ClientesLicenciaService
-                .FindBy(x => x.ClienteId == ClienteID)
+                .FindBy(x => x.ClienteId == clienteId)
                 .OrderByDescending(x => x.Licencia.Serial)
                 .ToList();
 
@@ -53,7 +53,7 @@ namespace Gestion.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Cliente_ID = ClienteID;
+            ViewBag.ClienteId = clienteId;
 
             return PartialView("_ClientesLicencias", licencias);
         }

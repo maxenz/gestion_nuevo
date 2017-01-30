@@ -7,7 +7,7 @@
     <title>Shaman Gesti&oacute;n</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCgGOZyoyPNYnpqnmUR4NbLsRDowF-sYG8"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
           rel="stylesheet">
     @Styles.Render("~/bundles/gestion_css")
@@ -59,14 +59,22 @@
                                     <p>@User.Identity.Name</p>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#" id="cerrarSesion">Cerrar Sesión</a>
+                                    <li class="system-options-dropdown">
+                                        <a href="#" id="cerrarSesion">
+                                            <i class="fa fa-sign-out"></i>
+                                            <span>Cerrar Sesión</span>
+                                        </a>
                                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                         {
                                             @Html.AntiForgeryToken()
                                         }
                                     </li>
-                                    <li><a href="#">Opciones del usuario</a></li>
+                                    
+                                    <li class="system-options-dropdown">
+                                        <a href="#">
+                                            <i class="fa fa-bars"></i><span>Opciones del usuario</span>
+                                        </a>
+                                    </li>
 
                                 </ul>
                             </li>
@@ -145,6 +153,13 @@
                     else if (User.IsInRole("Cliente"))
                     {
                         @HtmlHelpers.getPageLink("/CuentaCorriente", "fa fa-money", "Cuenta Corriente")
+
+                        <li class="@(@Request.Path.Contains("MisProductos") ? "selected-menu-option" : "")">
+                            <a href="@Url.Action("Index", "MisProductos")">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Mis Productos</span>
+                            </a>
+                        </li>
                     }
 
                     <li class="@(@Request.Path.Contains("Tickets") ? "selected-menu-option" : "")">
@@ -159,12 +174,7 @@
                             <span>Videos</span>
                         </a>
                     </li>
-                    <li class="@(@Request.Path.Contains("MisProductos") ? "selected-menu-option" : "")">
-                        <a href="@Url.Action("Index", "MisProductos")">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>Mis Productos</span>
-                        </a>
-                    </li>
+
                 </ul>
 
             </div>

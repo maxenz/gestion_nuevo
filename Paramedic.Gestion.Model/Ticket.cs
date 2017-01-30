@@ -8,6 +8,8 @@ namespace Paramedic.Gestion.Model
     [Table("Tickets")]
     public class Ticket : AuditableEntity<int>
     {
+        #region Properties
+
         [Required]
         [Display(Name = "Asunto")]
         public string Asunto { get; set; }
@@ -27,6 +29,17 @@ namespace Paramedic.Gestion.Model
 
         [ForeignKey("UserProfileId")]
         public virtual UserProfile Usuario { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public Ticket()
+        {
+            this.TicketEventos = new List<TicketEvento>();
+        }
+
+        #endregion
 
     }
 }

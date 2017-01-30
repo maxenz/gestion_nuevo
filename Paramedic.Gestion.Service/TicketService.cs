@@ -27,6 +27,7 @@ namespace Paramedic.Gestion.Service
         public IEnumerable<Ticket> GetTickets(TicketQueryControllerParametersDTO queryParameters)
         {
             var predicate = getPredicateByConditions(queryParameters);
+            
             return FindByPage(predicate, "CreatedDate DESC", queryParameters.PageSize, queryParameters.Page);
         }
 
@@ -53,6 +54,11 @@ namespace Paramedic.Gestion.Service
             if (!queryParameters.IsAdmin)
             {
                 predicate = predicate.And(p => p.UserProfileId == queryParameters.UserId);
+            }
+
+            if (!predicate.IsStarted)
+            {
+                return null;
             }
 
             return predicate;

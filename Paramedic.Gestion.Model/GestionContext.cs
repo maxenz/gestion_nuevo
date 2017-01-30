@@ -57,7 +57,7 @@ namespace Paramedic.Gestion.Model
         {
             var modifiedEntries = ChangeTracker.Entries()
                 .Where(x => x.Entity is IAuditableEntity
-                    && (x.State == System.Data.Entity.EntityState.Added || x.State == System.Data.Entity.EntityState.Modified));
+                    && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
             foreach (var entry in modifiedEntries)
             {
@@ -65,9 +65,9 @@ namespace Paramedic.Gestion.Model
                 if (entity != null)
                 {
                     string identityName = Thread.CurrentPrincipal.Identity.Name;
-                    DateTime now = DateTime.UtcNow;
+                    DateTime now = DateTime.Now;
 
-                    if (entry.State == System.Data.Entity.EntityState.Added)
+                    if (entry.State == EntityState.Added)
                     {
                         entity.CreatedBy = identityName;
                         entity.CreatedDate = now;

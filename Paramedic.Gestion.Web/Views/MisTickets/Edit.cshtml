@@ -1,56 +1,68 @@
 ﻿@model Paramedic.Gestion.Model.Ticket
 @using Paramedic.Gestion.Model.Enums
 
-    <div class="main">
-        <div class="main-inner">
-            <div class="container">
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
 
-                <div class="row" >
-                    <div class="col-xs-8 col-xs-offset-2">
-                        <div class="widget">
-                            <div class="widget-header">
+            <div class="row">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>@Model.Asunto</h3>
 
-                                <i class="fa fa-times-circle"></i>
-                                <h3>@Model.Asunto</h3>
 
-                            </div>
-                            <!-- /widget-header -->
-                            <div class="widget-content">
-                                <div style="text-align:right">
-                                    @if (@User.IsInRole("Administrador"))
-                                    {
-                                        @Html.LabelFor(x => x.FuturaMejora, new { style = "display: inline; margin-right:5px" })
-                                        @Html.EditorFor(x => x.FuturaMejora)
-                                        @Html.HiddenFor(x => x.Id)
-                                    }
-                                    <hr />
-                                </div>
-                                @Html.Partial("_ListaEventos", Model)
-
-                                <!-- /bar-chart -->
-                            </div>
-                            <!-- /widget-content -->
                         </div>
+                        <div class="widget-content">
 
-                        <div id="bottomEditTicket">
+                            @if (@User.IsInRole("Administrador"))
+                            {
+                                <div style="float:right">
+                                    <div class="checkbox">
+                                        <label style="font-size: 1.3em">
+                                            <input type="checkbox" value="" id="FuturaMejora" name="FuturaMejora" checked="">
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                            Futura mejora
+                                        </label>
+                                    </div>
+                                </div>
+                            }
 
-                            @if (Model.TicketEstadoType == TicketEstadoType.Resolved)
-                            {
-                                @Html.Partial("_Cerrado")
-                            }
-                            else if (User.IsInRole("Administrador"))
-                            {
-                                @Html.Partial("_BotonResponder")
-                            }
-                            else
-                            {
-                                @Html.Partial("_BotonConsultaCerrar")
-                            }
+                            @Html.HiddenFor(x => x.Id)
+                            @Html.Partial("_ListaEventos", Model)
 
                         </div>
                     </div>
+
+                    <div id="bottomEditTicket">
+
+                        @if (Model.TicketEstadoType == TicketEstadoType.Resolved)
+                        {
+                            <div class="alert alert-danger">
+                                <strong>Ticket resuelto!</strong> Para cualquier otra consulta, inicie otro ticket.
+                            </div>
+                        }
+                        else if (User.IsInRole("Administrador"))
+                        {
+                            @Html.Partial("_BotonResponder")
+                        }
+                        else
+                        {
+                            <div class="centered">
+                                <a href="@Url.Action("TicketEvento","MisTickets",new { ticketId = Model.Id })" class="btn btn-success btn-outline">Nueva Consulta</a>
+
+                                @using (Html.BeginForm("CloseTicket", "MisTickets", FormMethod.Post, new { @class = "display-webkit-inline-box" }))
+                                {
+                                    @Html.HiddenFor(x => x.Id)
+                                    <button type="submit" class="btn btn-danger btn-outline">Cerrar Ticket</button>
+                                }
+
+                            </div>
+                        }
+
+                    </div>
                 </div>
             </div>
-            <!-- /main-inner -->
         </div>
     </div>
+</div>

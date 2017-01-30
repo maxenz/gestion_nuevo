@@ -96,6 +96,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="Enums\ClientType.cs" />
     <Compile Include="Enums\GestionType.cs" />
+    <Compile Include="Enums\LicenciasLogType.cs" />
     <Compile Include="Enums\TicketEstadoType.cs" />
     <Compile Include="Enums\TicketEventoType.cs" />
     <Compile Include="Estado.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="Licencia.cs" />
     <Compile Include="LicenciasLog.cs" />
+    <Compile Include="LicenciasLogControllerParametersDTO.cs" />
     <Compile Include="Localidad.cs" />
     <Compile Include="LogRegistroSistema.cs" />
     <Compile Include="MedioDifusion.cs" />

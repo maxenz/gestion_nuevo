@@ -1,0 +1,11 @@
+﻿@model Paramedic.Gestion.Model.TicketEvento
+
+@using (Html.BeginForm("CreateEditTicketEvento", "MisTickets",
+                FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_FormTicketEvento", Model)
+}
+

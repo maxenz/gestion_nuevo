@@ -1,10 +1,7 @@
-﻿using Gestion.Models;
-using System;
-using System.Collections.Generic;
+﻿using Paramedic.Gestion.Model;
+using Paramedic.Gestion.Service;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 
@@ -12,41 +9,45 @@ namespace Gestion.Controllers
 {
     public class ExternalLoginController : Controller
     {
-        private GestionDb db = new GestionDb();
+        #region Properties
+
+        IClientesLicenciaService _ClientesLicenciaService;
+        IUserProfileService _UserProfileService;
+        IClientesUsuarioService _ClientesUsuarioService;
+
+        #endregion
+
+        #region Constructors
+
+        public ExternalLoginController(IClientesLicenciaService ClientesLicenciaService, IUserProfileService UserProfileService, IClientesUsuarioService ClientesUsuarioService)
+        {
+            _ClientesLicenciaService = ClientesLicenciaService;
+            _UserProfileService = UserProfileService;
+            _ClientesUsuarioService = ClientesUsuarioService;
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public ActionResult Index(string user = null, string pass = null, string llave = null, int shex_id = 0)
         {
 
             if (ModelState.IsValid && WebSecurity.Login(user, pass, true))
             {
-                int cli_id = db.ClientesLicencias
-                                .Where(p => p.Licencia.Serial == llave)
-                                .Select(p => p.Cliente.ID)
-                                .FirstOrDefault();
+                ClientesUsuario clientesUsuario = getClientesUsuario(llave, user);
 
-                int usr_id = db.UserProfiles
-                                .Where(p => p.UserName == user)
-                                .Select(p => p.UserId)
-                                .FirstOrDefault();
-
-
-                ClientesUsuario cli_usr = db.ClientesUsuarios
-                                        .Where(p => p.ClienteID == cli_id)
-                                        .Where(p => p.Usuario.UserName == user)
-                                        .FirstOrDefault();
-
-                if (cli_usr == null)
+                if (clientesUsuario == null)
                 {
                     return RedirectToAction("Login", "Account");
                 }
 
-                if (cli_usr.ShamanExpressID.Equals(null))
+                if (clientesUsuario.ShamanExpressId.Equals(null))
                 {
-                    cli_usr.ShamanExpressID = shex_id;
-                    db.Entry(cli_usr).State = EntityState.Modified;
-                    db.SaveChanges();
+                    clientesUsuario.ShamanExpressId = shex_id;
+                    _ClientesUsuarioService.Update(clientesUsuario);
                 }
-                
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -54,26 +55,12 @@ namespace Gestion.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-       
+
         public int IsInGestion(string user = null, string pass = null, string llave = null)
         {
-            int cli_id = db.ClientesLicencias
-                .Where(p => p.Licencia.Serial == llave)
-                .Select(p => p.Cliente.ID)
-                .FirstOrDefault();
+            ClientesUsuario clientesUsuario = getClientesUsuario(llave, user);
 
-            int usr_id = db.UserProfiles
-                              .Where(p => p.UserName == user)
-                              .Select(p => p.UserId)
-                              .FirstOrDefault();
-
-
-            ClientesUsuario cli_usr = db.ClientesUsuarios
-                                    .Where(p => p.ClienteID == cli_id)
-                                    .Where(p => p.Usuario.UserName == user)
-                                    .FirstOrDefault();
-
-            if ((cli_id == 0) || (usr_id == 0) || (cli_usr == null))
+            if (clientesUsuario == null)
             {
                 return 0;
             }
@@ -83,5 +70,31 @@ namespace Gestion.Controllers
             return ret;
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private ClientesUsuario getClientesUsuario(string llave = null, string user = null)
+        {
+            int cli_id = _ClientesLicenciaService
+                .FindBy(p => p.Licencia.Serial == llave)
+                .Select(p => p.Cliente.Id)
+                .FirstOrDefault();
+
+            int usr_id = _UserProfileService
+                            .FindBy(p => p.UserName == user)
+                            .Select(p => p.Id)
+                            .FirstOrDefault();
+
+
+            ClientesUsuario clientesUsuario = _ClientesUsuarioService
+                                    .FindBy(p => p.ClienteId == cli_id)
+                                    .Where(p => p.Usuario.UserName == user)
+                                    .FirstOrDefault();
+
+            return clientesUsuario;
+        }
+
+        #endregion
     }
 }

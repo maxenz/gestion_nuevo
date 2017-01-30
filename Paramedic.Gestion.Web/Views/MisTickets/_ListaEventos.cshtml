@@ -2,65 +2,50 @@
 @using Paramedic.Gestion.Model.Enums
 @{
     var tkEventos = Model.TicketEventos.OrderBy(p => p.CreatedDate);
-    var lastItemId = tkEventos.LastOrDefault().Id;
 }
+<ul class="timeline" style="margin-top:20px">
 
-<div id="listaEventos">
-    <ul class="messages_layout">
+    @foreach (var item in tkEventos)
+    {
+        var isQuestion = item.TicketTipoEventoType == TicketEventoType.Question;
+        var liClass = isQuestion ? "" : "timeline-inverted";
+        var timelineBadgeClass = isQuestion ? "success" : "warning";
+        var icon = isQuestion ? "fa-envelope-o" : "fa-user-o";
 
-        @foreach (var item in tkEventos)
-        {
-            bool isLastItem = item.Id == lastItemId;
-            string tipeOfMessage = "";
-            string imageToShow = "";
+        <li class="@liClass">
+            <div class="timeline-badge @timelineBadgeClass">
+                <i class="fa @icon"></i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <h4 class="timeline-title">@item.Usuario.UserName</h4>
+                    @if (item.ImageData != null)
+                    {
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu slidedown">
+                                @if (item.ImageData != null)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("GetImage", "MisTickets",new {id = item.Id, ticketId = item.TicketId })" class="single_image" rel="fancy">
+                                            <i class="fa fa-camera-retro fa-fw"></i> Ver adjunto
+                                        </a>
+                                    </li>
+                                }
 
-            tipeOfMessage = item.TicketTipoEventoType == TicketEventoType.Answer ? "from_user left" : "by_myself right";
-            imageToShow = item.TicketTipoEventoType == TicketEventoType.Answer ? "img_usuario.png" : "img_admin.jpg";
-
-            <li class="@tipeOfMessage">
-                <a href="#" class="avatar">
-                    <img src="~/img/@imageToShow">
-                </a>
-                <div class="message_wrap">
-                    <span class="arrow"></span>
-                    <div class="info">
-                        <a class="name">@item.Usuario.UserName</a> <span class="time">
-                            @item.CreatedDate.ToShortDateString(), a las @item.CreatedDate.ToShortTimeString()
-                        </span>
-
-                        @if ((ViewBag.Editable == 1 && isLastItem) || (item.ImageData != null))
-                        {
-                            <div class="options_arrow">
-                                <div class="dropdown pull-right">
-                                    <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"><i class="icon-caret-down"></i></a>
-                                    <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                                        @if (ViewBag.Editable == 1 && isLastItem)
-                                        {
-                                            <li>
-                                                <a href="#" data-ref="/MisTickets/EditTicketEvento/@item.Id" data-evento-id="@item.Id" class="btnEditCreateEvento">
-                                                    <i class="fa fa-edit icon-large" style="margin-right:5px"></i>Editar
-                                                </a>
-                                            </li>
-                                        }
-
-                                        @if (item.ImageData != null)
-                                        {
-                                            <li>
-                                                <a href="@Url.Action("GetImage", "MisTickets",new {id = item.Id })" class="group single_image" rel="fancy">
-                                                    <i class="icon-camera icon-large" style="margin-right:5px"></i>Ver adjunto
-                                                </a>
-                                            </li>
-                                        }
-
-                                    </ul>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    <div class="text">@item.Descripcion</div>
+                            </ul>
+                        </div>
+                    }
+                    <p>
+                        <small class="text-muted"><i class="fa fa-clock-o"></i> @item.CreatedDate.ToShortDateString(), a las @item.CreatedDate.ToShortTimeString()</small>
+                    </p>
                 </div>
-            </li>
-        }
-    </ul>
-</div>
-
+                <div class="timeline-body">
+                    <p>@item.Descripcion</p>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
