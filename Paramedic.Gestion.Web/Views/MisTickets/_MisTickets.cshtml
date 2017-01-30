@@ -17,7 +17,10 @@
                             <tr>
                                 <th class="col-xs-3">@Html.DisplayNameFor(model => model.FirstOrDefault().FechaHora) </th>
                                 <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Usuario)</th>
-                                <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Cliente)</th>
+                                @if (User.IsInRole("Administrador"))
+                                {
+                                    <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Cliente)</th>
+                                }
                                 <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Estado) </th>
                                 <th class="col-xs-2">@Html.DisplayNameFor(model => model.FirstOrDefault().Asunto) </th>
                                 <th class="col-xs-1"></th>
@@ -33,12 +36,15 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Usuario)
                                     </td>
-                                    <td>
-                                        <a href="@Url.Action("Edit", "Clientes", new { id = item.ClienteId })">
-                                            @item.Cliente
-                                        </a>                                        
-                                    </td>                                    
-                                       @Html.Raw(@TicketHtmlHelper.getTicketState(item.Type))
+                                    @if (User.IsInRole("Administrador"))
+                                    {
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Clientes", new { id = item.ClienteId })">
+                                                @item.Cliente
+                                            </a>
+                                        </td>
+
+                                    }@Html.Raw(@TicketHtmlHelper.getTicketState(item.Type))
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Asunto)
                                     </td>

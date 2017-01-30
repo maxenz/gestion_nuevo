@@ -8,12 +8,8 @@ using System.Web;
 namespace Paramedic.Gestion.Model
 {
     [Table("ClientesLicencias")]
-    public class ClientesLicencia : Entity<int>
+    public class ClientesLicencia : AuditableEntity<int>
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Key]
         [ForeignKey("Licencia")]
         [Display(Name = "Licencia")]
         public int LicenciaId { get; set; }

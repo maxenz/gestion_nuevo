@@ -6,6 +6,7 @@ using System.Globalization;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Web.ViewModels;
+using System.Linq;
 
 namespace Gestion.Controllers
 {
@@ -15,15 +16,17 @@ namespace Gestion.Controllers
         #region Properties
 
         ILicenciasLogService _LicenciasLogService;
+        IClientesLicenciaService _ClientesLicenciaService;
         private int controllersPageSize = 10;
 
         #endregion
 
         #region Constructors
 
-        public LicenciasLogsController(ILicenciasLogService LicenciasLogService)
+        public LicenciasLogsController(ILicenciasLogService LicenciasLogService, IClientesLicenciaService ClientesLicenciaService)
         {
             _LicenciasLogService = LicenciasLogService;
+            _ClientesLicenciaService = ClientesLicenciaService;
         }
 
         #endregion
@@ -34,6 +37,8 @@ namespace Gestion.Controllers
         {
             try
             {
+                IEnumerable<ClientesLicencia> clientesLicencias = _ClientesLicenciaService.GetAll();
+
                 LicenciasLogControllerParametersDTO parameters = new LicenciasLogControllerParametersDTO(searchName, controllersPageSize, page, fechaDesde, fechaHasta, Convert.ToBoolean(chkAndroidLogs));
 
                 ViewBag.dftDesde = parameters.DateFrom.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -44,7 +49,8 @@ namespace Gestion.Controllers
 
                 foreach (LicenciasLog log in logs)
                 {
-                    vmLogs.Add(new LicenciasLogViewModel(log));
+                    ClientesLicencia cliLic = clientesLicencias.Where(x => x.LicenciaId == log.LicenciaId).FirstOrDefault();
+                    vmLogs.Add(new LicenciasLogViewModel(log, cliLic));
                 }
 
                 int count = _LicenciasLogService.GetCount(_LicenciasLogService.getPredicateByConditions(parameters));

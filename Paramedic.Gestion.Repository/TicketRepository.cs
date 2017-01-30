@@ -20,6 +20,7 @@ namespace Paramedic.Gestion.Repository
         {
             return _dbset
                 .Include(x => x.TicketEventos)
+                .Include(x => x.Usuario)
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
         }

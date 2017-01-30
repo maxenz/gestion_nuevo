@@ -7,7 +7,6 @@ namespace Paramedic.Gestion.Model
     [Table("Licencias")]
     public class Licencia : AuditableEntity<int>
     {
-
         #region Properties
 
         [Required]
@@ -17,9 +16,6 @@ namespace Paramedic.Gestion.Model
         public string NumeroDeLlave { get; set; }
 
         public virtual ICollection<Producto> Productos { get; set; }
-
-        [ForeignKey("ClientesLicenciaId")]
-        public virtual ClientesLicencia ClientesLicencia { get; set; }
 
         public virtual string FormattedProducts
         {
@@ -43,20 +39,7 @@ namespace Paramedic.Gestion.Model
             }
         }
 
-        public virtual string Estado
-        {
-            get
-            {
-                if (this.ClientesLicencia != null)
-                {
-                    return this.ClientesLicencia.Cliente.RazonSocial;
-                }
-
-                return null;
-
-            }
-        }
-
+        public virtual string Estado { get; set; }
 
         #endregion
 

@@ -65,12 +65,12 @@ namespace Gestion.Controllers
 
                 ClientesUsuario cliUsr = _ClienteUsuarioService.FindBy(x => x.UsuarioId == userId).FirstOrDefault();                
 
-                getUserForShamanWeb(1, cliUsr);
+                //getUserForShamanWeb(1, cliUsr);
 
                 Cliente cliente = cliUsr.Cliente;
                 var productos = setProductos(cliente);
 
-                if (productos != null)
+                if (productos.Count > 0)
                 {
                     return View("Index",productos);
                 }

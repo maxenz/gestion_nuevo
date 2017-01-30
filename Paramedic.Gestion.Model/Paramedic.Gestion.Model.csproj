@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -97,6 +98,8 @@
     <Compile Include="Enums\ClientType.cs" />
     <Compile Include="Enums\GestionType.cs" />
     <Compile Include="Enums\LicenciasLogType.cs" />
+    <Compile Include="Enums\LoggingTypes.cs" />
+    <Compile Include="Enums\SocialMediaTypes.cs" />
     <Compile Include="Enums\TicketEstadoType.cs" />
     <Compile Include="Enums\TicketEventoType.cs" />
     <Compile Include="Estado.cs" />
@@ -111,6 +114,9 @@
     <Compile Include="Localidad.cs" />
     <Compile Include="LogRegistroSistema.cs" />
     <Compile Include="MedioDifusion.cs" />
+    <Compile Include="Messaging\MailConfiguration.cs" />
+    <Compile Include="Messaging\MailMessage.cs" />
+    <Compile Include="Messaging\Message.cs" />
     <Compile Include="Pais.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="ProductosModulo.cs" />

@@ -14,8 +14,7 @@
         if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
         {
             <div class="alert alert-danger">
-                <a class="close" data-dismiss="alert">×</a>
-                @Html.ValidationSummary(true)
+                <strong>Error!</strong> Los datos del usuario son incorrectos.
             </div>
 
         }

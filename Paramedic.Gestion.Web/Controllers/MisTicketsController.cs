@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +15,6 @@ namespace Gestion.Controllers
     [Authorize]
     public class MisTicketsController : Controller
     {
-
         #region Properties
 
         ITicketService _TicketService;
@@ -44,7 +42,7 @@ namespace Gestion.Controllers
 
         public ActionResult Index(string searchName = null, string chkFutureFeatures = null, int page = 1)
         {
-
+            LoggingService.Instance.Write(LoggingTypes.Information, "probando logger amis");
             int userId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
             bool isAdmin = User.IsInRole("Administrador");
             IList<TicketViewModel> vmTickets = new List<TicketViewModel>();
@@ -80,8 +78,6 @@ namespace Gestion.Controllers
             return View(resultAsPagedList);
         }
 
-        #endregion
-
         public ActionResult Create()
         {
             ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName");
@@ -94,7 +90,7 @@ namespace Gestion.Controllers
             TicketEventoType type = User.IsInRole("Administrador") ? TicketEventoType.Answer : TicketEventoType.Question;
             int userProfileId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
 
-            Ticket ticket = _TicketService.FindBy(x => x.Id == ticketEvento.TicketId).FirstOrDefault();
+            Ticket ticket = _TicketService.GetById(ticketEvento.TicketId);
             if (ticketEvento.Id == 0)
             {
                 ticket = TicketConverter.CreateTicketWithEvent(ticket, ticketEvento.Descripcion, image, type, userProfileId);
@@ -146,69 +142,6 @@ namespace Gestion.Controllers
             return View();
         }
 
-        //private void doEmailAdministrator(TicketEvento tkEvento)
-        //{
-        //    var subject = "Consulta Shaman Gestión del " + DateTime.Now;
-        //    string body = createBodyForAdministrator(tkEvento);
-        //    sendEmail(emailAdministrator, subject, body);
-
-        //}
-
-
-        //private void doEmailCliente(TicketEvento tkEvento)
-        //{
-        //    var subject = "Respuesta Shaman Gestión del " + DateTime.Now;
-        //    string body = createBodyForCliente(tkEvento);
-        //    sendEmail(tkEvento.Ticket.Usuario.Email, subject, body);
-
-        //}
-
-        //private string createBodyForCliente(TicketEvento tkEvento)
-        //{
-        //    string href = "<a href=\"http://www.200.49.156.125:57771/MisTickets/Edit/" + tkEvento.TicketID + "\">Aquí</a>";
-        //    StringBuilder body = new StringBuilder()
-        //        .AppendLine("Asunto: " + tkEvento.Ticket.Asunto + "<br /><br />")
-        //        .AppendLine("Para acceder a la respuesta haga click:  " + href);
-
-        //    return body.ToString();
-        //}
-
-        //private string createBodyForAdministrator(TicketEvento tkEvento)
-        //{
-        //    StringBuilder body = new StringBuilder()
-        //        .AppendLine("Usuario: " + tkEvento.Ticket.Usuario.UserName + "<br /><br />")
-        //        .AppendLine("Asunto: " + tkEvento.Ticket.Asunto + "<br /><br />")
-        //        .AppendLine("Descripción: " + tkEvento.Descripcion);
-
-        //    return body.ToString();
-        //}
-
-        //private void sendEmail(string to, string subject, string body)
-        //{
-        //    try
-        //    {
-        //        MailMessage mailMsg = new MailMessage();
-        //        mailMsg.To.Add(to);
-        //        MailAddress mailAddress = new MailAddress("sistemas@paramedic.com.ar");
-        //        mailMsg.From = mailAddress;
-        //        mailMsg.Subject = subject;
-        //        mailMsg.Body = body;
-        //        mailMsg.IsBodyHtml = true;
-
-        //        SmtpClient smtpClient = new SmtpClient("smtp.fibertel.com.ar", 25);
-        //        System.Net.NetworkCredential credentials =
-        //           new System.Net.NetworkCredential("sistemas.paramedic.com.ar", "pwsi01");
-        //        smtpClient.Credentials = credentials;
-        //        smtpClient.Send(mailMsg);
-        //    }
-        //    catch
-        //    {
-
-        //    }
-
-
-        //}
-
         [HttpPost]
         public ActionResult Create(Ticket ticket, string descripcion, HttpPostedFileBase image)
         {
@@ -217,16 +150,14 @@ namespace Gestion.Controllers
 
                 ticket.TicketEstadoType = TicketEstadoType.NotAnswered;
                 ticket.UserProfileId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
+                ticket.Usuario = _UserProfileService.FindBy(x => x.Id == ticket.UserProfileId).FirstOrDefault();
                 ticket = TicketConverter.CreateTicketWithEvent(ticket, descripcion, image, TicketEventoType.Question, ticket.UserProfileId);
                 _TicketService.Create(ticket);
-
-                //doEmailAdministrator(tkEvento);
 
                 return RedirectToAction("Index");
             }
 
             ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName");
-            //ViewBag.TicketEstadoID = new SelectList(db.TicketEstados, "ID", "Descripcion", ticket.TicketEstadoID);
             return View(ticket);
         }
 
@@ -308,5 +239,7 @@ namespace Gestion.Controllers
             }
         }
 
+
+        #endregion
     }
 }

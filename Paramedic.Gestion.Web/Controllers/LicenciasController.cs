@@ -16,6 +16,7 @@ namespace Gestion.Controllers
         #region Properties
 
         ILicenciaService _LicenciaService;
+        IClientesLicenciaService _ClientesLicenciaService;
         IProductoService _ProductoService;
         private int controllersPageSize = 6;
 
@@ -23,10 +24,11 @@ namespace Gestion.Controllers
 
         #region Constructors
 
-        public LicenciasController(ILicenciaService LicenciaService, IProductoService ProductoService)
+        public LicenciasController(ILicenciaService LicenciaService, IProductoService ProductoService, IClientesLicenciaService ClientesLicenciaService)
         {
             _LicenciaService = LicenciaService;
             _ProductoService = ProductoService;
+            _ClientesLicenciaService = ClientesLicenciaService;
         }
 
         #endregion
@@ -37,9 +39,19 @@ namespace Gestion.Controllers
         {
             var predicate = PredicateBuilder.New<Licencia>();
             predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Serial.Contains(searchName)) : null;
-
+            IEnumerable<ClientesLicencia> cliLics = _ClientesLicenciaService.GetAll();
             IEnumerable<Licencia> licencias = _LicenciaService.FindByPage(predicate, "Serial DESC", controllersPageSize, page);
             int count = _LicenciaService.FindBy(predicate).Count();
+
+            foreach (Licencia lic in licencias)
+            {
+                ClientesLicencia cliLic = cliLics.Where(x => x.LicenciaId == lic.Id).FirstOrDefault();
+                if (cliLic != null)
+                {
+                    lic.Estado = cliLic.Cliente.RazonSocial;
+                }
+            }
+
             var resultAsPagedList = new StaticPagedList<Licencia>(licencias, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())

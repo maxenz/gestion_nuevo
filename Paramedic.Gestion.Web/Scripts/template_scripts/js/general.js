@@ -512,7 +512,7 @@ $(function () {
 
         if ($(this).is(':checked')) {
             vMediosDifusion.push(idMedioDifusion);
-            $option.style.background = "#D7ECDD";
+            $option.style.background = "#caf097";
 
         } else {
 
@@ -529,13 +529,13 @@ $(function () {
     var vMediosDifusion = [];
     var infowindow;
 
-    if (window.location.pathname == "/Mapa") {
+    if (window.location.pathname.indexOf("Mapa") > -1) {
         vMediosDifusion = [1, 2];
         $('.chkMediosDifusion').each(function () {
             var $option = $(this).parents()[1].children[1];
             if ($(this).val() == 1 || $(this).val() == 2) {
                 $(this).prop('checked', true);
-                $option.style.background = "#8bc541";
+                $option.style.background = "#caf097";
             }
         });
         setViewOnMap();
@@ -613,35 +613,6 @@ $(function () {
             vInfoCliente.SitioWeb = 'Sin información';
         }
 
-        //    var contentString = '<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">' +
-        //    '<li class="active"><a href="#red" data-toggle="tab">Red</a></li>' +
-        //    '<li><a href="#orange" data-toggle="tab">Orange</a></li>' +
-        //    '<li><a href="#yellow" data-toggle="tab">Yellow</a></li>' +
-        //    '<li><a href="#green" data-toggle="tab">Green</a></li>' +
-        //    '<li><a href="#blue" data-toggle="tab">Blue</a></li>' +
-        //'</ul>' +
-        //'<div id="my-tab-content" class="tab-content">' +
-        //    '<div class="tab-pane active" id="red">' +
-        //        '<h1>Red</h1>' +
-        //        '<p>red red red red red red</p>' +
-        //    '</div>' +
-        //    '<div class="tab-pane" id="orange">' +
-        //        '<h1>Orange</h1>' +
-        //        '<p>orange orange orange orange orange</p>' +
-        //    '</div>' +
-        //    '<div class="tab-pane" id="yellow">' +
-        //        '<h1>Yellow</h1>' +
-        //        '<p>yellow yellow yellow yellow yellow</p>' +
-        //    '</div>' +
-        //    '<div class="tab-pane" id="green">' +
-        //        '<h1>Green</h1>' +
-        //        '<p>green green green green green</p>' +
-        //    '</div>' +
-        //    '<div class="tab-pane" id="blue">' +
-        //        '<h1>Blue</h1>' +
-        //        '<p>blue blue blue blue blue</p>' +
-        //    '</div>' +
-        //'</div>';
 
         var contentString = '<div id="content">' +
               '<div id="siteNotice">' +

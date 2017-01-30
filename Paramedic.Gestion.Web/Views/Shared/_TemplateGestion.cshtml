@@ -152,7 +152,12 @@
 
                     else if (User.IsInRole("Cliente"))
                     {
-                        @HtmlHelpers.getPageLink("/CuentaCorriente", "fa fa-money", "Cuenta Corriente")
+                        <li class="@(@Request.Path.Contains("CuentaCorriente") ? "selected-menu-option" : "")">
+                            <a href="@Url.Action("Index", "CuentaCorriente")">
+                                <i class="fa fa-money"></i>
+                                <span>Cuenta corriente</span>
+                            </a>
+                        </li>
 
                         <li class="@(@Request.Path.Contains("MisProductos") ? "selected-menu-option" : "")">
                             <a href="@Url.Action("Index", "MisProductos")">

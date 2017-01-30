@@ -1,0 +1,11 @@
+2017-01-30 13:48:17.258 -03:00 [Information] probando logger amis
+2017-01-30 13:48:37.660 -03:00 [Information] probando logger amis
+2017-01-30 13:48:38.806 -03:00 [Information] probando logger amis
+2017-01-30 13:48:43.722 -03:00 [Information] probando logger amis
+2017-01-30 13:48:56.711 -03:00 [Information] probando logger amis
+2017-01-30 14:14:04.692 -03:00 [Information] probando logger amis
+2017-01-30 14:16:14.174 -03:00 [Information] probando logger amis
+2017-01-30 14:16:24.197 -03:00 [Information] probando logger amis
+2017-01-30 14:16:26.995 -03:00 [Information] probando logger amis
+2017-01-30 14:16:27.715 -03:00 [Information] probando logger amis
+2017-01-30 14:16:35.090 -03:00 [Information] probando logger amis

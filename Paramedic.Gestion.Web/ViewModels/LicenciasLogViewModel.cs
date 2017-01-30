@@ -26,7 +26,7 @@ namespace Paramedic.Gestion.Web.ViewModels
 
         #region Constructors
 
-        public LicenciasLogViewModel(LicenciasLog log)
+        public LicenciasLogViewModel(LicenciasLog log, ClientesLicencia cliLic)
         {
 
             this.Cliente = "No hay datos del cliente";
@@ -35,10 +35,10 @@ namespace Paramedic.Gestion.Web.ViewModels
             if (log.Licencia != null)
             {
                 this.Serial = log.Licencia.Serial;
-                if (log.Licencia.ClientesLicencia != null)
+                if (cliLic != null)
                 {
-                    this.Cliente = log.Licencia.ClientesLicencia.Cliente.RazonSocial;
-                    this.ClienteId = log.Licencia.ClientesLicencia.Cliente.Id;
+                    this.Cliente = cliLic.Cliente.RazonSocial;
+                    this.ClienteId = cliLic.Cliente.Id;
                 }
             }
 
