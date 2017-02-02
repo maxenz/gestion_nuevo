@@ -638,7 +638,14 @@ $(function () {
         });
     }
 
-    $('#FuturaMejora').click(function () {
+    if (window.location.pathname.indexOf("MisTickets/Edit") > -1) {
+        if ($('#FuturaMejora').val().toLowerCase() == 'true') {
+            $('#chkFuturaMejora').click();
+        }
+    }
+
+
+    $('#chkFuturaMejora').click(function () {
         blockInterface();
         var $url = base_url_gestion + "MisTickets/SetFutureFeature";
         $.ajax({

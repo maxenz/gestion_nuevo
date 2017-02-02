@@ -16,8 +16,8 @@ namespace Paramedic.Gestion.Model
         public string IP { get; set; }
 
         [ForeignKey("LicenciaId")]
-        public Licencia Licencia { get; set; }
-
+        public virtual Licencia Licencia { get; set; }
+        
         public LicenciasLogType Type { get; set; }
 
         public string GenericDescription { get; set; }
@@ -30,11 +30,19 @@ namespace Paramedic.Gestion.Model
 
         public LicenciasLog() { } // EF
 
-        public LicenciasLog(LicenciasLogType type, string description, string ip)
+        public LicenciasLog(LicenciasLogType type, string description, string ip, int licenciaId)
         {
             this.Type = type;
             this.GenericDescription = description;
-            this.IP = ip;
+            if (string.IsNullOrEmpty(ip))
+            {
+                this.IP = "No se pudo obtener la ip";
+            } else
+            {
+                this.IP = ip;
+            }
+            this.LicenciaId = licenciaId;
+
         }
 
         #endregion

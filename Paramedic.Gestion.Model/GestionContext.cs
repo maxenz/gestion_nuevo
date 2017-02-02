@@ -46,7 +46,8 @@ namespace Paramedic.Gestion.Model
 
         public GestionContext() : base("Name=GestionContext")
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<GestionContext>());
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<GestionContext>());
+            Database.SetInitializer<GestionContext>(null);
         }
 
         #endregion

@@ -21,8 +21,6 @@ namespace Gestion.Controllers
         IUserProfileService _UserProfileService;
         IClientesUsuarioService _ClientesUsuarioService;
 
-        private string emailAdministrator = WebConfigurationManager.AppSettings["administratorEmail"];
-        private string roleAdministratorName = WebConfigurationManager.AppSettings["administratorRoleName"];
         private int controllersPageSize = 6;
 
         #endregion

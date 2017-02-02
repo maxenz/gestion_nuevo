@@ -15,6 +15,8 @@ namespace Paramedic.Gestion.Model.Messaging
 
         public string SenderPassword { get; set; }
 
+        public bool EnableSsl { get; set; }
+
         #endregion
 
         #region Constructors
@@ -26,14 +28,17 @@ namespace Paramedic.Gestion.Model.Messaging
             this.Smtp = appSettings["smtp"];
             this.SenderMail = appSettings["administratorMail"];
             this.SenderPassword = appSettings["administratorMailPassword"];
+            this.EnableSsl = Convert.ToBoolean(appSettings["enableSsl"]);
+
         }
 
-        public MailConfiguration(string smtp, int smtpPort, string mail, string password)
+        public MailConfiguration(string smtp, int smtpPort, string mail, string password, bool enableSsl)
         {
             this.Smtp = smtp;
             this.SmtpPort = smtpPort;
             this.SenderMail = mail;
             this.SenderPassword = password;
+            this.EnableSsl = enableSsl;
         }
 
         #endregion

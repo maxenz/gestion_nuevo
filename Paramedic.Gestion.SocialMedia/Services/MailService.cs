@@ -28,7 +28,7 @@ namespace SocialMedia.Services
                 mailMsg.IsBodyHtml = true;
 
                 SmtpClient smtpClient = new SmtpClient(msg.MailConfiguration.Smtp, msg.MailConfiguration.SmtpPort);
-                smtpClient.EnableSsl = true;
+                smtpClient.EnableSsl = msg.MailConfiguration.EnableSsl;
                 smtpClient.Timeout = 10000;
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.UseDefaultCredentials = false;
@@ -50,15 +50,19 @@ namespace SocialMedia.Services
             string urlGestion = ConfigurationManager.AppSettings["urlGestion"].ToString();
             string administratorMail = ConfigurationManager.AppSettings["administratorMail"].ToString();
             StringBuilder body = new StringBuilder();
-            body = body.AppendLine("Usuario: " + ticketEvento.Ticket.Usuario.UserName + "<br /><br />");
-            body = body.AppendLine("Asunto: " + ticketEvento.Ticket.Asunto + "<br /><br />");
+            body = body.AppendLine("<h2>Shaman SGE - Sistema de tickets</h2> <br />");
 
             if (ticketEvento.TicketTipoEventoType == TicketEventoType.Answer)
             {
-                string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.TicketId);
-                body = body.AppendLine("Para acceder a la respuesta haga click:  " + href);
+                body = body.AppendLine(string.Format("Han respondido tu mensaje con el asunto: {0}. <br />", ticketEvento.Ticket.Asunto));
+                string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
+                body = body.AppendLine("Para acceder a la respuesta haga click: " + href);
             } else
             {
+                body = body.AppendLine(string.Format("El usuario {0} ha realizado una consulta con el asunto: {1}. <br />", ticketEvento.Ticket.Usuario.UserName, ticketEvento.Ticket.Asunto));
+                body = body.AppendLine(string.Format("El mensaje es el siguiente: <b> {0} </b> <br/>", ticketEvento.Descripcion));
+                string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
+                body = body.AppendLine("Para responder la consulta haga click: " + href);
                 // --> Si es una pregunta, que llegue al mail administrador
                 ticketEvento.Ticket.Usuario.Email = administratorMail;
             }

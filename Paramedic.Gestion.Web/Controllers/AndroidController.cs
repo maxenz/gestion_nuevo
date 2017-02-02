@@ -30,10 +30,11 @@ namespace Gestion.Controllers
 
         #region Private Methods
 
-        private void setLoginLog(string log)
+        private void setLoginLog(string log, ClientesLicencia cliLic)
         {
             string description = string.Format("Android : {0}", log);
-            LicenciasLog licenciasLog = new LicenciasLog(LicenciasLogType.Android, description, "");
+            string ip = Request.UserHostAddress;
+            LicenciasLog licenciasLog = new LicenciasLog(LicenciasLogType.Android, description, ip, cliLic.LicenciaId);
             _LicenciasLogService.Create(licenciasLog);
 
         }
@@ -47,13 +48,15 @@ namespace Gestion.Controllers
             try
             {
                 HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
-                setLoginLog(log);
                 ClientesLicencia objLogin = _ClientesLicenciaService.FindBy(x => ((x.Alias == user) || (x.Licencia.Serial == user)) && (x.AndroidPassword == password)).FirstOrDefault();
 
                 if (objLogin == null)
                 {
+                    LoggingService.Instance.Write(LoggingTypes.Error, string.Format("Intento de login via Android de usuario: {0}, password: {1}, datos enviados: {2}", user, password, log));
                     return Json(new { Error = true, Message = "Los datos de inicio de sesión son incorrectos." }, "application/json", JsonRequestBehavior.AllowGet);
                 }
+
+                setLoginLog(log, objLogin);
 
                 return Json(new
                 {

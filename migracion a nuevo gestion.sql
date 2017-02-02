@@ -233,6 +233,37 @@ SET IDENTITY_INSERT Productos OFF
 
 END
 
+BEGIN /** COMIENZO MIGRACION DE PRODUCTOSMODULOS **/
+
+USE Gestion_Nuevo
+
+SET IDENTITY_INSERT ProductosModulos ON
+
+INSERT INTO
+	ProductosModulos 
+	(
+		 [Id],
+		 [ProductoId],
+		 [Descripcion],
+		 [Codigo],
+		 [CreatedDate],
+		 [UpdatedDate]
+	)
+
+SELECT
+		 [Id],
+		 [ProductoId],
+		 [Descripcion],
+		 [Codigo],
+		GETDATE(),
+		GETDATE()
+	FROM
+	Gestion.dbo.ProductosModulos
+
+SET IDENTITY_INSERT ProductosModulos OFF
+
+END
+
 BEGIN /** COMIENZO MIGRACION DE REVENDEDORES **/
 
 USE Gestion_Nuevo
@@ -735,3 +766,222 @@ SELECT
 SET IDENTITY_INSERT ClientesLicenciasProductosModulos OFF
 
 END
+
+BEGIN /** COMIENZO MIGRACION DE LICENCIASPRODUCTOS **/
+
+USE Gestion_Nuevo
+
+INSERT INTO
+	Licencias_Productos
+           ([LicenciaId]
+           ,[ProductoId])
+
+SELECT
+			[LicenciaId]
+           ,[ProductoId]
+	FROM
+	Gestion.dbo.Licencias_Productos
+
+END
+
+BEGIN /** COMIENZO MIGRACION DE LICENCIASLOGS **/
+
+USE Gestion_Nuevo
+
+SET IDENTITY_INSERT LicenciasLogs ON
+
+INSERT INTO
+	LicenciasLogs
+           ([Id]
+			,[LicenciaId]
+			,[Type]
+			,[IP]
+			,[Referencias]
+			,[CreatedDate]
+			,[UpdatedDate]
+			,[GenericDescription])
+
+SELECT
+			[Id]
+           ,[LicenciaId]
+		   ,[SolicitudID]
+		   ,[IP]
+		   ,[Referencias]
+		   ,[CreatedAt]
+		   ,[CreatedAt]
+		   ,[GenericDescription]
+			
+	FROM
+	Gestion.dbo.LicenciasLogs
+	 WHERE LicenciaID NOT IN (0,2,24)
+
+
+SET IDENTITY_INSERT LicenciasLogs OFF
+
+END
+
+BEGIN /** COMIENZO MIGRACION DE TICKETS **/
+
+USE Gestion_Nuevo
+
+SET IDENTITY_INSERT Tickets ON
+
+INSERT INTO
+	Tickets 
+	(
+			[Id]
+		   ,[Asunto]
+           ,[UserProfileId]
+           ,[TicketEstadoType]
+           ,[FuturaMejora]
+           ,[CreatedDate]
+           ,[UpdatedDate]
+	)
+
+SELECT
+		[Id]
+		,[Asunto]
+		,[UsuarioID]
+		,[TicketEstadoID]
+		,[FuturaMejora]
+		,[FechaCreacion]
+		,[FechaCreacion]
+	FROM
+	Gestion.dbo.Tickets
+
+SET IDENTITY_INSERT Tickets OFF
+
+END
+
+BEGIN /** COMIENZO MIGRACION DE TICKETEVENTOS **/
+
+USE Gestion_Nuevo
+
+SET IDENTITY_INSERT TicketEventos ON
+
+INSERT INTO
+	TicketEventos
+           ([Id]
+           ,[Descripcion]
+           ,[TicketId]
+           ,[UserProfileId]
+           ,[ImageData]
+           ,[ImageMimeType]
+           ,[TicketTipoEventoType]
+           ,[CreatedDate]
+           ,[UpdatedDate])
+
+SELECT
+			[Id]
+			,[Descripcion]
+			,[TicketID]
+			,[UserID]
+			,[ImageData]
+			,[ImageMimeType]
+			,[TicketTipoEventoID]
+			,[FechaCreacion]
+			,[FechaCreacion]
+	FROM
+	Gestion.dbo.TicketEventos
+
+SET IDENTITY_INSERT TicketEventos OFF
+
+END
+
+BEGIN /** COMIENZO MIGRACION DE VIDEOS **/
+
+USE Gestion_Nuevo
+
+SET IDENTITY_INSERT Videos ON
+
+INSERT INTO
+	Videos 
+	(
+			[Id]
+		   ,[Descripcion]
+           ,[Alias]
+           ,[EsPublico]
+           ,[CreatedDate]
+           ,[UpdatedDate]
+	)
+
+SELECT
+		[Id]
+		,[Descripcion]
+		,[Alias]
+		,[esPublico]
+		,[Fecha]
+		,[Fecha]
+	FROM
+	Gestion.dbo.Videos
+
+SET IDENTITY_INSERT Videos OFF
+
+END
+
+BEGIN /** COMIENZO MIGRACION DE VIDEOSCLIENTES **/
+
+USE Gestion_Nuevo
+
+SET IDENTITY_INSERT VideosClientes ON
+
+INSERT INTO
+	VideosClientes 
+	(
+			[Id]
+		   ,[ClienteId]
+           ,[VideoId]           
+           ,[CreatedDate]
+           ,[UpdatedDate]
+	)
+
+SELECT
+		[Id]
+		,[ClienteID]
+		,[VideoID]
+		,GETDATE()
+		,GETDATE()
+	FROM
+	Gestion.dbo.VideosClientes
+
+SET IDENTITY_INSERT VideosClientes OFF
+
+END
+
+/** UPDATES DE TABLAS VIEJAS DE TYPES, ACTUALIZO A ENUMS DE PROYECTO **/
+
+BEGIN /** COMIENZO UPDATE SolicitudID de LicenciasLogs **/
+
+USE Gestion_Nuevo
+
+	/** Actualizo tipo Android **/
+	UPDATE
+		LicenciasLogs
+	SET
+		Type = 2
+	WHERE
+		Type = 3
+	
+		/** Actualizo tipo Default **/
+	UPDATE
+		LicenciasLogs
+	SET
+		Type = 1
+	WHERE
+		Type <> 3
+
+END
+
+BEGIN /** COMIENZO UPDATE de ticketestadotype **/
+
+USE Gestion_Nuevo
+
+	/** Actualizo resueltos **/
+	UPDATE
+		Tickets
+	SET
+		TicketEstadoType = 3
+	WHERE
+		ID IN (SELECT ID FROM Gestion.dbo.Tickets WHERE Resuelto = 1)
+END
+

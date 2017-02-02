@@ -43,7 +43,7 @@ namespace Paramedic.Gestion.Service
             if (!string.IsNullOrEmpty(parameters.SearchDescription))
             {
                 predicate = predicate
-                    .And(x => x.GenericDescription.ToUpper().Contains(parameters.SearchDescription.ToUpper()));
+                    .And(x => x.Licencia.Serial.ToUpper().Contains(parameters.SearchDescription.ToUpper()));
             }
 
             predicate = predicate.And(x => x.CreatedDate >= parameters.DateFrom);

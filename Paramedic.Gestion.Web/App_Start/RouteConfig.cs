@@ -14,12 +14,6 @@ namespace Gestion
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Logs",
-                url: "Logs",
-                defaults: new { controller = "LicenciasLogs", action = "Index" }
-            );
-
-            routes.MapRoute(
                 name: "Modulos.Excluidos",
                 url: "{ClientesLicenciaID}/ClientesLicencias/{action}/{ProductoID}",
                 defaults: new { controller = "ClientesLicencias", action = "GetModExcluidos", ProductoID = UrlParameter.Optional }
