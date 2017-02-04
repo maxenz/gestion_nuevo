@@ -269,10 +269,6 @@
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelpers.cs" />
     <Compile Include="HtmlHelpers\TicketHtmlHelper.cs" />
-    <Compile Include="Migrations\201702021922248_Initial.cs" />
-    <Compile Include="Migrations\201702021922248_Initial.Designer.cs">
-      <DependentUpon>201702021922248_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -979,6 +975,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\sbadmin\images\" />
     <Folder Include="Filters\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1019,11 +1016,6 @@
       <Project>{29C7B7E2-8FA3-43D0-9EAD-E5CA3A73138C}</Project>
       <Name>Paramedic.Gestion.SocialMedia</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702021922248_Initial.resx">
-      <DependentUpon>201702021922248_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

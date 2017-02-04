@@ -28,7 +28,7 @@
                                         @Html.DisplayFor(modelItem => item.Fecha)
                                     </td>
                                     <td>
-                                        @(Html.Raw(item.ClienteId == 0 ? item.Cliente.RazonSocial : "<a href=\"/Clientes/Edit/" + item.ClienteId + "\">" + item.Cliente.RazonSocial + "</a>"))
+                                        @Html.ActionLink(item.Cliente.RazonSocial, "Edit", "Clientes",new { id = item.Cliente.Id },null)                                        
                                     </td>
                                     @if (item.GestionType == GestionType.Management)
                                     {

@@ -6,6 +6,7 @@ using PagedList;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Web.ViewModels;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
@@ -39,35 +40,32 @@ namespace Gestion.Controllers
         public ActionResult Index(string searchName = null, int page = 1)
         {
             int currentUserId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
-            ICollection<Video> videos = new List<Video>();
 
-            if (User.IsInRole("Administrador"))
+            var predicate = PredicateBuilder.New<Video>();
+            if (!string.IsNullOrEmpty(searchName))
             {
-                videos = _VideoService.GetAll().ToList();
+                predicate = predicate.And(x => x.Descripcion.Contains(searchName));
             }
-            else
+
+            if (!User.IsInRole("Administrador"))
             {
                 Cliente cliente =
                     _ClientesUsuarioService
-                    .FindBy(x => x.Id == currentUserId)
+                    .FindBy(x => x.UsuarioId == currentUserId)
                     .Select(x => x.Cliente).FirstOrDefault();
 
-                foreach (Video video in _VideoService.GetAll())
-                {
-                    if (video.EsPublico || video.ClientesVideos.Any(x => x.ClienteId == cliente.Id))
-                    {
-                        videos.Add(video);
-                    }
-                }
+                predicate = predicate.And(x => x.ClientesVideos.Any(q => q.ClienteId == cliente.Id) || x.EsPublico);
             }
 
-            if (!string.IsNullOrEmpty(searchName))
+            if (string.IsNullOrEmpty(searchName) && User.IsInRole("Administrador"))
             {
-                videos = videos.Where(p => p.Descripcion.ToUpper().Contains(searchName.ToUpper())).ToList();
+                predicate = null;
             }
 
-            int count = videos.Count;
-            var resultAsPagedList = new StaticPagedList<Video>(videos.AsEnumerable<Video>(), page, controllersPageSize, count);
+            IEnumerable<Video> videos = _VideoService.FindByPage(predicate, "UpdatedDate DESC", controllersPageSize, page);
+
+            int count = _VideoService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<Video>(videos, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {

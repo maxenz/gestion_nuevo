@@ -56,7 +56,7 @@ namespace Gestion
             bundles.Add(new StyleBundle("~/bundles/gestion_css").Include(
                     "~/Content/template_resources/css/bootstrap.css",
                     //"~/Content/template_resources/css/bootstrap-responsive.min.css",
-                    "~/Content/template_resources/css/font-awesome.css",
+                    //"~/Content/template_resources/css/font-awesome.css",
                     "~/Content/template_resources/css/tabs/*.css",
                     "~/Content/sbadmin/jquery.fancybox.css",
                     "~/Content/sbadmin/datepicker.css",

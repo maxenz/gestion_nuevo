@@ -1,62 +1,66 @@
 ﻿@model Paramedic.Gestion.Model.ClientesGestion
 
 <div class="main">
+
     <div class="main-inner">
+
         <div class="container">
+
             <div class="col-xs-6 col-xs-offset-3">
+
                 <div class="widget">
+
                     <div class="widget-header">
-                        
+
                         <h3>Registro de Gestiones</h3>
                     </div>
                     <div class="widget-content">
-                        <fieldset>
-                            <div class="control-group">
-                                <label class="control-label" for="Estado">Estado</label>
-                                <div class="controls">
-                                    @Html.DropDownListFor(model => model.EstadoId, new SelectList(ViewBag.Estados, "Id", "Descripcion"), new { @class = "col-xs-12 form-control" })
-                                    @Html.ValidationMessageFor(model => model.EstadoId)
-                                </div>
-                            </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="Fecha">Fecha</label>
-                                <div class="controls">
-                                    @Html.TextBoxFor(model => model.Fecha, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker" })
-                                    @Html.ValidationMessageFor(model => model.Fecha)
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="Fecha">Fecha</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(model => model.Fecha, new { @class = "form-control datepicker", data_date_format = "dd/mm/yyyy" })
+                                @Html.ValidationMessageFor(model => model.Fecha)
                             </div>
+                        </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="FechaRecontacto">Fecha de Recontacto</label>
-                                <div class="controls">
-                                    @Html.TextBoxFor(model => model.FechaRecontacto, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker" })
-                                    @Html.ValidationMessageFor(model => model.FechaRecontacto)
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="FechaRecontacto">Fecha de Recontacto</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(model => model.FechaRecontacto, new { @class = "form-control datepicker", data_date_format = "dd/mm/yyyy" })
+                                @Html.ValidationMessageFor(model => model.FechaRecontacto)
                             </div>
+                        </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="pdfDoc">Subir Pdf</label>
-                                <div class="controls">
-                                    <input type="file" name="pdfDoc" accept="application/pdf" />
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="pdfDoc">Subir Pdf</label>
+                            <div class="controls">
+                                <input type="file" name="pdfDoc" accept="application/pdf" />
                             </div>
+                        </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="Observaciones">Observaciones</label>
-                                <div class="controls">
-                                    @Html.TextAreaFor(model => model.Observaciones, new { @class = "col-xs-12 form-control", rows = 5})
-                                    @Html.ValidationMessageFor(model => model.Observaciones)
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="Observaciones">Observaciones</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(model => model.Observaciones, new { @class = "col-xs-12 form-control", rows = 5 })
+                                @Html.ValidationMessageFor(model => model.Observaciones)
                             </div>
+                        </div>
 
-                            <br>
-
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-success btn-outline">Guardar</button>
-                                <a href="@Url.Action("Edit","Clientes",new { id = ViewBag.ClienteId })" class="btn btn-danger btn-outline">Cancelar</a>
+                        <div class="control-group">
+                            <label class="control-label" for="Estado">Estado</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(model => model.EstadoId, new SelectList(ViewBag.Estados, "Id", "Descripcion"), new { @class = "col-xs-12 form-control" })
+                                @Html.ValidationMessageFor(model => model.EstadoId)
                             </div>
-                        </fieldset>
+                        </div>
+
+                        <br>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success btn-outline">Guardar</button>
+                            <a href="@Url.Action("Edit","Clientes",new { id = ViewBag.ClienteId })" class="btn btn-danger btn-outline">Cancelar</a>
+                        </div>
                     </div>
                 </div>
             </div>

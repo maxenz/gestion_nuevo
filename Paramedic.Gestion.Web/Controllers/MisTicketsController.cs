@@ -40,7 +40,6 @@ namespace Gestion.Controllers
 
         public ActionResult Index(string searchName = null, string chkFutureFeatures = null, int page = 1)
         {
-            LoggingService.Instance.Write(LoggingTypes.Information, "probando logger amis");
             int userId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
             bool isAdmin = User.IsInRole("Administrador");
             IList<TicketViewModel> vmTickets = new List<TicketViewModel>();
