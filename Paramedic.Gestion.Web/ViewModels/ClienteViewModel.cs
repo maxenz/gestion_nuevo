@@ -91,6 +91,14 @@ namespace Paramedic.Gestion.Web.ViewModels
             this.Pais = cliente.Localidad.Provincia.Pais.Descripcion;
             this.Provincia = cliente.Localidad.Provincia.Descripcion;
             this.Localidad = cliente.Localidad.Descripcion;
+            this.SitioWeb = cliente.SitioWeb;
+            this.RevendedorId = cliente.RevendedorId;
+            this.CuentaCorrienteId = cliente.CuentaCorrienteId;
+            this.Calle = cliente.Calle;
+            this.Altura = cliente.Altura;
+            this.Departamento = cliente.Departamento;
+            this.Piso = cliente.Piso;
+            this.MedioDifusionId = cliente.MedioDifusionId;
 
             Estado estadoUltimaGestion = cliente.ClientesGestiones
                  .OrderByDescending(c => c.Fecha)
