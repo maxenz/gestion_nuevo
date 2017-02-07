@@ -91,6 +91,7 @@ namespace Paramedic.Gestion.Web.ViewModels
             this.Pais = cliente.Localidad.Provincia.Pais.Descripcion;
             this.Provincia = cliente.Localidad.Provincia.Descripcion;
             this.Localidad = cliente.Localidad.Descripcion;
+            this.LocalidadId = cliente.LocalidadId;
             this.SitioWeb = cliente.SitioWeb;
             this.RevendedorId = cliente.RevendedorId;
             this.CuentaCorrienteId = cliente.CuentaCorrienteId;

@@ -46,7 +46,15 @@ namespace Paramedic.Gestion.Service
 
             if (!string.IsNullOrEmpty(parameters.SearchDescription))
             {
-                predicate = predicate.And(x => x.RazonSocial.Contains(parameters.SearchDescription));
+                var description = parameters.SearchDescription.ToUpper();
+                var predicateSearch = PredicateBuilder.New<Cliente>();
+                predicateSearch = predicateSearch.Or(x => x.RazonSocial.ToUpper().Contains(description));
+                predicateSearch = predicateSearch.Or(x => x.Calle.ToUpper().Contains(description));
+                predicateSearch = predicateSearch.Or(x => x.Domicilio.ToUpper().Contains(description));
+                predicateSearch = predicateSearch.Or(x => x.Localidad.Descripcion.ToUpper().Contains(description));
+                predicateSearch = predicateSearch.Or(x => x.Referencia.ToUpper().Contains(description));
+                predicateSearch = predicateSearch.Or(x => x.Localidad.Provincia.Descripcion.ToUpper().Contains(description));
+                predicate = predicate.And(predicateSearch);                
             }
 
             switch (parameters.SelectedClientType)

@@ -70,14 +70,10 @@ namespace Gestion.Controllers
         public ActionResult Create(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
         {
             ViewBag.ClienteId = clientesgestion.ClienteId;
-            try
+            ViewBag.Estados = _EstadoService.GetAll();
+            if (ModelState.IsValid)
             {
-                if (clientesgestion.FechaRecontacto < DateTime.Now)
-                {
-                    clientesgestion.FechaRecontacto = DateTime.MinValue;
-                }
-
-                if ((clientesgestion.Fecha != DateTime.MinValue) && (!string.IsNullOrEmpty(clientesgestion.Observaciones)))
+                try
                 {
                     if (pdfDoc != null)
                     {
@@ -88,15 +84,15 @@ namespace Gestion.Controllers
                     _ClientesGestionService.Create(clientesgestion);
 
                     return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.ClienteId });
+
+                }
+                catch
+                {
+                    return RedirectToAction("Create", "ClientesGestiones", new { clienteId = clientesgestion.ClienteId });
                 }
             }
-            catch
-            {
 
-                return RedirectToAction("Create");
-            }
-
-            return RedirectToAction("Create");
+            return RedirectToAction("Create", "ClientesGestiones", new { clienteId = clientesgestion.ClienteId });
 
         }
 
@@ -120,14 +116,8 @@ namespace Gestion.Controllers
         [HttpPost]
         public ActionResult Edit(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
         {
-
             if (ModelState.IsValid)
             {
-                if (clientesgestion.FechaRecontacto < DateTime.Now)
-                {
-                    clientesgestion.FechaRecontacto = DateTime.MinValue;
-                }
-
                 if (pdfDoc != null)
                 {
                     clientesgestion.PdfGestion = new byte[pdfDoc.ContentLength];
@@ -149,7 +139,7 @@ namespace Gestion.Controllers
         {
             ClientesGestion gestion = _ClientesGestionService.FindBy(x => x.Id == id).FirstOrDefault();
             _ClientesGestionService.Delete(gestion);
-            return RedirectToAction("Index", routeValues: new { ClienteID = gestion.ClienteId});
+            return RedirectToAction("Index", routeValues: new { ClienteID = gestion.ClienteId });
         }
 
         #endregion

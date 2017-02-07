@@ -1,4 +1,5 @@
 ﻿using Paramedic.Gestion.Model;
+using System;
 using System.Data.Entity;
 
 
@@ -9,7 +10,6 @@ namespace Paramedic.Gestion.Repository
         public ClientesGestionRepository(DbContext context)
             : base(context)
         {
-
         }
     }
 

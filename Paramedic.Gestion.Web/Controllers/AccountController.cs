@@ -40,11 +40,22 @@ namespace Gestion.Controllers
         {
 
             var predicate = PredicateBuilder.New<UserProfile>();
-            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.UserName.Contains(searchName)) : null;
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                var description = searchName.ToUpper();
+                predicate = predicate.Or(x => x.Apellido.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Email.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Nombre.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.UserName.ToUpper().Contains(description));
+            }
+            else
+            {
+                predicate = null;
+            }
 
             IEnumerable<UserProfile> userProfiles = _AccountService.FindByPage(predicate, "UserName ASC", controllersPageSize, page);
             int count = _AccountService.GetCount(predicate);
-            var resultAsPagedList = new StaticPagedList<UserProfile>(userProfiles, page, controllersPageSize, count);     
+            var resultAsPagedList = new StaticPagedList<UserProfile>(userProfiles, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {

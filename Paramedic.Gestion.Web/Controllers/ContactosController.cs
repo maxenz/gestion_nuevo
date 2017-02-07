@@ -34,9 +34,13 @@ namespace Gestion.Controllers
             var predicate = PredicateBuilder.New<ClientesContacto>();
             if (!string.IsNullOrEmpty(searchName))
             {
-                predicate = predicate.Or(x => x.Cliente.RazonSocial.ToUpper().Contains(searchName.ToUpper()));
-                predicate = predicate.Or(x => x.Nombre.ToUpper().Contains(searchName.ToUpper()));
-                predicate = predicate.Or(x => x.Email.ToUpper().Contains(searchName.ToUpper()));
+                var description = searchName.ToUpper();
+                predicate = predicate.Or(x => x.Cliente.RazonSocial.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Nombre.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Email.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Cliente.Localidad.Descripcion.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Cliente.Localidad.Provincia.Descripcion.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Cliente.Calle.ToUpper().Contains(description));
             }
             else
             {

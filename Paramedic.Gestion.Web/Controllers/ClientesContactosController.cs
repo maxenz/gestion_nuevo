@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,7 +10,6 @@ namespace Gestion.Controllers
     [Authorize(Roles = "Administrador")]
     public class ClientesContactosController : Controller
     {
-
         #region Properties
 
         IClientesContactoService _ClientesContactoService;
@@ -118,6 +116,5 @@ namespace Gestion.Controllers
         }
 
         #endregion
-
     }
 }

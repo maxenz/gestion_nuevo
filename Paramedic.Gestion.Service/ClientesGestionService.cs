@@ -64,10 +64,10 @@ namespace Paramedic.Gestion.Service
             {
                 if (queryParameters.GestionType == GestionType.Management)
                 {
-                    predicate = predicate.And(x => x.FechaRecontacto == null);
+                    predicate = predicate.And(x => !x.FechaRecontacto.HasValue);
                 } else
                 {
-                    predicate = predicate.And(x => x.FechaRecontacto != null);
+                    predicate = predicate.And(x => x.FechaRecontacto.HasValue);
                 }
             }
 

@@ -28,7 +28,7 @@ namespace Paramedic.Gestion.Model
         [DataType(DataType.Date)]
         [Display(Name = "Fecha Recontacto")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime FechaRecontacto { get; set; }
+        public DateTime? FechaRecontacto { get; set; }
 
         [ForeignKey("ClienteId")]
         public virtual Cliente Cliente { get; set; }
@@ -39,7 +39,7 @@ namespace Paramedic.Gestion.Model
         {
             get
             {
-                if (this.FechaRecontacto.ToShortDateString().Equals("01-01-1900"))
+                if (this.FechaRecontacto == null)
                 {
                     return GestionType.Management;
                 }
