@@ -1938,4 +1938,74 @@ li.system-options-dropdown > a > i.fa.fa-sign-out  {
     display:-webkit-inline-box;
 }
 
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+
+    tr {
+        margin-bottom:10px;
+    }
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+        font-weight:bold;
+	}
+
+    #btnAddCliente, #selTipoClientes, #selDatosSegunVista {
+        margin-top:10px;
+    }
+
+    #btnAddCliente, #selDatosSegunVista {
+        margin-left:5%;
+    }
+
+    .col-xs-offset-3 {
+        margin-left:0;
+    }
+
+    .col-xs-6 {
+        width:100%;
+    }
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Raz\00f3n Social:";  }
+	td:nth-of-type(2):before { content: "Email"; }
+	td:nth-of-type(3):before { content: "Tel\00E9 fono"; }
+	td:nth-of-type(4):before { content: "Pa\00eds"; }
+	td:nth-of-type(5):before { content: "Provincia"; }
+	td:nth-of-type(6):before { content: "Localidad"; }
+	td:nth-of-type(7):before { content: "Editar" }
+	td:nth-of-type(8):before { content: "Eliminar"; }
+}
+
 
