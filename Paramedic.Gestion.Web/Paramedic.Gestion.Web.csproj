@@ -295,6 +295,7 @@
     <Compile Include="ViewModels\ModulosExcluidos.cs" />
     <Compile Include="ViewModels\LicenciasEstados.cs" />
     <Compile Include="ViewModels\ProductosAsignados.cs" />
+    <Compile Include="ViewModels\TicketAdminViewModel.cs" />
     <Compile Include="ViewModels\TicketViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Web References\wsCuentaCorriente\Reference.cs">
@@ -968,6 +969,7 @@
     <Content Include="Views\MisTickets\_ListaEventos.cshtml" />
     <Content Include="Views\MisTickets\TicketEvento.cshtml" />
     <Content Include="Views\MisTickets\_FormTicketEvento.cshtml" />
+    <Content Include="Views\MisTickets\_FormTicketAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -2,7 +2,6 @@
 using System.Text;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Model.Enums;
-
 using System.Net.Mail;
 using Paramedic.Gestion.Service;
 using System.Configuration;
@@ -11,6 +10,42 @@ namespace SocialMedia.Services
 {
     public class MailService : ISocialMediaService
     {
+        #region Properties
+
+        private static volatile MailService instance;
+        private static object syncRoot = new object();
+        private string urlGestion = ConfigurationManager.AppSettings["urlGestion"].ToString();
+        private string administratorMail = ConfigurationManager.AppSettings["administratorMail"].ToString();
+
+        #endregion
+
+        #region Constructors
+
+        private MailService()
+        {
+
+        }
+
+        public static MailService Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new MailService();
+                    }
+                }
+
+                return instance;
+            }
+        }
+
+
+        #endregion
+
         #region Public Methods
 
         public void Send(Message message)
@@ -47,8 +82,7 @@ namespace SocialMedia.Services
 
         public void SendNewTicketEventoMail(TicketEvento ticketEvento)
         {
-            string urlGestion = ConfigurationManager.AppSettings["urlGestion"].ToString();
-            string administratorMail = ConfigurationManager.AppSettings["administratorMail"].ToString();
+
             StringBuilder body = new StringBuilder();
             body = body.AppendLine("<h2>Shaman SGE - Sistema de tickets</h2> <br />");
 
@@ -57,7 +91,8 @@ namespace SocialMedia.Services
                 body = body.AppendLine(string.Format("Han respondido tu mensaje con el asunto: {0}. <br />", ticketEvento.Ticket.Asunto));
                 string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
                 body = body.AppendLine("Para acceder a la respuesta haga click: " + href);
-            } else
+            }
+            else
             {
                 body = body.AppendLine(string.Format("El usuario {0} ha realizado una consulta con el asunto: {1}. <br />", ticketEvento.Ticket.Usuario.UserName, ticketEvento.Ticket.Asunto));
                 body = body.AppendLine(string.Format("El mensaje es el siguiente: <b> {0} </b> <br/>", ticketEvento.Descripcion));
@@ -66,6 +101,19 @@ namespace SocialMedia.Services
                 // --> Si es una pregunta, que llegue al mail administrador
                 ticketEvento.Ticket.Usuario.Email = administratorMail;
             }
+
+            Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Email, ticketEvento.Ticket.Asunto);
+            Send(msg);
+        }
+
+        public void SendNewAdminTicketMail(TicketEvento ticketEvento)
+        {
+            StringBuilder body = new StringBuilder();
+            body = body.AppendLine("<h2>Shaman SGE - Sistema de tickets</h2> <br />");
+
+            body = body.AppendLine(string.Format("Se ha generado un ticket para su usuario con el asunto: {0}. <br />", ticketEvento.Ticket.Asunto));
+            string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
+            body = body.AppendLine("Para acceder al ticket, haga click: " + href);
 
             Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Email, ticketEvento.Ticket.Asunto);
             Send(msg);

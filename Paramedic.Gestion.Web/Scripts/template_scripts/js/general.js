@@ -353,7 +353,7 @@ $(function () {
 
         var $obj = $(".selectLoc[data-validar-localidad='true']");
         var $loc_id = $obj.val();
-        var $url = base_url_gestion+ "Clientes/ValidarLocalidad/" + $loc_id;
+        var $url = base_url_gestion + "Clientes/ValidarLocalidad/" + $loc_id;
         $.ajax({
             url: $url,
             type: 'GET',
@@ -456,8 +456,8 @@ $(function () {
 
     $(".various").on('click', function () {
 
-        var vid_id = $(this).attr("href").replace('#','');
-        
+        var vid_id = $(this).attr("href").replace('#', '');
+
         var $url = base_url_gestion + "LogsRegistrosSistema/SetVideoLog/";
 
         $.ajax({
@@ -654,7 +654,7 @@ $(function () {
             traditional: true,
             data: {
                 'isFutureFeature': $(this).is(":checked"),
-                'ticketId' : $('#Id').val()
+                'ticketId': $('#Id').val()
             },
             type: 'POST',
             success: function (data) {
@@ -667,6 +667,36 @@ $(function () {
             }
         });
     });
+
+    // --> Dropdown de clientes, donde genero usuarios segun mi seleccion, para ticket generado por Administrador
+
+    if (window.location.pathname.indexOf("CreateAdminTicket") > -1) {
+
+        var $url = base_url_gestion + "MisTickets/GetUsersByClientId";
+
+        $("#ClienteId").change(function () {
+            $("#UserProfileId").empty();
+            $.ajax({
+                type: 'POST',
+                url: $url,
+                dataType: 'json',
+                data: { id: $("#ClienteId").val() },
+                success: function (users) {
+                    $.each(users, function (i, user) {
+                        $("#UserProfileId").append('<option value="' + user.Value + '">' +
+                             user.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    console.log('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        });
+
+        $("#ClienteId").change();
+
+    }
 
 });
 

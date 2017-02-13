@@ -1,5 +1,9 @@
 ﻿@model PagedList.IPagedList<Paramedic.Gestion.Web.ViewModels.TicketViewModel>
 
+@{
+    string actionAddTicket = User.IsInRole("Administrador") ? "CreateAdminTicket" : "Create";
+}
+
 <div class="main">
     <div class="main-inner">
         <div class="container">
@@ -25,19 +29,18 @@
                                             </span>
                                         </div>
                                     </div>
-                                    @if (User.IsInRole("Cliente"))
-                                    {
-                                        <a href="@Url.Action("Create", "MisTickets")" class="btn btn-success btn-outline">
-                                            Agregar ticket
-                                        </a>
-                                    }
+
+                                    <a href="@Url.Action(actionAddTicket, "MisTickets")" class="btn btn-success btn-outline">
+                                        Agregar ticket
+                                    </a>
+
                                     <div class="checkbox" style="padding-top:6px;">
                                         <label style="font-size: 1.3em">
                                             <input type="checkbox" name="chkFutureFeatures" id="chkFutureFeatures">
                                             <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                             Futura mejora
                                         </label>
-                                    </div>                                
+                                    </div>
                                 </div>
                             </form>
                         </div>

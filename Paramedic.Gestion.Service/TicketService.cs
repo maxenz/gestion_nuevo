@@ -9,15 +9,25 @@ namespace Paramedic.Gestion.Service
 {
     public class TicketService : EntityService<Ticket>, ITicketService
     {
+        #region Properties
+
         IUnitOfWork _unitOfWork;
         ITicketRepository _ticketRepository;
 
+        #endregion
+
+        #region Constructors
+
         public TicketService(IUnitOfWork unitOfWork, ITicketRepository ticketRepository)
-            : base(unitOfWork, ticketRepository)
+    : base(unitOfWork, ticketRepository)
         {
             _unitOfWork = unitOfWork;
             _ticketRepository = ticketRepository;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public Ticket GetById(int Id)
         {
@@ -27,7 +37,7 @@ namespace Paramedic.Gestion.Service
         public IEnumerable<Ticket> GetTickets(TicketQueryControllerParametersDTO queryParameters)
         {
             var predicate = getPredicateByConditions(queryParameters);
-            
+
             return FindByPage(predicate, "CreatedDate DESC", queryParameters.PageSize, queryParameters.Page);
         }
 
@@ -64,5 +74,6 @@ namespace Paramedic.Gestion.Service
             return predicate;
         }
 
+        #endregion
     }
 }

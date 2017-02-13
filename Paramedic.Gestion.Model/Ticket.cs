@@ -40,6 +40,5 @@ namespace Paramedic.Gestion.Model
         }
 
         #endregion
-
     }
 }

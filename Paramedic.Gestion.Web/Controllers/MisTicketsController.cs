@@ -3,12 +3,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
-using System.Web.Configuration;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Model.Enums;
 using Paramedic.Gestion.Web.Converters;
 using Paramedic.Gestion.Web.ViewModels;
+using System;
+using SocialMedia.Services;
 
 namespace Gestion.Controllers
 {
@@ -19,6 +20,7 @@ namespace Gestion.Controllers
 
         ITicketService _TicketService;
         IUserProfileService _UserProfileService;
+        IClienteService _ClienteService;
         IClientesUsuarioService _ClientesUsuarioService;
 
         private int controllersPageSize = 6;
@@ -27,11 +29,17 @@ namespace Gestion.Controllers
 
         #region Constructors
 
-        public MisTicketsController(ITicketService TicketService, IUserProfileService UserProfileService, IClientesUsuarioService ClientesUsuarioService)
+        public MisTicketsController(
+            ITicketService TicketService,
+            IUserProfileService UserProfileService,
+            IClientesUsuarioService ClientesUsuarioService,
+            IClienteService ClienteService
+            )
         {
             _TicketService = TicketService;
             _UserProfileService = UserProfileService;
             _ClientesUsuarioService = ClientesUsuarioService;
+            _ClienteService = ClienteService;
         }
 
         #endregion
@@ -96,6 +104,7 @@ namespace Gestion.Controllers
             ticket.TicketEstadoType = type == TicketEventoType.Answer ? TicketEstadoType.Answered : TicketEstadoType.NotAnswered;
 
             _TicketService.Update(ticket);
+            MailService.Instance.SendNewTicketEventoMail(ticket.TicketEventos.LastOrDefault());
 
             return RedirectToAction("Edit", ticket);
         }
@@ -144,13 +153,12 @@ namespace Gestion.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 ticket.TicketEstadoType = TicketEstadoType.NotAnswered;
                 ticket.UserProfileId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
                 ticket.Usuario = _UserProfileService.FindBy(x => x.Id == ticket.UserProfileId).FirstOrDefault();
                 ticket = TicketConverter.CreateTicketWithEvent(ticket, descripcion, image, TicketEventoType.Question, ticket.UserProfileId);
                 _TicketService.Create(ticket);
-
+                MailService.Instance.SendNewTicketEventoMail(ticket.TicketEventos.FirstOrDefault());
                 return RedirectToAction("Index");
             }
 
@@ -236,6 +244,61 @@ namespace Gestion.Controllers
             }
         }
 
+        public ActionResult CreateAdminTicket()
+        {
+            setClientDropdown();
+            return View("_FormTicketAdmin");
+        }
+
+        [HttpPost]
+        public ActionResult CreateAdminTicket(TicketAdminViewModel vm, HttpPostedFileBase image = null)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Ticket ticket = vm.ToTicket();
+                    ticket.TicketEstadoType = TicketEstadoType.NotAnswered;
+                    ticket.Usuario = _UserProfileService.FindBy(x => x.Id == ticket.UserProfileId).FirstOrDefault();
+                    ticket = TicketConverter.CreateTicketWithEvent(ticket, vm.Descripcion, image, TicketEventoType.Question, ticket.UserProfileId);
+                    _TicketService.Create(ticket);
+                    MailService.Instance.SendNewAdminTicketMail(ticket.TicketEventos.FirstOrDefault());
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception exception)
+            {
+                LoggingService.Instance.Write(LoggingTypes.Error, exception.Message);
+            }
+
+
+            setClientDropdown();
+            return View("_FormTicketAdmin");
+        }
+
+        public JsonResult GetUsersByClientId(string id)
+        {
+
+            int clientId = Convert.ToInt32(id);
+
+            IEnumerable<UserProfile> users =
+                _ClientesUsuarioService
+                .FindBy(x => x.ClienteId == clientId)
+                .Select(x => x.Usuario);
+
+            return Json(new SelectList(users, "Id", "UserName"));
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void setClientDropdown()
+        {
+            var clients = _ClienteService.GetAll().Where(x => x.ClientesUsuarios.Count > 0).OrderBy(x => x.RazonSocial);
+
+            ViewBag.Clients = new SelectList(clients, "Id", "RazonSocial");
+        }
 
         #endregion
     }
