@@ -27,30 +27,30 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
+                                    <td class="cliente">
                                         @Html.DisplayFor(modelItem => item.RazonSocial)
                                     </td>
-                                    <td>
+                                    <td class="cliente">
                                         @Html.DisplayFor(modelItem => item.Email)
                                     </td>
-                                    <td>
+                                    <td class="cliente">
                                         @Html.DisplayFor(modelItem => item.Telefono)
                                     </td>
-                                    <td>
+                                    <td class="cliente">
                                         @Html.DisplayFor(modelItem => item.Pais)
                                     </td>
-                                    <td>
+                                    <td class="cliente">
                                         @Html.DisplayFor(modelItem => item.Provincia)
                                     </td>
-                                    <td>
+                                    <td class="cliente">
                                         @Html.DisplayFor(modelItem => item.Localidad)
                                     </td>
-                                    <td class="centrado">
+                                    <td class="centrado cliente">
                                         <a href="@Url.Action("Edit", "Clientes", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
                                             <i class="btn-icon-only fa fa-edit"></i>
                                         </a>
                                     </td>
-                                    <td class="centrado">
+                                    <td class="centrado cliente">
                                         <a href="@Url.Action("Delete","Clientes", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesList">
                                             <i class="btn-icon-only fa fa-times"></i>
                                         </a>
