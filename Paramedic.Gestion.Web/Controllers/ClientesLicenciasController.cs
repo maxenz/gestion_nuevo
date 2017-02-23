@@ -88,7 +88,7 @@ namespace Gestion.Controllers
             {
                 ViewBag.Licencias = getLicenciasDisponibles();
                 ViewBag.ClienteID = new SelectList(_ClienteService.GetAll().ToList(), "Id", "RazonSocial");
-                ViewBag.Sitios = _SitioService.GetAll().ToList();
+                ViewBag.Sitios = _SitioService.GetAll().OrderBy(x => x.Url).ToList();
 
                 return View();
             }
@@ -111,7 +111,7 @@ namespace Gestion.Controllers
 
             ViewBag.ClienteID = new SelectList(_ClienteService.GetAll().ToList(), "Id", "RazonSocial", clienteslicencia.ClienteId);
             ViewBag.Licencias = getLicenciasDisponibles();
-            ViewBag.Sitios = _SitioService.GetAll().ToList();
+            ViewBag.Sitios = _SitioService.GetAll().OrderBy(x => x.Url).ToList();
 
             return View(clienteslicencia);
         }
@@ -128,7 +128,7 @@ namespace Gestion.Controllers
             }
             ViewBag.ClienteID = new SelectList(_ClienteService.GetAll().ToList(), "Id", "RazonSocial", clienteslicencia.ClienteId);
             ViewBag.Licencias = getLicenciasDisponibles(clienteslicencia.Licencia.Id);
-            ViewBag.Sitios = _SitioService.GetAll().ToList();
+            ViewBag.Sitios = _SitioService.GetAll().OrderBy(x => x.Url).ToList();
             return View(clienteslicencia);
 
         }
@@ -149,7 +149,7 @@ namespace Gestion.Controllers
 
             UpdateLicenciasProductos(selectedProductos, licenciaToUpdate);
 
-            ViewBag.Sitios = _SitioService.GetAll().ToList();
+            ViewBag.Sitios = _SitioService.GetAll().OrderBy(x => x.Url).ToList();
 
             return RedirectToAction("Edit", "Clientes", new { id = cliLic.ClienteId });
 

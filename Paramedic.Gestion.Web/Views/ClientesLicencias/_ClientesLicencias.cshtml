@@ -22,7 +22,7 @@
                             @Html.DisplayNameFor(model => model.First().CnnPassword)
                         </th>
                         <th class="col-xs-2 centrado">
-                            @Html.DisplayNameFor(model => model.First().ConexionServidor)
+                            @Html.DisplayNameFor(model => model.First().ConexionServidor.Url)
                         </th>
                         <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().FechaDeVencimiento)
@@ -51,7 +51,7 @@
                                 @Html.DisplayFor(modelItem => item.CnnPassword)
                             </td>
                             <td class="col-xs-2 centrado">
-                                @Html.DisplayFor(modelItem => item.ConexionServidor)
+                                @Html.DisplayFor(modelItem => item.ConexionServidor.Url)
                             </td>
                             <td class="col-xs-1 centrado">
                                 @Html.DisplayFor(modelItem => item.FechaDeVencimiento)

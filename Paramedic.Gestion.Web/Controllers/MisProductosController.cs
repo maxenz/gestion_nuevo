@@ -102,7 +102,7 @@ namespace Gestion.Controllers
 
 
             ClientesLicencia cliLic = cliUsr.Cliente.ClientesLicencias.FirstOrDefault();
-            string dbConexion = cliLic.ConexionServidor;
+            string dbConexion = cliLic.ConexionServidor.Url;
             string dbName = cliLic.CnnCatalog;
             string dbUser = cliLic.CnnUser;
             string dbPass = cliLic.CnnPassword;

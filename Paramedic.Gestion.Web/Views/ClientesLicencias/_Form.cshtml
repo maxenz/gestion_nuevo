@@ -54,8 +54,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="CnnServidor">Servidor</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.ConexionServidor, new { @class = "col-xs-12 form-control", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.ConexionServidor)
+                                    @Html.DropDownListFor(x => x.ConexionServidorId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Servidor", new { @class = "col-xs-12 form-control" })
                                 </div>
                             </div>
 
@@ -85,8 +84,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="SubDominio">Sub dominio</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.SitioSubDominio, new { @class = "col-xs-12 form-control", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.SitioSubDominio)
+                                    @Html.DropDownListFor(x => x.SitioSubDominioId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Subdominio", new { @class = "col-xs-12 form-control" })
                                 </div>
                             </div>
 
@@ -109,16 +107,14 @@
                             <div class="control-group">
                                 <label class="control-label" for="AndroidUrl">Url para Android</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.AndroidUrl, new { @class = "col-xs-12 form-control", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.AndroidUrl)
+                                    @Html.DropDownListFor(x => x.AndroidUrlId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Android Url", new { @class = "col-xs-12 form-control" })
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="FtpAndroidDir">Dirección Ftp para archivos de Android</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FtpAndroidDir, new { @class = "col-xs-12 form-control", autofocus = "" })
-                                    @Html.ValidationMessageFor(model => model.FtpAndroidDir)
+                                    @Html.DropDownListFor(x => x.ConexionServidorId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Android Ftp", new { @class = "col-xs-12 form-control" })
                                 </div>
                             </div>
 
@@ -135,6 +131,13 @@
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.FtpAndroidPassword, new { @class = "col-xs-12 form-control", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.FtpAndroidPassword)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="WebServiceCacheId">Web Service Cache</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(x => x.WebServiceCacheId, new SelectList(ViewBag.Sitios, "Id", "Descripcion"), "Seleccione Web Service Cache", new { @class = "col-xs-12 form-control" })
                                 </div>
                             </div>
 

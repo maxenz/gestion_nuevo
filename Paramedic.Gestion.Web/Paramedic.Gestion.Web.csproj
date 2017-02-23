@@ -273,6 +273,10 @@
     <Compile Include="Migrations\201702071602557_FechaRecontactoNuleable.Designer.cs">
       <DependentUpon>201702071602557_FechaRecontactoNuleable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702232047434_WebServiceCache.cs" />
+    <Compile Include="Migrations\201702232047434_WebServiceCache.Designer.cs">
+      <DependentUpon>201702232047434_WebServiceCache.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -1025,6 +1029,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702071602557_FechaRecontactoNuleable.resx">
       <DependentUpon>201702071602557_FechaRecontactoNuleable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702232047434_WebServiceCache.resx">
+      <DependentUpon>201702232047434_WebServiceCache.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

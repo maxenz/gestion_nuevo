@@ -61,7 +61,7 @@ namespace Gestion.Controllers
                 return Json(new
                 {
                     Serial = objLogin.Licencia.Serial,
-                    AndroidUrl = objLogin.AndroidUrl
+                    AndroidUrl = objLogin.AndroidUrl.Url
                 },
                 "application/json",
                 JsonRequestBehavior.AllowGet
@@ -116,7 +116,34 @@ namespace Gestion.Controllers
 
                 return Json(new
                 {
-                    ConexionServidor = license.ConexionServidor
+                    ConexionServidor = license.ConexionServidor.Url
+                },
+                "application/json",
+                JsonRequestBehavior.AllowGet
+                );
+
+            }
+            catch (Exception exception)
+            {
+                return Json(new { Error = true, Message = exception.Message }, "application/json", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetCacheWebServiceUrl(string serial)
+        {
+            try
+            {
+                HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
+                ClientesLicencia license = _ClientesLicenciaService.FindBy(x => ((x.Licencia.Serial == serial))).FirstOrDefault();
+
+                if (license == null || license.ConexionServidor == null)
+                {
+                    return Json(new { Error = true, Message = "No se encontró la server connection para el serial solicitado" }, "application/json", JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new
+                {
+                    ConexionServidor = license.WebServiceCache.Url
                 },
                 "application/json",
                 JsonRequestBehavior.AllowGet
@@ -158,7 +185,7 @@ namespace Gestion.Controllers
 
                 return Json(new
                 {
-                    FtpAndroidDir = license.FtpAndroidDir,
+                    FtpAndroidDir = license.FtpAndroidDir.Url,
                     FtpAndroidUser = license.FtpAndroidUser,
                     FtpAndroidPassword = license.FtpAndroidPassword
                 },

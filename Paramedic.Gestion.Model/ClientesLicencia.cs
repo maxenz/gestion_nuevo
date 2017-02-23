@@ -40,10 +40,19 @@ namespace Paramedic.Gestion.Model
         public DateTime FechaDeVencimiento { get; set; }
 
         [Display(Name = "Servidor")]
-        public string ConexionServidor { get; set; }
+        public int? ConexionServidorId  { get; set; }
+
+        public virtual Sitio ConexionServidor { get; set; }
 
         [Display(Name = "Sitio")]
         public int? SitioId { get; set; }
+
+        public virtual Sitio Sitio { get; set; }
+
+        [Display(Name = "Web Service Cache")]
+        public int? WebServiceCacheId { get; set; }
+
+        public virtual Sitio WebServiceCache { get; set; }
 
         [Display(Name = "Puerto del Sitio")]
         [Range(0, int.MaxValue, ErrorMessage = "Por favor, ingrese un número válido para el puerto.")]
@@ -55,10 +64,14 @@ namespace Paramedic.Gestion.Model
         public string AndroidPassword { get; set; }
 
         [Display(Name = "Url configurable en Android app")]
-        public string AndroidUrl { get; set; }
+        public int? AndroidUrlId { get; set; }
+
+        public virtual Sitio AndroidUrl { get; set; }
 
         [Display(Name = "Dirección Ftp para archivos de Android app")]
-        public string FtpAndroidDir { get; set; }
+        public int? FtpAndroidDirId { get; set; }
+
+        public virtual Sitio FtpAndroidDir { get; set; }
 
         [Display(Name = "Usuario para Ftp de archivos de Android app")]
         public string FtpAndroidUser { get; set; }
@@ -66,13 +79,14 @@ namespace Paramedic.Gestion.Model
         [Display(Name = "Password para Ftp de archivos de Android app")]
         public string FtpAndroidPassword { get; set; }
 
-        public string SitioSubDominio { get; set; }
+        [Display(Name = "Subdominio")]
+        public int? SitioSubDominioId { get; set; }
+
+        public virtual Sitio SitioSubDominio { get; set; }
 
         public virtual Cliente Cliente { get; set; }
 
         public virtual Licencia Licencia { get; set; }
-
-        public virtual Sitio Sitio { get; set; }
 
         public virtual ICollection<ClientesLicenciasProducto> ClientesLicenciasProductos { get; set; }
 
@@ -104,7 +118,7 @@ namespace Paramedic.Gestion.Model
                 if (!emptyDataSource && !emptyCatalog && !emptyUser && !emptyPassword)
                 {
                     return string.Format("Data Source = {0}; Initial Catalog = {1}; User Id = {2}; Password = {3}",
-                        this.ConexionServidor,
+                        this.ConexionServidor.Url,
                         this.CnnCatalog,
                         this.CnnUser,
                         this.CnnPassword);
@@ -115,7 +129,5 @@ namespace Paramedic.Gestion.Model
                 }
             }
         }
-
-
     }
 }
