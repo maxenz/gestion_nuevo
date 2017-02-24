@@ -11,7 +11,6 @@ namespace Paramedic.Gestion.Model
         public string Descripcion { get; set; }
 
         [Required]
-        [Url]
         public string Url { get; set; }
     }
 }
