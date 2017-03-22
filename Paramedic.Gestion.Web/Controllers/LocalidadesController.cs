@@ -36,7 +36,10 @@ namespace Gestion.Controllers
         {
             var predicate = PredicateBuilder.New<Localidad>();
             predicate = predicate.And(x => x.ProvinciaId == ProvinciaID);
-            predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                predicate = predicate.And(x => x.Descripcion.Contains(searchName));
+            }
 
             IEnumerable<Localidad> localidades = _LocalidadService.FindByPage(predicate, "Descripcion ASC", controllersPageSize, page);
             int count = _LocalidadService.FindBy(predicate).Count();
