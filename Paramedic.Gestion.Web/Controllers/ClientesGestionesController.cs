@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
+using Paramedic.Gestion.Web.ViewModels;
 
 namespace Gestion.Controllers
 {
@@ -67,32 +68,27 @@ namespace Gestion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
+        public ActionResult Create(ClientesGestionViewModel vm)
         {
-            ViewBag.ClienteId = clientesgestion.ClienteId;
+            ViewBag.ClienteId = vm.ClienteId;
             ViewBag.Estados = _EstadoService.GetAll();
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (pdfDoc != null)
-                    {
-                        clientesgestion.PdfGestion = new byte[pdfDoc.ContentLength];
-                        pdfDoc.InputStream.Read(clientesgestion.PdfGestion, 0, pdfDoc.ContentLength);
-                    }
+                    ClientesGestion cg = vm.ClientesGestionViewModelToClientesGestion();
+                    _ClientesGestionService.Create(cg);
 
-                    _ClientesGestionService.Create(clientesgestion);
-
-                    return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.ClienteId });
+                    return RedirectToAction("Edit", "Clientes", new { id = cg.ClienteId });
 
                 }
                 catch
                 {
-                    return RedirectToAction("Create", "ClientesGestiones", new { clienteId = clientesgestion.ClienteId });
+                    return RedirectToAction("Create", "ClientesGestiones", new { clienteId = vm.ClienteId });
                 }
             }
 
-            return RedirectToAction("Create", "ClientesGestiones", new { clienteId = clientesgestion.ClienteId });
+            return RedirectToAction("Create", "ClientesGestiones", new { clienteId = vm.ClienteId });
 
         }
 
@@ -105,33 +101,37 @@ namespace Gestion.Controllers
         public ActionResult Edit(int id = 0)
         {
             ClientesGestion gestion = _ClientesGestionService.FindBy(x => x.Id == id).FirstOrDefault();
+            ClientesGestionViewModel vm = new ClientesGestionViewModel(gestion);
+            ViewBag.ClienteId = gestion.ClienteId;
             if (gestion == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Estados = _EstadoService.GetAll();
-            return View(gestion);
+            return View(vm);
         }
 
         [HttpPost]
-        public ActionResult Edit(ClientesGestion clientesgestion, HttpPostedFileBase pdfDoc)
+        public ActionResult Edit(ClientesGestionViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                if (pdfDoc != null)
-                {
-                    clientesgestion.PdfGestion = new byte[pdfDoc.ContentLength];
-                    pdfDoc.InputStream.Read(clientesgestion.PdfGestion, 0, pdfDoc.ContentLength);
-                }
+                //ClientesGestion cgFromDatabase = _ClientesGestionService.FindBy(x => x.Id == vm.Id).First();
+                ClientesGestion cg = vm.ClientesGestionViewModelToClientesGestion();
+                //if (vm.PdfUpload == null && cgFromDatabase.PdfGestion != null)
+                //{
+                //    cg.PdfGestion = null;
+                //    cg.PdfGestion = cgFromDatabase.PdfGestion;
+                //}
+                //cgFromDatabase = cg;         
+                _ClientesGestionService.Update(cg);
 
-                _ClientesGestionService.Update(clientesgestion);
-
-                return RedirectToAction("Edit", "Clientes", new { id = clientesgestion.ClienteId });
+                return RedirectToAction("Edit", "Clientes", new { id = vm.ClienteId });
             }
 
             ViewBag.Estados = _EstadoService.GetAll();
 
-            return View(clientesgestion);
+            return View(vm);
         }
 
         [HttpPost, ActionName("Delete")]
