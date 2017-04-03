@@ -33,15 +33,14 @@
                         </div>
 
                         <div class="control-group">
-                            @*@{
-                                if (Model.PdfUpload != null)
+                            @{
+                                if (ViewBag.PdfContent != null)
                                 {
                                     <p class="rojo negrita">Esta gestión ya tiene un pdf. Puede subir uno nuevo y reemplazarlo.</p>
                                 }
-                            }*@
+                            }
                             <label class="control-label" for="pdfDoc">Subir Pdf</label>
                             <div class="controls">
-                                @*<input type="file" name="pdfDoc" accept="application/pdf" />*@
                                 @Html.TextBoxFor(model => model.PdfUpload, new { type = "file" })
                             </div>
                         </div>

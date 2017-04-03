@@ -414,7 +414,7 @@ $(function () {
     });
 
     // Seteo el formato de los datepickers
-    $(".datepicker").datepicker({ autoclose: true });
+    $(".datepicker").datepicker({ autoclose: true});
 
 
     $("#tituloShaman")

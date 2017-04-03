@@ -76,7 +76,8 @@ namespace Gestion.Controllers
             {
                 try
                 {
-                    ClientesGestion cg = vm.ClientesGestionViewModelToClientesGestion();
+                    ClientesGestion cg = new ClientesGestion();
+                    cg = vm.ClientesGestionViewModelToClientesGestion(cg);
                     _ClientesGestionService.Create(cg);
 
                     return RedirectToAction("Edit", "Clientes", new { id = cg.ClienteId });
@@ -107,6 +108,8 @@ namespace Gestion.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.PdfContent = gestion.PdfGestion;
             ViewBag.Estados = _EstadoService.GetAll();
             return View(vm);
         }
@@ -116,14 +119,13 @@ namespace Gestion.Controllers
         {
             if (ModelState.IsValid)
             {
-                //ClientesGestion cgFromDatabase = _ClientesGestionService.FindBy(x => x.Id == vm.Id).First();
-                ClientesGestion cg = vm.ClientesGestionViewModelToClientesGestion();
-                //if (vm.PdfUpload == null && cgFromDatabase.PdfGestion != null)
-                //{
-                //    cg.PdfGestion = null;
-                //    cg.PdfGestion = cgFromDatabase.PdfGestion;
-                //}
-                //cgFromDatabase = cg;         
+                ClientesGestion cg = _ClientesGestionService.GetById(vm.Id);
+                cg = vm.ClientesGestionViewModelToClientesGestion(cg);
+                if (vm.PdfUpload == null)
+                {
+                    cg.PdfGestion = cg.PdfGestion;
+                }
+
                 _ClientesGestionService.Update(cg);
 
                 return RedirectToAction("Edit", "Clientes", new { id = vm.ClienteId });

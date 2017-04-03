@@ -12,5 +12,7 @@ namespace Paramedic.Gestion.Service
         Expression<Func<ClientesGestion, bool>> GetPredicateByConditions(RecontactosControllerParametersDTO queryParameters);
 
         IEnumerable<ClientesGestion> GetRecontactosByPage(RecontactosControllerParametersDTO queryParameters);
+
+        ClientesGestion GetById(int id);
     }
 }

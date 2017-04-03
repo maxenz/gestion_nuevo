@@ -50,9 +50,8 @@ namespace Paramedic.Gestion.Web.ViewModels
 
         }
 
-        public ClientesGestion ClientesGestionViewModelToClientesGestion()
+        public ClientesGestion ClientesGestionViewModelToClientesGestion(ClientesGestion cg)
         {
-            ClientesGestion cg = new ClientesGestion();
             cg.Id = this.Id;
             cg.Observaciones = this.Observaciones;
             cg.FechaRecontacto = this.FechaRecontacto;

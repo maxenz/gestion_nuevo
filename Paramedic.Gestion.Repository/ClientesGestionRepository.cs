@@ -11,6 +11,11 @@ namespace Paramedic.Gestion.Repository
             : base(context)
         {
         }
+
+        public ClientesGestion GetById(int id)
+        {
+            return _dbset.Find(id);
+        }
     }
 
 }
