@@ -61,8 +61,8 @@ namespace Gestion.Controllers
 
         private void setGeneralData()
         {
-            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll(), "Id", "RazonSocial");
-            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName");
+            ViewBag.ClienteID = new SelectList(_ClienteService.GetAll().OrderBy(x => x.RazonSocial), "Id", "RazonSocial");
+            ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll().OrderBy(x => x.UserName), "Id", "UserName");
         }
 
         private void setGeneralDataSelected(ClientesUsuario clientesusuario)
