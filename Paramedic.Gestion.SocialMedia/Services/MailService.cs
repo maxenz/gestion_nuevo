@@ -5,6 +5,7 @@ using Paramedic.Gestion.Model.Enums;
 using System.Net.Mail;
 using Paramedic.Gestion.Service;
 using System.Configuration;
+using System.Linq;
 
 namespace SocialMedia.Services
 {
@@ -99,10 +100,10 @@ namespace SocialMedia.Services
                 string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
                 body = body.AppendLine("Para responder la consulta haga click: " + href);
                 // --> Si es una pregunta, que llegue al mail administrador
-                ticketEvento.Ticket.Usuario.Email = administratorMail;
+                ticketEvento.Ticket.Usuario.Emails.Add(new UserProfileEmail(ticketEvento.Ticket.Usuario.Id, administratorMail,true));
             }
 
-            Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Email, ticketEvento.Ticket.Asunto);
+            Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Emails.FirstOrDefault().Email, ticketEvento.Ticket.Asunto);
             Send(msg);
         }
 
@@ -115,7 +116,7 @@ namespace SocialMedia.Services
             string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
             body = body.AppendLine("Para acceder al ticket, haga click: " + href);
 
-            Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Email, ticketEvento.Ticket.Asunto);
+            Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Emails.FirstOrDefault().Email, ticketEvento.Ticket.Asunto);
             Send(msg);
         }
 

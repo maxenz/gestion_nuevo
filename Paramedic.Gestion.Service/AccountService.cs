@@ -2,6 +2,9 @@
 using Paramedic.Gestion.Repository;
 using System.Web.Security;
 using System.Linq;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System;
 
 namespace Paramedic.Gestion.Service
 {
@@ -56,5 +59,6 @@ namespace Paramedic.Gestion.Service
             return user;
 
         }
+
     }
 }

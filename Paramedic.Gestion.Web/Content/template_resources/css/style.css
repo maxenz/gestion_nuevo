@@ -1997,4 +1997,9 @@ li.system-options-dropdown > a > i.fa.fa-sign-out  {
 	
 }
 
+.user-mail-entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
 

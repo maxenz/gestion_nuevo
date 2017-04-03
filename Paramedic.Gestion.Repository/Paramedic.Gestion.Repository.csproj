@@ -87,6 +87,7 @@
     <Compile Include="ITipoTerminalRepository.cs" />
     <Compile Include="ITicketRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IUserProfileEmailRepository.cs" />
     <Compile Include="IUserProfileRepository.cs" />
     <Compile Include="IVideoRepository.cs" />
     <Compile Include="LicenciaRepository.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="TipoTerminalRepository.cs" />
     <Compile Include="TicketRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
+    <Compile Include="UserProfileEmailRepository.cs" />
     <Compile Include="UserProfileRepository.cs" />
     <Compile Include="VideoRepository.cs" />
   </ItemGroup>
@@ -114,6 +116,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PostDeployment.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

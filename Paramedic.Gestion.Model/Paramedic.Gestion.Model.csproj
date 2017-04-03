@@ -130,8 +130,11 @@
     <Compile Include="Ticket.cs" />
     <Compile Include="TicketEvento.cs" />
     <Compile Include="TicketQueryControllerParametersDTO.cs" />
+    <Compile Include="TicketsClasificacion.cs" />
+    <Compile Include="TicketsClasificacionUsuario.cs" />
     <Compile Include="TipoTerminal.cs" />
     <Compile Include="UserProfile.cs" />
+    <Compile Include="UserProfileEmail.cs" />
     <Compile Include="Video.cs" />
     <Compile Include="VideosCliente.cs" />
   </ItemGroup>

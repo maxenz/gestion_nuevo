@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using PagedList;
-using System.Data;
-using System.Net.Mail;
-using System.Data.Entity;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Service;
 using LinqKit;
+using System.Text.RegularExpressions;
 
 namespace Gestion.Controllers
 {
@@ -22,14 +18,18 @@ namespace Gestion.Controllers
         #region Properties
 
         IAccountService _AccountService;
+        IUserProfileService _UserProfileService;
+        IUserProfileEmailService _UserProfileEmailService;
         private int controllersPageSize = 6;
 
         #endregion
 
         #region Constructors 
-        public AccountController(IAccountService AccountService)
+        public AccountController(IAccountService AccountService, IUserProfileService UserProfileService, IUserProfileEmailService UserEmailProfileService)
         {
             _AccountService = AccountService;
+            _UserProfileService = UserProfileService;
+            _UserProfileEmailService = UserEmailProfileService;
         }
 
         #endregion
@@ -44,7 +44,7 @@ namespace Gestion.Controllers
             {
                 var description = searchName.ToUpper();
                 predicate = predicate.Or(x => x.Apellido.ToUpper().Contains(description));
-                predicate = predicate.Or(x => x.Email.ToUpper().Contains(description));
+                predicate = predicate.Or(x => x.Emails.Any(q => q.Email.ToUpper().Contains(description)));
                 predicate = predicate.Or(x => x.Nombre.ToUpper().Contains(description));
                 predicate = predicate.Or(x => x.UserName.ToUpper().Contains(description));
             }
@@ -80,7 +80,7 @@ namespace Gestion.Controllers
                 Apellido = user.Apellido,
                 Nombre = user.Nombre,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Emails.FirstOrDefault().Email
             };
 
             setRoles(_AccountService.getSelectedRole(user.UserName));
@@ -158,7 +158,7 @@ namespace Gestion.Controllers
             {
                 UserProfile user = _AccountService.FindBy(x => x.Id == model.Id).FirstOrDefault();
                 user.UserName = model.UserName;
-                user.Email = model.Email;
+                user.Emails.Add(new UserProfileEmail(model.Id, model.Email, true));
                 user.Apellido = model.Apellido;
                 user.Nombre = model.Nombre;
 
@@ -191,17 +191,37 @@ namespace Gestion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+
+            if (IsValidEmail(model.UserName))
             {
-                //int userID = _AccountService.FindBy(x => x.UserName == model.UserName).FirstOrDefault().Id;
-                //LogRegistroSistema log = new LogRegistroSistema("LOGUEO SISTEMA", userID);
-                //db.LogsRegistroSistema.Add(log);
-                //db.SaveChanges();
-                return RedirectToLocal(returnUrl);
+                UserProfileEmail userProfileEmail = _UserProfileEmailService.FindBy(x => x.Email.ToUpper() == model.UserName.ToUpper()).FirstOrDefault();
+                if (userProfileEmail != null)
+                {
+                    UserProfile userProfile = _UserProfileService.FindBy(x => x.Id == userProfileEmail.UserProfileId).FirstOrDefault();
+                    if (userProfile != null)
+                    {
+                        if (ModelState.IsValid && WebSecurity.Login(userProfile.UserName, model.Password, model.RememberMe))
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
+                {
+                    return RedirectToLocal(returnUrl);
+                }
             }
 
             ModelState.AddModelError("", "Datos incorrectos.");
             return View("Login", "_TemplateGestion_Login", model);
+        }
+
+        bool IsValidEmail(string strIn)
+        {
+            return Regex.IsMatch(strIn, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
         }
 
         [HttpPost]

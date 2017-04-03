@@ -103,6 +103,7 @@
     <Compile Include="ISitioService.cs" />
     <Compile Include="ITicketService.cs" />
     <Compile Include="ITipoTerminalService.cs" />
+    <Compile Include="IUserProfileEmailService.cs" />
     <Compile Include="IUserProfileService.cs" />
     <Compile Include="IVideoService.cs" />
     <Compile Include="LicenciaService.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="SitioService.cs" />
     <Compile Include="TicketService.cs" />
     <Compile Include="TipoTerminalService.cs" />
+    <Compile Include="UserProfileEmailService.cs" />
     <Compile Include="UserProfileService.cs" />
     <Compile Include="VideoService.cs" />
   </ItemGroup>

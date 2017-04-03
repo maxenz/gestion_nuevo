@@ -277,6 +277,22 @@
     <Compile Include="Migrations\201702232047434_WebServiceCache.Designer.cs">
       <DependentUpon>201702232047434_WebServiceCache.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704031440239_UsuariosTickets.cs" />
+    <Compile Include="Migrations\201704031440239_UsuariosTickets.Designer.cs">
+      <DependentUpon>201704031440239_UsuariosTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704031847359_TicketsClasificacion.cs" />
+    <Compile Include="Migrations\201704031847359_TicketsClasificacion.Designer.cs">
+      <DependentUpon>201704031847359_TicketsClasificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704031910037_TicketClasificacionUsuarios.cs" />
+    <Compile Include="Migrations\201704031910037_TicketClasificacionUsuarios.Designer.cs">
+      <DependentUpon>201704031910037_TicketClasificacionUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704031927016_EmailPrincipal.cs" />
+    <Compile Include="Migrations\201704031927016_EmailPrincipal.Designer.cs">
+      <DependentUpon>201704031927016_EmailPrincipal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -1033,6 +1049,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702232047434_WebServiceCache.resx">
       <DependentUpon>201702232047434_WebServiceCache.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704031440239_UsuariosTickets.resx">
+      <DependentUpon>201704031440239_UsuariosTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704031847359_TicketsClasificacion.resx">
+      <DependentUpon>201704031847359_TicketsClasificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704031910037_TicketClasificacionUsuarios.resx">
+      <DependentUpon>201704031910037_TicketClasificacionUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704031927016_EmailPrincipal.resx">
+      <DependentUpon>201704031927016_EmailPrincipal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

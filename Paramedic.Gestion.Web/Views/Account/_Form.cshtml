@@ -50,12 +50,26 @@
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword)
                             </div>
 
+                            @*<div class="control-group">
+                                    <label class="control-label" for="Email">Email</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "col-xs-12 form-control" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                </div>*@
+
                             <div class="control-group">
-                                <label class="control-label" for="Email">Email</label>
-                                <div class="controls">
-                                    @Html.TextBoxFor(model => model.Email, new { @class = "col-xs-12 form-control" })
+                                <label class="control-label" for="emails[]">Emails</label>
+                                <div class="controls user-mail-controls">
+                                    <div class="input-group user-mail-entry">
+                                        <input class="form-control" name="emails[]">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-success btn-add-user-mail">
+                                                <span class="fa fa-plus"></span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                @Html.ValidationMessageFor(model => model.Email)
                             </div>
 
                             <div class="control-group">

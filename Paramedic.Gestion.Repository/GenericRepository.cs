@@ -41,7 +41,7 @@ namespace Paramedic.Gestion.Repository
             return query;
         }
 
-        public IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExp, int pageSize, int page = 1)
+        public virtual IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExp, int pageSize, int page = 1)
         {
             IEnumerable<T> query;
 

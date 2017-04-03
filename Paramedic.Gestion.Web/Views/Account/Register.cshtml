@@ -1,8 +1,34 @@
 ﻿@model Paramedic.Gestion.Model.RegisterModel
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    @Html.Partial("_Form",Model)
+    @Html.Partial("_Form", Model)
+
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $(document).on('click', '.btn-add-user-mail', function (e) {
+                    e.preventDefault();
+
+                    var controlForm = $('.user-mail-controls:first'),
+                        currentEntry = $(this).parents('.user-mail-entry:first'),
+                        newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+                    newEntry.find('input').val('');
+                    controlForm.find('.user-mail-entry:not(:last) .btn-add-user-mail')
+                        .removeClass('btn-add-user-mail').addClass('btn-remove')
+                        .removeClass('btn-success').addClass('btn-danger')
+                        .html('<span class="fa fa-minus"></span>');
+                }).on('click', '.btn-remove', function (e) {
+                    $(this).parents('.user-mail-entry:first').remove();
+
+                    e.preventDefault();
+                    return false;
+                });
+            });
+        </script>
+    }
 }
