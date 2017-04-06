@@ -46,13 +46,13 @@ namespace Gestion.Controllers
 
         #region Public Methods
 
-        public ActionResult Index(string searchName = null, string chkFutureFeatures = null, int page = 1)
+        public ActionResult Index(string searchName = null, int page = 1)
         {
             int userId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
             bool isAdmin = User.IsInRole("Administrador");
             IList<TicketViewModel> vmTickets = new List<TicketViewModel>();
 
-            TicketQueryControllerParametersDTO queryParameters = new TicketQueryControllerParametersDTO(searchName, controllersPageSize, page, chkFutureFeatures, userId, isAdmin);
+            TicketQueryControllerParametersDTO queryParameters = new TicketQueryControllerParametersDTO(searchName, controllersPageSize, page, userId, isAdmin);
 
             IEnumerable<Ticket> tickets = _TicketService.GetTickets(queryParameters);
 
@@ -122,7 +122,7 @@ namespace Gestion.Controllers
                 TicketEvento lastQuestion = ticket
                     .TicketEventos
                     .OrderByDescending(x => x.UpdatedDate)
-                    .FirstOrDefault(x => x.TicketTipoEventoType == Paramedic.Gestion.Model.Enums.TicketEventoType.Question);
+                    .FirstOrDefault(x => x.TicketTipoEventoType == TicketEventoType.Question);
                 ViewBag.lastRelevantData = lastQuestion != null ? lastQuestion.Descripcion : "";
                 ViewBag.lastRelevantLabel = "Última consulta";
                 ViewBag.title = string.Format("{0}: {1}", "Respuesta de", User.Identity.Name);
@@ -133,7 +133,7 @@ namespace Gestion.Controllers
                 TicketEvento lastAnswer = ticket
                     .TicketEventos
                     .OrderByDescending(x => x.UpdatedDate)
-                    .FirstOrDefault(x => x.TicketTipoEventoType == Paramedic.Gestion.Model.Enums.TicketEventoType.Answer);
+                    .FirstOrDefault(x => x.TicketTipoEventoType == TicketEventoType.Answer);
 
                 ViewBag.lastRelevantData = lastAnswer != null ? lastAnswer.Descripcion : "";
                 ViewBag.lastRelevantLabel = "Última respuesta";

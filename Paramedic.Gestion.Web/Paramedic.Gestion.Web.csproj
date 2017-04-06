@@ -293,6 +293,10 @@
     <Compile Include="Migrations\201704031927016_EmailPrincipal.Designer.cs">
       <DependentUpon>201704031927016_EmailPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704061935426_TicketClasificacion.cs" />
+    <Compile Include="Migrations\201704061935426_TicketClasificacion.Designer.cs">
+      <DependentUpon>201704061935426_TicketClasificacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -796,6 +800,7 @@
     <Content Include="Scripts\template_scripts\js\jquery-1.7.2.min.js" />
     <Content Include="Scripts\template_scripts\js\jquery.blockUI.js" />
     <Content Include="Scripts\template_scripts\js\login.js" />
+    <Content Include="Scripts\users.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -991,6 +996,7 @@
     <Content Include="Views\MisTickets\TicketEvento.cshtml" />
     <Content Include="Views\MisTickets\_FormTicketEvento.cshtml" />
     <Content Include="Views\MisTickets\_FormTicketAdmin.cshtml" />
+    <Content Include="Views\Account\_MailControl.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1061,6 +1067,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704031927016_EmailPrincipal.resx">
       <DependentUpon>201704031927016_EmailPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704061935426_TicketClasificacion.resx">
+      <DependentUpon>201704061935426_TicketClasificacion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

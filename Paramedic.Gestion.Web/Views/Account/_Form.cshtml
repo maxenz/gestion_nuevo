@@ -61,15 +61,22 @@
                             <div class="control-group">
                                 <label class="control-label" for="emails[]">Emails</label>
                                 <div class="controls user-mail-controls">
-                                    <div class="input-group user-mail-entry">
-                                        <input class="form-control" name="emails[]">
-                                        <div class="input-group-btn">
-                                            <button type="button" class="btn btn-success btn-add-user-mail">
-                                                <span class="fa fa-plus"></span>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    @{
+                                        if (ViewBag.Emails != null)
+                                        {
+                                            foreach (string email in ViewBag.Emails)
+                                            {
+                                                if (!string.IsNullOrEmpty(email))
+                                                {
+                                                    @Html.Partial("_MailControl", email)
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    @Html.Partial("_MailControl", "")
                                 </div>
+                                @Html.ValidationMessage("Emails")
                             </div>
 
                             <div class="control-group">

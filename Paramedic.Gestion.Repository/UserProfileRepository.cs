@@ -16,5 +16,9 @@ namespace Paramedic.Gestion.Repository
 
         }
 
+        public UserProfile GetById(int id)
+        {
+            return _dbset.Include(x => x.Emails).FirstOrDefault(x => x.Id == id);
+        }
     }
 }

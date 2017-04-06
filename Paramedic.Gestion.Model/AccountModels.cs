@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramedic.Gestion.Model
 {
@@ -62,10 +63,9 @@ namespace Paramedic.Gestion.Model
         [Compare("Password", ErrorMessage = "El password y su confirmación no son iguales.")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Debe ingresar el email")]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Debe ingresar al menos un email")]
+        [Display(Name = "Emails")]
+        public List<string> Emails { get; set; }
 
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }

@@ -1,6 +1,9 @@
 ﻿using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Repository;
 using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Paramedic.Gestion.Service
 {
@@ -34,6 +37,11 @@ namespace Paramedic.Gestion.Service
                 .FirstOrDefault();
 
             return user.Id;
+        }
+
+        public UserProfile GetById(int id)
+        {
+            return _userProfileRepository.GetById(id);
         }
 
         #endregion

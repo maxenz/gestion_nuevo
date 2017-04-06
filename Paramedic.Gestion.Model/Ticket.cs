@@ -22,6 +22,9 @@ namespace Paramedic.Gestion.Model
         [Display(Name = "Estado de ticket")]
         public TicketEstadoType TicketEstadoType { get; set; }
 
+        [Display(Name ="Clasificación del ticket")]
+        public int TicketsClasificacionId { get; set; }
+
         [Display(Name = "Futura mejora")]
         public bool FuturaMejora { get; set; }
 
@@ -29,6 +32,9 @@ namespace Paramedic.Gestion.Model
 
         [ForeignKey("UserProfileId")]
         public virtual UserProfile Usuario { get; set; }
+
+        [ForeignKey("TicketsClasificacionId")]
+        public virtual TicketsClasificacion TicketsClasificacion { get; set; }
 
         #endregion
 

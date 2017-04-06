@@ -56,11 +56,6 @@ namespace Paramedic.Gestion.Service
                 predicate = predicate.And(p => (p.Asunto.Contains(queryParameters.SearchDescription)));
             }
 
-            if (!string.IsNullOrEmpty(queryParameters.FutureFeature))
-            {
-                predicate = predicate.And(p => p.FuturaMejora);
-            }
-
             if (!queryParameters.IsAdmin)
             {
                 predicate = predicate.And(p => p.UserProfileId == queryParameters.UserId);

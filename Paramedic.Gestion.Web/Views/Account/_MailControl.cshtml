@@ -1,0 +1,24 @@
+﻿@model string
+
+<div class="user-mail-container">
+    <div class="input-group user-mail-entry">
+        <input class="form-control" name="emails[]" value="@Model">
+        <div class="input-group-btn">
+
+            @if (string.IsNullOrEmpty(@Model))
+            {
+                <button type="button" class="btn btn-add-user-mail btn-success">
+                    <span class="fa fa-plus"></span>
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-remove btn-danger">
+                    <span class="fa fa-minus"></span>
+                </button>
+            }
+
+        </div>
+    </div>
+    <p class="color-red bold user-mail-error" style="display:none">El formato de email es incorrecto.</p>
+</div>

@@ -1997,9 +1997,13 @@ li.system-options-dropdown > a > i.fa.fa-sign-out  {
 	
 }
 
-.user-mail-entry:not(:first-of-type)
+.user-mail-container:not(:first-of-type)
 {
     margin-top: 10px;
+}
+
+.color-red {
+    color: red;
 }
 
 

@@ -14,9 +14,8 @@ namespace Paramedic.Gestion.Model
 
         #region Constructors
 
-        public TicketQueryControllerParametersDTO(string searchDescription, int pageSize, int page, string futureFeature, int userId, bool isAdmin) : base(searchDescription, pageSize, page)
+        public TicketQueryControllerParametersDTO(string searchDescription, int pageSize, int page, int userId, bool isAdmin) : base(searchDescription, pageSize, page)
         {
-            FutureFeature = futureFeature;
             UserId = userId;
             IsAdmin = isAdmin;
         }
