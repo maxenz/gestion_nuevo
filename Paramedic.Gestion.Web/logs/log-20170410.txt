@@ -1,0 +1,5 @@
+2017-04-10 12:41:11.542 -03:00 [Error] Object reference not set to an instance of an object.
+2017-04-10 12:44:54.838 -03:00 [Error] Object reference not set to an instance of an object.
+2017-04-10 12:48:20.417 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-04-10 15:18:29.318 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-04-10 15:23:35.778 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com

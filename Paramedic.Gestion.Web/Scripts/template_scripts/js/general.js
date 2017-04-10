@@ -397,7 +397,7 @@ $(function () {
 
     $(document).on("click", ".pagedList a", getPage);
 
-    $('#selTipoClientes,#selDatosSegunVista,#selTipoGestion, #chkFutureFeatures').on('change', execPrincipalForm);
+    $('#selTipoClientes,#selDatosSegunVista,#selTipoGestion, #chkFutureFeatures, #selTicketsClasificacion').on('change', execPrincipalForm);
 
     $('#btnCloseTicket').on('click', closeTicket);
 
@@ -638,35 +638,35 @@ $(function () {
         });
     }
 
-    if (window.location.pathname.indexOf("MisTickets/Edit") > -1) {
-        if ($('#FuturaMejora').val().toLowerCase() == 'true') {
-            $('#chkFuturaMejora').click();
-        }
-    }
+    //if (window.location.pathname.indexOf("MisTickets/Edit") > -1) {
+    //    if ($('#FuturaMejora').val().toLowerCase() == 'true') {
+    //        $('#chkFuturaMejora').click();
+    //    }
+    //}
 
 
-    $('#chkFuturaMejora').click(function () {
-        blockInterface();
-        var $url = base_url_gestion + "MisTickets/SetFutureFeature";
-        $.ajax({
-            url: $url,
-            datatype: "json",
-            traditional: true,
-            data: {
-                'isFutureFeature': $(this).is(":checked"),
-                'ticketId': $('#Id').val()
-            },
-            type: 'POST',
-            success: function (data) {
-                console.log(data);
-                $.unblockUI();
-            },
-            error: function (error) {
-                alert(error.statusText);
-                $.unblockUI();
-            }
-        });
-    });
+    //$('#chkFuturaMejora').click(function () {
+    //    blockInterface();
+    //    var $url = base_url_gestion + "MisTickets/SetFutureFeature";
+    //    $.ajax({
+    //        url: $url,
+    //        datatype: "json",
+    //        traditional: true,
+    //        data: {
+    //            'isFutureFeature': $(this).is(":checked"),
+    //            'ticketId': $('#Id').val()
+    //        },
+    //        type: 'POST',
+    //        success: function (data) {
+    //            console.log(data);
+    //            $.unblockUI();
+    //        },
+    //        error: function (error) {
+    //            alert(error.statusText);
+    //            $.unblockUI();
+    //        }
+    //    });
+    //});
 
     // --> Dropdown de clientes, donde genero usuarios segun mi seleccion, para ticket generado por Administrador
 

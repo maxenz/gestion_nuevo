@@ -22,6 +22,7 @@ namespace Gestion.Controllers
         IUserProfileService _UserProfileService;
         IClienteService _ClienteService;
         IClientesUsuarioService _ClientesUsuarioService;
+        ITicketsClasificacionService _TicketsClasificacionService;
 
         private int controllersPageSize = 6;
 
@@ -33,28 +34,31 @@ namespace Gestion.Controllers
             ITicketService TicketService,
             IUserProfileService UserProfileService,
             IClientesUsuarioService ClientesUsuarioService,
-            IClienteService ClienteService
+            IClienteService ClienteService,
+            ITicketsClasificacionService TicketsClasificacionService
             )
         {
             _TicketService = TicketService;
             _UserProfileService = UserProfileService;
             _ClientesUsuarioService = ClientesUsuarioService;
             _ClienteService = ClienteService;
+            _TicketsClasificacionService = TicketsClasificacionService;
         }
 
         #endregion
 
         #region Public Methods
 
-        public ActionResult Index(string searchName = null, int page = 1)
+        public ActionResult Index(string searchName = null, int page = 1, int selTicketsClasificacion = 0)
         {
             int userId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
             bool isAdmin = User.IsInRole("Administrador");
             IList<TicketViewModel> vmTickets = new List<TicketViewModel>();
 
-            TicketQueryControllerParametersDTO queryParameters = new TicketQueryControllerParametersDTO(searchName, controllersPageSize, page, userId, isAdmin);
+            TicketQueryControllerParametersDTO queryParameters = new TicketQueryControllerParametersDTO(searchName, controllersPageSize, page, userId, isAdmin, selTicketsClasificacion);
 
             IEnumerable<Ticket> tickets = _TicketService.GetTickets(queryParameters);
+            setDropdownClasificaciones();
 
             foreach (Ticket ticket in tickets)
             {
@@ -86,6 +90,7 @@ namespace Gestion.Controllers
         public ActionResult Create()
         {
             ViewBag.UsuarioID = new SelectList(_UserProfileService.GetAll(), "Id", "UserName");
+            setDropdownClasificaciones();
             return View();
         }
 
@@ -247,6 +252,7 @@ namespace Gestion.Controllers
         public ActionResult CreateAdminTicket()
         {
             setClientDropdown();
+            setDropdownClasificaciones();
             return View("_FormTicketAdmin");
         }
 
@@ -259,7 +265,7 @@ namespace Gestion.Controllers
                 {
                     Ticket ticket = vm.ToTicket();
                     ticket.TicketEstadoType = TicketEstadoType.NotAnswered;
-                    ticket.Usuario = _UserProfileService.FindBy(x => x.Id == ticket.UserProfileId).FirstOrDefault();
+                    ticket.Usuario = _UserProfileService.GetById(ticket.UserProfileId);
                     ticket = TicketConverter.CreateTicketWithEvent(ticket, vm.Descripcion, image, TicketEventoType.Question, ticket.UserProfileId);
                     _TicketService.Create(ticket);
                     MailService.Instance.SendNewAdminTicketMail(ticket.TicketEventos.FirstOrDefault());
@@ -273,6 +279,7 @@ namespace Gestion.Controllers
 
 
             setClientDropdown();
+            setDropdownClasificaciones();
             return View("_FormTicketAdmin");
         }
 
@@ -299,6 +306,24 @@ namespace Gestion.Controllers
 
             ViewBag.Clients = new SelectList(clients, "Id", "RazonSocial");
         }
+
+        #region Private Methods
+
+        private void setDropdownClasificaciones()
+        {
+            IEnumerable<TicketsClasificacion> lstClasif = _TicketsClasificacionService.GetAll();
+            IEnumerable<SelectListItem> items = (from c in lstClasif
+                                                select new SelectListItem
+                                                {
+                                                    Selected = false,
+                                                    Text = c.Descripcion,
+                                                    Value = c.Id.ToString()
+                                                }).OrderBy(x => x.Text);
+
+            ViewBag.Clasificaciones = new SelectList(items, "Value", "Text");
+        }
+
+        #endregion
 
         #endregion
     }

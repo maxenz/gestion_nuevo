@@ -38,6 +38,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\Dependencies\LinqKit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -84,6 +87,7 @@
     <Compile Include="IProvinciaRepository.cs" />
     <Compile Include="IRevendedorRepository.cs" />
     <Compile Include="ISitioRepository.cs" />
+    <Compile Include="ITicketsClasificacionRepository.cs" />
     <Compile Include="ITipoTerminalRepository.cs" />
     <Compile Include="ITicketRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="ProvinciaRepository.cs" />
     <Compile Include="RevendedorRepository.cs" />
     <Compile Include="SitioRepository.cs" />
+    <Compile Include="TicketsClasificacionRepository.cs" />
     <Compile Include="TipoTerminalRepository.cs" />
     <Compile Include="TicketRepository.cs" />
     <Compile Include="UnitOfWork.cs" />

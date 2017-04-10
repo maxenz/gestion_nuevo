@@ -33,6 +33,7 @@ namespace Gestion
                 "~/Scripts/sbadmin/bootstrap-datepicker.js",
                 "~/Scripts/sbadmin/bootstrap-switch.js",
                 "~/Scripts/sbadmin/bootstrap-select.min.js",
+                "~/Scripts/bootstrap-colorpicker.min.js",
                 "~/Scripts/sbadmin/messenger.min.js",
                 "~/Scripts/sbadmin/messenger-theme-future.min.js",
                 "~/Scripts/template_scripts/js/base.js",
@@ -63,6 +64,7 @@ namespace Gestion
                     "~/Content/sbadmin/messenger.min.css",
                     "~/Content/sbadmin/messenger-theme-future.min.css",
                     "~/Content/sbadmin/bootstrap-switch.css",
+                    "~/Content/bootstrap-colorpicker.min.css",
                     "~/Content/template_resources/css/style.css",
                     "~/Content/template_resources/css/ct-navbar.css"
 

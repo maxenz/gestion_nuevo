@@ -10,6 +10,7 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCgGOZyoyPNYnpqnmUR4NbLsRDowF-sYG8"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
           rel="stylesheet">
+    <link rel="icon" href="@Url.Content("~/content/favicon.ico")" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     @Styles.Render("~/bundles/gestion_css")
     @Scripts.Render("~/bundles/mapa")
@@ -98,6 +99,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-folder-open"></i><span>Maestros</span> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Clasif. de consultas", "Index", "TicketsClasificaciones")</li>
                                 <li>@Html.ActionLink("Licencias", "Index", "Licencias")</li>
                                 <li>@Html.ActionLink("Países", "Index", "Paises")</li>
                                 <li>@Html.ActionLink("Estados", "Index", "Estados")</li>

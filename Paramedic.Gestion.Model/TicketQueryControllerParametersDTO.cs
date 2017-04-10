@@ -10,14 +10,17 @@ namespace Paramedic.Gestion.Model
 
         public bool IsAdmin { get; set; }
 
+        public int TicketClasificacionId { get; set; }
+
         #endregion
 
         #region Constructors
 
-        public TicketQueryControllerParametersDTO(string searchDescription, int pageSize, int page, int userId, bool isAdmin) : base(searchDescription, pageSize, page)
+        public TicketQueryControllerParametersDTO(string searchDescription, int pageSize, int page, int userId, bool isAdmin, int ticketClasificacionId) : base(searchDescription, pageSize, page)
         {
             UserId = userId;
             IsAdmin = isAdmin;
+            TicketClasificacionId = ticketClasificacionId;        
         }
 
         #endregion

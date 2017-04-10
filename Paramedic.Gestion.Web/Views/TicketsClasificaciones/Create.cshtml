@@ -1,0 +1,16 @@
+﻿@model Paramedic.Gestion.Model.TicketsClasificacion
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_Form", Model)
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/ticketsClasificaciones.js")"></script>
+}
+
+

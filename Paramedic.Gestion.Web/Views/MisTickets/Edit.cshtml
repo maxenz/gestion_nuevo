@@ -15,7 +15,7 @@
                         </div>
                         <div class="widget-content">
 
-                            @if (@User.IsInRole("Administrador"))
+                            @*@if (@User.IsInRole("Administrador"))
                             {
                                 <div style="float:right">
                                     <div class="checkbox">
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                             }
-                            @Html.HiddenFor(x=> x.FuturaMejora)
+                            @Html.HiddenFor(x=> x.FuturaMejora)*@
                             @Html.HiddenFor(x => x.Id)
                             @Html.Partial("_ListaEventos", Model)
 

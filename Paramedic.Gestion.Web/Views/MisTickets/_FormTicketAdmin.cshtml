@@ -1,7 +1,7 @@
 ﻿@model Paramedic.Gestion.Web.ViewModels.TicketAdminViewModel
 
 @using (Html.BeginForm("CreateAdminTicket", "MisTickets",
-                            FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -21,7 +21,7 @@
                                 <div class="control-group">
                                     @Html.LabelFor(model => model.ClienteId, new { @class = "control-label" })
                                     <div class="controls">
-                                        @Html.DropDownListFor(model => model.ClienteId,(SelectList)ViewBag.Clients, new { @class = " col-xs-12 form-control" })
+                                        @Html.DropDownListFor(model => model.ClienteId, (SelectList)ViewBag.Clients, new { @class = " col-xs-12 form-control" })
                                         @Html.ValidationMessageFor(model => model.ClienteId)
                                     </div>
                                 </div>
@@ -29,8 +29,15 @@
                                 <div class="control-group">
                                     @Html.LabelFor(model => model.UserProfileId, new { @class = "control-label" })
                                     <div class="controls">
-                                        @Html.DropDownListFor(model => model.UserProfileId, new SelectList(string.Empty, "Id","UserName"), new { @class = " col-xs-12 form-control" })
+                                        @Html.DropDownListFor(model => model.UserProfileId, new SelectList(string.Empty, "Id", "UserName"), new { @class = " col-xs-12 form-control" })
                                         @Html.ValidationMessageFor(model => model.ClienteId)
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Clasificación del ticket">Clasificación del ticket</label>
+                                    <div class="controls">
+                                        @Html.DropDownList("TicketsClasificacionId", (SelectList)ViewBag.Clasificaciones, new { @class = "col-xs-12 form-control", id = "selTicketsClasificacion" })
                                     </div>
                                 </div>
 

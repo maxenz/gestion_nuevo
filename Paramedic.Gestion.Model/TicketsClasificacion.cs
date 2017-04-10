@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramedic.Gestion.Model
 {
@@ -7,6 +8,7 @@ namespace Paramedic.Gestion.Model
     {
         #region Properties
 
+        [Display(Name = "Clasificación")]
         public string Descripcion { get; set; }
 
         public string Color { get; set; }

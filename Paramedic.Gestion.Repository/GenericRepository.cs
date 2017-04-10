@@ -26,7 +26,7 @@ namespace Paramedic.Gestion.Repository
             return _dbset.AsEnumerable<T>();
         }
 
-        public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             IEnumerable<T> query;
             if (predicate != null)

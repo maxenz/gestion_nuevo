@@ -54,6 +54,7 @@ namespace Paramedic.Gestion.Service
             {
                 whereExp = whereExp.Expand();
             }
+            
             return _repository.FindByPage(whereExp, orderExp, pageSize, page);
         }
 

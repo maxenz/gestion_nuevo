@@ -61,6 +61,11 @@ namespace Paramedic.Gestion.Service
                 predicate = predicate.And(p => p.UserProfileId == queryParameters.UserId);
             }
 
+            if (queryParameters.TicketClasificacionId != 0)
+            {
+                predicate = predicate.And(p => p.TicketsClasificacionId == queryParameters.TicketClasificacionId);
+            }
+
             if (!predicate.IsStarted)
             {
                 return null;

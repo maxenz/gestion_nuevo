@@ -25,6 +25,10 @@ namespace Paramedic.Gestion.Web.ViewModels
         [Display(Name = "Cliente")]
         public int ClienteId { get; set; }
 
+        [Required]
+        [Display(Name = "Clasificación del ticket")]
+        public int TicketsClasificacionId { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -35,6 +39,7 @@ namespace Paramedic.Gestion.Web.ViewModels
             ticket.TicketEstadoType = TicketEstadoType.NotAnswered;
             ticket.UserProfileId = this.UserProfileId;
             ticket.Asunto = this.Asunto;
+            ticket.TicketsClasificacionId = this.TicketsClasificacionId;
             return ticket;
         }
 

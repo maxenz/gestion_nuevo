@@ -28,6 +28,8 @@ namespace Paramedic.Gestion.Web.ViewModels
 
         public TicketEstadoType Type { get; set; }
 
+        public Model.TicketsClasificacion TicketsClasificacion { get; set; }
+
         #endregion
 
         #region Constructors
@@ -40,6 +42,7 @@ namespace Paramedic.Gestion.Web.ViewModels
             this.FuturaMejora = ticket.FuturaMejora;
             this.Type = ticket.TicketEstadoType;
             this.Asunto = ticket.Asunto;
+            this.TicketsClasificacion = ticket.TicketsClasificacion;
         }
 
         #endregion
