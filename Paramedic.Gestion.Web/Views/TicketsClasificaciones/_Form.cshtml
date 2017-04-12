@@ -1,5 +1,4 @@
 ﻿@model Paramedic.Gestion.Model.TicketsClasificacion
-
 <div class="main">
     <div class="main-inner">
         <div class="container">
@@ -20,19 +19,26 @@
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label">Alta Prioridad?</label>
+                                <label class="control-label">Color</label>
                                 <div class="controls">
-                                    @Html.EditorFor(model => model.AltaPrioridad)
+                                    <div id="colorpickerTicketsClasificaciones" class="input-group colorpicker-component">
+                                        @Html.TextBoxFor(model => model.Color, new { @class = "form-control col-xs-12", @Value = (Model == null) ? "#000000" : Model.Color.ToString() })
+                                        <span class="input-group-addon"><i></i></span>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label">Color</label>
+                                <label class="control-label">Usuarios</label>
                                 <div class="controls">
-                                    <div id="colorpickerTicketsClasificaciones" class="input-group colorpicker-component">
-                                        @Html.TextBoxFor(model => model.Color, new { @class="form-control col-xs-12", @Value = (Model == null) ? "#000000" : Model.Color.ToString() })
-                                        <span class="input-group-addon"><i></i></span>
-                                    </div>
+                                    @Html.ListBox("UsersList", (MultiSelectList)ViewBag.Users, new { size = 8 })
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Alta Prioridad?</label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.AltaPrioridad)
                                 </div>
                             </div>
 

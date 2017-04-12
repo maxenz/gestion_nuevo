@@ -102,6 +102,7 @@
     <Compile Include="IService.cs" />
     <Compile Include="ISitioService.cs" />
     <Compile Include="ITicketsClasificacionService.cs" />
+    <Compile Include="ITicketsClasificacionUsuarioService.cs" />
     <Compile Include="ITicketService.cs" />
     <Compile Include="ITipoTerminalService.cs" />
     <Compile Include="IUserProfileEmailService.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="RevendedorService.cs" />
     <Compile Include="SitioService.cs" />
     <Compile Include="TicketsClasificacionService.cs" />
+    <Compile Include="TicketsClasificacionUsuarioService.cs" />
     <Compile Include="TicketService.cs" />
     <Compile Include="TipoTerminalService.cs" />
     <Compile Include="UserProfileEmailService.cs" />

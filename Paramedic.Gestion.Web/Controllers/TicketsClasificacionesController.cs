@@ -14,15 +14,19 @@ namespace Gestion.Controllers
         #region Properties
 
         ITicketsClasificacionService _TicketsClasificacionService;
+        ITicketsClasificacionUsuarioService _TicketsClasificacionUsuariosService;
+        IUserProfileService _UserProfileService;
         private int controllersPageSize = 6;
 
         #endregion
 
         #region Constructors
 
-        public TicketsClasificacionesController(ITicketsClasificacionService TicketsClasificacionService)
+        public TicketsClasificacionesController(ITicketsClasificacionService TicketsClasificacionService, IUserProfileService UserProfileService, ITicketsClasificacionUsuarioService TicketsClasificacionUsuarioService)
         {
             _TicketsClasificacionService = TicketsClasificacionService;
+            _UserProfileService = UserProfileService;
+            _TicketsClasificacionUsuariosService = TicketsClasificacionUsuarioService;
         }
 
         #endregion
@@ -49,39 +53,49 @@ namespace Gestion.Controllers
 
         public ActionResult Create()
         {
+            SetDropdownUsers();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(TicketsClasificacion clasificacion)
+        public ActionResult Create(TicketsClasificacion clasificacion, int[] usersList)
         {
             if (ModelState.IsValid)
             {
                 _TicketsClasificacionService.Create(clasificacion);
+                CreateUsers(usersList, clasificacion.Id);
                 return RedirectToAction("Index");
             }
 
+            SetDropdownUsers(usersList);
             return View(clasificacion);
         }
 
         public ActionResult Edit(int id = 0)
         {
             TicketsClasificacion clasificacion = _TicketsClasificacionService.FindBy(x => x.Id == id).FirstOrDefault();
+
             if (clasificacion == null)
             {
                 return HttpNotFound();
             }
+
+            SetDropdownUsers(GetSelectedUsers(clasificacion.Id));
             return View(clasificacion);
         }
 
         [HttpPost]
-        public ActionResult Edit(TicketsClasificacion clasificacion)
+        public ActionResult Edit(TicketsClasificacion clasificacion, int[] usersList)
         {
             if (ModelState.IsValid)
             {
                 _TicketsClasificacionService.Update(clasificacion);
+                DeleteAllUsers(clasificacion.Id);
+                CreateUsers(usersList, clasificacion.Id);
                 return RedirectToAction("Index");
             }
+
+            SetDropdownUsers(usersList);
             return View(clasificacion);
         }
 
@@ -89,10 +103,51 @@ namespace Gestion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TicketsClasificacion clasificacion = _TicketsClasificacionService.FindBy(x => x.Id == id).FirstOrDefault();
+            DeleteAllUsers(id);
             _TicketsClasificacionService.Delete(clasificacion);
             return RedirectToAction("Index");
         }
 
+        #endregion
+
+        #region Private Methods
+
+        private void SetDropdownUsers(int[] selected = null)
+        {
+            IList<UserProfile> users = _UserProfileService.GetAll().OrderBy(x => x.UserName).ToList();
+            ViewBag.Users = new MultiSelectList(users, "Id", "UserName", selected);
+        }
+
+        private int[] GetSelectedUsers(int tcId)
+        {
+            IEnumerable<TicketsClasificacionUsuario> tcu = _TicketsClasificacionUsuariosService
+                .FindBy(x => x.TicketsClasificacionId == tcId);
+
+            return tcu.Select(x => x.UserProfileId).ToArray();
+        }
+
+        private void DeleteAllUsers(int tcId)
+        {
+            IEnumerable<TicketsClasificacionUsuario> tcu = _TicketsClasificacionUsuariosService.FindBy(x => x.TicketsClasificacionId == tcId);
+            if (tcu != null)
+            {
+                foreach (var t in tcu.ToList())
+                {
+                    _TicketsClasificacionUsuariosService.Delete(t);
+                }
+            }
+        }
+
+        private void CreateUsers(int[] usersList, int tcId)
+        {
+            if (usersList != null)
+            {
+                foreach (int usrId in usersList)
+                {
+                    _TicketsClasificacionUsuariosService.Create(new TicketsClasificacionUsuario(usrId, tcId));
+                }
+            }
+        }
 
         #endregion
     }

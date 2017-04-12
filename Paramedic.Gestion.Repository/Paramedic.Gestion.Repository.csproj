@@ -88,6 +88,7 @@
     <Compile Include="IRevendedorRepository.cs" />
     <Compile Include="ISitioRepository.cs" />
     <Compile Include="ITicketsClasificacionRepository.cs" />
+    <Compile Include="ITicketsClasificacionUsuarioRepository.cs" />
     <Compile Include="ITipoTerminalRepository.cs" />
     <Compile Include="ITicketRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="RevendedorRepository.cs" />
     <Compile Include="SitioRepository.cs" />
     <Compile Include="TicketsClasificacionRepository.cs" />
+    <Compile Include="TicketsClasificacionUsuarioRepository.cs" />
     <Compile Include="TipoTerminalRepository.cs" />
     <Compile Include="TicketRepository.cs" />
     <Compile Include="UnitOfWork.cs" />

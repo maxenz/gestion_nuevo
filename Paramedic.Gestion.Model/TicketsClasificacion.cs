@@ -7,7 +7,7 @@ namespace Paramedic.Gestion.Model
     public class TicketsClasificacion : AuditableEntity<int>
     {
         #region Properties
-
+        [Required]
         [Display(Name = "Clasificación")]
         public string Descripcion { get; set; }
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Paramedic.Gestion.Model
 {
     [Table("TicketsClasificacionUsuarios")]
-    public class TicketsClasificacionUsuario
+    public class TicketsClasificacionUsuario : BaseEntity
     {
         #region Properties
 
