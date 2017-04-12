@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Paramedic.Gestion.Model
 {
@@ -15,13 +16,19 @@ namespace Paramedic.Gestion.Model
 
         public bool AltaPrioridad { get; set; }
 
+        public virtual ICollection<TicketsClasificacionUsuario> TicketsClasificacionesUsuarios { get; set; }
+
         #endregion
 
         #region Constructors
 
-        public TicketsClasificacion() { } // EF
+        public TicketsClasificacion() {
 
-        public TicketsClasificacion(string descripcion, string color, bool altaPrioridad)
+            this.TicketsClasificacionesUsuarios = new List<TicketsClasificacionUsuario>();
+
+        } 
+
+        public TicketsClasificacion(string descripcion, string color, bool altaPrioridad) : base()
         {
             this.Descripcion = descripcion;
             this.Color = color;

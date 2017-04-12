@@ -6,6 +6,8 @@ using System.Net.Mail;
 using Paramedic.Gestion.Service;
 using System.Configuration;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SocialMedia.Services
 {
@@ -104,7 +106,13 @@ namespace SocialMedia.Services
             }
 
             Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Emails.FirstOrDefault().Email, ticketEvento.Ticket.Asunto);
-            Send(msg);
+            //Send(msg);
+
+
+            if (ticketEvento.Ticket.TicketsClasificacion.AltaPrioridad && ticketEvento.TicketTipoEventoType == TicketEventoType.Question)
+            {
+                SendAlertMailsToAdmins(ticketEvento.Ticket, (EmailMessage)msg);
+            }
         }
 
         public void SendNewAdminTicketMail(TicketEvento ticketEvento)
@@ -118,6 +126,18 @@ namespace SocialMedia.Services
 
             Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Emails.FirstOrDefault().Email, ticketEvento.Ticket.Asunto);
             Send(msg);
+        }
+
+        private void SendAlertMailsToAdmins(Ticket ticket, EmailMessage msg)
+        {
+            IEnumerable<TicketsClasificacionUsuario> users = ticket.TicketsClasificacion.TicketsClasificacionesUsuarios;
+            foreach(TicketsClasificacionUsuario usr in users)
+            {
+                string emailPrincipal = usr.UserProfile.Emails.FirstOrDefault(x => x.EmailPrincipal).Email;
+                msg.Subject = "ALTA PRIORIDAD - Shaman Gestión";
+                msg.To = emailPrincipal;
+                Send(msg);
+            }            
         }
 
         #endregion

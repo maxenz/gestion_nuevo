@@ -1,0 +1,5 @@
+2017-04-12 15:42:13.450 -03:00 [Information] Se envió un mail de ticket a mpoggio@paramedic.com.ar
+2017-04-12 16:20:48.331 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-04-12 16:23:39.685 -03:00 [Information] Se envió un mail de ticket a soporte@shaman-sge.com
+2017-04-12 16:27:19.034 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-04-12 16:28:40.957 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com

@@ -1,5 +1,6 @@
 ﻿using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Repository;
+using System.Collections.Generic;
 
 namespace Paramedic.Gestion.Service
 {
@@ -13,6 +14,11 @@ namespace Paramedic.Gestion.Service
         {
             _unitOfWork = unitOfWork;
             _repo = repo;
+        }
+
+        public IEnumerable<TicketsClasificacionUsuario> GetByClasificacionId(int id)
+        {
+            return _repo.GetByClasificacionId(id);
         }
     }
 }

@@ -698,7 +698,7 @@ $(function () {
 
     }
 
-    $("select").mousedown(function (e) {
+    $("#UsersList").mousedown(function (e) {
         e.preventDefault();
 
         var select = this;

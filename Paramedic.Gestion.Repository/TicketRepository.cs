@@ -26,6 +26,7 @@ namespace Paramedic.Gestion.Repository
                 .Include(x => x.Usuario)
                 .Include(x => x.Usuario.Emails)
                 .Include(x => x.TicketsClasificacion)
+                .Include(x => x.TicketsClasificacion.TicketsClasificacionesUsuarios.Select(e => e.UserProfile.Emails))
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
         }

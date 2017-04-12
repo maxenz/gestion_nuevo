@@ -301,6 +301,10 @@
     <Compile Include="Migrations\201704121422499_TicketClasificacionDescripcionNotNullable.Designer.cs">
       <DependentUpon>201704121422499_TicketClasificacionDescripcionNotNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704121815138_MailRequiredInUserProfileEmails.cs" />
+    <Compile Include="Migrations\201704121815138_MailRequiredInUserProfileEmails.Designer.cs">
+      <DependentUpon>201704121815138_MailRequiredInUserProfileEmails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -1092,6 +1096,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704121422499_TicketClasificacionDescripcionNotNullable.resx">
       <DependentUpon>201704121422499_TicketClasificacionDescripcionNotNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121815138_MailRequiredInUserProfileEmails.resx">
+      <DependentUpon>201704121815138_MailRequiredInUserProfileEmails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

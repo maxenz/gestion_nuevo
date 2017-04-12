@@ -20,5 +20,10 @@ namespace Paramedic.Gestion.Service
             _repo = repo;
         }
 
+        public TicketsClasificacion GetById(int id)
+        {
+            return _repo.GetById(id);
+        }
+
     }
 }

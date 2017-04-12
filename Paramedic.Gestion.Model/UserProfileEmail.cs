@@ -11,6 +11,7 @@ namespace Paramedic.Gestion.Model
         [Display(Name = "Usuario")]
         public int UserProfileId { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
         public bool EmailPrincipal { get; set; }

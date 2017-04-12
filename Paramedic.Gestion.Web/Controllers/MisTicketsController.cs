@@ -23,6 +23,7 @@ namespace Gestion.Controllers
         IClienteService _ClienteService;
         IClientesUsuarioService _ClientesUsuarioService;
         ITicketsClasificacionService _TicketsClasificacionService;
+        ITicketsClasificacionUsuarioService _TicketsClasificacionUsuarioService;
 
         private int controllersPageSize = 6;
 
@@ -35,7 +36,8 @@ namespace Gestion.Controllers
             IUserProfileService UserProfileService,
             IClientesUsuarioService ClientesUsuarioService,
             IClienteService ClienteService,
-            ITicketsClasificacionService TicketsClasificacionService
+            ITicketsClasificacionService TicketsClasificacionService,
+            ITicketsClasificacionUsuarioService TicketsClasificacionUsuarioService
             )
         {
             _TicketService = TicketService;
@@ -163,6 +165,7 @@ namespace Gestion.Controllers
                 ticket.Usuario = _UserProfileService.FindBy(x => x.Id == ticket.UserProfileId).FirstOrDefault();
                 ticket = TicketConverter.CreateTicketWithEvent(ticket, descripcion, image, TicketEventoType.Question, ticket.UserProfileId);
                 _TicketService.Create(ticket);
+                ticket.TicketsClasificacion = _TicketsClasificacionService.GetById(ticket.TicketsClasificacionId);
                 MailService.Instance.SendNewTicketEventoMail(ticket.TicketEventos.FirstOrDefault());
                 return RedirectToAction("Index");
             }
@@ -268,6 +271,7 @@ namespace Gestion.Controllers
                     ticket.Usuario = _UserProfileService.GetById(ticket.UserProfileId);
                     ticket = TicketConverter.CreateTicketWithEvent(ticket, vm.Descripcion, image, TicketEventoType.Question, ticket.UserProfileId);
                     _TicketService.Create(ticket);
+                    ticket.TicketsClasificacion = _TicketsClasificacionService.GetById(ticket.TicketsClasificacionId);
                     MailService.Instance.SendNewAdminTicketMail(ticket.TicketEventos.FirstOrDefault());
                     return RedirectToAction("Index");
                 }

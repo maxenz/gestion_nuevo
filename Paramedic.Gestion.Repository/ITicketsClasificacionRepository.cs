@@ -9,5 +9,6 @@ namespace Paramedic.Gestion.Repository
 {
     public interface ITicketsClasificacionRepository : IGenericRepository<TicketsClasificacion>
     {
+        TicketsClasificacion GetById(int id);
     }
 }

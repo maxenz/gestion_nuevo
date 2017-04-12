@@ -15,5 +15,22 @@ namespace Paramedic.Gestion.Repository
         {
 
         }
+
+        public override IEnumerable<TicketsClasificacion> GetAll()
+        {
+            return _dbset
+                .Include(x => x.TicketsClasificacionesUsuarios)
+                .Include(x => x.TicketsClasificacionesUsuarios.Select(p => p.UserProfile.Emails))
+                .AsEnumerable();
+        }
+
+        public TicketsClasificacion GetById(int id)
+        {
+            return _dbset
+                .Include(x => x.TicketsClasificacionesUsuarios)
+                .Include(x => x.TicketsClasificacionesUsuarios.Select(p => p.UserProfile.Emails))
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+        }
     }
 }
