@@ -6,7 +6,6 @@ using System.Net.Mail;
 using Paramedic.Gestion.Service;
 using System.Configuration;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SocialMedia.Services

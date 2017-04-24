@@ -72,6 +72,9 @@ namespace Paramedic.Gestion.Model
 
         [Display(Name = "Apellido")]
         public string Apellido { get; set; }
+
+        [Display(Name = "Modificar password")]
+        public bool ChangePassword { get; set; }
     }
 
     public class ExternalLogin

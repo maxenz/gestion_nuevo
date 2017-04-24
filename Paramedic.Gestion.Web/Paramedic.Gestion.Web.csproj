@@ -375,6 +375,11 @@
     <Content Include="Content\fonts\lato\lato-italic-webfont.svg" />
     <Content Include="Content\fonts\lato\lato-light-webfont.svg" />
     <Content Include="Content\fonts\lato\lato-regular-webfont.svg" />
+    <Content Include="Content\images\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\saturation.png" />
     <Content Include="Content\sbadmin\blank.gif" />
     <Content Include="Content\sbadmin\fancybox_loading%402x.gif" />
     <Content Include="Content\sbadmin\fancybox_loading.gif" />
@@ -815,7 +820,6 @@
     <Content Include="Scripts\template_scripts\js\jquery-1.7.2.min.js" />
     <Content Include="Scripts\template_scripts\js\jquery.blockUI.js" />
     <Content Include="Scripts\template_scripts\js\login.js" />
-    <Content Include="Scripts\ticketsClasificaciones.js" />
     <Content Include="Scripts\users.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
@@ -1028,7 +1032,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\images\bootstrap-colorpicker\" />
     <Folder Include="Content\sbadmin\images\" />
     <Folder Include="Filters\" />
   </ItemGroup>

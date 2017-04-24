@@ -2006,7 +2006,7 @@ li.system-options-dropdown > a > i.fa.fa-sign-out  {
     color: red;
 }
 
-input#AltaPrioridad.check-box {
+input#AltaPrioridad.check-box, input#ChangePassword.check-box {
     margin-left:5px;
 }
 

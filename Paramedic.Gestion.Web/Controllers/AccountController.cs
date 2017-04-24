@@ -162,6 +162,11 @@ namespace Gestion.Controllers
                 return View();
             }
 
+            if (!model.ChangePassword)
+            {
+                ModelState.Remove("Password");
+            }
+
             if (ModelState.IsValid)
             {
                 List<UserProfileEmail> dbMails = _UserProfileEmailService.FindBy(x => x.UserProfileId == model.Id).ToList();
@@ -190,14 +195,20 @@ namespace Gestion.Controllers
 
                 for (var i = 0; i < mails.Count; i++)
                 {
-                    _UserProfileEmailService.Create(new UserProfileEmail(model.Id, mails[i], false));
+                    if (!string.IsNullOrEmpty(mails[i]))
+                    {
+                        _UserProfileEmailService.Create(new UserProfileEmail(model.Id, mails[i], false));
+                    }
                 }
 
-                if (!model.Password.Equals("") && !model.ConfirmPassword.Equals(""))
+                if (model.ChangePassword)
                 {
+                    if (!model.Password.Equals("") && !model.ConfirmPassword.Equals(""))
+                    {
 
-                    var token = WebSecurity.GeneratePasswordResetToken(model.UserName);
-                    WebSecurity.ResetPassword(token, model.Password);
+                        var token = WebSecurity.GeneratePasswordResetToken(model.UserName);
+                        WebSecurity.ResetPassword(token, model.Password);
+                    }
                 }
 
                 _AccountService.Update(user);

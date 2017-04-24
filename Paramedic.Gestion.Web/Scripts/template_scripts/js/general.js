@@ -711,5 +711,26 @@ $(function () {
         $(select).focus();
     }).mousemove(function (e) { e.preventDefault() });
 
+    if (window.location.pathname.indexOf("TicketsClasificaciones") > -1) {
+        $('#colorpickerTicketsClasificaciones').colorpicker();
+    }
+
+    if (window.location.pathname.indexOf("Account/Edit") > -1) {
+        $('#ChangePassword').change(function () {
+            var checked = $(this).is(':checked');
+            $('#Password').prop('disabled', !checked);
+            $('#ConfirmPassword').prop('disabled', !checked);
+        });
+    }
+
+    if (window.location.pathname.indexOf("Account/Register") > -1) {
+        $('#groupChangePassword').css('display', 'none');
+        $('#Password').prop('disabled', false);
+        $('#ConfirmPassword').prop('disabled', false);
+    }
+
+
+
+
 });
 
