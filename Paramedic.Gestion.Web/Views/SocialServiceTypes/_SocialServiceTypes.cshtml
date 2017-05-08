@@ -1,0 +1,68 @@
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.SocialServiceType>
+@using PagedList.Mvc;
+
+<div id="paisesList">
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="widget widget-table action-table" style="margin-bottom:0">
+                <div class="widget-header">
+
+                    <h3>Canales de comunicación</h3>
+                </div>
+                <div class="widget-content">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-1"></th>
+                                <th class="col-xs-4">Descripción</th>
+                                <th class="col-xs-1">Habilitado?</th>
+                                <th class="col-xs-1"></th>
+                                <th class="col-xs-1"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="centrado">
+                                        <i class="@item.Icon"></i>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td class="centrado">
+                                        @if (item.Enabled)
+                                        {
+                                            <i class="fa fa-check"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-times"></i>
+                                        }
+                                    </td>
+
+                                    <td class="centrado">
+                                        <a href="@Url.Action("Edit", "SocialServiceTypes", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                            <i class="btn-icon-only fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="centrado">
+                                        <a href="@Url.Action("Delete","SocialServiceTypes", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#socialServiceTypesList">
+                                            <i class="btn-icon-only fa fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="pagedList centered" data-gestion-target="#paisesList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>
+

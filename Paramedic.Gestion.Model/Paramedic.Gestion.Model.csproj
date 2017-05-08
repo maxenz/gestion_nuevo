@@ -126,6 +126,8 @@
     <Compile Include="RecontactosControllerParametersDTO.cs" />
     <Compile Include="Revendedor.cs" />
     <Compile Include="Sitio.cs" />
+    <Compile Include="SocialService.cs" />
+    <Compile Include="SocialServiceType.cs" />
     <Compile Include="SystemSettings.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="TicketEvento.cs" />

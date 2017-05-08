@@ -1,0 +1,10 @@
+﻿@model Paramedic.Gestion.Web.ViewModels.SocialServiceTypesViewModel
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+    
+    @Html.Partial("_Form",Model)
+}

@@ -243,6 +243,7 @@
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\CuentaCorrienteController.cs" />
+    <Compile Include="Controllers\SocialServiceTypesController.cs" />
     <Compile Include="Controllers\TicketsClasificacionesController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\ExternalLoginController.cs" />
@@ -305,6 +306,18 @@
     <Compile Include="Migrations\201704121815138_MailRequiredInUserProfileEmails.Designer.cs">
       <DependentUpon>201704121815138_MailRequiredInUserProfileEmails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705081831080_SocialServiceTypes.cs" />
+    <Compile Include="Migrations\201705081831080_SocialServiceTypes.Designer.cs">
+      <DependentUpon>201705081831080_SocialServiceTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705081919017_Changes SocialServiceTypesAndIcons.cs" />
+    <Compile Include="Migrations\201705081919017_Changes SocialServiceTypesAndIcons.Designer.cs">
+      <DependentUpon>201705081919017_Changes SocialServiceTypesAndIcons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705081939036_SacoDescriptionDeSocialServiceType.cs" />
+    <Compile Include="Migrations\201705081939036_SacoDescriptionDeSocialServiceType.Designer.cs">
+      <DependentUpon>201705081939036_SacoDescriptionDeSocialServiceType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -328,6 +341,7 @@
     <Compile Include="ViewModels\ModulosExcluidos.cs" />
     <Compile Include="ViewModels\LicenciasEstados.cs" />
     <Compile Include="ViewModels\ProductosAsignados.cs" />
+    <Compile Include="ViewModels\SocialServiceTypesViewModel.cs" />
     <Compile Include="ViewModels\TicketAdminViewModel.cs" />
     <Compile Include="ViewModels\TicketViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
@@ -1023,6 +1037,12 @@
     <Content Include="Views\TicketsClasificaciones\_Header.cshtml" />
     <Content Include="Views\TicketsClasificaciones\_Form.cshtml" />
     <Content Include="Views\TicketsClasificaciones\_Clasificaciones.cshtml" />
+    <Content Include="Views\SocialServiceTypes\_Form.cshtml" />
+    <Content Include="Views\SocialServiceTypes\_Header.cshtml" />
+    <Content Include="Views\SocialServiceTypes\_SocialServiceTypes.cshtml" />
+    <Content Include="Views\SocialServiceTypes\Create.cshtml" />
+    <Content Include="Views\SocialServiceTypes\Edit.cshtml" />
+    <Content Include="Views\SocialServiceTypes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1034,6 +1054,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\sbadmin\images\" />
     <Folder Include="Filters\" />
+    <Folder Include="Migrations\201705081918257_Changes SocialServiceTypes\" />
+    <Folder Include="Views\SocialServices\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1102,6 +1124,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704121815138_MailRequiredInUserProfileEmails.resx">
       <DependentUpon>201704121815138_MailRequiredInUserProfileEmails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081831080_SocialServiceTypes.resx">
+      <DependentUpon>201705081831080_SocialServiceTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081919017_Changes SocialServiceTypesAndIcons.resx">
+      <DependentUpon>201705081919017_Changes SocialServiceTypesAndIcons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081939036_SacoDescriptionDeSocialServiceType.resx">
+      <DependentUpon>201705081939036_SacoDescriptionDeSocialServiceType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

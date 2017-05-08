@@ -41,6 +41,8 @@ namespace Paramedic.Gestion.Model
         public DbSet<VideosCliente> VideosClientes { get; set; }
         public DbSet<TicketsClasificacion> TicketClasificaciones { get; set; }
         public DbSet<TicketsClasificacionUsuario> TicketClasificacionUsuarios { get; set; }
+        public DbSet<SocialServiceType> SocialServiceTypes { get; set; }
+        public DbSet<SocialService> SocialServices { get; set; }
 
         #endregion
 
