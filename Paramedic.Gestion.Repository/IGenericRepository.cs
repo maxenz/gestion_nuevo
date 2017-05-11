@@ -12,6 +12,7 @@ namespace Paramedic.Gestion.Repository
     {
 
         IEnumerable<T> GetAll();
+        T GetById(int id);
         IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate);
         IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExp, int pageSize, int page = 1);
         T Add(T entity);

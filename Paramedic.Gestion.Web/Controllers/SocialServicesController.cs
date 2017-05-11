@@ -10,10 +10,11 @@ using Paramedic.Gestion.Web.ViewModels;
 namespace Gestion.Controllers
 {
     [Authorize(Roles = "Administrador")]
-    public class SocialServiceTypesController : Controller
+    public class SocialServicesController : Controller
     {
         #region Properties
 
+        ISocialServicesService _SocialServicesService;
         ISocialServiceTypesService _SocialServiceTypesService;
         private int controllersPageSize = 6;
 
@@ -21,8 +22,12 @@ namespace Gestion.Controllers
 
         #region Constructors
 
-        public SocialServiceTypesController(ISocialServiceTypesService SocialServiceTypesService)
+        public SocialServicesController(
+            ISocialServicesService SocialServicesService,
+            ISocialServiceTypesService SocialServiceTypesService
+            )
         {
+            _SocialServicesService = SocialServicesService;
             _SocialServiceTypesService = SocialServiceTypesService;
         }
 
@@ -33,17 +38,17 @@ namespace Gestion.Controllers
         public ActionResult Index(string searchName = null, int page = 1)
         {
 
-            var predicate = PredicateBuilder.New<SocialServiceType>();
+            var predicate = PredicateBuilder.New<SocialService>();
             predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Description.Contains(searchName)) : null;
 
-            IEnumerable<SocialServiceType> socialServiceTypes =
-                _SocialServiceTypesService.FindByPage(predicate, "Id ASC", controllersPageSize, page);
-            int count = _SocialServiceTypesService.FindBy(predicate).Count();
-            var resultAsPagedList = new StaticPagedList<SocialServiceType>(socialServiceTypes, page, controllersPageSize, count);
+            IEnumerable<SocialService> socialServices =
+                _SocialServicesService.FindByPage(predicate, "Id ASC", controllersPageSize, page);
+            int count = _SocialServicesService.FindBy(predicate).Count();
+            var resultAsPagedList = new StaticPagedList<SocialService>(socialServices, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_SocialServiceTypes", resultAsPagedList);
+                return PartialView("_SocialServices", resultAsPagedList);
             }
 
             return View(resultAsPagedList);
@@ -52,53 +57,71 @@ namespace Gestion.Controllers
         public ActionResult Create()
         {
             ViewBag.IsCreateForm = true;
+            setDropdowns();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SocialServiceTypesViewModel vm)
+        public ActionResult Create(SocialServicesViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _SocialServiceTypesService.Create(vm.ToSocialServiceType());
+                _SocialServicesService.Create(vm.ToSocialService());
                 return RedirectToAction("Index");
             }
 
             ViewBag.IsCreateForm = true;
+            setDropdowns();
             return View(vm);
         }
 
         public ActionResult Edit(int id = 0)
         {
-            SocialServiceType socialServiceType = _SocialServiceTypesService.FindBy(x => x.Id == id).FirstOrDefault();
-            SocialServiceTypesViewModel vm = new SocialServiceTypesViewModel(socialServiceType);
-            if (socialServiceType == null)
+            SocialService ss = _SocialServicesService.GetById(id);
+            SocialServicesViewModel vm = new SocialServicesViewModel(ss);
+            if (ss == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.IsCreateForm = false;
+            setDropdowns();
             return View(vm);
         }
 
         [HttpPost]
-        public ActionResult Edit(SocialServiceTypesViewModel vm)
+        public ActionResult Edit(SocialServicesViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _SocialServiceTypesService.Update(vm.ToSocialServiceType());
+                _SocialServicesService.Update(vm.ToSocialService());
                 return RedirectToAction("Index");
             }
+
             ViewBag.IsCreateForm = false;
+            setDropdowns();
             return View(vm);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            SocialServiceType socialServiceType = _SocialServiceTypesService.FindBy(x => x.Id == id).FirstOrDefault();
-            _SocialServiceTypesService.Delete(socialServiceType);
+            SocialService socialServiceType = _SocialServicesService.GetById(id);
+            _SocialServicesService.Delete(socialServiceType);
             return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void setDropdowns()
+        {
+            IEnumerable<SocialServiceType> sst = 
+                _SocialServiceTypesService.GetAll().Where(x => x.Enabled).OrderBy(x => x.Description);
+
+            ViewBag.SocialServiceTypes = new SelectList(sst, "Id", "Description");
         }
 
         #endregion

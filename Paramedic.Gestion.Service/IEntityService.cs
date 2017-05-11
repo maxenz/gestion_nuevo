@@ -12,6 +12,7 @@ namespace Paramedic.Gestion.Service
         void Create(T entity);
         void Delete(T entity);
         IEnumerable<T> GetAll();
+        T GetById(int id);
         void Update(T entity);
         IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExpression, int pageSize, int page = 1);
         IEnumerable<T> FindBy(Expression<Func<T, bool>> whereExp);

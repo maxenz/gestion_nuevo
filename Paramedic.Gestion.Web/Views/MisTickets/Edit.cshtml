@@ -16,18 +16,18 @@
                         <div class="widget-content">
 
                             @*@if (@User.IsInRole("Administrador"))
-                            {
-                                <div style="float:right">
-                                    <div class="checkbox">
-                                        <label style="font-size: 1.3em">
-                                            <input type="checkbox" id="chkFuturaMejora" name="chkFuturaMejora">
-                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                            Futura mejora
-                                        </label>
+                                {
+                                    <div style="float:right">
+                                        <div class="checkbox">
+                                            <label style="font-size: 1.3em">
+                                                <input type="checkbox" id="chkFuturaMejora" name="chkFuturaMejora">
+                                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                Futura mejora
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                            @Html.HiddenFor(x=> x.FuturaMejora)*@
+                                }
+                                @Html.HiddenFor(x=> x.FuturaMejora)*@
                             @Html.HiddenFor(x => x.Id)
                             @Html.Partial("_ListaEventos", Model)
 
@@ -44,7 +44,16 @@
                         }
                         else if (User.IsInRole("Administrador"))
                         {
-                            @Html.Partial("_BotonResponder")
+                            <div class="centered">
+                                @Html.Partial("_BotonResponder")
+                                @using (Html.BeginForm("CloseTicket", "MisTickets", FormMethod.Post, new { @class = "display-webkit-inline-box" }))
+                                {
+                                    @Html.HiddenFor(x => x.Id)
+                                    <button type="submit" class="btn btn-danger btn-outline">Cerrar Ticket</button>
+                                }
+
+                            </div>
+
                         }
                         else
                         {

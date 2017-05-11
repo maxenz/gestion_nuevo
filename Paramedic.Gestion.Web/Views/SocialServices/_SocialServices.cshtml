@@ -1,19 +1,19 @@
-﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.SocialServiceType>
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.SocialService>
 @using PagedList.Mvc;
 
-<div id="socialServiceTypesList">
+<div id="socialServicesList">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
             <div class="widget widget-table action-table" style="margin-bottom:0">
                 <div class="widget-header">
 
-                    <h3>Canales de comunicación</h3>
+                    <h3>Servicios de comunicación</h3>
                 </div>
                 <div class="widget-content">
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="col-xs-1"></th>
+                                <th class="col-xs-1">Canal</th>
                                 <th class="col-xs-3">Descripción</th>
                                 <th class="col-xs-1">Habilitado?</th>
                                 <th class="col-xs-1"></th>
@@ -25,7 +25,7 @@
                             {
                                 <tr>
                                     <td class="centrado">
-                                        <i class="@item.Icon"></i>
+                                        <i class="@item.SocialServiceType.Icon"></i>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Description)
@@ -42,12 +42,12 @@
                                     </td>
 
                                     <td class="centrado">
-                                        <a href="@Url.Action("Edit", "SocialServiceTypes", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                        <a href="@Url.Action("Edit", "SocialServices", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
                                             <i class="btn-icon-only fa fa-edit"></i>
                                         </a>
                                     </td>
                                     <td class="centrado">
-                                        <a href="@Url.Action("Delete","SocialServiceTypes", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#socialServiceTypesList">
+                                        <a href="@Url.Action("Delete","SocialServices", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#socialServicesList">
                                             <i class="btn-icon-only fa fa-times"></i>
                                         </a>
                                     </td>
@@ -61,7 +61,7 @@
 
         </div>
     </div>
-    <div class="pagedList centered" data-gestion-target="#socialServiceTypesList">
+    <div class="pagedList centered" data-gestion-target="#socialServicesList">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
     </div>
 </div>

@@ -8,6 +8,8 @@ namespace Paramedic.Gestion.Web.ViewModels
     {
         #region Properties
 
+        public int Id { get; set; }
+
         [Required]
         [Display(Name = "Habilitado?")]
         public bool Enabled { get; set; }
@@ -19,11 +21,26 @@ namespace Paramedic.Gestion.Web.ViewModels
 
         #endregion
 
+        #region Constructors
+
+        public SocialServiceTypesViewModel(SocialServiceType sst)
+        {
+            this.Id = sst.Id;
+            this.Configuration = sst.Configuration;
+            this.SocialMediaType = sst.SocialMediaType;
+            this.Enabled = sst.Enabled;
+        }
+
+        public SocialServiceTypesViewModel() { }
+
+        #endregion
+
         #region Public Methods
 
         public SocialServiceType ToSocialServiceType()
         {
             SocialServiceType socialServiceType = new SocialServiceType();
+            socialServiceType.Id = this.Id;
             socialServiceType.Configuration = "por ahora hardcodeado";
             socialServiceType.SocialMediaType = this.SocialMediaType;
             socialServiceType.Enabled = this.Enabled;

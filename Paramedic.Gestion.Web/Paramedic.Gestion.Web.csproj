@@ -243,6 +243,7 @@
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\CuentaCorrienteController.cs" />
+    <Compile Include="Controllers\SocialServicesController.cs" />
     <Compile Include="Controllers\SocialServiceTypesController.cs" />
     <Compile Include="Controllers\TicketsClasificacionesController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
@@ -341,6 +342,7 @@
     <Compile Include="ViewModels\ModulosExcluidos.cs" />
     <Compile Include="ViewModels\LicenciasEstados.cs" />
     <Compile Include="ViewModels\ProductosAsignados.cs" />
+    <Compile Include="ViewModels\SocialServicesViewModel.cs" />
     <Compile Include="ViewModels\SocialServiceTypesViewModel.cs" />
     <Compile Include="ViewModels\TicketAdminViewModel.cs" />
     <Compile Include="ViewModels\TicketViewModel.cs" />
@@ -1043,6 +1045,12 @@
     <Content Include="Views\SocialServiceTypes\Create.cshtml" />
     <Content Include="Views\SocialServiceTypes\Edit.cshtml" />
     <Content Include="Views\SocialServiceTypes\Index.cshtml" />
+    <Content Include="Views\SocialServices\_Form.cshtml" />
+    <Content Include="Views\SocialServices\_Header.cshtml" />
+    <Content Include="Views\SocialServices\_SocialServices.cshtml" />
+    <Content Include="Views\SocialServices\Create.cshtml" />
+    <Content Include="Views\SocialServices\Edit.cshtml" />
+    <Content Include="Views\SocialServices\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1055,7 +1063,6 @@
     <Folder Include="Content\sbadmin\images\" />
     <Folder Include="Filters\" />
     <Folder Include="Migrations\201705081918257_Changes SocialServiceTypes\" />
-    <Folder Include="Views\SocialServices\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

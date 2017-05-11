@@ -26,6 +26,11 @@ namespace Paramedic.Gestion.Repository
             return _dbset.AsEnumerable<T>();
         }
 
+        public virtual T GetById(int id)
+        {
+            return _dbset.Find(id);
+        }
+
         public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             IEnumerable<T> query;

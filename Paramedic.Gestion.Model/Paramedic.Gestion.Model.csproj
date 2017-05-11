@@ -113,6 +113,7 @@
     <Compile Include="LicenciasLogControllerParametersDTO.cs" />
     <Compile Include="Localidad.cs" />
     <Compile Include="LogRegistroSistema.cs" />
+    <Compile Include="MailServiceSettings.cs" />
     <Compile Include="MedioDifusion.cs" />
     <Compile Include="Messaging\MailConfiguration.cs" />
     <Compile Include="Messaging\MailMessage.cs" />

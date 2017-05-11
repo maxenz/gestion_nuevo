@@ -89,9 +89,12 @@ namespace SocialMedia.Services
 
             if (ticketEvento.TicketTipoEventoType == TicketEventoType.Answer)
             {
+
                 body = body.AppendLine(string.Format("Han respondido tu mensaje con el asunto: {0}. <br />", ticketEvento.Ticket.Asunto));
                 string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
                 body = body.AppendLine("Para acceder a la respuesta haga click: " + href);
+                Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Emails.FirstOrDefault().Email, ticketEvento.Ticket.Asunto);
+                Send(msg);
             }
             else
             {
@@ -99,18 +102,10 @@ namespace SocialMedia.Services
                 body = body.AppendLine(string.Format("El mensaje es el siguiente: <b> {0} </b> <br/>", ticketEvento.Descripcion));
                 string href = string.Format("<a href=\"{0}/MisTickets/Edit/{1}\"> Aquí </a>", urlGestion, ticketEvento.Ticket.Id);
                 body = body.AppendLine("Para responder la consulta haga click: " + href);
-                // --> Si es una pregunta, que llegue al mail administrador
-                ticketEvento.Ticket.Usuario.Emails.Add(new UserProfileEmail(ticketEvento.Ticket.Usuario.Id, administratorMail,true));
-            }
-
-            Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Emails.FirstOrDefault().Email, ticketEvento.Ticket.Asunto);
-            //Send(msg);
-
-
-            if (ticketEvento.Ticket.TicketsClasificacion.AltaPrioridad && ticketEvento.TicketTipoEventoType == TicketEventoType.Question)
-            {
+                Message msg = new EmailMessage(body.ToString(), administratorMail, null, ticketEvento.Ticket.Asunto);
                 SendAlertMailsToAdmins(ticketEvento.Ticket, (EmailMessage)msg);
             }
+
         }
 
         public void SendNewAdminTicketMail(TicketEvento ticketEvento)
@@ -129,13 +124,21 @@ namespace SocialMedia.Services
         private void SendAlertMailsToAdmins(Ticket ticket, EmailMessage msg)
         {
             IEnumerable<TicketsClasificacionUsuario> users = ticket.TicketsClasificacion.TicketsClasificacionesUsuarios;
-            foreach(TicketsClasificacionUsuario usr in users)
+            foreach (TicketsClasificacionUsuario usr in users)
             {
+                if (ticket.TicketsClasificacion.AltaPrioridad)
+                {
+                    msg.Subject = string.Format("ALTA PRIORIDAD({0}) - Shaman Gestión", ticket.TicketsClasificacion.Descripcion);
+                }
+                else
+                {
+                    msg.Subject = string.Format("Shaman Gestión - Clasificación: {0}", ticket.TicketsClasificacion.Descripcion);
+                }
                 string emailPrincipal = usr.UserProfile.Emails.FirstOrDefault(x => x.EmailPrincipal).Email;
-                msg.Subject = "ALTA PRIORIDAD - Shaman Gestión";
+
                 msg.To = emailPrincipal;
                 Send(msg);
-            }            
+            }
         }
 
         #endregion

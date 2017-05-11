@@ -1,0 +1,6 @@
+2017-05-10 15:32:39.359 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-05-10 19:31:31.840 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-05-10 19:49:05.869 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-05-10 19:50:09.869 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-05-10 19:51:23.344 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com
+2017-05-10 19:53:04.122 -03:00 [Information] Se envió un mail de ticket a maximilianopoggio@gmail.com

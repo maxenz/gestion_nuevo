@@ -87,6 +87,7 @@
     <Compile Include="IProvinciaRepository.cs" />
     <Compile Include="IRevendedorRepository.cs" />
     <Compile Include="ISitioRepository.cs" />
+    <Compile Include="ISocialServicesRepository.cs" />
     <Compile Include="ISocialServiceTypesRepository.cs" />
     <Compile Include="ITicketsClasificacionRepository.cs" />
     <Compile Include="ITicketsClasificacionUsuarioRepository.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="ProvinciaRepository.cs" />
     <Compile Include="RevendedorRepository.cs" />
     <Compile Include="SitioRepository.cs" />
+    <Compile Include="SocialServicesRepository.cs" />
     <Compile Include="SocialServiceTypesRepository.cs" />
     <Compile Include="TicketsClasificacionRepository.cs" />
     <Compile Include="TicketsClasificacionUsuarioRepository.cs" />

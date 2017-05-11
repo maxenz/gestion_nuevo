@@ -1,4 +1,5 @@
 ﻿using Paramedic.Gestion.Model.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -40,6 +41,8 @@ namespace Paramedic.Gestion.Model
                 return SocialMediaType.ToString();
             }
         }
+
+        public virtual List<SocialService> SocialServices { get; set; }
 
         #endregion
     }

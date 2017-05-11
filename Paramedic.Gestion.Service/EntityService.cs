@@ -48,6 +48,11 @@ namespace Paramedic.Gestion.Service
             return _repository.GetAll();
         }
 
+        public virtual T GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
+
         public virtual IEnumerable<T> FindByPage(Expression<Func<T, bool>> whereExp, string orderExp, int pageSize, int page = 1)
         {
             if (whereExp != null)
