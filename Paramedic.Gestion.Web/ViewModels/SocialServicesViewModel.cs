@@ -28,10 +28,10 @@ namespace Paramedic.Gestion.Web.ViewModels
         public SocialServicesViewModel(SocialService ss)
         {
             this.Id = ss.Id;
-            this.Configuration = ss.Configuration;
             this.SocialServiceTypeId = ss.SocialServiceTypeId;
             this.Enabled = ss.Enabled;
             this.Description = ss.Description;
+            this.Configuration = ss.Configuration;
         }
 
         public SocialServicesViewModel() { }
@@ -40,14 +40,14 @@ namespace Paramedic.Gestion.Web.ViewModels
 
         #region Public Methods
 
-        public SocialService ToSocialService()
+        public virtual SocialService ToSocialService()
         {
             SocialService ss = new SocialService();
             ss.Id = this.Id;
-            ss.Configuration = "por ahora hardcodeado";
             ss.SocialServiceTypeId = this.SocialServiceTypeId;
             ss.Enabled = this.Enabled;
             ss.Description = this.Description;
+            ss.Configuration = this.Configuration;
             return ss;
         }
 

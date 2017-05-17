@@ -1,0 +1,29 @@
+﻿@model Paramedic.Gestion.Web.ViewModels.SocialServicesViewModel
+
+<div class="control-group">
+    <label class="control-label">Canal de comunicación</label>
+    <div class="controls">
+        @Html.DropDownList("SocialServiceTypeId", (SelectList)ViewBag.SocialServiceTypes, new { @class = "col-xs-12 form-control" }, (bool)ViewBag.IsCreateForm)
+    </div>
+</div>
+
+@Html.HiddenFor(model => model.SocialServiceTypeId)
+
+<div class="control-group" id="socialServiceEnabled">
+    @Html.LabelFor(model => model.Enabled, new { @class = "control-label" })
+    <div class="controls">
+        @Html.EditorFor(model => model.Enabled)
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">Descripción</label>
+    <div class="controls">
+        @Html.TextBoxFor(model => model.Description, new { @class = "col-xs-12 form-control", autofocus = "" })
+        @Html.ValidationMessageFor(model => model.Description)
+    </div>
+</div>
+
+
+
+

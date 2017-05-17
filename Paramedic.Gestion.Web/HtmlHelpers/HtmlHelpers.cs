@@ -38,7 +38,6 @@ namespace Paramedic.Gestion.Web.HtmlHelpers
             return MvcHtmlString.Create(res);
 
         }
-
         public static MvcHtmlString DropDownList(this System.Web.Mvc.HtmlHelper html, string name, SelectList values, object htmlAttributes, bool canEdit)
         {
             if (canEdit)
@@ -62,5 +61,6 @@ namespace Paramedic.Gestion.Web.HtmlHelpers
             return htmlHelper.EnumDropDownListFor(expression, optionLabel, new { @class = "form-control", disabled = "disabled" });
 
         }
+       
     }
 }

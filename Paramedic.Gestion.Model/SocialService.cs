@@ -18,7 +18,6 @@ namespace Paramedic.Gestion.Model
         [Required]
         public string Description { get; set; }
 
-        [Required]
         public string Configuration { get; set; }
 
         [Required]

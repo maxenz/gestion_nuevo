@@ -1,0 +1,10 @@
+﻿@model Paramedic.Gestion.Web.ViewModels.MailSocialServiceViewModel
+
+@using (Html.BeginRouteForm(new { controller = "SocialServices", action = "EditMailSocialService" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+    
+    @Html.Partial("_MailServiceEditForm",Model)
+}

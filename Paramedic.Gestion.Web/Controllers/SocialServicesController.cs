@@ -79,7 +79,6 @@ namespace Gestion.Controllers
         public ActionResult Edit(int id = 0)
         {
             SocialService ss = _SocialServicesService.GetById(id);
-            SocialServicesViewModel vm = new SocialServicesViewModel(ss);
             if (ss == null)
             {
                 return HttpNotFound();
@@ -87,6 +86,15 @@ namespace Gestion.Controllers
 
             ViewBag.IsCreateForm = false;
             setDropdowns();
+
+            SocialServicesViewModel vm = null;
+            switch (ss.SocialServiceType.SocialMediaType)
+            {
+                case Paramedic.Gestion.Model.Enums.SocialMediaTypes.Mail:
+                    vm = new MailSocialServiceViewModel(ss);
+                    return View("MailServiceEdit",vm);
+            }
+
             return View(vm);
         }
 
@@ -104,6 +112,20 @@ namespace Gestion.Controllers
             return View(vm);
         }
 
+        [HttpPost]
+        public ActionResult EditMailSocialService(MailSocialServiceViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                _SocialServicesService.Update(vm.ToSocialService());
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IsCreateForm = false;
+            setDropdowns();
+            return View("MailServiceEdit", vm);
+        }
+
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -118,7 +140,7 @@ namespace Gestion.Controllers
 
         private void setDropdowns()
         {
-            IEnumerable<SocialServiceType> sst = 
+            IEnumerable<SocialServiceType> sst =
                 _SocialServiceTypesService.GetAll().Where(x => x.Enabled).OrderBy(x => x.Description);
 
             ViewBag.SocialServiceTypes = new SelectList(sst, "Id", "Description");
