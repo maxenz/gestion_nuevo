@@ -9,6 +9,5 @@ namespace Paramedic.Gestion.Service
 {
     public interface ILocalidadService : IEntityService<Localidad>
     {
-        Localidad GetById(int Id);
     }
 }

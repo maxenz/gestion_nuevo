@@ -13,8 +13,6 @@ namespace Gestion.Controllers
 
         IClientesGestionService _ClientesGestionService;
 
-        private int controllersPageSize = 6;
-
         #endregion
 
         #region Constructors

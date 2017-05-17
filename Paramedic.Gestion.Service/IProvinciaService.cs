@@ -10,6 +10,5 @@ namespace Paramedic.Gestion.Service
 
     public interface IProvinciaService : IEntityService<Provincia>
     {
-        Provincia GetById(int Id);
     }
 }

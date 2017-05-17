@@ -10,6 +10,5 @@ namespace Paramedic.Gestion.Service
 
     public interface IPaisService : IEntityService<Pais>
     {
-        Pais GetById(int Id);
     }
 }

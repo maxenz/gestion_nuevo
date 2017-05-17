@@ -19,10 +19,5 @@ namespace Paramedic.Gestion.Service
             _unitOfWork = unitOfWork;
             _localidadRepository = localidadRepository;
         }
-
-        public Localidad GetById(int Id)
-        {
-            return _localidadRepository.GetById(Id);
-        }
     }
 }

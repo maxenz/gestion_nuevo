@@ -38,12 +38,6 @@ namespace Paramedic.Gestion.Service
 
             return user.Id;
         }
-
-        public UserProfile GetById(int id)
-        {
-            return _userProfileRepository.GetById(id);
-        }
-
         #endregion
     }
 }

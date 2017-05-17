@@ -19,10 +19,5 @@ namespace Paramedic.Gestion.Service
             _unitOfWork = unitOfWork;
             _provinciaRepository = provinciaRepository;
         }
-
-        public Provincia GetById(int Id)
-        {
-            return _provinciaRepository.GetById(Id);
-        }
     }
 }

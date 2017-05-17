@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29C7B7E2-8FA3-43D0-9EAD-E5CA3A73138C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{48BEF868-7CE7-4AA8-9ED8-ECA9CEC64EF8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Paramedic.Gestion.SocialMedia</RootNamespace>
-    <AssemblyName>Paramedic.Gestion.SocialMedia</AssemblyName>
+    <RootNamespace>Paramedic.Gestion.TicketsService</RootNamespace>
+    <AssemblyName>Paramedic.Gestion.TicketsService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,39 +33,51 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MailKit">
-      <HintPath>..\Dependencies\MailKit.dll</HintPath>
-    </Reference>
-    <Reference Include="MimeKit">
-      <HintPath>..\Dependencies\MimeKit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TicketsService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TicketsService.Designer.cs">
+      <DependentUpon>TicketsService.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ISocialMediaService.cs" />
-    <Compile Include="Services\MailService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paramedic.Gestion.Model\Paramedic.Gestion.Model.csproj">
-      <Project>{3115BFD3-9CAD-450D-B98E-2EC5BA11A2E3}</Project>
+      <Project>{3115bfd3-9cad-450d-b98e-2ec5ba11a2e3}</Project>
       <Name>Paramedic.Gestion.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Paramedic.Gestion.Service\Paramedic.Gestion.Service.csproj">
       <Project>{348141C2-5D73-47B2-B3F2-BCB06929C75D}</Project>
       <Name>Paramedic.Gestion.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

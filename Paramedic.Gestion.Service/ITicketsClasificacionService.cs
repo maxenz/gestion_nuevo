@@ -9,6 +9,5 @@ namespace Paramedic.Gestion.Service
 {
     public interface ITicketsClasificacionService : IEntityService<TicketsClasificacion>
     {
-        TicketsClasificacion GetById(int id);
     }
 }
