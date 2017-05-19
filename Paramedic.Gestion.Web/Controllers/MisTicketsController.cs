@@ -23,6 +23,7 @@ namespace Gestion.Controllers
         IClienteService _ClienteService;
         IClientesUsuarioService _ClientesUsuarioService;
         ITicketsClasificacionService _TicketsClasificacionService;
+        ITicketsClasificacionUsuarioService _TicketsClasificacionUsuarioService;
 
         private int controllersPageSize = 6;
 
@@ -35,7 +36,8 @@ namespace Gestion.Controllers
             IUserProfileService UserProfileService,
             IClientesUsuarioService ClientesUsuarioService,
             IClienteService ClienteService,
-            ITicketsClasificacionService TicketsClasificacionService
+            ITicketsClasificacionService TicketsClasificacionService,
+            ITicketsClasificacionUsuarioService TicketsClasificacionUsuarioService
             )
         {
             _TicketService = TicketService;

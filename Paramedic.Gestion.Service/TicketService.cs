@@ -28,6 +28,12 @@ namespace Paramedic.Gestion.Service
         #endregion
 
         #region Public Methods
+
+        public Ticket GetById(int Id)
+        {
+            return _ticketRepository.GetById(Id);
+        }
+
         public IEnumerable<Ticket> GetTickets(TicketQueryControllerParametersDTO queryParameters)
         {
             var predicate = getPredicateByConditions(queryParameters);

@@ -74,5 +74,11 @@ namespace Paramedic.Gestion.Service
             return predicate;
 
         }
+
+        public ClientesGestion GetById(int id)
+        {
+            return _clientesGestionRepository.GetById(id);
+        }
+
     }
 }

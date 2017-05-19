@@ -19,5 +19,11 @@ namespace Paramedic.Gestion.Service
             _unitOfWork = unitOfWork;
             _paisRepository = paisRepository;
         }
+
+
+        public Pais GetById(int Id)
+        {
+            return _paisRepository.GetById(Id);
+        }
     }
 }
