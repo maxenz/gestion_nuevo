@@ -5,5 +5,7 @@ namespace SocialMedia.Services
     public interface ISocialMediaService
     {
         void Send(Message message);
+
+        void CheckMessages();
     }
 }

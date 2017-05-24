@@ -1,29 +1,48 @@
 ﻿@model Paramedic.Gestion.Model.LoginModel
 
+<div class="row-fluid" id="loginRow">
+	<div class="col-xs-2 col-xs-offset-4">
+		<span class="fa-stack fa-login-icon">
+			<i class="fa fa-square-o fa-stack-2x"></i>
+			<i class="fa fa-scribd fa-stack-1x"></i>
+		</span>
 
-<div class="form">
-
-    <div>
-        <h2 id="loginTitle">Shaman Gestión</h2>
-    </div>
-
-    <div class="thumbnail"><i class="fa fa-lock fa-5x"></i></div>
-    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
-    {
-        @Html.AntiForgeryToken()
-        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
-        {
-            <div class="alert alert-danger">
-                <strong>Error!</strong> Los datos del usuario son incorrectos.
-            </div>
-
-        }
-
-        @Html.TextBoxFor(m => m.UserName, new { autofocus = "", placeholder = "Usuario", })
-
-        @Html.PasswordFor(m => m.Password, new { placeholder = "Contraseña" })
-        <button>Ingresar</button>
-
-    }
-
+	</div>
+	<div class="col-xs-2" style="margin-top: 2%;">
+		<p class="shaman">Shaman</p>
+		<p class="gestion">Gestión</p>
+	</div>
 </div>
+
+
+<div class="row-fluid" id="loginFormRow">
+	<div class="col-xs-4 col-xs-offset-4">
+
+		@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+		{
+			@Html.AntiForgeryToken()
+			if (ViewData.ModelState[""] != null)
+			{
+				<div class="alert alert-danger alert-login">
+					@foreach (ModelError error in ViewData.ModelState[""].Errors)
+					{
+						<i class="fa fa-exclamation-circle" id="iconErrorLogin"></i><span>@error.ErrorMessage</span>
+					}
+				</div>
+			}
+			<div class="form-group has-feedback">
+				@Html.TextBoxFor(m => m.UserName, new { @class = "form-control loginFormInput", autofocus = "", placeholder = "Usuario" })
+				<i class="fa fa-user form-control-feedback"></i>
+			</div>
+			<div class="form-group has-feedback">
+				@Html.PasswordFor(m => m.Password, new { @class = "form-control loginFormInput", placeholder = "Contraseña" })
+				<i class="fa fa-lock form-control-feedback"></i>
+			</div>
+
+			<button class="btn btn-block btn-login">Ingresar</button>
+		}
+
+	</div>
+</div>
+
+

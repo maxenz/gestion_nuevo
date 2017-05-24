@@ -9,10 +9,10 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
           rel="stylesheet">
     <link rel="icon" href="@Url.Content("~/content/favicon.ico")" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     @Styles.Render("~/bundles/gestion_css")
     @Scripts.Render("~/bundles/mapa")
     @Scripts.Render("~/bundles/tabs")
+	<link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
     <script type="text/javascript">
         var base_url_gestion = '@string.Format("{0}://{1}{2}/", @HttpContext.Current.Request.Url.Scheme, @HttpContext.Current.Request.Url.Authority, @HttpContext.Current.Request.ApplicationPath)';
     </script>

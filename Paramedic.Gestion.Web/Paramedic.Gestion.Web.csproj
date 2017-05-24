@@ -234,6 +234,7 @@
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddonsController.cs" />
     <Compile Include="Controllers\AndroidController.cs" />
     <Compile Include="Controllers\ClientesContactosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
@@ -382,9 +383,7 @@
     <Content Include="Content\font-awesome\css\font-awesome-ie7.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
-    <Content Include="Content\font-awesome\font\fontawesome-webfont.svg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\Flat-UI-Icons.dev.svg" />
     <Content Include="Content\fonts\Flat-UI-Icons.svg" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -439,7 +438,6 @@
     <Content Include="Content\template_resources\css\tabs\normalize.css" />
     <Content Include="Content\template_resources\css\tabs\tabs.css" />
     <Content Include="Content\template_resources\css\tabs\tabstyles.css" />
-    <Content Include="Content\template_resources\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\template_resources\img\body-bg.png" />
     <Content Include="Content\template_resources\img\glyphicons-halflings-white.html" />
     <Content Include="Content\template_resources\img\glyphicons-halflings.html" />
@@ -493,7 +491,6 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="font\fontawesome-webfont.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -501,18 +498,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Content\font-awesome\font\fontawesome-webfont.eot">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\font-awesome\font\fontawesome-webfont.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\font-awesome\font\fontawesome-webfont.woff">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\font-awesome\font\FontAwesome.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\font-awesome\less\bootstrap.less" />
     <Content Include="Content\font-awesome\less\core.less" />
     <Content Include="Content\font-awesome\less\extras.less" />
@@ -585,10 +570,6 @@
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.min.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -666,13 +647,13 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
-    <Content Include="Content\template_resources\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\template_resources\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\template_resources\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\template_resources\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\template_resources\fonts\FontAwesome.otf" />
     <Content Include="Content\bootstrap-colorpicker.css.map" />
     <Content Include="Content\bootstrap-colorpicker.min.css.map" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\Maxo.pubxml" />
     <Content Include="img\body-bg.png" />
     <Content Include="img\glyphicons-halflings-white.html" />
@@ -856,12 +837,12 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\Addons\style.css" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -1059,6 +1040,8 @@
     <Content Include="Views\SocialServices\MailServiceEdit.cshtml" />
     <Content Include="Views\SocialServices\_MailServiceEditForm.cshtml" />
     <Content Include="Views\SocialServices\_ServiceBasicData.cshtml" />
+    <Content Include="Views\Addons\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

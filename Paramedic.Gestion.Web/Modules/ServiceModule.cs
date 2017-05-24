@@ -11,13 +11,11 @@ namespace Paramedic.Gestion.Web.Modules
         protected override void Load(ContainerBuilder builder)
         {
 
-            builder.RegisterAssemblyTypes(Assembly.Load("Paramedic.Gestion.Service"))
-
-                      .Where(t => t.Name.EndsWith("Service"))
-
-                      .AsImplementedInterfaces()
-
-                      .InstancePerLifetimeScope();
+            builder
+                .RegisterAssemblyTypes(Assembly.Load("Paramedic.Gestion.Service"))
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
 
         }
 

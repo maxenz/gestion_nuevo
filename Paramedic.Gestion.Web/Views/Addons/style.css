@@ -1,0 +1,16 @@
+﻿body {
+}
+
+#news {
+    height:30%;
+    padding:3px;
+    margin-bottom:2px;
+    border-bottom:2px dashed black;
+}
+
+#addons {
+    height:70%;
+    padding:3px;
+}
+
+

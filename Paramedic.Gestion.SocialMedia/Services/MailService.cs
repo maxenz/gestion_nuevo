@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace SocialMedia.Services
 {
-    public class MailService : ISocialMediaService
+    public class MailService
     {
         #region Properties
 
@@ -42,6 +42,30 @@ namespace SocialMedia.Services
                 }
 
                 return instance;
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void SendAlertMailsToAdmins(Ticket ticket, EmailMessage msg)
+        {
+            IEnumerable<TicketsClasificacionUsuario> users = ticket.TicketsClasificacion.TicketsClasificacionesUsuarios;
+            foreach (TicketsClasificacionUsuario usr in users)
+            {
+                if (ticket.TicketsClasificacion.AltaPrioridad)
+                {
+                    msg.Subject = string.Format("ALTA PRIORIDAD({0}) - Shaman Gestión", ticket.TicketsClasificacion.Descripcion);
+                }
+                else
+                {
+                    msg.Subject = string.Format("Shaman Gestión - Clasificación: {0}", ticket.TicketsClasificacion.Descripcion);
+                }
+                string emailPrincipal = usr.UserProfile.Emails.FirstOrDefault(x => x.EmailPrincipal).Email;
+
+                msg.To = emailPrincipal;
+                Send(msg);
             }
         }
 
@@ -120,27 +144,7 @@ namespace SocialMedia.Services
             Message msg = new EmailMessage(body.ToString(), administratorMail, ticketEvento.Ticket.Usuario.Emails.FirstOrDefault().Email, ticketEvento.Ticket.Asunto);
             Send(msg);
         }
-
-        private void SendAlertMailsToAdmins(Ticket ticket, EmailMessage msg)
-        {
-            IEnumerable<TicketsClasificacionUsuario> users = ticket.TicketsClasificacion.TicketsClasificacionesUsuarios;
-            foreach (TicketsClasificacionUsuario usr in users)
-            {
-                if (ticket.TicketsClasificacion.AltaPrioridad)
-                {
-                    msg.Subject = string.Format("ALTA PRIORIDAD({0}) - Shaman Gestión", ticket.TicketsClasificacion.Descripcion);
-                }
-                else
-                {
-                    msg.Subject = string.Format("Shaman Gestión - Clasificación: {0}", ticket.TicketsClasificacion.Descripcion);
-                }
-                string emailPrincipal = usr.UserProfile.Emails.FirstOrDefault(x => x.EmailPrincipal).Email;
-
-                msg.To = emailPrincipal;
-                Send(msg);
-            }
-        }
-
+        
         #endregion
     }
 }

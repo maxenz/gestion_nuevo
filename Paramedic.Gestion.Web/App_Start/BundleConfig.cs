@@ -56,8 +56,6 @@ namespace Gestion
 
             bundles.Add(new StyleBundle("~/bundles/gestion_css").Include(
                     "~/Content/template_resources/css/bootstrap.css",
-                    //"~/Content/template_resources/css/bootstrap-responsive.min.css",
-                    //"~/Content/template_resources/css/font-awesome.css",
                     "~/Content/template_resources/css/tabs/*.css",
                     "~/Content/sbadmin/jquery.fancybox.css",
                     "~/Content/sbadmin/datepicker.css",
@@ -77,19 +75,6 @@ namespace Gestion
             bundles.Add(new ScriptBundle("~/bundles/mapa").Include(
                         "~/Scripts/sbadmin/map.js"
                         ));
-
-            bundles.Add(new StyleBundle("~/bundles/AdminCss").Include(
-                   "~/Content/sbadmin/bootstrap.css",
-                   "~/Content/font-awesome/css/font-awesome.css",
-                   "~/Content/sbadmin/datepicker.css",
-                   "~/Content/sbadmin/bootstrap-select.min.css",
-                   "~/Content/sbadmin/bootstrap-switch.css",
-                   "~/Content/sbadmin/jquery.fancybox.css",
-                   "~/Content/sbadmin/animate.min.css",
-                   "~/Content/sbadmin/messenger.min.css",
-                    "~/Content/sbadmin/messenger-theme-future.min.css",
-                   "~/Content/sbadmin/sb-admin.css"));
-
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",

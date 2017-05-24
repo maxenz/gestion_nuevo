@@ -235,6 +235,12 @@ namespace Gestion.Controllers
         public ActionResult Login(LoginModel model, string returnUrl)
         {
 
+			if (!ModelState.IsValid)
+			{
+				ModelState.AddModelError("", "Debe ingresar usuario/password para loguearse en el sistema");
+				return View("Login", "_TemplateGestion_Login", model);
+			}
+
             if (IsValidEmail(model.UserName))
             {
                 UserProfileEmail userProfileEmail = _UserProfileEmailService.FindBy(x => x.Email.ToUpper() == model.UserName.ToUpper()).FirstOrDefault();
@@ -258,7 +264,7 @@ namespace Gestion.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Datos incorrectos.");
+            ModelState.AddModelError("", "Los datos ingresados son incorrectos.");
             return View("Login", "_TemplateGestion_Login", model);
         }
 

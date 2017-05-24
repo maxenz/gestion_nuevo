@@ -53,7 +53,9 @@ namespace Paramedic.Gestion.Service
                 predicateSearch = predicateSearch.Or(x => x.Domicilio.ToUpper().Contains(description));
                 predicateSearch = predicateSearch.Or(x => x.Localidad.Descripcion.ToUpper().Contains(description));
                 predicateSearch = predicateSearch.Or(x => x.Referencia.ToUpper().Contains(description));
+                predicateSearch = predicateSearch.Or(x => x.Localidad.Descripcion.ToUpper().Contains(description));
                 predicateSearch = predicateSearch.Or(x => x.Localidad.Provincia.Descripcion.ToUpper().Contains(description));
+                predicateSearch = predicateSearch.Or(x => x.Localidad.Provincia.Pais.Descripcion.ToUpper().Contains(description));
                 predicate = predicate.And(predicateSearch);                
             }
 
