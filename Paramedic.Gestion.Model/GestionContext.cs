@@ -43,12 +43,15 @@ namespace Paramedic.Gestion.Model
         public DbSet<TicketsClasificacionUsuario> TicketClasificacionUsuarios { get; set; }
         public DbSet<SocialServiceType> SocialServiceTypes { get; set; }
         public DbSet<SocialService> SocialServices { get; set; }
+		public DbSet<ProductosModulosIntento> ProductosModulosIntentos { get; set; }
+		public DbSet<ClientesLicenciasProductosModulosHistorial> ClientesLicenciasProductosModulosHistorial { get; set; }
+		public DbSet<Noticia> Noticias { get; set; }
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        public GestionContext() : base("Name=GestionContext")
+		public GestionContext() : base("Name=GestionContext")
         {
             //Database.SetInitializer(new CreateDatabaseIfNotExists<GestionContext>());
             Database.SetInitializer<GestionContext>(null);

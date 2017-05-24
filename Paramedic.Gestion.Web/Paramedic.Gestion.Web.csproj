@@ -324,6 +324,30 @@
     <Compile Include="Migrations\201705171548212_ConfigurationSocialServiceNulleable.Designer.cs">
       <DependentUpon>201705171548212_ConfigurationSocialServiceNulleable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705241749208_FechaVencimientoClientesLicenciasProductosModulo.cs" />
+    <Compile Include="Migrations\201705241749208_FechaVencimientoClientesLicenciasProductosModulo.Designer.cs">
+      <DependentUpon>201705241749208_FechaVencimientoClientesLicenciasProductosModulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241757411_ProductosModuloImageDescription.cs" />
+    <Compile Include="Migrations\201705241757411_ProductosModuloImageDescription.Designer.cs">
+      <DependentUpon>201705241757411_ProductosModuloImageDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241808139_IntentosProductosModulo.cs" />
+    <Compile Include="Migrations\201705241808139_IntentosProductosModulo.Designer.cs">
+      <DependentUpon>201705241808139_IntentosProductosModulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241811026_IntentosRealizados.cs" />
+    <Compile Include="Migrations\201705241811026_IntentosRealizados.Designer.cs">
+      <DependentUpon>201705241811026_IntentosRealizados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241859188_TodoNuevoAddons.cs" />
+    <Compile Include="Migrations\201705241859188_TodoNuevoAddons.Designer.cs">
+      <DependentUpon>201705241859188_TodoNuevoAddons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241946075_Noticias.cs" />
+    <Compile Include="Migrations\201705241946075_Noticias.Designer.cs">
+      <DependentUpon>201705241946075_Noticias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -837,7 +861,7 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="Views\Addons\style.css" />
+    <Content Include="Content\styles\style-addons.css" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -1134,6 +1158,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705171548212_ConfigurationSocialServiceNulleable.resx">
       <DependentUpon>201705171548212_ConfigurationSocialServiceNulleable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241749208_FechaVencimientoClientesLicenciasProductosModulo.resx">
+      <DependentUpon>201705241749208_FechaVencimientoClientesLicenciasProductosModulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241757411_ProductosModuloImageDescription.resx">
+      <DependentUpon>201705241757411_ProductosModuloImageDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241808139_IntentosProductosModulo.resx">
+      <DependentUpon>201705241808139_IntentosProductosModulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241811026_IntentosRealizados.resx">
+      <DependentUpon>201705241811026_IntentosRealizados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241859188_TodoNuevoAddons.resx">
+      <DependentUpon>201705241859188_TodoNuevoAddons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241946075_Noticias.resx">
+      <DependentUpon>201705241946075_Noticias.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

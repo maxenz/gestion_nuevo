@@ -92,6 +92,7 @@
     <Compile Include="ClientesLicencia.cs" />
     <Compile Include="ClientesLicenciasProducto.cs" />
     <Compile Include="ClientesLicenciasProductosModulo.cs" />
+    <Compile Include="ClientesLicenciasProductosModulosHistorial.cs" />
     <Compile Include="ClientesTerminal.cs" />
     <Compile Include="ClientesUsuario.cs" />
     <Compile Include="Entity.cs" />
@@ -119,9 +120,11 @@
     <Compile Include="Messaging\MailConfiguration.cs" />
     <Compile Include="Messaging\MailMessage.cs" />
     <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Noticia.cs" />
     <Compile Include="Pais.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="ProductosModulo.cs" />
+    <Compile Include="ProductosModulosIntento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provincia.cs" />
     <Compile Include="QueryControllerParametersDTO.cs" />
