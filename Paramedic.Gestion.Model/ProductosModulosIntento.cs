@@ -14,8 +14,11 @@ namespace Paramedic.Gestion.Model
 		[ForeignKey("ProductosModuloId")]
 		public virtual ProductosModulo ProductosModulo { get; set; }
 
+		[Display(Name ="Días")]
+		[Required]
 		public int Dias { get; set; }
 
+		[Required]
 		public int Orden { get; set; }
 
 		#endregion
