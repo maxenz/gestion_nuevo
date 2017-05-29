@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\CuentaCorrienteController.cs" />
+    <Compile Include="Controllers\ProductosModulosIntentosController.cs" />
     <Compile Include="Controllers\SocialServicesController.cs" />
     <Compile Include="Controllers\SocialServiceTypesController.cs" />
     <Compile Include="Controllers\TicketsClasificacionesController.cs" />
@@ -1066,6 +1067,12 @@
     <Content Include="Views\SocialServices\_ServiceBasicData.cshtml" />
     <Content Include="Views\Addons\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\ProductosModulosIntentos\_Intentos.cshtml" />
+    <Content Include="Views\ProductosModulosIntentos\_Form.cshtml" />
+    <Content Include="Views\ProductosModulosIntentos\Create.cshtml" />
+    <Content Include="Views\ProductosModulosIntentos\Edit.cshtml" />
+    <Content Include="Views\ProductosModulosIntentos\Index.cshtml" />
+    <Content Include="Views\ProductosModulosIntentos\_Header.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

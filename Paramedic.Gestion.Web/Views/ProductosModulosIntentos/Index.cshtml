@@ -1,0 +1,41 @@
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.ProductosModulosIntento>
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="row" >
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="widget">
+                        <div class="widget-header">
+                            
+                            <h3>Filtros</h3>
+                        </div>
+
+                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+                            <form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#intentosList" style="margin-bottom:0px">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="Buscar..." name="searchName">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-outline" type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <a href="@Url.Action("Create", "ProductosModulosIntentos")" class="btn btn-success btn-outline">
+                                        Agregar intento
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("_Intentos", Model)
+        </div>
+    </div>
+</div>

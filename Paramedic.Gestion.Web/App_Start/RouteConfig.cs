@@ -31,13 +31,19 @@ namespace Gestion
                 defaults: new { controller = "Provincias", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
+			routes.MapRoute(
+				name: "ProductosModulos.Intentos",
+				url: "Productos/{ProductoId}/ProductosModulos/{ProductosModuloId}/Intentos/{action}/{id}",
+				defaults: new { controller = "ProductosModulosIntentos", action = "Index", id = UrlParameter.Optional }
+			);
+
+			routes.MapRoute(
                 name: "Productos.Modulos",
                 url: "Productos/{ProductoID}/ProductosModulos/{action}/{id}",
                 defaults: new { controller = "ProductosModulos", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
+			routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

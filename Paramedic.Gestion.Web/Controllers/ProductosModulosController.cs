@@ -6,6 +6,7 @@ using PagedList;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 using System.Collections.Generic;
+using LinqKit;
 
 namespace Gestion.Controllers
 {
@@ -13,18 +14,26 @@ namespace Gestion.Controllers
     public class ProductosModulosController : Controller
     {
 
-        #region Properties
+		#region Properties
 
-        IProductoService _ProductoService;
+		IProductoService _ProductoService;
+		IProductosModuloService _ProductosModuloService;
+		IProductosModulosIntentoService _ProductosModulosIntentoService;
         private int controllersPageSize = 6;
 
         #endregion
 
         #region Constructors
 
-        public ProductosModulosController(IProductoService ProductoService)
+        public ProductosModulosController(
+			IProductoService ProductoService,
+			IProductosModuloService ProductosModuloService,
+			IProductosModulosIntentoService ProductosModulosIntentoService
+			)
         {
-            _ProductoService = ProductoService;
+			_ProductoService = ProductoService;
+			_ProductosModuloService = ProductosModuloService;
+			_ProductosModulosIntentoService = ProductosModulosIntentoService;
         }
 
         #endregion
@@ -33,31 +42,28 @@ namespace Gestion.Controllers
 
         public ActionResult Index(int ProductoID, string searchName = null, int page = 1)
         {
+			var predicate = PredicateBuilder.New<ProductosModulo>();
+			predicate = predicate.And(x => x.ProductoId == ProductoID);
+			if (!string.IsNullOrEmpty(searchName))
+			{
+				predicate.And(x => x.Descripcion.Contains(searchName));
+			}
 
-            Producto producto = _ProductoService.FindBy(x => x.Id == ProductoID).FirstOrDefault();
+			IEnumerable<ProductosModulo> modulos = _ProductosModuloService.FindByPage(predicate, "Codigo ASC", controllersPageSize, page);
+			int count = _ProductosModuloService.FindBy(predicate).Count();
+			var resultAsPagedList = new StaticPagedList<ProductosModulo>(modulos, page, controllersPageSize, count);
 
-            ViewBag.ProductoId = producto.Id;
+			if (Request.IsAjaxRequest())
+			{
+				return PartialView("_ProductosModulos", resultAsPagedList);
+			}
 
-            IEnumerable<ProductosModulo> modulos = producto.ProductosModulos.OrderByDescending(x => x.Descripcion);
-
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                modulos = modulos.Where(x => x.Descripcion.Contains(searchName));
-            }
-
-            int count = modulos.Count();
-            var resultAsPagedList = new StaticPagedList<ProductosModulo>(modulos, page, controllersPageSize, count);
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_ProductosModulos", resultAsPagedList);
-            }
-
-            return View(resultAsPagedList);
+			return View(resultAsPagedList);
         }
 
         public ActionResult Create()
         {
+			ViewBag.IsCreateForm = true;
             return View();
         }
 
@@ -66,20 +72,16 @@ namespace Gestion.Controllers
         {
             if (ModelState.IsValid)
             {
-                Producto producto = _ProductoService.FindBy(x => x.Id == productosmodulo.ProductoId).FirstOrDefault();
-                producto.ProductosModulos.Add(productosmodulo);
-                _ProductoService.Update(producto);
+				_ProductosModuloService.Create(productosmodulo);
                 return RedirectToAction("Index");
             }
 
             return View(productosmodulo);
         }
 
-        public ActionResult Edit(int id = 0, int productId = 0)
+        public ActionResult Edit(int id = 0)
         {
-
-            Producto producto = _ProductoService.FindBy(x => x.Id == productId).FirstOrDefault();
-            ProductosModulo modulo = producto.ProductosModulos.Where(x => x.Id == id).FirstOrDefault();
+			ProductosModulo modulo = _ProductosModuloService.FindBy(x => x.Id == id).FirstOrDefault();
             if (modulo == null)
             {
                 return HttpNotFound();
@@ -92,29 +94,23 @@ namespace Gestion.Controllers
         {
             if (ModelState.IsValid)
             {
-                Producto producto = _ProductoService.FindBy(x => x.Id == productosmodulo.ProductoId).FirstOrDefault();
-                producto.ProductosModulos = producto.ProductosModulos.Where(x => x.Id != productosmodulo.Id).ToList();
-                producto.ProductosModulos.Add(productosmodulo);
-                _ProductoService.Update(producto);
+				_ProductosModuloService.Update(productosmodulo);
                 return RedirectToAction("Index");
             }
             return View(productosmodulo);
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id, int productId)
+        public ActionResult DeleteConfirmed(int id)
         {
 
-            Producto producto = _ProductoService.FindBy(x => x.Id == productId).FirstOrDefault();
-            ProductosModulo modulo = producto.ProductosModulos.Where(x => x.Id == id).FirstOrDefault();
+			ProductosModulo modulo = _ProductosModuloService.FindBy(x => x.Id == id).FirstOrDefault();
+			_ProductosModuloService.Delete(modulo);
 
-            producto.ProductosModulos.Remove(modulo);
-            _ProductoService.Update(producto);
-
-            return RedirectToAction("Index");
+			return RedirectToAction("Index");
         }
 
-        #endregion
+		#endregion
 
-    }
+	}
 }

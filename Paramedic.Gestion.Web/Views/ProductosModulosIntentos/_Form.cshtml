@@ -1,0 +1,45 @@
+﻿@model Paramedic.Gestion.Model.ProductosModulosIntento
+
+<div class="main">
+	<div class="main-inner">
+		<div class="container">
+			<div class="col-xs-6 col-xs-offset-3">
+				<div class="widget">
+					<div class="widget-header">
+						<h3>Registro de intentos</h3>
+					</div>
+					<div class="widget-content">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label" for="Orden">Orden</label>
+								<div class="controls">
+									@Html.TextBoxFor(model => model.Orden, new { @class = "col-xs-12 form-control", autofocus = "" })
+									@Html.ValidationMessageFor(model => model.Orden)
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="Dias">Días</label>
+								<div class="controls">
+									@Html.TextBoxFor(model => model.Dias, new { @class = "col-xs-12 form-control", autofocus = "" })
+									@Html.ValidationMessageFor(model => model.Dias)
+								</div>
+							</div>
+
+							<br>
+
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success btn-outline">Guardar</button>
+								<a href="@Url.Action("")" class="btn btn-danger btn-outline">Cancelar</a>
+							</div>
+
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

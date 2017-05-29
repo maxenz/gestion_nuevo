@@ -97,6 +97,8 @@
     <Compile Include="IMedioDifusionService.cs" />
     <Compile Include="IPaisService.cs" />
     <Compile Include="IProductoService.cs" />
+    <Compile Include="IProductosModuloService.cs" />
+    <Compile Include="IProductosModulosIntentoService.cs" />
     <Compile Include="IProvinciaService.cs" />
     <Compile Include="IRevendedorService.cs" />
     <Compile Include="IService.cs" />
@@ -117,6 +119,8 @@
     <Compile Include="MedioDifusionService.cs" />
     <Compile Include="PaisService.cs" />
     <Compile Include="ProductoService.cs" />
+    <Compile Include="ProductosModuloService.cs" />
+    <Compile Include="ProductosModulosIntentoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaService.cs" />
     <Compile Include="RevendedorService.cs" />
