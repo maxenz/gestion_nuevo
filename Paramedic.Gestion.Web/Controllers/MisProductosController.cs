@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Service;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize]
     public class MisProductosController : Controller

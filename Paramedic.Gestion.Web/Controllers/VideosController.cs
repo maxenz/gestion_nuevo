@@ -8,7 +8,7 @@ using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Web.ViewModels;
 using LinqKit;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize]
     public class VideosController : Controller

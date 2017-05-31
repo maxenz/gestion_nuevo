@@ -6,7 +6,7 @@ using Paramedic.Gestion.Service;
 using LinqKit;
 using Paramedic.Gestion.Model;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     public class MediosDifusionController : Controller
     {

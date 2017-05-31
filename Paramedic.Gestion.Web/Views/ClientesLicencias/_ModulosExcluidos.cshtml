@@ -2,19 +2,21 @@
 
 <div id="modulosList">
 
-    @{
-        List<Gestion.ViewModels.ModulosExcluidos> modExc = ViewBag.ProdModExc;
-        foreach (var mod in modExc)
-        {
-            
-        <div class="row">
-                <div class="make-switch make-switch-full col-xs-4 col-xs-offset-1" data-text-label="@mod.Descripcion"
-             data-on-label="<i class='icon-ok'></i>"
-             data-off-label="<i class='fa fa-times'></i>">
-                    <input type="checkbox" name="selectedProdMod" value="@mod.ProductoModuloID" id="@mod.ProductoModuloID"  @(Html.Raw(mod.Asignado ? "checked" : "")) />
-                </div>
-        </div>
-                       
-        }
-    }
+	@{
+		List<Gestion.ViewModels.ModulosExcluidos> modExc = ViewBag.ProdModExc;
+		foreach (var mod in modExc)
+		{
+			<div class="row">
+				<label>
+					<input type="checkbox"
+						   name="selectedProdMod"
+						   id="@mod.ProductoModuloID"
+						   class="margin-right-10 margin-left-10"
+						   value="@mod.ProductoModuloID"
+						   @(Html.Raw(mod.Asignado ? "checked" : "")) />
+					@mod.Descripcion
+				</label>
+			</div>
+		}
+	}
 </div>

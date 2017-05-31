@@ -11,7 +11,7 @@ using Paramedic.Gestion.Web.ViewModels;
 using System;
 using SocialMedia.Services;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize]
     public class MisTicketsController : Controller
@@ -315,7 +315,7 @@ namespace Gestion.Controllers
 
         private void setDropdownClasificaciones()
         {
-            IEnumerable<TicketsClasificacion> lstClasif = _TicketsClasificacionService.GetAll();
+            IEnumerable<Model.TicketsClasificacion> lstClasif = _TicketsClasificacionService.GetAll();
             IEnumerable<SelectListItem> items = (from c in lstClasif
                                                 select new SelectListItem
                                                 {

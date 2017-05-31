@@ -8,7 +8,7 @@ using Paramedic.Gestion.Model;
 using System.Net;
 using LinqKit;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class LocalidadesController : Controller

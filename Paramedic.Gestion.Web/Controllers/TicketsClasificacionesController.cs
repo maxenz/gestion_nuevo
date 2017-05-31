@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Paramedic.Gestion.Model;
 using LinqKit;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class TicketsClasificacionesController : Controller
@@ -35,13 +35,13 @@ namespace Gestion.Controllers
 
         public ActionResult Index(string searchName = null, int page = 1)
         {
-            var predicate = PredicateBuilder.New<TicketsClasificacion>();
+            var predicate = PredicateBuilder.New<Model.TicketsClasificacion>();
             predicate = !string.IsNullOrEmpty(searchName) ? predicate.And(x => x.Descripcion.Contains(searchName)) : null;
 
-            IEnumerable<TicketsClasificacion> clasificaciones =
+            IEnumerable<Model.TicketsClasificacion> clasificaciones =
                 _TicketsClasificacionService.FindByPage(predicate, "Descripcion ASC", controllersPageSize, page);
             int count = _TicketsClasificacionService.FindBy(predicate).Count();
-            var resultAsPagedList = new StaticPagedList<TicketsClasificacion>(clasificaciones, page, controllersPageSize, count);
+            var resultAsPagedList = new StaticPagedList<Model.TicketsClasificacion>(clasificaciones, page, controllersPageSize, count);
 
             if (Request.IsAjaxRequest())
             {
@@ -58,7 +58,7 @@ namespace Gestion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(TicketsClasificacion clasificacion, int[] usersList)
+        public ActionResult Create(Model.TicketsClasificacion clasificacion, int[] usersList)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace Gestion.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            TicketsClasificacion clasificacion = _TicketsClasificacionService.FindBy(x => x.Id == id).FirstOrDefault();
+			Model.TicketsClasificacion clasificacion = _TicketsClasificacionService.FindBy(x => x.Id == id).FirstOrDefault();
 
             if (clasificacion == null)
             {
@@ -85,7 +85,7 @@ namespace Gestion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(TicketsClasificacion clasificacion, int[] usersList)
+        public ActionResult Edit(Model.TicketsClasificacion clasificacion, int[] usersList)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace Gestion.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            TicketsClasificacion clasificacion = _TicketsClasificacionService.FindBy(x => x.Id == id).FirstOrDefault();
+			Model.TicketsClasificacion clasificacion = _TicketsClasificacionService.FindBy(x => x.Id == id).FirstOrDefault();
             DeleteAllUsers(id);
             _TicketsClasificacionService.Delete(clasificacion);
             return RedirectToAction("Index");

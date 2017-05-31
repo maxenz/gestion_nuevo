@@ -1,8 +1,10 @@
 ﻿using PagedList.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -61,6 +63,13 @@ namespace Paramedic.Gestion.Web.HtmlHelpers
             return htmlHelper.EnumDropDownListFor(expression, optionLabel, new { @class = "form-control", disabled = "disabled" });
 
         }
-       
-    }
+		public static string GetDisplayName(this Enum enumValue)
+		{
+			return enumValue.GetType().GetMember(enumValue.ToString())
+							  .First()
+							  .GetCustomAttribute<DisplayAttribute>()
+							  .Name;
+		}
+
+	}
 }

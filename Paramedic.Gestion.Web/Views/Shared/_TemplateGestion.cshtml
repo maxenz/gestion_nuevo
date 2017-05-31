@@ -79,7 +79,6 @@
                                 </ul>
                             </li>
                         </ul>
-
                     </div>
                 </div>
             </nav>
@@ -97,18 +96,18 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-folder-open"></i><span>Maestros</span> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
+								<li>@Html.ActionLink("Canales de comunicación", "Index", "SocialServiceTypes")</li>
                                 <li>@Html.ActionLink("Clasif. de consultas", "Index", "TicketsClasificaciones")</li>
+								<li>@Html.ActionLink("Estados", "Index", "Estados")</li>
                                 <li>@Html.ActionLink("Licencias", "Index", "Licencias")</li>
+								<li>@Html.ActionLink("Logs del Sistema", "Index", "LogsRegistrosSistema")</li>
+								<li>@Html.ActionLink("Medios de difusión", "Index", "MediosDifusion")</li>
                                 <li>@Html.ActionLink("Países", "Index", "Paises")</li>
-                                <li>@Html.ActionLink("Estados", "Index", "Estados")</li>
-                                <li>@Html.ActionLink("Medios de difusión", "Index", "MediosDifusion")</li>
-                                <li>@Html.ActionLink("Terminales", "Index", "TipoTerminales")</li>
                                 <li>@Html.ActionLink("Productos", "Index", "Productos")</li>
                                 <li>@Html.ActionLink("Revendedores", "Index", "Revendedores")</li>
-                                <li>@Html.ActionLink("Logs del Sistema", "Index", "LogsRegistrosSistema")</li>
+								<li>@Html.ActionLink("Servicios de comunicación", "Index", "SocialServices")</li>
                                 <li>@Html.ActionLink("Sitios", "Index", "Sitios")</li>
-                                <li>@Html.ActionLink("Canales de comunicación", "Index", "SocialServiceTypes")</li>
-                                <li>@Html.ActionLink("Servicios de comunicación", "Index", "SocialServices")</li>
+								<li>@Html.ActionLink("Terminales", "Index", "TipoTerminales")</li>
                             </ul>
                         </li>
 

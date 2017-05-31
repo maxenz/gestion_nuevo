@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Paramedic.Gestion.Model;
 using LinqKit;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ProductosController : Controller

@@ -103,6 +103,7 @@
     <Compile Include="Enums\SocialMediaTypes.cs" />
     <Compile Include="Enums\TicketEstadoType.cs" />
     <Compile Include="Enums\TicketEventoType.cs" />
+    <Compile Include="Enums\TrialStateType.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GenericRequired.cs" />

@@ -6,7 +6,7 @@ using LinqKit;
 using System.Collections.Generic;
 using PagedList;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
 	[Authorize(Roles = "Administrador")]
 	public class ProductosModulosIntentosController : Controller

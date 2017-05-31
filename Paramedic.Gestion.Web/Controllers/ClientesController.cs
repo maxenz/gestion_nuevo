@@ -8,7 +8,7 @@ using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Model.Enums;
 using Paramedic.Gestion.Web.ViewModels;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesController : Controller

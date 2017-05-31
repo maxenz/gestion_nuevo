@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Service;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize]
     public class HomeController : Controller

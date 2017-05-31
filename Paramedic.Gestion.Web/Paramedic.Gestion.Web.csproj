@@ -224,7 +224,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BootstrapBundleConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -240,6 +239,7 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\ClientesGestionesController.cs" />
     <Compile Include="Controllers\ClientesLicenciasController.cs" />
+    <Compile Include="Controllers\ClientesHistorialesController.cs" />
     <Compile Include="Controllers\ClientesTerminalesController.cs" />
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
@@ -436,7 +436,6 @@
     <Content Include="Content\images\triangle.png" />
     <Content Include="Content\sbadmin\animate.min.css" />
     <Content Include="Content\sbadmin\bootstrap-select.min.css" />
-    <Content Include="Content\sbadmin\bootstrap-switch.css" />
     <Content Include="Content\sbadmin\bootstrap.css" />
     <Content Include="Content\sbadmin\datepicker.css" />
     <Content Include="Content\sbadmin\jquery.fancybox.css" />
@@ -705,7 +704,6 @@
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
-    <Content Include="Scripts\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -810,7 +808,6 @@
     <Content Include="Scripts\sbadmin\bootbox.min.js" />
     <Content Include="Scripts\sbadmin\bootstrap-datepicker.js" />
     <Content Include="Scripts\sbadmin\bootstrap-select.min.js" />
-    <Content Include="Scripts\sbadmin\bootstrap-switch.js" />
     <Content Include="Scripts\sbadmin\bootstrap.js" />
     <Content Include="Scripts\sbadmin\flot\chart-data-flot.js" />
     <Content Include="Scripts\sbadmin\flot\excanvas.min.js" />
@@ -1073,6 +1070,7 @@
     <Content Include="Views\ProductosModulosIntentos\Edit.cshtml" />
     <Content Include="Views\ProductosModulosIntentos\Index.cshtml" />
     <Content Include="Views\ProductosModulosIntentos\_Header.cshtml" />
+    <Content Include="Views\ClientesHistoriales\_ClientesHistoriales.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

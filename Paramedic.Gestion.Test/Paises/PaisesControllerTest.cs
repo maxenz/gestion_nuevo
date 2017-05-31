@@ -1,15 +1,11 @@
-﻿using Gestion.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Paramedic.Gestion.Service;
-using System;
 using System.Collections.Generic;
 using Paramedic.Gestion.Model;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using PagedList;
+using Paramedic.Gestion.Web.Controllers;
 
 namespace Paramedic.Gestion.Test
 {

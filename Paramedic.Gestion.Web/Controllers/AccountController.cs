@@ -10,7 +10,7 @@ using Paramedic.Gestion.Service;
 using LinqKit;
 using System.Text.RegularExpressions;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class AccountController : Controller

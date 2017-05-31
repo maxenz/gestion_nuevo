@@ -6,7 +6,7 @@ using Paramedic.Gestion.Web.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
 

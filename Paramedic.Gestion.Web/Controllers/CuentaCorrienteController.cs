@@ -7,7 +7,7 @@ using Gestion.ViewModels;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Cliente,Administrador")]
     public class CuentaCorrienteController : Controller

@@ -1,0 +1,64 @@
+﻿@using Paramedic.Gestion.Model.Enums
+@using System;
+@using System.ComponentModel.DataAnnotations;
+@using System.Linq;
+@using System.Reflection
+@model IList<Paramedic.Gestion.Model.ClientesLicenciasProductosModulosHistorial>
+
+<div id="historialList">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <table class="table table-hover table-striped table-bordered tableIndex">
+                <thead>
+                    <tr>
+                        <th class="col-xs-3 centrado">
+                            Producto
+                        </th>
+                        <th class="col-xs-3 centrado">
+                            Módulo
+                        </th>
+                        <th class="col-xs-1 centrado">
+                            @Html.DisplayNameFor(model => model.First().Estado)
+                        </th>
+                        <th class="col-xs-2 centrado">
+                            @Html.DisplayNameFor(model => model.First().DiasRestantes)
+                        </th>
+                        <th class="col-xs-3 centrado">
+                            @Html.DisplayNameFor(model => model.First().FechaVencimiento)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+						var stateClass = item.Estado == TrialStateType.Active ? "activo" : "vencido";
+						TrialStateType estado = item.Estado;
+                        <tr>
+                            <td class="col-xs-3 centrado">
+                                @Html.DisplayFor(modelItem => item.ProductosModulosIntento.ProductosModulo.Producto.Descripcion)
+                            </td>
+                            <td class="col-xs-3 centrado">
+                                @Html.DisplayFor(modelItem => item.ProductosModulosIntento.ProductosModulo.Descripcion)
+                            </td>
+                            <td class="col-xs-1 bold centrado @stateClass">
+                                @estado.GetDisplayName()
+                            </td>
+                            <td class="col-xs-2 centrado">
+                                @Html.DisplayFor(modelItem => item.DiasRestantes)
+                            </td>
+                            <td class="col-xs-3 centrado">
+                                @Html.DisplayFor(modelItem => item.FechaVencimiento)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+

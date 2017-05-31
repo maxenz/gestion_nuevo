@@ -6,7 +6,7 @@ using PagedList;
 using Paramedic.Gestion.Service;
 using LinqKit;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class PaisesController : Controller

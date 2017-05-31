@@ -6,7 +6,7 @@ using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Model.Enums;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class RecontactosController : Controller

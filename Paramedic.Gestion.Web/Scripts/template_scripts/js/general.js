@@ -1,6 +1,5 @@
 ﻿
 $(function () {
-
     //en la tabla ClientesGestiones, corto el texto si es mayor a 20 caracteres
     function setFormatTables() {
 
@@ -188,10 +187,10 @@ $(function () {
     function getModulosExcluidos() {
 
         var vModExc = [];
-        $checkboxes = $('#modulosList div.switch-on');
+        $checkboxes = $('#modulosList > div.row > label > input:checked');
 
         for (var i = 0; i < $checkboxes.length; i++) {
-            vModExc.push($checkboxes[i].firstChild.id.toString());
+            vModExc.push($checkboxes[i].id);
         }
 
         return vModExc;
@@ -239,13 +238,6 @@ $(function () {
 
                             }
                         }
-                    }
-                });
-
-                $('.make-switch').each(function (index, elem) {
-                    //Initialize all switches if they haven't been already
-                    if (!$(elem).hasClass('has-switch')) {
-                        $(elem).bootstrapSwitch();
                     }
                 });
             },

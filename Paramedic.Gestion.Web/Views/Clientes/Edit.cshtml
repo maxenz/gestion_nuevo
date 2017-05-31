@@ -2,117 +2,127 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary(true)
 
-    @Html.HiddenFor(model => model.Id)
+	@Html.HiddenFor(model => model.Id)
 
 
-    <svg class="hidden">
-        <defs>
-            <path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z" />
-        </defs>
-    </svg>
-    <div class="container">
-        <section>
-            <div class="tabs tabs-style-shape">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="#datosGrales">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Datos principales</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#contactos">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Contactos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#licencias">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Licencias</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#gestiones">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Gestiones</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#terminales">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Terminales</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#usuarios">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Usuarios</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#ctaCorriente">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Cuenta Corriente</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#productos">
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
-                                <span class="span-tab">Productos</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="content-wrap">
-                    <section id="datosGrales">
-                        @Html.Partial("_Form", Model)
-                        @Html.Partial("_BottomForm", Model)
-                    </section>
-                    <section id="contactos">
-                        @Html.Action("Index", "ClientesContactos", routeValues: new { clienteId = Model.Id })
-                    </section>
-                    <section id="licencias">
-                        @Html.Action("Index", "ClientesLicencias", routeValues: new { clienteId = Model.Id })
-                    </section>
-                    <section id="gestiones">
-                        @Html.Action("Index", "ClientesGestiones", routeValues: new { clienteId = Model.Id })
-                    </section>
-                    <section id="terminales">
-                        @Html.Action("Index", "ClientesTerminales", routeValues: new { clienteId = Model.Id })
-                    </section>
-                    <section id="usuarios">
-                        @Html.Action("Index", "ClientesUsuarios", routeValues: new { clienteId = Model.Id })
-                    </section>
-                    <section id="ctaCorriente">
-                        @Html.Action("Index", "CuentaCorriente", routeValues: new { clienteId = Model.Id })
-                    </section>
-                    <section id="productos">
-                        @Html.Action("Index", "MisProductos", routeValues: new { clienteId = Model.Id })
-                    </section>
-                </div>
-            </div>
-        </section>
-    </div>
-    <script>
-        (function () {
+	<svg class="hidden">
+		<defs>
+			<path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z" />
+		</defs>
+	</svg>
+	<div class="container">
+		<section>
+			<div class="tabs tabs-style-shape">
+				<nav>
+					<ul>
+						<li>
+							<a href="#datosGrales">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Datos principales</span>
+							</a>
+						</li>
+						<li>
+							<a href="#contactos">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Contactos</span>
+							</a>
+						</li>
+						<li>
+							<a href="#licencias">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Licencias</span>
+							</a>
+						</li>
+						<li>
+							<a href="#gestiones">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Gestiones</span>
+							</a>
+						</li>
+						<li>
+							<a href="#terminales">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Terminales</span>
+							</a>
+						</li>
+						<li>
+							<a href="#usuarios">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Usuarios</span>
+							</a>
+						</li>
+						<li>
+							<a href="#ctaCorriente">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Cuenta Corriente</span>
+							</a>
+						</li>
+						<li>
+							<a href="#productos">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Productos</span>
+							</a>
+						</li>
+						<li>
+							<a href="#historial">
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+								<span class="span-tab">Historial</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="content-wrap">
+					<section id="datosGrales">
+						@Html.Partial("_Form", Model)
+						@Html.Partial("_BottomForm", Model)
+					</section>
+					<section id="contactos">
+						@Html.Action("Index", "ClientesContactos", routeValues: new { clienteId = Model.Id })
+					</section>
+					<section id="licencias">
+						@Html.Action("Index", "ClientesLicencias", routeValues: new { clienteId = Model.Id })
+					</section>
+					<section id="gestiones">
+						@Html.Action("Index", "ClientesGestiones", routeValues: new { clienteId = Model.Id })
+					</section>
+					<section id="terminales">
+						@Html.Action("Index", "ClientesTerminales", routeValues: new { clienteId = Model.Id })
+					</section>
+					<section id="usuarios">
+						@Html.Action("Index", "ClientesUsuarios", routeValues: new { clienteId = Model.Id })
+					</section>
+					<section id="ctaCorriente">
+						@Html.Action("Index", "CuentaCorriente", routeValues: new { clienteId = Model.Id })
+					</section>
+					<section id="productos">
+						@Html.Action("Index", "MisProductos", routeValues: new { clienteId = Model.Id })
+					</section>
+					<section id="historial">
+						@Html.Action("Index", "ClientesHistoriales", routeValues: new { clienteId = Model.Id })
+					</section>
+				</div>
+			</div>
+		</section>
+	</div>
+	<script>
+		(function () {
 
-            [].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
-                new CBPFWTabs(el);
-            });
+			[].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
+				new CBPFWTabs(el);
+			});
 
-        })();
-    </script>
+		})();
+	</script>
 
 }

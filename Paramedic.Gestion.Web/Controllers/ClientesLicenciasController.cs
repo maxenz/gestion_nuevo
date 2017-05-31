@@ -7,7 +7,7 @@ using Gestion.ViewModels;
 using System.Net;
 using Paramedic.Gestion.Service;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesLicenciasController : Controller
@@ -233,7 +233,7 @@ namespace Gestion.Controllers
                 viewModel.Add(new ModulosExcluidos
                 {
                     ProductoModuloID = mod.Id,
-                    Descripcion = mod.Descripcion.Length > 15 ? string.Format("{0}...", mod.Descripcion.Substring(0, 12)) : mod.Descripcion,
+                    Descripcion = mod.Descripcion,
                     Asignado = prodModExc.Contains(mod.Id)
                 });
             }

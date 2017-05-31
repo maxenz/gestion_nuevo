@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class ClientesContactosController : Controller

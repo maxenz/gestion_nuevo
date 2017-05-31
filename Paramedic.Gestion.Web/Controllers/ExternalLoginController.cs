@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     public class ExternalLoginController : Controller
     {

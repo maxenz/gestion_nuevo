@@ -2,9 +2,7 @@
 using Paramedic.Gestion.Model.Enums;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.SocialMedia.Services;
-using Paramedic.Gestion.Web.Modules;
 using SocialMedia.Services;
-using System;
 using System.ServiceProcess;
 
 namespace Paramedic.Gestion.TicketsService

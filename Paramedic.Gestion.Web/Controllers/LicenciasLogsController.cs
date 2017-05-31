@@ -8,7 +8,7 @@ using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Web.ViewModels;
 using System.Linq;
 
-namespace Gestion.Controllers
+namespace Paramedic.Gestion.Web.Controllers
 {
     [Authorize(Roles = "Administrador")]
     public class LicenciasLogsController : Controller

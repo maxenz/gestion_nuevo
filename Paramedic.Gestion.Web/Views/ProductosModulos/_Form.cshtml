@@ -26,11 +26,6 @@
 								</div>
 							</div>
 
-							@if (ViewBag.IsCreateForm == null)
-							{
-								@Html.Partial("_Intentos", Model.Intentos, new ViewDataDictionary { { "productosModuloId", Model.Id } })
-							}
-
 							<br>
 
 							<div class="form-actions">
