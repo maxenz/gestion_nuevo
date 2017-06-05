@@ -405,7 +405,8 @@ $(function () {
         width: '100%'
     });
 
-    // Seteo el formato de los datepickers
+	// Seteo el formato de los datepickers
+	$(".datepicker-with-format").datepicker({autoClose: true, format: "dd/mm/yyyy"})
     $(".datepicker").datepicker({ autoclose: true});
 
 

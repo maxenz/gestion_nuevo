@@ -13,6 +13,7 @@ namespace Paramedic.Gestion.Model
 		public string Descripcion { get; set; }
 
 		[Required]
+		[Display(Name ="Fecha de vencimiento")]
 		public DateTime FechaVencimiento { get; set; }
 
 		#endregion

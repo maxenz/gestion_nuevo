@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\CuentaCorrienteController.cs" />
+    <Compile Include="Controllers\NoticiasController.cs" />
     <Compile Include="Controllers\ProductosModulosIntentosController.cs" />
     <Compile Include="Controllers\SocialServicesController.cs" />
     <Compile Include="Controllers\SocialServiceTypesController.cs" />
@@ -1071,6 +1072,12 @@
     <Content Include="Views\ProductosModulosIntentos\Index.cshtml" />
     <Content Include="Views\ProductosModulosIntentos\_Header.cshtml" />
     <Content Include="Views\ClientesHistoriales\_ClientesHistoriales.cshtml" />
+    <Content Include="Views\Noticias\_Noticias.cshtml" />
+    <Content Include="Views\Noticias\_Form.cshtml" />
+    <Content Include="Views\Noticias\_Header.cshtml" />
+    <Content Include="Views\Noticias\Create.cshtml" />
+    <Content Include="Views\Noticias\Edit.cshtml" />
+    <Content Include="Views\Noticias\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

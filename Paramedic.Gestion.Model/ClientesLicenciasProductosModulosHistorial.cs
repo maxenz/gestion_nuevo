@@ -16,6 +16,7 @@ namespace Paramedic.Gestion.Model
 		public virtual ClientesLicenciasProductosModulo ClientesLicenciasProductosModulo { get; set; }
 
 		[Display(Name ="Fecha de vencimiento")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime FechaVencimiento { get; set; }
 
 		public int ProductosModulosIntentoId { get; set; }

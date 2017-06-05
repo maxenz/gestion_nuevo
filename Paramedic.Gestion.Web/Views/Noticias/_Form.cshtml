@@ -1,0 +1,46 @@
+﻿@model Paramedic.Gestion.Model.Noticia
+
+<div class="main">
+	<div class="main-inner">
+		<div class="container">
+			<div class="col-xs-6 col-xs-offset-3">
+				<div class="widget">
+					<div class="widget-header">
+
+						<h3>Registro de Noticias</h3>
+					</div>
+					<div class="widget-content">
+
+						<fieldset>
+							<div class="control-group">
+								@Html.LabelFor(model => model.FechaVencimiento, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(model => model.FechaVencimiento, new { @class = "col-xs-12 form-control datepicker-with-format" })
+									@Html.ValidationMessageFor(model => model.FechaVencimiento)
+								</div>
+							</div>
+
+							<div class="control-group">
+								@Html.LabelFor(model => model.Descripcion, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextAreaFor(model => model.Descripcion, new { @class = "col-xs-12 form-control", autofocus = "", rows = 10 })
+									@Html.ValidationMessageFor(model => model.Descripcion)
+								</div>
+							</div>
+
+							<br>
+
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success btn-outline">Guardar</button>
+								<a href="@Url.Action("Index", "Noticias")" class="btn btn-danger btn-outline">Cancelar</a>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

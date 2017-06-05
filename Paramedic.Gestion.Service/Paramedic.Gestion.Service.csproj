@@ -97,6 +97,7 @@
     <Compile Include="ILicenciasLogService.cs" />
     <Compile Include="ILocalidadService.cs" />
     <Compile Include="IMedioDifusionService.cs" />
+    <Compile Include="INoticiaService.cs" />
     <Compile Include="IPaisService.cs" />
     <Compile Include="IProductoService.cs" />
     <Compile Include="IProductosModuloService.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="LocalidadService.cs" />
     <Compile Include="LoggingService.cs" />
     <Compile Include="MedioDifusionService.cs" />
+    <Compile Include="NoticiaService.cs" />
     <Compile Include="PaisService.cs" />
     <Compile Include="ProductoService.cs" />
     <Compile Include="ProductosModuloService.cs" />
