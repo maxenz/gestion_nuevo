@@ -1,29 +1,46 @@
 ﻿
+using Paramedic.Gestion.Model.Enums;
+
 namespace Paramedic.Gestion.Model
 {
-    public class TicketQueryControllerParametersDTO : QueryControllerParametersDTO
-    {
-        #region Properties
-        public string FutureFeature { get; set; }
+	public class TicketQueryControllerParametersDTO : QueryControllerParametersDTO
+	{
+		#region Properties
+		public string FutureFeature { get; set; }
 
-        public int UserId { get; set; }
+		public int UserId { get; set; }
 
-        public bool IsAdmin { get; set; }
+		public bool IsAdmin { get; set; }
 
-        public int TicketClasificacionId { get; set; }
+		public int TicketClasificacionId { get; set; }
 
-        #endregion
+		public TicketEstadoType Estado { get; set; }
 
-        #region Constructors
+		public int SelectedUserId { get; set; }
 
-        public TicketQueryControllerParametersDTO(string searchDescription, int pageSize, int page, int userId, bool isAdmin, int ticketClasificacionId) : base(searchDescription, pageSize, page)
-        {
-            UserId = userId;
-            IsAdmin = isAdmin;
-            TicketClasificacionId = ticketClasificacionId;        
-        }
+		#endregion
 
-        #endregion
+		#region Constructors
 
-    }
+		public TicketQueryControllerParametersDTO(
+			string searchDescription,
+			int pageSize,
+			int page,
+			int userId,
+			bool isAdmin,
+			int ticketClasificacionId,
+			TicketEstadoType estado,
+			int selectedUserId
+			) : base(searchDescription, pageSize, page)
+		{
+			UserId = userId;
+			IsAdmin = isAdmin;
+			TicketClasificacionId = ticketClasificacionId;
+			Estado = estado;
+			SelectedUserId = selectedUserId;
+		}
+
+		#endregion
+
+	}
 }

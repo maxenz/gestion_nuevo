@@ -389,7 +389,7 @@ $(function () {
 
     $(document).on("click", ".pagedList a", getPage);
 
-    $('#selTipoClientes,#selDatosSegunVista,#selTipoGestion, #chkFutureFeatures, #selTicketsClasificacion').on('change', execPrincipalForm);
+    $('#selTipoClientes,#selDatosSegunVista,#selTipoGestion, #chkFutureFeatures, #selTicketsClasificacion, .sel-filter').on('change', execPrincipalForm);
 
     $('#btnCloseTicket').on('click', closeTicket);
 

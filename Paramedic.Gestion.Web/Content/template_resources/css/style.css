@@ -1584,24 +1584,44 @@ table {
 	transition: all .5s;
 }
 
+.btn-filter.btn-outline {
+	color: #8bc541 !important;
+	border-color: #8bc541 !important;
+}
+
+.btn-filter.btn-outline:hover {
+	color: #fff !important;
+	background-color: #8bc541 !important;
+}
+
+.btn-filter:active, .btn-filter:focus {
+	background-color: #8bc541 !important;
+	color: white !important;
+}
+
 .btn-success.btn-outline {
-	color: #8bc541;
-	border-color: #8bc541;
+	color: #8bc541 !important;
+	border-color: #8bc541 !important;
+}
+
+select.sel-filter > option {
+	background-color: #8bc541 !important;
+	color: white !important;
 }
 
 .btn-danger.btn-outline {
-	color: #d43f3a;
-	border-color: #d43f3a;
+	color: #d43f3a !important;
+	border-color: #d43f3a !important;
 }
 
 .btn-success.btn-outline:hover {
-	color: #fff;
-	background-color: #8bc541;
+	color: #fff !important;
+	background-color: #8bc541 !important;
 }
 
 .btn-danger.btn-outline:hover {
-	color: #fff;
-	background-color: #d43f3a;
+	color: #fff !important;
+	background-color: #d43f3a !important;
 }
 
 .color-action-icon {
@@ -1609,8 +1629,8 @@ table {
 }
 
 .btn-success:active, .btn-success:focus {
-	background-color: #8bc541;
-	color: white;
+	background-color: #8bc541 !important;
+	color: white !important;
 }
 
 .pagination > .active > a {
@@ -1618,11 +1638,11 @@ table {
 	border-color: #8bc541;
 }
 
-	.pagination > .active > a:hover {
-		background-color: white;
-		border-color: #8bc541;
-		color: #8bc541;
-	}
+.pagination > .active > a:hover {
+	background-color: white;
+	border-color: #8bc541;
+	color: #8bc541;
+}
 
 input[type=checkbox] {
 	transform: scale(1.7);
@@ -1677,17 +1697,17 @@ span.question {
 	margin-right: 10px;
 }
 
-span.question > i.fa.fa-circle {
-	color: #8bc541;
-}
+	span.question > i.fa.fa-circle {
+		color: #8bc541;
+	}
 
 span.answer {
 	margin-left: 10px;
 }
 
-span.answer > i.fa.fa-circle {
-	color: #FF9800;
-}
+	span.answer > i.fa.fa-circle {
+		color: #FF9800;
+	}
 
 div.message_wrap.question > div.text {
 	border-top: 2px solid #8bc541;
@@ -2136,18 +2156,24 @@ hr {
 }
 
 .modal-header {
-	background-color:#8bc541;
-	color:white;
+	background-color: #8bc541;
+	color: white;
 }
 
 input[type="checkbox"] {
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .activo {
-	color:#8bc541;
+	color: #8bc541;
 }
 
 .vencido {
-	color:#e74c3c;
+	color: #e74c3c;
+}
+
+div.row > select.sel-filter {
+	font-size: 12px;
+	width: 17%;
+	margin-right:2px;
 }

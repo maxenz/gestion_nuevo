@@ -1,50 +1,57 @@
 ﻿@model PagedList.IPagedList<Paramedic.Gestion.Web.ViewModels.TicketViewModel>
 
 @{
-    string actionAddTicket = User.IsInRole("Administrador") ? "CreateAdminTicket" : "Create";
+	string actionAddTicket = User.IsInRole("Administrador") ? "CreateAdminTicket" : "Create";
 }
 
 <div class="main">
-    <div class="main-inner">
-        <div class="container">
+	<div class="main-inner">
+		<div class="container">
 
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="widget">
-                        <div class="widget-header">
-                            <h3>Filtros</h3>
-                        </div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="widget">
+						<div class="widget-header">
+							<h3>Filtros</h3>
+						</div>
 
-                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
-                            <form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#misTicketsList" style="margin-bottom:0px">
-                                <div class="row">
-                                    <div class="col-xs-6" style="padding-right:2px">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="Buscar..." name="searchName">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success btn-outline" type="submit">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
+						<div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+							<form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#misTicketsList" style="margin-bottom:0px">
+								<div class="row" id="ticketFilters">
+									<div class="col-xs-3" style="padding-right:2px">
+										<div class="input-group">
+											<input class="form-control" placeholder="Buscar..." name="searchName">
+											<span class="input-group-btn">
+												<button class="btn btn-success btn-outline" type="submit">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>
+									</div>
 
-                                    @Html.DropDownList("selTicketsClasificacion", (SelectList)ViewBag.Clasificaciones, "Sin clasificación", new { @class = "btn btn-success btn-outline", id = "selTicketsClasificacion" })
+									@if (User.IsInRole("Administrador"))
+									{
+										@Html.DropDownList("selCliente", (SelectList)ViewBag.Clientes, "Seleccione cliente...", new { @class = "btn btn-filter btn-outline sel-filter", id = "selCliente" })
+										@Html.DropDownList("selUsuario", (SelectList)ViewBag.Usuarios, "Seleccione usuario...", new { @class = "btn btn-success btn-outline sel-filter", id = "selUsuario" })
+										@Html.DropDownList("selEstado", (SelectList)ViewBag.Estados, "Seleccione estado...", new { @class = "btn btn-success btn-outline sel-filter", id = "selEstado" })
+										@Html.DropDownList("selTicketsClasificacion", (SelectList)ViewBag.Clasificaciones, "Seleccione clasificación...", new { @class = "btn btn-success btn-outline sel-filter", id = "selTicketsClasificacion" })
+									}
 
-                                    <a href="@Url.Action(actionAddTicket, "MisTickets")" class="btn btn-success btn-outline">
-                                        Agregar ticket
-                                    </a>
+									<a href="@Url.Action(actionAddTicket, "MisTickets")" class="btn btn-success btn-outline">
+										<i class="fa fa-plus"></i>
+									</a>
 
-                                </div>
-                            </form>
-                        </div>
+								</div>
+							</form>
+						</div>
 
-                    </div>
-                </div>
-            </div>
-            @Html.Partial("_MisTickets", Model)
+					</div>
+				</div>
+			</div>
 
-        </div>
+			@Html.Partial("_MisTickets", Model)
 
-    </div>
+		</div>
+
+	</div>
 </div>
