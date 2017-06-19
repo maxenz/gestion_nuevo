@@ -1,23 +1,67 @@
-﻿
+﻿@using System.Globalization;
+@using Paramedic.Gestion.Web.HtmlHelpers
+@model Paramedic.Gestion.Web.ViewModels.AddonsViewModel
+
 @{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Addons</title>
-	<link href="@Url.Content("~/Content/styles/style-addons.css")" rel="stylesheet"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Addons</title>
+	<link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
+	<link href="@Url.Content("~/Content/styles/style-addons.css")" rel="stylesheet" />
+
+	<script src="~/Scripts/jquery-3.1.1.js"></script>
 </head>
 <body>
-    <div id="news">
-		Noticias
-    </div>
+	<div class="parent-wrapper">
+		<div class="parent">
+			@foreach (var noticia in Model.Noticias)
+			{
+				<div class="post-module hover child">
 
-    <div id="addons">
-		Addons
-    </div>
+					<div class="thumbnail">
+						<div class="date">
+							<div class="day">@noticia.FechaVencimiento.Day</div>
+							<div class="month">@noticia.FechaVencimiento.ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).Substring(0, 3)</div>
+						</div>
+					</div>
+
+					<div class="post-content">
+						<h1 class="title">@noticia.Titulo</h1>
+						<p class="description">@HtmlHelpers.Truncate(@noticia.Descripcion, 170) </p>
+					</div>
+				</div>
+			}
+
+		</div>
+
+		<div id="addonsModulesContainer">
+			<div id="addonsModulesHeader">
+				<i class="fa fa-list-alt margin-right-5"></i>Módulos disponibles para trial
+			</div>
+			<div id="addonsModulesBody">
+				@foreach (var modulo in Model.Modulos)
+			{
+					<div class="child modulo">
+						<div>
+							<a href="" class="modulo">
+								<img class="img-addon" src="@string.Format("./Content/images/productosmodulos/{0}", modulo.PathImagenAddon)" />
+								<span>@modulo.DescripcionAddon</span>
+							</a>
+
+						</div>
+
+					</div>
+			}
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
+

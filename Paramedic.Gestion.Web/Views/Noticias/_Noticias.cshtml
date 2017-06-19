@@ -14,6 +14,7 @@
                         <thead>
                             <tr>
                                 <th class="col-xs-5">@Html.DisplayNameFor(model => model.First().Descripcion) </th>
+								<th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Titulo)</th>
                                 <th class="col-xs-2">@Html.DisplayNameFor(model => model.First().FechaVencimiento)</th>
                                 <th class="col-xs-1"></th>
                                 <th class="col-xs-1"></th>
@@ -34,6 +35,9 @@
 										}
 
                                     </td>
+									<td>
+										@item.Titulo
+									</td>
                                     <td>
                                         @item.FechaVencimiento.ToString("dd/MM/yyyy")
                                     </td>

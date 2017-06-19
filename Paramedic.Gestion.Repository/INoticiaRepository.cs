@@ -9,5 +9,6 @@ namespace Paramedic.Gestion.Repository
 {
 	public interface INoticiaRepository : IGenericRepository<Noticia>
 	{
+		IEnumerable<Noticia> GetNoticiasNoVencidas();
 	}
 }

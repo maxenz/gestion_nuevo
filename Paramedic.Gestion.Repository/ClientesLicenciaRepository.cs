@@ -4,25 +4,34 @@ using System.Linq;
 
 namespace Paramedic.Gestion.Repository
 {
-    public class ClientesLicenciaRepository : GenericRepository<ClientesLicencia>, IClientesLicenciaRepository
-    {
-        #region Constructors
+	public class ClientesLicenciaRepository : GenericRepository<ClientesLicencia>, IClientesLicenciaRepository
+	{
+		#region Constructors
 
-        public ClientesLicenciaRepository(DbContext context)
-    : base(context)
-        {
+		public ClientesLicenciaRepository(DbContext context)
+	: base(context)
+		{
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        public ClientesLicencia GetById(int id)
-        {
-            return _dbset.Include(x => x.ClientesLicenciasProductos).Where(x => x.Id == id).FirstOrDefault();
-        }
+		public ClientesLicencia GetById(int id)
+		{
+			return _dbset.Include(x => x.ClientesLicenciasProductos).FirstOrDefault(x => x.Id == id);
+		}
 
-        #endregion
-    }
+		public ClientesLicencia GetByLicenseNumber(string license)
+		{
+			return _dbset.FirstOrDefault
+			(
+				x =>
+					x.Licencia.Serial.Trim().ToUpper() == license.Trim().ToUpper()
+				);
+		}
+
+		#endregion
+	}
 }

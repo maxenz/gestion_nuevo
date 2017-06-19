@@ -21,6 +21,14 @@
 							</div>
 
 							<div class="control-group">
+								@Html.LabelFor(model => model.Titulo, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(model => model.Titulo, new { @class = "col-xs-12 form-control" })
+									@Html.ValidationMessageFor(model => model.Titulo)
+								</div>
+							</div>
+
+							<div class="control-group">
 								@Html.LabelFor(model => model.Descripcion, new { @class = "control-label" })
 								<div class="controls">
 									@Html.TextAreaFor(model => model.Descripcion, new { @class = "col-xs-12 form-control", autofocus = "", rows = 10 })

@@ -1,35 +1,84 @@
 ﻿using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Repository;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramedic.Gestion.Service
 {
-    public class ClientesLicenciaService : EntityService<ClientesLicencia>, IClientesLicenciaService
-    {
-        #region Properties
+	public class ClientesLicenciaService : EntityService<ClientesLicencia>, IClientesLicenciaService
+	{
+		#region Properties
 
-        IUnitOfWork _unitOfWork;
-        IClientesLicenciaRepository _clientesLicenciaRepository;
+		IUnitOfWork _unitOfWork;
+		IClientesLicenciaRepository _clientesLicenciaRepo;
+		IProductosModuloRepository _prodModRepo;
+		IClientesLicenciasProductoRepository _clientesLicenciasProdRepo;
+		IClientesLicenciasProductosModuloRepository _clientesLicenciasProductosModuloRepo;
+		IProductosModulosIntentoRepository _productosModulosIntentoRepo;
+		IClientesLicenciasProductosModulosHistorialRepository _historialRepo;
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        public ClientesLicenciaService(IUnitOfWork unitOfWork, IClientesLicenciaRepository clientesLicenciaRepository)
-    : base(unitOfWork, clientesLicenciaRepository)
-        {
-            _unitOfWork = unitOfWork;
-            _clientesLicenciaRepository = clientesLicenciaRepository;
-        }
+		public ClientesLicenciaService(
+			IUnitOfWork unitOfWork,
+			IClientesLicenciaRepository clientesLicenciaRepo,
+			IProductosModuloRepository prodModRepo,
+			IClientesLicenciasProductoRepository clientesLicenciasProdRepo,
+			IClientesLicenciasProductosModuloRepository clientesLicenciasProductosModuloRepo,
+			IProductosModulosIntentoRepository productosModulosIntentoRepo,
+			IClientesLicenciasProductosModulosHistorialRepository historialRepo
+			) : base(
+		  unitOfWork,
+		  clientesLicenciaRepo
+		  )
+		{
+			_unitOfWork = unitOfWork;
+			_clientesLicenciaRepo = clientesLicenciaRepo;
+			_prodModRepo = prodModRepo;
+			_clientesLicenciasProdRepo = clientesLicenciasProdRepo;
+			_clientesLicenciasProductosModuloRepo = clientesLicenciasProductosModuloRepo;
+			_productosModulosIntentoRepo = productosModulosIntentoRepo;
+			_historialRepo = historialRepo;
+	}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        public ClientesLicencia GetById(int id)
-        {
-            return _clientesLicenciaRepository.GetById(id);
-        }
+		public ClientesLicencia GetById(int id)
+		{
+			return _clientesLicenciaRepo.GetById(id);
+		}
 
-        #endregion
-    }
+		public ProductosModulosIntento GetAddonIntento(string license, int prodModId)
+		{
+			ClientesLicencia cliLic = _clientesLicenciaRepo.GetByLicenseNumber(license);
+			ProductosModulo modulo = _prodModRepo.GetById(prodModId);
+			ClientesLicenciasProducto cliLicProd = _clientesLicenciasProdRepo.GetByLicenseAndProduct(cliLic.Id, modulo.ProductoId);
+
+			ClientesLicenciasProductosModulo cliLicProdMod = _clientesLicenciasProductosModuloRepo.GetByLicenseAndModule(cliLicProd.Id, modulo.Id);
+
+			IEnumerable<ProductosModulosIntento> intentos = _productosModulosIntentoRepo.GetByModuloId(prodModId);
+
+			IEnumerable<int> historial =
+				_historialRepo
+				.FindBy(x => x.ClientesLicenciasProductosModuloId == cliLicProdMod.Id)
+				.Select(x => x.ProductosModulosIntentoId);
+
+			foreach(ProductosModulosIntento intento in intentos)
+			{
+				if (!historial.Contains(intento.Id))
+				{
+					return intento;
+				}
+			}
+
+			return null;
+		}
+
+		#endregion
+	}
 }

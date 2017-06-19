@@ -10,7 +10,12 @@ namespace Paramedic.Gestion.Model
 		#region Properties
 
 		[Required]
+		[Display(Name ="Descripción")]
 		public string Descripcion { get; set; }
+
+		[Required]
+		[Display(Name ="Título")]
+		public string Titulo { get; set; }
 
 		[Required]
 		[Display(Name ="Fecha de vencimiento")]

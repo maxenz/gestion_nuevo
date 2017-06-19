@@ -21,8 +21,10 @@ namespace Paramedic.Gestion.Model
         [ForeignKey("ProductoId")]
         public virtual Producto Producto { get; set; }
 
+		[Display(Name = "Path imagen del Addon")]
 		public string PathImagenAddon { get; set; }
 
+		[Display(Name = "Descripción del Addon")]
 		public string DescripcionAddon { get; set; }
 
 		public virtual List<ProductosModulosIntento> Intentos { get; set; }

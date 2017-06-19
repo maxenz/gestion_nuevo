@@ -1,5 +1,7 @@
 ﻿using Paramedic.Gestion.Model;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Paramedic.Gestion.Repository
 {
@@ -9,6 +11,15 @@ namespace Paramedic.Gestion.Repository
 			: base(context)
 		{
 
+		}
+
+		public IEnumerable<ProductosModulosIntento> GetByModuloId(int modId)
+		{
+			return _dbset
+				.Include(x => x.ProductosModulo)
+				.Where(
+					x => x.ProductosModuloId == modId
+				);				
 		}
 	}
 }

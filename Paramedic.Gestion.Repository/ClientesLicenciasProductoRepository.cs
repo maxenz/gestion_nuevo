@@ -1,5 +1,6 @@
 ﻿using Paramedic.Gestion.Model;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Paramedic.Gestion.Repository
 {
@@ -10,5 +11,13 @@ namespace Paramedic.Gestion.Repository
         {
 
         }
-    }
+
+		public ClientesLicenciasProducto GetByLicenseAndProduct(int cliLicId, int productId)
+		{
+			return _dbset.FirstOrDefault(
+				x =>
+					x.ProductoId == productId && x.ClientesLicenciaId == cliLicId
+				);
+		}
+	}
 }

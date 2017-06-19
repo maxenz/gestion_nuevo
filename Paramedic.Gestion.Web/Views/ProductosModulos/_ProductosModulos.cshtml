@@ -14,8 +14,10 @@
 					<table class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Codigo) </th>
-								<th class="col-xs-5">@Html.DisplayNameFor(model => model.First().Descripcion)</th>
+								<th class="col-xs-1">@Html.DisplayNameFor(model => model.First().Codigo) </th>
+								<th class="col-xs-3">@Html.DisplayNameFor(model => model.First().Descripcion)</th>
+								<th class="col-xs-3">@Html.DisplayNameFor(model => model.First().DescripcionAddon)</th>
+								<th class="col-xs-2">@Html.DisplayNameFor(model => model.First().PathImagenAddon)</th>
 								<th class="col-xs-1"></th>
 								<th class="col-xs-1"></th>
 								<th class="col-xs-1"></th>
@@ -25,11 +27,17 @@
 							@foreach (var item in Model)
 							{
 								<tr>
-									<td>
+									<td class="centered">
 										@Html.DisplayFor(modelItem => item.Codigo)
 									</td>
 									<td>
 										@Html.DisplayFor(modelItem => item.Descripcion)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.DescripcionAddon)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.PathImagenAddon)
 									</td>
 									<td class="centrado">
 										<a href="@Url.Action("Index",string.Format("Productos/{0}/ProductosModulos/{1}/Intentos", item.Producto.Id, item.Id))" class="btn btn-small btn-success btn-actions">
@@ -47,9 +55,7 @@
 										</a>
 									</td>
 								</tr>
-
 							}
-
 						</tbody>
 					</table>
 				</div>

@@ -21,10 +21,28 @@
 							<div class="control-group">
 								<label class="control-label" for="Descripcion">Descripción</label>
 								<div class="controls">
-									@Html.TextBoxFor(model => model.Descripcion, new { @class = "col-xs-12 form-control", autofocus = "" })
+									@Html.TextBoxFor(model => model.Descripcion, new { @class = "col-xs-12 form-control" })
 									@Html.ValidationMessageFor(model => model.Descripcion)
 								</div>
 							</div>
+
+							<div class="control-group">
+								@Html.LabelFor(x => x.DescripcionAddon, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(model => model.DescripcionAddon, new { @class = "col-xs-12 form-control" })
+									@Html.ValidationMessageFor(model => model.DescripcionAddon)
+								</div>
+							</div>
+
+
+							<div class="control-group">
+								@Html.LabelFor(x => x.PathImagenAddon, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(model => model.PathImagenAddon, new { @class = "col-xs-12 form-control" })
+									@Html.ValidationMessageFor(model => model.PathImagenAddon)
+								</div>
+							</div>
+
 
 							<br>
 
@@ -40,6 +58,5 @@
 		</div>
 	</div>
 </div>
-
 
 

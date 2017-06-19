@@ -350,6 +350,10 @@
     <Compile Include="Migrations\201705241946075_Noticias.Designer.cs">
       <DependentUpon>201705241946075_Noticias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706141837561_AddTituloToNoticia.cs" />
+    <Compile Include="Migrations\201706141837561_AddTituloToNoticia.Designer.cs">
+      <DependentUpon>201706141837561_AddTituloToNoticia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -365,6 +369,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AddonsViewModel.cs" />
     <Compile Include="ViewModels\ClientesGestionViewModel.cs" />
     <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\CuentaCorrienteViewModel.cs" />
@@ -405,8 +410,6 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\favicon.ico" />
-    <Content Include="Content\font-awesome\css\font-awesome-ie7.css" />
-    <Content Include="Content\font-awesome\css\font-awesome-ie7.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -415,17 +418,15 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\fontawesome-webfont.svgz" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\fonts\lato\lato-black-webfont.svg" />
-    <Content Include="Content\fonts\lato\lato-bold-webfont.svg" />
-    <Content Include="Content\fonts\lato\lato-bolditalic-webfont.svg" />
-    <Content Include="Content\fonts\lato\lato-italic-webfont.svg" />
-    <Content Include="Content\fonts\lato\lato-light-webfont.svg" />
-    <Content Include="Content\fonts\lato\lato-regular-webfont.svg" />
     <Content Include="Content\images\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="Content\images\bootstrap-colorpicker\alpha.png" />
     <Content Include="Content\images\bootstrap-colorpicker\hue-horizontal.png" />
     <Content Include="Content\images\bootstrap-colorpicker\hue.png" />
     <Content Include="Content\images\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\images\productosmodulos\modulo_clientes.png" />
+    <Content Include="Content\images\productosmodulos\modulo_moviles.png" />
+    <Content Include="Content\images\productosmodulos\modulo_panel_operativo.png" />
+    <Content Include="Content\images\productosmodulos\modulo_prestadores.png" />
     <Content Include="Content\sbadmin\blank.gif" />
     <Content Include="Content\sbadmin\fancybox_loading%402x.gif" />
     <Content Include="Content\sbadmin\fancybox_loading.gif" />
@@ -523,20 +524,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Content\font-awesome\less\bootstrap.less" />
     <Content Include="Content\font-awesome\less\core.less" />
-    <Content Include="Content\font-awesome\less\extras.less" />
-    <Content Include="Content\font-awesome\less\font-awesome-ie7.less" />
     <Content Include="Content\font-awesome\less\font-awesome.less" />
     <Content Include="Content\font-awesome\less\icons.less" />
     <Content Include="Content\font-awesome\less\mixins.less" />
     <Content Include="Content\font-awesome\less\path.less" />
     <Content Include="Content\font-awesome\less\variables.less" />
-    <Content Include="Content\font-awesome\scss\font-awesome-ie7.scss" />
     <Content Include="Content\font-awesome\scss\font-awesome.scss" />
-    <Content Include="Content\font-awesome\scss\_bootstrap.scss" />
     <Content Include="Content\font-awesome\scss\_core.scss" />
-    <Content Include="Content\font-awesome\scss\_extras.scss" />
     <Content Include="Content\font-awesome\scss\_icons.scss" />
     <Content Include="Content\font-awesome\scss\_mixins.scss" />
     <Content Include="Content\font-awesome\scss\_path.scss" />
@@ -545,24 +540,6 @@
     <Content Include="Content\fonts\Flat-UI-Icons.ttf" />
     <Content Include="Content\fonts\Flat-UI-Icons.woff" />
     <Content Include="Content\fonts\icomoon-session.json" />
-    <Content Include="Content\fonts\lato\lato-black-webfont.eot" />
-    <Content Include="Content\fonts\lato\lato-black-webfont.ttf" />
-    <Content Include="Content\fonts\lato\lato-black-webfont.woff" />
-    <Content Include="Content\fonts\lato\lato-bold-webfont.eot" />
-    <Content Include="Content\fonts\lato\lato-bold-webfont.ttf" />
-    <Content Include="Content\fonts\lato\lato-bold-webfont.woff" />
-    <Content Include="Content\fonts\lato\lato-bolditalic-webfont.eot" />
-    <Content Include="Content\fonts\lato\lato-bolditalic-webfont.ttf" />
-    <Content Include="Content\fonts\lato\lato-bolditalic-webfont.woff" />
-    <Content Include="Content\fonts\lato\lato-italic-webfont.eot" />
-    <Content Include="Content\fonts\lato\lato-italic-webfont.ttf" />
-    <Content Include="Content\fonts\lato\lato-italic-webfont.woff" />
-    <Content Include="Content\fonts\lato\lato-light-webfont.eot" />
-    <Content Include="Content\fonts\lato\lato-light-webfont.ttf" />
-    <Content Include="Content\fonts\lato\lato-light-webfont.woff" />
-    <Content Include="Content\fonts\lato\lato-regular-webfont.eot" />
-    <Content Include="Content\fonts\lato\lato-regular-webfont.ttf" />
-    <Content Include="Content\fonts\lato\lato-regular-webfont.woff" />
     <Content Include="Content\bootstrap\theme.less" />
     <Content Include="Content\bootstrap\navs.less" />
     <Content Include="Content\bootstrap\navbar.less" />
@@ -1078,6 +1055,7 @@
     <Content Include="Views\Noticias\Create.cshtml" />
     <Content Include="Views\Noticias\Edit.cshtml" />
     <Content Include="Views\Noticias\Index.cshtml" />
+    <Content Include="Views\Addons\TrialAddonConfirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1188,6 +1166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705241946075_Noticias.resx">
       <DependentUpon>201705241946075_Noticias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141837561_AddTituloToNoticia.resx">
+      <DependentUpon>201706141837561_AddTituloToNoticia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

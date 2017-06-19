@@ -8,13 +8,19 @@ Bootstrap Admin Template by EGrappler.com
 [1. Global]
 */
 
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
 body {
 	background: #f9f6f1;
-	font: 13px/1.7em 'Open Sans';
+	font: 13px/1.7em;
+	font-family: 'Open Sans', sans-serif;
+    direction: ltr;
 }
 
 p {
-	font: 13px/1.7em 'Open Sans';
+	font: 13px/1.7em;
 }
 
 h1,
@@ -29,7 +35,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-	font-family: 'Open Sans';
+	font-family: 'Open Sans', sans-serif;
 	font-weight: 500;
 	line-height: 1.1;
 	color: inherit;
@@ -40,7 +46,7 @@ input,
 button,
 select,
 textarea {
-	font-family: 'Open Sans' !important;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .dropdown .dropdown-menu {
@@ -1661,7 +1667,7 @@ div.control-group {
 	}
 
 .centered {
-	text-align: center;
+	text-align: center !important;
 }
 
 .margin-left-5 {
@@ -1690,6 +1696,10 @@ div.control-group {
 
 .margin-right-10 {
 	margin-right: 10px !important;
+}
+
+.margin-right-5 {
+	margin-right: 5px;
 }
 
 span.question {
@@ -2122,7 +2132,7 @@ p.shaman {
 
 p.gestion {
 	font-size: 2vw;
-	margin-top: -15%;
+	margin-top: -13%;
 	float: right;
 }
 
@@ -2176,4 +2186,12 @@ div.row > select.sel-filter {
 	font-size: 12px;
 	width: 17%;
 	margin-right:2px;
+}
+
+.height-100-px {
+	height:100px;
+}
+
+.margin-bottom-20 {
+	margin-bottom:20px;
 }
