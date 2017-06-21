@@ -15,7 +15,7 @@ namespace Paramedic.Gestion.Model
 		[ForeignKey("ClientesLicenciasProductosModuloId")]
 		public virtual ClientesLicenciasProductosModulo ClientesLicenciasProductosModulo { get; set; }
 
-		[Display(Name ="Fecha de vencimiento")]
+		[Display(Name = "Fecha de vencimiento")]
 		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime FechaVencimiento { get; set; }
 
@@ -24,7 +24,7 @@ namespace Paramedic.Gestion.Model
 		[ForeignKey("ProductosModulosIntentoId")]
 		public virtual ProductosModulosIntento ProductosModulosIntento { get; set; }
 
-		[Display(Name="Estado")]
+		[Display(Name = "Estado")]
 		public virtual TrialStateType Estado
 		{
 			get
@@ -33,15 +33,34 @@ namespace Paramedic.Gestion.Model
 			}
 		}
 
-		[Display(Name ="Días restantes")]
+		[Display(Name = "Días restantes")]
 		public virtual double DiasRestantes
 		{
 			get
 			{
 				if (Estado == TrialStateType.Expired) return 0;
 
-				return (FechaVencimiento - DateTime.Now).TotalDays;
+				return (FechaVencimiento.Date - DateTime.Now.Date).TotalDays;
 			}
+		}
+
+		#endregion
+
+		#region Constructors
+
+		public ClientesLicenciasProductosModulosHistorial() { } //EF
+
+		public ClientesLicenciasProductosModulosHistorial
+			(
+				ClientesLicenciasProductosModulo cliLicProdMod,
+				ProductosModulosIntento intento
+			)
+		{
+			this.ProductosModulosIntento = intento;
+			this.ProductosModulosIntentoId = intento.Id;
+			this.ClientesLicenciasProductosModulo = cliLicProdMod;
+			this.ClientesLicenciasProductosModuloId = cliLicProdMod.Id;
+			this.FechaVencimiento = DateTime.Now.AddDays(intento.Dias);
 		}
 
 		#endregion

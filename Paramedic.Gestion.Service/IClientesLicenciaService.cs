@@ -6,7 +6,6 @@ namespace Paramedic.Gestion.Service
     {
         ClientesLicencia GetById(int id);
 
-		ProductosModulosIntento GetAddonIntento(string license, int prodModId);
-
+		ClientesLicenciasProductosModulosHistorial GetAddonHistorial(string license, int prodModId);
 	}
 }

@@ -1055,7 +1055,8 @@
     <Content Include="Views\Noticias\Create.cshtml" />
     <Content Include="Views\Noticias\Edit.cshtml" />
     <Content Include="Views\Noticias\Index.cshtml" />
-    <Content Include="Views\Addons\TrialAddonConfirmation.cshtml" />
+    <Content Include="Views\Addons\ConfirmAddonTrial.cshtml" />
+    <Content Include="Views\Addons\SuccessAddonTrial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

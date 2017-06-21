@@ -1,0 +1,23 @@
+﻿@model Paramedic.Gestion.Model.ClientesLicenciasProductosModulosHistorial
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary(true)
+
+	@Html.HiddenFor(x => x.ClientesLicenciasProductosModuloId)
+	@Html.HiddenFor(x => x.ProductosModulosIntentoId)
+	@Html.HiddenFor(x => x.FechaVencimiento)
+
+	<div class="col-xs-6 col-xs-offset-3">
+		<div class="alert alert-warning height-100-px" role="alert">
+			<div class="col-xs-12 margin-bottom-20"><strong><i class="fa fa-exclamation-circle margin-right-10"></i>Confirma que desea iniciar el trial del módulo @Model.ProductosModulosIntento.ProductosModulo.DescripcionAddon por @Model.ProductosModulosIntento.Dias días?</strong></div>
+			<div class="float-right">
+				<button type="submit" class="btn btn-warning btn-outline">Aceptar</button>
+				<a href="@Url.Action("CancelAddonTrial")" class="btn btn-danger btn-outline">Cancelar</a>
+			</div>
+		</div>
+	</div>
+
+}
+

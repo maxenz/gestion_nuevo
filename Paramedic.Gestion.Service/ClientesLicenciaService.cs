@@ -53,7 +53,7 @@ namespace Paramedic.Gestion.Service
 			return _clientesLicenciaRepo.GetById(id);
 		}
 
-		public ProductosModulosIntento GetAddonIntento(string license, int prodModId)
+		public ClientesLicenciasProductosModulosHistorial GetAddonHistorial(string license, int prodModId)
 		{
 			ClientesLicencia cliLic = _clientesLicenciaRepo.GetByLicenseNumber(license);
 			ProductosModulo modulo = _prodModRepo.GetById(prodModId);
@@ -72,7 +72,9 @@ namespace Paramedic.Gestion.Service
 			{
 				if (!historial.Contains(intento.Id))
 				{
-					return intento;
+					ClientesLicenciasProductosModulosHistorial hist =
+						new ClientesLicenciasProductosModulosHistorial(cliLicProdMod, intento);
+					return hist;
 				}
 			}
 

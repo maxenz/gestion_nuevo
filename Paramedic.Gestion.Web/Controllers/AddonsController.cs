@@ -1,11 +1,8 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using PagedList;
 using Paramedic.Gestion.Service;
 using System.Collections.Generic;
 using Paramedic.Gestion.Model;
-using LinqKit;
-using System.Collections;
 using Paramedic.Gestion.Web.ViewModels;
 using WebMatrix.WebData;
 
@@ -19,6 +16,7 @@ namespace Paramedic.Gestion.Web.Controllers
 		INoticiaService _NoticiaService;
 		IProductosModuloService _ModuloService;
 		IClientesLicenciaService _ClientesLicenciaService;
+		IClientesLicenciasProductosModulosHistorialService _HistorialService;
 
 		#endregion
 
@@ -27,12 +25,14 @@ namespace Paramedic.Gestion.Web.Controllers
 		public AddonsController(
 			INoticiaService Service,
 			IProductosModuloService ModuloService,
-			IClientesLicenciaService ClientesLicenciaService
+			IClientesLicenciaService ClientesLicenciaService,
+			IClientesLicenciasProductosModulosHistorialService HistorialService
 			)
 		{
 			_NoticiaService = Service;
 			_ModuloService = ModuloService;
 			_ClientesLicenciaService = ClientesLicenciaService;
+			_HistorialService = HistorialService;
 		}
 
 		#endregion
@@ -41,12 +41,10 @@ namespace Paramedic.Gestion.Web.Controllers
 
 		public ActionResult Index(string searchName = null, int page = 1)
 		{
-
 			IEnumerable<Noticia> noticias = _NoticiaService.GetNoticiasNoVencidas().Take(4);
 			IEnumerable<ProductosModulo> modulos = _ModuloService.GetAll().Where(x => x.DescripcionAddon != null);
 			AddonsViewModel vm = new AddonsViewModel(noticias, modulos);
-			return View(vm);			
-
+			return View(vm);
 		}
 
 		public ActionResult ConfirmAddonTrial(string user, string pass, string license, int prodModId)
@@ -55,10 +53,10 @@ namespace Paramedic.Gestion.Web.Controllers
 			{
 				if (WebSecurity.Login(user, pass, true))
 				{
-					ProductosModulosIntento intento = _ClientesLicenciaService.GetAddonIntento(license, prodModId);
-					if (intento != null)
+					ClientesLicenciasProductosModulosHistorial historial = _ClientesLicenciaService.GetAddonHistorial(license, prodModId);
+					if (historial != null)
 					{
-						return View("TrialAddonConfirmation", intento);
+						return View("ConfirmAddonTrial", historial);
 					}
 				}
 
@@ -71,8 +69,13 @@ namespace Paramedic.Gestion.Web.Controllers
 			}
 		}
 
+		[HttpPost]
+		public ActionResult ConfirmAddonTrial(ClientesLicenciasProductosModulosHistorial historial)
+		{
+			_HistorialService.Create(historial);
+			return View("SuccessAddonTrial");
+		}
+
 		#endregion
-
-
 	}
 }

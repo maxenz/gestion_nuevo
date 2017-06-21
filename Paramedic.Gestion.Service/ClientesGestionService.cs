@@ -10,75 +10,87 @@ namespace Paramedic.Gestion.Service
 {
     public class ClientesGestionService : EntityService<ClientesGestion>, IClientesGestionService
     {
-        IUnitOfWork _unitOfWork;
-        IClientesGestionRepository _clientesGestionRepository;
+		#region Properties
 
-        public ClientesGestionService(IUnitOfWork unitOfWork, IClientesGestionRepository clientesGestionRepository)
-            : base(unitOfWork, clientesGestionRepository)
-        {
-            _unitOfWork = unitOfWork;
-            _clientesGestionRepository = clientesGestionRepository;
-        }
+		IUnitOfWork _unitOfWork;
+		IClientesGestionRepository _clientesGestionRepository;
 
-        public IEnumerable<ClientesGestion> GetRecontactos(DateTime from, DateTime to)
-        {
-            var predicate = PredicateBuilder.New<ClientesGestion>();
+		#endregion
 
-            predicate = predicate.And(x => x.FechaRecontacto >= from);
-            predicate = predicate.And(x => x.FechaRecontacto <= to);
+		#region Constructors
 
-            return FindBy(predicate);
+		public ClientesGestionService(IUnitOfWork unitOfWork, IClientesGestionRepository clientesGestionRepository)
+		: base(unitOfWork, clientesGestionRepository)
+		{
+			_unitOfWork = unitOfWork;
+			_clientesGestionRepository = clientesGestionRepository;
+		}
 
-        }
+		#endregion
 
-        public IEnumerable<ClientesGestion> GetRecontactosByPage(RecontactosControllerParametersDTO queryParameters)
-        {
-            var predicate = GetPredicateByConditions(queryParameters);
-            return FindByPage(predicate, "Fecha ASC", queryParameters.PageSize, queryParameters.Page);
-        }
+		#region Public Methods
 
+		public IEnumerable<ClientesGestion> GetRecontactos(DateTime from, DateTime to)
+		{
+			var predicate = PredicateBuilder.New<ClientesGestion>();
 
-        public Expression<Func<ClientesGestion, bool>> GetPredicateByConditions(RecontactosControllerParametersDTO queryParameters)
-        {
-            var predicate = PredicateBuilder.New<ClientesGestion>();
+			predicate = predicate.And(x => x.FechaRecontacto >= from);
+			predicate = predicate.And(x => x.FechaRecontacto <= to);
 
-            DateTime genericFrom = DateTime.Now.AddDays(-1);
-            DateTime genericTo = DateTime.Now.AddDays(30);
+			return FindBy(predicate);
 
-            if (queryParameters.DateFrom != DateTime.MinValue && queryParameters.DateTo != DateTime.MinValue)
-            { 
-                predicate = predicate.And(x => x.FechaRecontacto >= queryParameters.DateFrom);
-                predicate = predicate.And(x => x.FechaRecontacto <= queryParameters.DateTo);
-            } else
-            {
-                predicate = predicate.And(x => x.FechaRecontacto >= genericFrom);
-                predicate = predicate.And(x => x.FechaRecontacto <= genericTo);
-            }
+		}
 
-            if (!string.IsNullOrEmpty(queryParameters.SearchDescription))
-            {
-                predicate = predicate.And(x => x.Cliente.RazonSocial.ToUpper().Contains(queryParameters.SearchDescription.ToUpper()));
-            }
+		public IEnumerable<ClientesGestion> GetRecontactosByPage(RecontactosControllerParametersDTO queryParameters)
+		{
+			var predicate = GetPredicateByConditions(queryParameters);
+			return FindByPage(predicate, "Fecha ASC", queryParameters.PageSize, queryParameters.Page);
+		}
 
-            if (queryParameters.GestionType != GestionType.Default)
-            {
-                if (queryParameters.GestionType == GestionType.Management)
-                {
-                    predicate = predicate.And(x => !x.FechaRecontacto.HasValue);
-                } else
-                {
-                    predicate = predicate.And(x => x.FechaRecontacto.HasValue);
-                }
-            }
+		public Expression<Func<ClientesGestion, bool>> GetPredicateByConditions(RecontactosControllerParametersDTO queryParameters)
+		{
+			var predicate = PredicateBuilder.New<ClientesGestion>();
 
-            return predicate;
+			DateTime genericFrom = DateTime.Now.AddDays(-1);
+			DateTime genericTo = DateTime.Now.AddDays(30);
 
-        }
+			if (queryParameters.DateFrom != DateTime.MinValue && queryParameters.DateTo != DateTime.MinValue)
+			{
+				predicate = predicate.And(x => x.FechaRecontacto >= queryParameters.DateFrom);
+				predicate = predicate.And(x => x.FechaRecontacto <= queryParameters.DateTo);
+			}
+			else
+			{
+				predicate = predicate.And(x => x.FechaRecontacto >= genericFrom);
+				predicate = predicate.And(x => x.FechaRecontacto <= genericTo);
+			}
 
-        public ClientesGestion GetById(int id)
-        {
-            return _clientesGestionRepository.GetById(id);
-        }
+			if (!string.IsNullOrEmpty(queryParameters.SearchDescription))
+			{
+				predicate = predicate.And(x => x.Cliente.RazonSocial.ToUpper().Contains(queryParameters.SearchDescription.ToUpper()));
+			}
 
-    }
+			if (queryParameters.GestionType != GestionType.Default)
+			{
+				if (queryParameters.GestionType == GestionType.Management)
+				{
+					predicate = predicate.And(x => !x.FechaRecontacto.HasValue);
+				}
+				else
+				{
+					predicate = predicate.And(x => x.FechaRecontacto.HasValue);
+				}
+			}
+
+			return predicate;
+
+		}
+
+		public ClientesGestion GetById(int id)
+		{
+			return _clientesGestionRepository.GetById(id);
+		}
+
+		#endregion
+	}
 }
