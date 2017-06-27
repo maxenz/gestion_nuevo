@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using LinqKit;
 using System;
 using System.Linq.Expressions;
+using System.Collections;
+using System.Linq;
 
 namespace Paramedic.Gestion.Service
 {
@@ -13,16 +15,18 @@ namespace Paramedic.Gestion.Service
 
         IUnitOfWork _unitOfWork;
         ITicketRepository _ticketRepository;
+		IClientesUsuarioRepository _clientesUsuarioRepository;
 
         #endregion
 
         #region Constructors
 
-        public TicketService(IUnitOfWork unitOfWork, ITicketRepository ticketRepository)
+        public TicketService(IUnitOfWork unitOfWork, ITicketRepository ticketRepository, IClientesUsuarioRepository clientesUsuarioRepository)
     : base(unitOfWork, ticketRepository)
         {
             _unitOfWork = unitOfWork;
             _ticketRepository = ticketRepository;
+			_clientesUsuarioRepository = clientesUsuarioRepository;
         }
 
         #endregion
@@ -74,6 +78,12 @@ namespace Paramedic.Gestion.Service
 			if (queryParameters.Estado != 0)
 			{
 				predicate = predicate.And(p => p.TicketEstadoType == queryParameters.Estado);
+			}
+
+			if (queryParameters.ClienteId != 0)
+			{
+				IEnumerable<int> users = _clientesUsuarioRepository.FindBy(x => x.ClienteId == queryParameters.ClienteId).Select(x => x.UsuarioId);
+				predicate = predicate.And(p => users.Any(x => x == p.UserProfileId));
 			}
 
             if (!predicate.IsStarted)

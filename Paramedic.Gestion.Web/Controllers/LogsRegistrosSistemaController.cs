@@ -9,75 +9,98 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using Paramedic.Gestion.Model;
+using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Model.Enums;
 
 namespace Gestion.Controllers
 {
+	public class LogsRegistrosSistemaController : Controller
+	{
+		#region Properties
 
-    public class LogsRegistrosSistemaController : Controller
-    {
-        private GestionDb db = new GestionDb();
+		ILogsRegistrosSistemaService _LogService;
+		IVideoService _VideoService;
+		IUserProfileService _UserProfileService;
+		private int controllersPageSize = 6;
 
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Index(string searchName = null, int page = 1, string fechaDesde = null, string fechaHasta = null)
-        {
+		#endregion
 
-            var margenMenor = DateTime.Now.AddDays(-3);
-            var hoy = DateTime.Now;
-            ViewBag.dftDesde = margenMenor.ToShortDateString();
-            ViewBag.dftHasta = hoy.ToShortDateString();
-            List<LogRegistroSistema> allLogs = db.LogsRegistroSistema.ToList();
+		#region Constructors
 
-            if (!String.IsNullOrEmpty(fechaDesde))
-            {
-                fechaDesde = fechaDesde + " 00:00";
-                fechaHasta = fechaHasta + " 23:59";
+		public LogsRegistrosSistemaController(
+			ILogsRegistrosSistemaService Service,
+			IVideoService VideoService,
+			IUserProfileService UserProfileService)
+		{
+			_LogService = Service;
+			_VideoService = VideoService;
+			_UserProfileService = UserProfileService;
+		}
 
-                DateTime dtDesde = DateTime.ParseExact(fechaDesde, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                DateTime dtHasta = DateTime.ParseExact(fechaHasta, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+		#endregion
 
-                allLogs = allLogs.Where(a => a.Fecha >= dtDesde && a.Fecha <= dtHasta).ToList();
-            }
-            else
-            {
-                allLogs = db.LogsRegistroSistema.Where(a => a.Fecha >= margenMenor && a.Fecha <= hoy).ToList();
-            }
+		private GestionDb db = new GestionDb();
 
-            if (!String.IsNullOrEmpty(searchName))
-            {
+		[Authorize(Roles = "Administrador")]
+		public ActionResult Index(string searchName = null, int page = 1, string fechaDesde = null, string fechaHasta = null)
+		{
 
-                allLogs = allLogs.Where(p => p.DescripcionAccion.ToUpper().Contains(searchName.ToUpper())).ToList();
-            }
+			DateTime dtFrom = DateTime.Now.Date.AddDays(-3);
+			DateTime dtTo = DateTime.Now.Date.AddDays(1);
 
-            allLogs = allLogs.OrderByDescending(p => p.Fecha).ToList();
+			if (!string.IsNullOrEmpty(fechaDesde) && !string.IsNullOrEmpty(fechaHasta))
+			{
+				dtFrom = Convert.ToDateTime(fechaDesde).Date;
+				dtTo = Convert.ToDateTime(fechaHasta).AddDays(1).Date;
+			}
 
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_Logs", allLogs.ToPagedList(page, 6));
-            }
+			var predicate = PredicateBuilder.New<LogRegistroSistema>();
+			predicate = predicate.And(x => x.CreatedDate >= dtFrom && x.CreatedDate < dtTo);
+			if (!string.IsNullOrEmpty(searchName))
+			{
+				predicate = predicate.And(x => x.DescripcionAccion.ToUpper().Contains(searchName.ToUpper()));
+			}
 
-            return View(allLogs.ToPagedList(page, 6));
+			IEnumerable<LogRegistroSistema> logs = _LogService.FindByPage(predicate, "CreatedDate DESC", controllersPageSize, page);
+			int count = _LogService.FindBy(predicate).Count();
+			var resultAsPagedList = new StaticPagedList<LogRegistroSistema>(logs, page, controllersPageSize, count);
 
-        }
+			if (Request.IsAjaxRequest())
+			{
+				return PartialView("_Logs", resultAsPagedList);
+			}
 
-        [Authorize(Roles = "Cliente")]
-        [HttpPost]
-        public int SetVideoLog(int idVideo)
-        {
-            try
-            {
-                Video video = db.Videos.Find(idVideo);
-                int userID = db.UserProfiles.Where(x => x.UserName == User.Identity.Name).Select(x => x.UserId).FirstOrDefault();
-                LogRegistroSistema log = new LogRegistroSistema(String.Format("VISTA DE VIDEO: {0}, ID: {1}", video.Descripcion, idVideo), userID);
-                db.LogsRegistroSistema.Add(log);
-                db.SaveChanges();
-                return 1;
-            }
-            catch
-            {
-                return 0;
-            }
+			return View(resultAsPagedList);
 
-        }
+		}
 
-    }
+		[Authorize(Roles = "Cliente")]
+		[HttpPost]
+		public int SetVideoLog(int idVideo)
+		{
+			try
+			{
+				Video video = _VideoService.GetById(idVideo);
+				UserProfile profile = _UserProfileService.FindBy(x => x.UserName == User.Identity.Name).FirstOrDefault();
+				if (profile != null)
+				{
+					string logDescription = string.Format("Vista de video id {0}: {1}", video.Id, video.Descripcion);
+					LogRegistroSistema log = new LogRegistroSistema(logDescription, profile.Id);
+					_LogService.Create(log);
+					return 1;
+				}
+
+				return 0;
+
+			}
+			catch (Exception ex)
+			{
+				LoggingService.Instance.Write(LoggingTypes.Error, string.Format("Error al generar log para la vista del video {0}. Error: {1} ", idVideo, ex.Message));
+				return 0;
+			}
+
+		}
+
+	}
 }

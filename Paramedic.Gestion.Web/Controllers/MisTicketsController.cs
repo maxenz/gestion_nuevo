@@ -58,11 +58,12 @@ namespace Paramedic.Gestion.Web.Controllers
 			bool isAdmin = User.IsInRole("Administrador");
 			IList<TicketViewModel> vmTickets = new List<TicketViewModel>();
 
-			var estado = selEstado != 0 ? (TicketEstadoType)selEstado : 0;
+			var estado = selEstado != 0 ? (TicketEstadoType) selEstado : 0;
 
-			TicketQueryControllerParametersDTO queryParameters = new TicketQueryControllerParametersDTO(searchName, controllersPageSize, page, userId, isAdmin, selTicketsClasificacion, estado, selUsuario);
+			TicketQueryControllerParametersDTO queryParameters = new TicketQueryControllerParametersDTO(searchName, controllersPageSize, page, userId, isAdmin, selTicketsClasificacion, estado, selUsuario, selCliente);
 
 			IEnumerable<Ticket> tickets = _TicketService.GetTickets(queryParameters);
+
 			setDropdowns();
 
 			foreach (Ticket ticket in tickets)
@@ -81,13 +82,9 @@ namespace Paramedic.Gestion.Web.Controllers
 				vmTickets.Add(vm);
 			}
 
-			if (selCliente != 0)
-			{
-				vmTickets = vmTickets.Where(x => x.ClienteId == selCliente).ToList();
-			}
 
-			//int count = _TicketService.FindBy(queryParameters).Count();
-			int count = vmTickets.Count();
+			int count = _TicketService.FindBy(queryParameters).Count();
+
 			var resultAsPagedList = new StaticPagedList<TicketViewModel>(vmTickets, page, controllersPageSize, count);
 
 			if (Request.IsAjaxRequest())
@@ -348,7 +345,7 @@ namespace Paramedic.Gestion.Web.Controllers
 						   {
 							   Selected = false,
 							   Text = c.GetAttribute<DisplayAttribute>().Name.ToUpper(),
-							   Value = (int)c
+							   Value = (int) c
 						   }).OrderBy(x => x.Text);
 
 			ViewBag.Estados = new SelectList(estados, "Value", "Text");
@@ -361,6 +358,8 @@ namespace Paramedic.Gestion.Web.Controllers
 			setDropdownEstados();
 			setDropdownUsuarios();
 		}
+
+		
 
 		#endregion
 

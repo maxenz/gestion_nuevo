@@ -18,6 +18,8 @@ namespace Paramedic.Gestion.Model
 
 		public int SelectedUserId { get; set; }
 
+		public int ClienteId { get; set; }
+
 		#endregion
 
 		#region Constructors
@@ -30,7 +32,8 @@ namespace Paramedic.Gestion.Model
 			bool isAdmin,
 			int ticketClasificacionId,
 			TicketEstadoType estado,
-			int selectedUserId
+			int selectedUserId,
+			int clienteId
 			) : base(searchDescription, pageSize, page)
 		{
 			UserId = userId;
@@ -38,6 +41,7 @@ namespace Paramedic.Gestion.Model
 			TicketClasificacionId = ticketClasificacionId;
 			Estado = estado;
 			SelectedUserId = selectedUserId;
+			ClienteId = clienteId;
 		}
 
 		#endregion

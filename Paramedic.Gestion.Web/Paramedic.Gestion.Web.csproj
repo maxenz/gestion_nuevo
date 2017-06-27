@@ -244,6 +244,7 @@
     <Compile Include="Controllers\ClientesUsuariosController.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\CuentaCorrienteController.cs" />
+    <Compile Include="Controllers\LogsRegistrosSistemaController.cs" />
     <Compile Include="Controllers\NoticiasController.cs" />
     <Compile Include="Controllers\ProductosModulosIntentosController.cs" />
     <Compile Include="Controllers\SocialServicesController.cs" />

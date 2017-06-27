@@ -447,9 +447,9 @@ $(function () {
     validarLocalidad();
     setFormatTables();
 
-    $(".various").on('click', function () {
+    $(".link-video").on('click', function () {
 
-        var vid_id = $(this).attr("href").replace('#', '');
+        var vid_id = $(this).attr("data-id");
 
         var $url = base_url_gestion + "LogsRegistrosSistema/SetVideoLog/";
 

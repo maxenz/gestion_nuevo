@@ -83,6 +83,7 @@
     <Compile Include="ILicenciaRepository.cs" />
     <Compile Include="ILicenciasLogRepository.cs" />
     <Compile Include="ILocalidadRepository.cs" />
+    <Compile Include="ILogsRegistrosSistemaRepository.cs" />
     <Compile Include="IMedioDifusionRepository.cs" />
     <Compile Include="INoticiaRepository.cs" />
     <Compile Include="IPaisRepository.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="LicenciaRepository.cs" />
     <Compile Include="LicenciasLogRepository.cs" />
     <Compile Include="LocalidadRepository.cs" />
+    <Compile Include="LogsRegistrosSistemaRepository.cs" />
     <Compile Include="MedioDifusionRepository.cs" />
     <Compile Include="NoticiaRepository.cs" />
     <Compile Include="PaisRepository.cs" />
