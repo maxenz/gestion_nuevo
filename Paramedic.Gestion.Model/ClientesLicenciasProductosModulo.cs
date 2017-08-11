@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema; 
 
 namespace Paramedic.Gestion.Model
 {
@@ -17,7 +17,7 @@ namespace Paramedic.Gestion.Model
         public int ProductosModuloId { get; set; }
 
         [ForeignKey("ClientesLicenciasProductoId")]
-        public virtual ClientesLicenciasProducto ClientesLicenciasProducto { get; set; }
+		public virtual ClientesLicenciasProducto ClientesLicenciasProducto { get; set; }
 
 		public virtual List<ClientesLicenciasProductosModulosHistorial> Historial { get; set; }
 

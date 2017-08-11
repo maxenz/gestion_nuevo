@@ -21,11 +21,20 @@ namespace Paramedic.Gestion.Web.Controllers
         IProductoService _ProductoService;
         IClientesLicenciasProductoService _ClientesLicenciasProductoService;
         IClientesLicenciasProductosModuloService _ClientesLicenciasProductosModuloService;
+		IClientesLicenciasProductosModulosHistorialService _HistorialService;
         #endregion
 
         #region Constructors
 
-        public ClientesLicenciasController(IClientesLicenciaService ClientesLicenciaService, ILicenciaService LicenciaService, IClienteService ClienteService, ISitioService SitioService, IProductoService ProductoService, IClientesLicenciasProductoService ClientesLicenciasProductoService, IClientesLicenciasProductosModuloService ClientesLicenciasProductosModuloService)
+        public ClientesLicenciasController(
+			IClientesLicenciaService ClientesLicenciaService,
+			ILicenciaService LicenciaService,
+			IClienteService ClienteService,
+			ISitioService SitioService,
+			IProductoService ProductoService,
+			IClientesLicenciasProductoService ClientesLicenciasProductoService,
+			IClientesLicenciasProductosModuloService ClientesLicenciasProductosModuloService,
+			IClientesLicenciasProductosModulosHistorialService HistorialService)
         {
             _ClientesLicenciaService = ClientesLicenciaService;
             _LicenciaService = LicenciaService;
@@ -34,6 +43,7 @@ namespace Paramedic.Gestion.Web.Controllers
             _ProductoService = ProductoService;
             _ClientesLicenciasProductoService = ClientesLicenciasProductoService;
             _ClientesLicenciasProductosModuloService = ClientesLicenciasProductosModuloService;
+			_HistorialService = HistorialService;
         }
 
         #endregion
@@ -244,19 +254,6 @@ namespace Paramedic.Gestion.Web.Controllers
 
         private void UpdateLicenciasProductos(string[] selectedProductos, ClientesLicencia licenciaToUpdate)
         {
-            if (selectedProductos == null)
-            {
-                var licProd = _ClientesLicenciaService.GetById(licenciaToUpdate.Id).ClientesLicenciasProductos.ToList();
-                
-                if (licProd.Count() > 0)
-                {
-                    foreach (var lp in licProd)
-                    {
-                        _ClientesLicenciasProductoService.Delete(lp);
-                    }
-                }
-                return;
-            }
 
             var selectedProductosHS = new HashSet<string>(selectedProductos);
             var licenciasProductos = new HashSet<int>
@@ -277,7 +274,20 @@ namespace Paramedic.Gestion.Web.Controllers
                 {
                     if (licenciasProductos.Contains(prod.Id))
                     {
+						// --> Borro historiales, despues modulos y dps el producto.
                         var cliLicProd = _ClientesLicenciasProductoService.FindBy(x => x.ProductoId == prod.Id && x.ClientesLicenciaId == licenciaToUpdate.Id).FirstOrDefault();
+
+						for (int i = cliLicProd.ClientesLicenciasProductosModulos.Count - 1; i >= 0; i--)
+						{
+							var mod = cliLicProd.ClientesLicenciasProductosModulos.ElementAt(i);
+							var hist = mod.Historial;
+							for (int j = hist.Count - 1; i >= 0; i--)
+							{
+								_HistorialService.Delete(hist[j]);
+							}
+							_ClientesLicenciasProductosModuloService.Delete(mod);
+						}
+
                         _ClientesLicenciasProductoService.Delete(cliLicProd);                                                
                     }
                 }

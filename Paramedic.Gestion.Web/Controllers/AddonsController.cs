@@ -8,7 +8,6 @@ using WebMatrix.WebData;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-	[Authorize(Roles = "Administrador")]
 	public class AddonsController : Controller
 	{
 		#region Properties
@@ -41,7 +40,8 @@ namespace Paramedic.Gestion.Web.Controllers
 
 		public ActionResult Index(string searchName = null, int page = 1)
 		{
-			IEnumerable<Noticia> noticias = _NoticiaService.GetNoticiasNoVencidas().Take(4);
+			List<ClientesLicenciasProductosModulo> mod =_ClientesLicenciaService.GetProductosModulosForAddon("5688923116");
+			IEnumerable<Noticia> noticias = _NoticiaService.GetNoticiasNoVencidas();
 			IEnumerable<ProductosModulo> modulos = _ModuloService.GetAll().Where(x => x.DescripcionAddon != null);
 			AddonsViewModel vm = new AddonsViewModel(noticias, modulos);
 			return View(vm);

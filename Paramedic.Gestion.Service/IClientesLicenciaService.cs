@@ -1,4 +1,5 @@
 ﻿using Paramedic.Gestion.Model;
+using System.Collections.Generic;
 
 namespace Paramedic.Gestion.Service
 {
@@ -7,5 +8,7 @@ namespace Paramedic.Gestion.Service
         ClientesLicencia GetById(int id);
 
 		ClientesLicenciasProductosModulosHistorial GetAddonHistorial(string license, int prodModId);
+
+		List<ClientesLicenciasProductosModulo> GetProductosModulosForAddon(string licencia);
 	}
 }

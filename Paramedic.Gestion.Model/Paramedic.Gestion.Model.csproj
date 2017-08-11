@@ -95,6 +95,8 @@
     <Compile Include="ClientesLicenciasProductosModulosHistorial.cs" />
     <Compile Include="ClientesTerminal.cs" />
     <Compile Include="ClientesUsuario.cs" />
+    <Compile Include="CustomAttributes\CascadeDeleteAttribute.cs" />
+    <Compile Include="CustomAttributes\CascadeDeleteAttributeConvention.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Enums\ClientType.cs" />
     <Compile Include="Enums\GestionType.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Messaging\MailConfiguration.cs" />
     <Compile Include="Messaging\MailMessage.cs" />
     <Compile Include="Messaging\Message.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Noticia.cs" />
     <Compile Include="Pais.cs" />
     <Compile Include="Producto.cs" />

@@ -23,7 +23,7 @@ namespace Paramedic.Gestion.Model
         [ForeignKey("ProductoId")]
         public virtual Producto Producto { get; set; }
 
-        public virtual ICollection<ClientesLicenciasProductosModulo> ClientesLicenciasProductosModulos { get; set; }
+		public virtual ICollection<ClientesLicenciasProductosModulo> ClientesLicenciasProductosModulos { get; set; }
 
 
     }
