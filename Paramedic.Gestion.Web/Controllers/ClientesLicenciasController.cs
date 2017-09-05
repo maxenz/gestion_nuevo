@@ -3,9 +3,9 @@ using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using Paramedic.Gestion.Model;
-using Gestion.ViewModels;
 using System.Net;
 using Paramedic.Gestion.Service;
+using Paramedic.Gestion.Web.ViewModels;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
@@ -68,15 +68,15 @@ namespace Paramedic.Gestion.Web.Controllers
             return PartialView("_ClientesLicencias", licencias);
         }
 
-        public ActionResult GetModExcluidos(int clientesLicenciaId, int productoId)
+        public ActionResult GetModAsignados(int clientesLicenciaId, int productoId)
         {
             IList<ProductosModulo> modulos = _ProductoService.FindBy(x => x.Id == productoId).FirstOrDefault().ProductosModulos.ToList();
-            LlenarProductosModulosExcluidos(modulos, clientesLicenciaId, productoId);
+            LlenarProductosModulos(modulos, clientesLicenciaId, productoId);
 
-            return PartialView("_ModulosExcluidos", modulos);
+            return PartialView("_ModulosAsignados", modulos);
         }
 
-        public string SetModExcluidos(int clientesLicenciaId, int productoId, string[] vModExc)
+        public string SetModAsignados(int clientesLicenciaId, int productoId, string[] vModAsignados)
         {
             ClientesLicenciasProducto licenciasProducto =
                 _ClientesLicenciaService
@@ -86,13 +86,13 @@ namespace Paramedic.Gestion.Web.Controllers
                 .Where(x => x.ProductoId == productoId)
                 .FirstOrDefault();
 
-            UpdateProductosModulosExc(vModExc, licenciasProducto);
+            UpdateProductosModulosAsignados(vModAsignados, licenciasProducto);
 
             return "ok";
 
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string clienteId)
         {
             if (getLicenciasDisponibles().Count > 0)
             {
@@ -105,8 +105,7 @@ namespace Paramedic.Gestion.Web.Controllers
             else
             {
                 TempData["noMoreLicence"] = "No hay licencias disponibles para agregar";
-                var id = Url.RequestContext.RouteData.Values["ClienteID"];
-                return Redirect("/Clientes/Edit/" + id);
+                return RedirectToAction("Edit", "Clientes", new { id = clienteId });
             }
         }
 
@@ -177,13 +176,12 @@ namespace Paramedic.Gestion.Web.Controllers
 
         #region Private Methods
 
-        private void UpdateProductosModulosExc(string[] selectedModulos, ClientesLicenciasProducto cliLicProd)
+        private void UpdateProductosModulosAsignados(string[] selectedModulos, ClientesLicenciasProducto cliLicProd)
         {
             var licProdMod = _ClientesLicenciasProductoService.FindBy(x => x.Id == cliLicProd.Id).FirstOrDefault().ClientesLicenciasProductosModulos.ToList();
             
             if (selectedModulos == null)
             {
-
                 foreach (var lpm in licProdMod)
                 {
                     _ClientesLicenciasProductosModuloService.Delete(lpm);                    
@@ -203,10 +201,7 @@ namespace Paramedic.Gestion.Web.Controllers
                 {
                     if (!prodMod.Contains(modulo.Id))
                     {
-                        var cliLicProdMod = new ClientesLicenciasProductosModulo();
-                        cliLicProdMod.ClientesLicenciasProductoId = cliLicProd.Id;
-                        cliLicProdMod.ProductosModuloId = modulo.Id;
-                        _ClientesLicenciasProductosModuloService.Create(cliLicProdMod);
+                        _ClientesLicenciasProductosModuloService.Create(new ClientesLicenciasProductosModulo(cliLicProd.Id, modulo.Id));
                     }
                 }
                 else
@@ -219,36 +214,33 @@ namespace Paramedic.Gestion.Web.Controllers
                             .FirstOrDefault();
 
                         _ClientesLicenciasProductosModuloService.Delete(cliLicProdMod);
-
-                    }
-
+                   }
                 }
-
             }
 
             _ClientesLicenciasProductoService.Update(cliLicProd);
 
         }
 
-        private void LlenarProductosModulosExcluidos(IList<ProductosModulo> pMod, int clientesLicenciaId, int productoId)
+        private void LlenarProductosModulos(IList<ProductosModulo> pMod, int clientesLicenciaId, int productoId)
         {
             var allProductosModulos = pMod;
             ClientesLicencia cliLic = _ClientesLicenciaService.GetById(clientesLicenciaId);
             ClientesLicenciasProducto cliLicProd = cliLic.ClientesLicenciasProductos.FirstOrDefault(x => x.ProductoId == productoId);
 
-            var prodModExc = new HashSet<int>(cliLicProd.ClientesLicenciasProductosModulos.Select(p => p.ProductosModuloId));
-            var viewModel = new List<ModulosExcluidos>();
+            var prodModAsignados = new HashSet<int>(cliLicProd.ClientesLicenciasProductosModulos.Select(p => p.ProductosModuloId));
+            var viewModel = new List<ModulosAsignados>();
             foreach (var mod in allProductosModulos)
             {
-                viewModel.Add(new ModulosExcluidos
-                {
+                viewModel.Add(new ModulosAsignados
+				{
                     ProductoModuloID = mod.Id,
                     Descripcion = mod.Descripcion,
-                    Asignado = prodModExc.Contains(mod.Id)
+                    Asignado = prodModAsignados.Contains(mod.Id)
                 });
             }
 
-            ViewBag.ProdModExc = viewModel;
+            ViewBag.ProdModAsignados = viewModel;
 
         }
 
@@ -268,7 +260,16 @@ namespace Paramedic.Gestion.Web.Controllers
                         cliLicProd.ProductoId = prod.Id;
                         cliLicProd.ClientesLicenciaId = licenciaToUpdate.Id;
                         _ClientesLicenciasProductoService.Create(cliLicProd);
-                    }
+						ICollection<ProductosModulo> productosModulos =
+							_ProductoService
+							.GetById(prod.Id)
+							.ProductosModulos;
+							
+						foreach(ProductosModulo mod in productosModulos)
+						{
+							_ClientesLicenciasProductosModuloService.Create(new ClientesLicenciasProductosModulo(cliLicProd.Id, mod.Id));
+						}
+					}
                 }
                 else
                 {
@@ -280,11 +281,14 @@ namespace Paramedic.Gestion.Web.Controllers
 						for (int i = cliLicProd.ClientesLicenciasProductosModulos.Count - 1; i >= 0; i--)
 						{
 							var mod = cliLicProd.ClientesLicenciasProductosModulos.ElementAt(i);
-							var hist = mod.Historial;
-							for (int j = hist.Count - 1; i >= 0; i--)
+							if (mod.Historial.Count > 0)
 							{
-								_HistorialService.Delete(hist[j]);
+								for (int j = mod.Historial.Count - 1; i >= 0; i--)
+								{
+									_HistorialService.Delete(mod.Historial[j]);
+								}
 							}
+
 							_ClientesLicenciasProductosModuloService.Delete(mod);
 						}
 

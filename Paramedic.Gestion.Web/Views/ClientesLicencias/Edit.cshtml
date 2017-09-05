@@ -1,4 +1,5 @@
-﻿@model Paramedic.Gestion.Model.ClientesLicencia
+﻿@using Paramedic.Gestion.Web.ViewModels
+@model Paramedic.Gestion.Model.ClientesLicencia
 
 @using (Html.BeginForm())
 {
@@ -9,7 +10,7 @@
 
 	@Html.Partial("_Form", Model)
 
-	List<Gestion.ViewModels.ProductosAsignados> prodAsig = ViewBag.Productos;
+	List<ProductosAsignados> prodAsig = ViewBag.Productos;
 	<div class="container">
 		<div class="col-xs-6 col-xs-offset-3">
 			<div class="widget">
@@ -30,15 +31,14 @@
 								@prod.Descripcion
 							</label>
 
-
-							<a href="@Url.Action("GetModExcluidos","ClientesLicencias",
+							<a href="@Url.Action("GetModAsignados","ClientesLicencias",
                                     new {
                                         clientesLicenciaId = Model.Id,
                                         productoId = @prod.ProductoID
                                     })"
-							   class="modExcluidos col-xs-1"
+							   class="modAsignados col-xs-1"
 							   data-gestion-setmode
-							   data-gestion-setmodexc="@Url.Action("SetModExcluidos","ClientesLicencias",
+							   data-gestion-setmodasignados="@Url.Action("SetModAsignados","ClientesLicencias",
                                  new {
                                         clientesLicenciaId = Model.Id,
                                         productoId = @prod.ProductoID

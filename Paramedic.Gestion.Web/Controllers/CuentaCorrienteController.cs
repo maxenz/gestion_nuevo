@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
-using Gestion.ViewModels;
+using Paramedic.Gestion.Web.ViewModels;
 using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 

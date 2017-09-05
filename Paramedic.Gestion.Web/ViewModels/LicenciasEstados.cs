@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Gestion.ViewModels
+namespace Paramedic.Gestion.Web.ViewModels
 {
     public class LicenciasEstados
     {
         public int ID { get; set; }
-        public String Estado { get; set; }
-        public String Productos { get; set; }
-        public String Serial { get; set; }
-        public String NumeroLlave { get; set; }
+        public string Estado { get; set; }
+        public string Productos { get; set; }
+        public string Serial { get; set; }
+        public string NumeroLlave { get; set; }
     }
 }

@@ -1,0 +1,8 @@
+2017-08-31 12:58:29.917 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com
+2017-08-31 13:52:36.368 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com
+2017-08-31 13:59:06.167 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com
+2017-08-31 14:55:09.157 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com
+2017-08-31 15:02:00.478 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com
+2017-08-31 15:35:11.021 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com
+2017-08-31 16:18:34.756 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com
+2017-08-31 16:18:47.927 -03:00 [Information] Se envió un mail a maximilianopoggio@gmail.com

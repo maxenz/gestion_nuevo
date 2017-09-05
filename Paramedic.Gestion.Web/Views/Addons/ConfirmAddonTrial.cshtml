@@ -9,12 +9,14 @@
 	@Html.HiddenFor(x => x.ProductosModulosIntentoId)
 	@Html.HiddenFor(x => x.FechaVencimiento)
 
-	<div class="col-xs-6 col-xs-offset-3">
-		<div class="alert alert-warning height-100-px" role="alert">
-			<div class="col-xs-12 margin-bottom-20"><strong><i class="fa fa-exclamation-circle margin-right-10"></i>Confirma que desea iniciar el trial del módulo @Model.ProductosModulosIntento.ProductosModulo.DescripcionAddon por @Model.ProductosModulosIntento.Dias días?</strong></div>
-			<div class="float-right">
-				<button type="submit" class="btn btn-warning btn-outline">Aceptar</button>
-				<a href="@Url.Action("CancelAddonTrial")" class="btn btn-danger btn-outline">Cancelar</a>
+	<div class="col-xs-6 col-sm-offset-3 confirm-trial-container">
+		<div class="alert" role="alert">
+			<div class="col-xs-12 trial-message"><strong><i class="fa fa-exclamation-circle margin-right-10"></i>Confirma que desea iniciar el trial del módulo @Model.ProductosModulosIntento.ProductosModulo.Descripcion por @Model.ProductosModulosIntento.Dias días?</strong></div>
+			<div class="float-right trial-buttons">
+				<button type="submit" class="btn btn-success btn-outline">Aceptar</button>
+				<a href="" class="btn btn-default" onclick="window.history.back()">
+					Volver
+				</a>
 			</div>
 		</div>
 	</div>

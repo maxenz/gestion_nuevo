@@ -101,6 +101,7 @@
     <Compile Include="Enums\ClientType.cs" />
     <Compile Include="Enums\GestionType.cs" />
     <Compile Include="Enums\LicenciasLogType.cs" />
+    <Compile Include="Enums\LicenseModuleStatusType.cs" />
     <Compile Include="Enums\LoggingTypes.cs" />
     <Compile Include="Enums\SocialMediaTypes.cs" />
     <Compile Include="Enums\TicketEstadoType.cs" />

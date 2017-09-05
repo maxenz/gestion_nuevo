@@ -86,7 +86,11 @@ namespace Paramedic.Gestion.Service
 			ClientesLicencia cliLic = _clientesLicenciaRepo.FindBy(x => x.Licencia.Serial == license).FirstOrDefault();
 			if (cliLic != null)
 			{
-				return cliLic.ClientesLicenciasProductos.SelectMany(x => x.ClientesLicenciasProductosModulos).ToList();
+				return cliLic
+					.ClientesLicenciasProductos
+					.SelectMany(x => x.ClientesLicenciasProductosModulos)
+					.Where(x => x.Historial.Count == 0)
+					.ToList();
 			}
 
 			return null;

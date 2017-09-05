@@ -355,6 +355,10 @@
     <Compile Include="Migrations\201706141837561_AddTituloToNoticia.Designer.cs">
       <DependentUpon>201706141837561_AddTituloToNoticia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708151558263_LicenseModuleStatusType.cs" />
+    <Compile Include="Migrations\201708151558263_LicenseModuleStatusType.Designer.cs">
+      <DependentUpon>201708151558263_LicenseModuleStatusType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -377,7 +381,7 @@
     <Compile Include="ViewModels\MailSocialServiceViewModel.cs" />
     <Compile Include="ViewModels\MapaViewModel.cs" />
     <Compile Include="ViewModels\LicenciasLogViewModel.cs" />
-    <Compile Include="ViewModels\ModulosExcluidos.cs" />
+    <Compile Include="ViewModels\ModulosAsignados.cs" />
     <Compile Include="ViewModels\LicenciasEstados.cs" />
     <Compile Include="ViewModels\ProductosAsignados.cs" />
     <Compile Include="ViewModels\SocialServicesViewModel.cs" />
@@ -517,6 +521,10 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\toastr\toastr.css" />
+    <Content Include="Content\toastr\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="font\fontawesome-webfont.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -657,6 +665,10 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="Content\toastr\toastr.less" />
+    <Content Include="Content\toastr\toastr.scss" />
     <None Include="Properties\PublishProfiles\Maxo.pubxml" />
     <Content Include="img\body-bg.png" />
     <Content Include="img\glyphicons-halflings-white.html" />
@@ -823,6 +835,8 @@
     <Content Include="Scripts\template_scripts\js\jquery-1.7.2.min.js" />
     <Content Include="Scripts\template_scripts\js\jquery.blockUI.js" />
     <Content Include="Scripts\template_scripts\js\login.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\users.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
@@ -946,7 +960,7 @@
     <Content Include="Views\ClientesLicencias\_ClientesLicencias.cshtml" />
     <Content Include="Views\ClientesLicencias\_Form.cshtml" />
     <Content Include="Views\ClientesLicencias\_Header.cshtml" />
-    <Content Include="Views\ClientesLicencias\_ModulosExcluidos.cshtml" />
+    <Content Include="Views\ClientesLicencias\_ModulosAsignados.cshtml" />
     <Content Include="Views\LicenciasLogs\Index.cshtml" />
     <Content Include="Views\LicenciasLogs\_Logs.cshtml" />
     <Content Include="Views\Clientes\_BottomForm.cshtml" />
@@ -1058,6 +1072,7 @@
     <Content Include="Views\Noticias\Index.cshtml" />
     <Content Include="Views\Addons\ConfirmAddonTrial.cshtml" />
     <Content Include="Views\Addons\SuccessAddonTrial.cshtml" />
+    <Content Include="Views\Addons\_AddonsTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1171,6 +1186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706141837561_AddTituloToNoticia.resx">
       <DependentUpon>201706141837561_AddTituloToNoticia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708151558263_LicenseModuleStatusType.resx">
+      <DependentUpon>201708151558263_LicenseModuleStatusType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -183,22 +183,22 @@ $(function () {
         });
     }
 
-    // Obtengo un vector con todos los modulos excluidos
-    function getModulosExcluidos() {
+    // Obtengo un vector con todos los modulos asignados
+    function getModulosAsignados() {
 
-        var vModExc = [];
+        var vModAsignados = [];
         $checkboxes = $('#modulosList > div.row > label > input:checked');
 
         for (var i = 0; i < $checkboxes.length; i++) {
-            vModExc.push($checkboxes[i].id);
+        	vModAsignados.push($checkboxes[i].id);
         }
 
-        return vModExc;
+        return vModAsignados;
 
     }
 
-    //Seteo via ajax los modulos excluidos de un producto.
-    function setModulosExcluidos($a) {
+    //Seteo via ajax los modulos asignados de un producto.
+    function setModulosAsignados($a) {
 
         var $url = $a.attr("href");
 
@@ -208,25 +208,25 @@ $(function () {
             success: function (data) {
                 bootbox.dialog({
                     message: data,
-                    title: "Seleccione módulos a excluir",
+                    title: "Seleccione módulos a asignar",
                     buttons: {
                         danger: {
                             label: "Aceptar",
                             className: "btn-danger",
                             callback: function () {
-                                var $url = $a.attr("data-gestion-setModExc");
-                                var $modExc = getModulosExcluidos();
+                                var $url = $a.attr("data-gestion-setModAsignados");
+                                var $modAsignados = getModulosAsignados();
                                 $.ajax({
                                     url: $url,
                                     datatype: "json",
                                     traditional: true,
-                                    data: { 'vModExc': $modExc },
+                                    data: { 'vModAsignados': $modAsignados },
                                     type: 'POST',
                                     success: function (data) {
-
+                                    	toastr.success('Los módulos del producto se actualizaron correctamente.');
                                     },
                                     error: function (error) {
-                                        alert(error.statusText);
+                                    	toastr.error('Los módulos del producto no pudieron actualizarse. Intente nuevamente.');
                                     }
                                 });
                             }
@@ -325,11 +325,11 @@ $(function () {
 
     });
 
-    $(document).on('click', '.modExcluidos', function () {
+    $(document).on('click', '.modAsignados', function () {
 
         var $a = $(this);
 
-        setModulosExcluidos($a);
+        setModulosAsignados($a);
 
         return false;
 

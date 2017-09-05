@@ -1,10 +1,11 @@
-﻿@model IList<Paramedic.Gestion.Model.ProductosModulo>
+﻿@using Paramedic.Gestion.Web.ViewModels
+@model IList<Paramedic.Gestion.Model.ProductosModulo>
 
 <div id="modulosList">
 
 	@{
-		List<Gestion.ViewModels.ModulosExcluidos> modExc = ViewBag.ProdModExc;
-		foreach (var mod in modExc)
+		List<ModulosAsignados> modAsignados = ViewBag.ProdModAsignados;
+		foreach (var mod in modAsignados)
 		{
 			<div class="row">
 				<label>

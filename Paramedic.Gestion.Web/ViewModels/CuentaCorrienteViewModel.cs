@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 
-namespace Gestion.ViewModels
+namespace Paramedic.Gestion.Web.ViewModels
 {
     public class CuentaCorrienteViewModel
     {

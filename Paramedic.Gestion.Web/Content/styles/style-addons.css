@@ -54,7 +54,7 @@ body {
 
 .news-body {
 	background-color: #fff;
-	height: 150px;
+	height: 160px;
 }
 
 .col-news {
@@ -84,15 +84,56 @@ body {
 	}
 
 #addonsModulesBody {
-	height: 150px;
+	height: 160px;
 	background-color: #fff;
 	padding: 10px;
+	overflow-x:hidden;
+	overflow-y:auto;
 }
 
 img {
 	width: 16px;
 	height: 16px;
 	margin-right: 5px;
+}
+
+.font-size-12 {
+	font-size:12px;
+}
+
+.confirm-trial-container {
+	margin-top:5px;
+}
+
+.confirm-trial-container > div.alert {
+	background-color:#fff;
+	color:#8bc541;
+	border:5px solid #8bc541;
+	height:120px;
+}
+
+.trial-message {
+	font-size:16px;
+	height:55px;
+}
+
+.trial-buttons {
+	float:right;
+}
+
+.btn-success {
+	background-color:#8bc541;
+	border-color:#8bc541;
+}
+
+.btn-success:hover {
+	background-color:#8bc541;
+	opacity:0.7;
+	border-color:#8bc541;
+}
+
+.margin-right-10 {
+	margin-right:10px;
 }
 
 #moduleContainer {
@@ -102,6 +143,7 @@ img {
 	margin-bottom: 5px;
 	padding: 5px;
 	cursor:pointer;
+	text-align:center;
 }
 
 #moduleContainer:hover {

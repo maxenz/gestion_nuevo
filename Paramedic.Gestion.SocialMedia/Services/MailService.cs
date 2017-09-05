@@ -96,7 +96,7 @@ namespace SocialMedia.Services
                    new System.Net.NetworkCredential(msg.MailConfiguration.SenderMail, msg.MailConfiguration.SenderPassword);
                 smtpClient.Credentials = credentials;
                 smtpClient.Send(mailMsg);
-                LoggingService.Instance.Write(LoggingTypes.Information, string.Format("Se envió un mail de ticket a {0}", mailMsg.To));
+                LoggingService.Instance.Write(LoggingTypes.Information, string.Format("Se envió un mail a {0}", mailMsg.To));
             }
             catch (Exception ex)
             {

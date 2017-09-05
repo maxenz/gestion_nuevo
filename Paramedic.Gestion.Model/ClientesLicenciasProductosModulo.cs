@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Paramedic.Gestion.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema; 
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Paramedic.Gestion.Model
 {
@@ -16,10 +17,15 @@ namespace Paramedic.Gestion.Model
         [Required]
         public int ProductosModuloId { get; set; }
 
-        [ForeignKey("ClientesLicenciasProductoId")]
+		public LicenseModuleStatusType LicenseModuleStatusType { get; set; }
+
+		[ForeignKey("ClientesLicenciasProductoId")]
 		public virtual ClientesLicenciasProducto ClientesLicenciasProducto { get; set; }
 
 		public virtual List<ClientesLicenciasProductosModulosHistorial> Historial { get; set; }
+
+		[ForeignKey("ProductosModuloId")]
+		public virtual ProductosModulo ProductosModulo { get; set; }
 
 		#endregion
 
@@ -28,6 +34,12 @@ namespace Paramedic.Gestion.Model
 		public ClientesLicenciasProductosModulo()
 		{
 			this.Historial = new List<ClientesLicenciasProductosModulosHistorial>();
+		}
+
+		public ClientesLicenciasProductosModulo(int clientesLicenciasProductoId, int productosModuloId) : this()
+		{
+			this.ClientesLicenciasProductoId = clientesLicenciasProductoId;
+			this.ProductosModuloId = productosModuloId;
 		}
 
 		#endregion

@@ -2195,3 +2195,19 @@ div.row > select.sel-filter {
 .margin-bottom-20 {
 	margin-bottom:20px;
 }
+
+table.fixed {
+	table-layout:fixed;
+	font-size:12px;
+}
+
+table.fixed td {
+	overflow:hidden;
+	white-space:nowrap;
+}
+
+div.pagedList.centered.clientes > .pagination-container > .pagination {
+
+	margin:10px;
+
+}
