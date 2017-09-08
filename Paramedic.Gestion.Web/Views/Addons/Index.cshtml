@@ -13,7 +13,7 @@
 							<div class="title">@HtmlHelpers.Truncate(@noticia.Titulo, 30)</div>
 						</div>
 						<div class="news-body">
-							<span class="badge badge-date">@String.Format("{0} de {1}", @noticia.FechaVencimiento.Day, @noticia.FechaVencimiento.ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).Substring(0, 3))</span>
+							<span class="badge badge-date">@String.Format("{0} de {1}", @noticia.CreatedDate.Day, @noticia.CreatedDate.ToString("MMMM", CultureInfo.CreateSpecificCulture("es")).Substring(0, 3))</span>
 							<p class="description">@HtmlHelpers.Truncate(@noticia.Descripcion, 170) </p>
 						</div>
 					</div>

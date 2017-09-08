@@ -1,17 +1,20 @@
-﻿@model Paramedic.Gestion.Model.ClientesLicenciasProductosModulosHistorial
+﻿@model Paramedic.Gestion.Web.ViewModels.AddonHistorialViewModel
 
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
 	@Html.ValidationSummary(true)
 
-	@Html.HiddenFor(x => x.ClientesLicenciasProductosModuloId)
+	@Html.HiddenFor(x => x.ClientesLicenciasProductoId)
 	@Html.HiddenFor(x => x.ProductosModulosIntentoId)
-	@Html.HiddenFor(x => x.FechaVencimiento)
+	@Html.HiddenFor(x => x.ProductosModuloId)
+	@Html.HiddenFor(x => x.ModuloDescripcion)
+	@Html.HiddenFor(x => x.TrialCantidadDias)
+	@Html.HiddenFor(x => x.LicenseSerial)
 
 	<div class="col-xs-6 col-sm-offset-3 confirm-trial-container">
 		<div class="alert" role="alert">
-			<div class="col-xs-12 trial-message"><strong><i class="fa fa-exclamation-circle margin-right-10"></i>Confirma que desea iniciar el trial del módulo @Model.ProductosModulosIntento.ProductosModulo.Descripcion por @Model.ProductosModulosIntento.Dias días?</strong></div>
+			<div class="col-xs-12 trial-message"><strong><i class="fa fa-exclamation-circle margin-right-10"></i>Confirma que desea iniciar el trial del módulo @Model.ModuloDescripcion por @Model.TrialCantidadDias días?</strong></div>
 			<div class="float-right trial-buttons">
 				<button type="submit" class="btn btn-success btn-outline">Aceptar</button>
 				<a href="" class="btn btn-default" onclick="window.history.back()">
@@ -20,6 +23,5 @@
 			</div>
 		</div>
 	</div>
-
 }
 

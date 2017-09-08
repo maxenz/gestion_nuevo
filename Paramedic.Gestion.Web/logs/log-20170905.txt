@@ -1,0 +1,2 @@
+2017-09-05 23:30:38.452 -03:00 [Error] Failure sending mail.
+2017-09-05 23:32:38.498 -03:00 [Error] Failure sending mail.

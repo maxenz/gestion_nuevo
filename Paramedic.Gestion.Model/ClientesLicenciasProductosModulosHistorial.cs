@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Script.Serialization;
 
 namespace Paramedic.Gestion.Model
 {
@@ -12,6 +13,7 @@ namespace Paramedic.Gestion.Model
 
 		public int ClientesLicenciasProductosModuloId { get; set; }
 
+		[ScriptIgnore(ApplyToOverrides = true)]
 		[ForeignKey("ClientesLicenciasProductosModuloId")]
 		public virtual ClientesLicenciasProductosModulo ClientesLicenciasProductosModulo { get; set; }
 
@@ -21,9 +23,11 @@ namespace Paramedic.Gestion.Model
 
 		public int ProductosModulosIntentoId { get; set; }
 
+		[ScriptIgnore(ApplyToOverrides = true)]
 		[ForeignKey("ProductosModulosIntentoId")]
 		public virtual ProductosModulosIntento ProductosModulosIntento { get; set; }
 
+		[ScriptIgnore(ApplyToOverrides = true)]
 		[Display(Name = "Estado")]
 		public virtual TrialStateType Estado
 		{
@@ -33,6 +37,7 @@ namespace Paramedic.Gestion.Model
 			}
 		}
 
+		[ScriptIgnore(ApplyToOverrides = true)]
 		[Display(Name = "Días restantes")]
 		public virtual double DiasRestantes
 		{

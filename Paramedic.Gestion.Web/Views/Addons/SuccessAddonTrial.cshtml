@@ -1,10 +1,10 @@
-﻿@model Paramedic.Gestion.Model.ClientesLicenciasProductosModulosHistorial
+﻿@model Paramedic.Gestion.Web.ViewModels.AddonHistorialViewModel
 
 <div class="col-xs-6 col-sm-offset-3 confirm-trial-container">
 	<div class="alert" role="alert">
-		<div class="col-xs-12 trial-message"><strong><i class="fa fa-check-circle margin-right-10"></i>Se ha iniciado el trial del módulo por @Model.DiasRestantes días. </strong></div>
+		<div class="col-xs-12 trial-message"><strong><i class="fa fa-check-circle margin-right-10"></i>Se ha iniciado el trial del módulo por @Model.TrialCantidadDias días. </strong></div>
 		<div class="float-right trial-buttons">
-			<button  class="btn btn-success btn-outline" onclick="location.href='@Url.Action("Index", "Addons", new { license = @Model.ClientesLicenciasProductosModulo.ClientesLicenciasProducto.ClientesLicencia.Licencia.Serial })'" >Volver </button>
+			<button  class="btn btn-success btn-outline" onclick="location.href='@Url.Action("Index", "Addons", new { license = @Model.LicenseSerial })'" >Volver </button>
 		</div>
 	</div>
 </div>

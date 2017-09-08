@@ -9,6 +9,6 @@ namespace Paramedic.Gestion.Service
 
 		ClientesLicenciasProductosModulosHistorial GetAddonHistorial(string license, int prodModId);
 
-		List<ClientesLicenciasProductosModulo> GetProductosModulosForAddon(string licencia);
+		IEnumerable<ProductosModulo> GetProductosModulosForAddon(string licencia);
 	}
 }

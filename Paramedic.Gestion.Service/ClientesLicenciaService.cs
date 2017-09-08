@@ -81,16 +81,23 @@ namespace Paramedic.Gestion.Service
 			return null;
 		}
 
-		public List<ClientesLicenciasProductosModulo> GetProductosModulosForAddon(string license)
+		public IEnumerable<ProductosModulo> GetProductosModulosForAddon(string license)
 		{
 			ClientesLicencia cliLic = _clientesLicenciaRepo.FindBy(x => x.Licencia.Serial == license).FirstOrDefault();
+			IEnumerable<ProductosModulo> allModules = _prodModRepo
+				.GetAll()
+				.Where(x => cliLic.ClientesLicenciasProductos.Select(p => p.ProductoId)
+				.Contains(x.ProductoId));
+
+			IEnumerable<ProductosModulo> availableModules = null;
 			if (cliLic != null)
 			{
-				return cliLic
+				availableModules = cliLic
 					.ClientesLicenciasProductos
 					.SelectMany(x => x.ClientesLicenciasProductosModulos)
-					.Where(x => x.Historial.Count == 0)
-					.ToList();
+					.Select(x => x.ProductosModulo);
+
+				return allModules.Except(availableModules);
 			}
 
 			return null;

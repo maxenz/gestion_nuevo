@@ -23,7 +23,7 @@ namespace Paramedic.Gestion.Repository
 		public IEnumerable<Noticia> GetNoticiasNoVencidas()
 		{
 			var now = DateTime.Now.Date;
-			return _dbset.Where(x => now <= DbFunctions.TruncateTime(x.FechaVencimiento)).OrderByDescending(x => x.FechaVencimiento);
+			return _dbset.Where(x => now <= DbFunctions.TruncateTime(x.FechaVencimiento)).OrderBy(x => x.CreatedDate);
 		}
 
 		#endregion

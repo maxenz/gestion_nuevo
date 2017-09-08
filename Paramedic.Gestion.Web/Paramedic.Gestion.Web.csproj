@@ -374,6 +374,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AddonHistorialViewModel.cs" />
     <Compile Include="ViewModels\AddonsViewModel.cs" />
     <Compile Include="ViewModels\ClientesGestionViewModel.cs" />
     <Compile Include="ViewModels\ClienteViewModel.cs" />
