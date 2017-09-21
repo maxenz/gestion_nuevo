@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Paramedic.Gestion.Service
 {
@@ -18,6 +19,11 @@ namespace Paramedic.Gestion.Service
 		{
 			_unitOfWork = unitOfWork;
 			_repo = repo;
+		}
+
+		public IEnumerable<ProductosModulosIntento> GetIntentosByProductoModuloId(int prodModId)
+		{
+			return _repo.FindBy(x => x.ProductosModuloId == prodModId).OrderBy(x => x.Orden);
 		}
 	}
 }

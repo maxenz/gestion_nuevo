@@ -1074,6 +1074,7 @@
     <Content Include="Views\Addons\ConfirmAddonTrial.cshtml" />
     <Content Include="Views\Addons\SuccessAddonTrial.cshtml" />
     <Content Include="Views\Addons\_AddonsTemplate.cshtml" />
+    <Content Include="Views\Addons\NoIntentoConfigured.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -52,7 +52,7 @@ namespace Paramedic.Gestion.Web.Controllers
 
 		public ActionResult Index(string license)
 		{
-			IEnumerable<ProductosModulo> modulos =_ClientesLicenciaService.GetProductosModulosForAddon(license);
+			IEnumerable<ProductosModulo> modulos = _ClientesLicenciaService.GetProductosModulosForAddon(license);
 			IEnumerable<Noticia> noticias = _NoticiaService.GetNoticiasNoVencidas();
 			AddonsViewModel vm = new AddonsViewModel(noticias, modulos, license);
 
@@ -60,10 +60,15 @@ namespace Paramedic.Gestion.Web.Controllers
 		}
 
 		public ActionResult ConfirmAddonTrial(string license, int prodModId)
-		{			
+		{
 			try
 			{
-				ProductosModulosIntento intento = _ProductosModulosIntentoService.GetById(prodModId);
+				ProductosModulosIntento intento = _ProductosModulosIntentoService.GetIntentosByProductoModuloId(prodModId).FirstOrDefault();
+
+				if (intento == null)
+				{
+					return View("NoIntentoConfigured", "_AddonsTemplate");
+				}
 
 				ClientesLicencia clientesLicencia = _ClientesLicenciaService
 					.FindBy(x => x.Licencia.Serial == license)
@@ -72,15 +77,11 @@ namespace Paramedic.Gestion.Web.Controllers
 				ClientesLicenciasProducto cliLicProd = _ClientesLicenciasProductoService
 					.FindBy(x => x.ClientesLicenciaId == clientesLicencia.Id && x.ProductoId == intento.ProductosModulo.ProductoId)
 					.FirstOrDefault();
-						
-				AddonHistorialViewModel vm = new AddonHistorialViewModel(intento, cliLicProd, prodModId);		
-				
-				if (intento != null)
-				{
-					return View("ConfirmAddonTrial", "_AddonsTemplate", vm);
-				}
 
-				return HttpNotFound();
+				AddonHistorialViewModel vm = new AddonHistorialViewModel(intento, cliLicProd, prodModId);
+
+				return View("ConfirmAddonTrial", "_AddonsTemplate", vm);
+
 			}
 
 			catch
@@ -110,7 +111,7 @@ namespace Paramedic.Gestion.Web.Controllers
 					prod.Producto.Descripcion);
 				Message message = new EmailMessage(body, from, to, "Nuevo trial");
 				MailService.Instance.Send(message);
-				return View("SuccessAddonTrial","_AddonsTemplate", vm);
+				return View("SuccessAddonTrial", "_AddonsTemplate", vm);
 			}
 
 			catch (Exception ex)
