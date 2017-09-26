@@ -63,6 +63,7 @@ namespace Paramedic.Gestion.Web.Controllers
 		{
 			try
 			{
+				ViewBag.License = license;
 				ProductosModulosIntento intento = _ProductosModulosIntentoService.GetIntentosByProductoModuloId(prodModId).FirstOrDefault();
 
 				if (intento == null)
