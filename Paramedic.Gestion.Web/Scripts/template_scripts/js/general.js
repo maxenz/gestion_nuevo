@@ -164,9 +164,10 @@ $(function () {
 								var target = $a.attr("data-gestion-target");
 								$(target).replaceWith(data);
 								$.unblockUI();
+								toastr.success("El registro fue eliminado correctamente.");
 							},
 							error: function (error) {
-								alert(error.responseText);
+								toastr.error("Error al intentar eliminar el registro: " + error.responseText);
 								$.unblockUI();
 							}
 						});

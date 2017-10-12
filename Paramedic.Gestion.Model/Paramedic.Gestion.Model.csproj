@@ -108,6 +108,7 @@
     <Compile Include="Enums\TicketEstadoType.cs" />
     <Compile Include="Enums\TicketEventoType.cs" />
     <Compile Include="Enums\TrialStateType.cs" />
+    <Compile Include="Enums\VencimientoType.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GenericRequired.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="TipoTerminal.cs" />
     <Compile Include="UserProfile.cs" />
     <Compile Include="UserProfileEmail.cs" />
+    <Compile Include="VencimientosQueryControllerParametersDTO.cs" />
     <Compile Include="Video.cs" />
     <Compile Include="VideosCliente.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using Paramedic.Gestion.Model;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -8,10 +9,12 @@ namespace Paramedic.Gestion.Repository
 	{
 		#region Constructors
 
+		public DbContext Context { get; set; }
+
 		public ClientesLicenciaRepository(DbContext context)
 	: base(context)
 		{
-
+			this.Context = context;
 		}
 
 		#endregion
@@ -21,6 +24,7 @@ namespace Paramedic.Gestion.Repository
 		public ClientesLicencia GetById(int id)
 		{
 			return _dbset.Include(x => x.ClientesLicenciasProductos).FirstOrDefault(x => x.Id == id);
+			
 		}
 
 		public ClientesLicencia GetByLicenseNumber(string license)

@@ -1,0 +1,47 @@
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Web.ViewModels.Vencimiento>
+@using PagedList.Mvc;
+@using Paramedic.Gestion.Model.Enums;
+
+<div id="vencimientosList">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+			<div class="widget widget-table action-table" style="margin-bottom:5px">
+				<div class="widget-header">
+					<h3>Vencimientos</h3>
+				</div>
+
+				<div class="widget-content">
+					<table class="table table-striped table-bordered fixed">
+						<thead>
+							<tr>
+								<th class="col-xs-2">@Html.DisplayNameFor(model => model.First().FechaVencimiento) </th>
+								<th class="col-xs-3">@Html.DisplayNameFor(model => model.First().Descripcion)</th>
+								<th class="col-xs-5">@Html.DisplayNameFor(model => model.First().ClienteDescripcion) </th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@Html.DisplayFor(m => item.FechaVencimiento)
+									</td>
+									<td>
+										@Html.DisplayFor(m => item.Descripcion)
+									</td>
+									<td>
+										@Html.DisplayFor(m => item.ClienteDescripcion)
+									</td>
+
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pagedList centered" data-gestion-target="#vencimientosList">
+		@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+	</div>
+</div>

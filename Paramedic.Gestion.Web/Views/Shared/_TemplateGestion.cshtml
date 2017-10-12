@@ -52,7 +52,15 @@
                             @if (User.IsInRole("Administrador"))
                             {
                                 @Html.Action("Recontacto", "Home")
-                            }
+								<li>
+									<a href="@Url.Action("Index", "Vencimientos")">
+										<i class="fa fa-calendar-times-o fa-2x">
+											@*<span class="label">@Model.Count()</span>*@
+										</i>
+										<p>Vencimientos</p>
+									</a>
+								</li>
+							}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-user fa-2x"></i>

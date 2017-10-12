@@ -1,8 +1,11 @@
-﻿using Paramedic.Gestion.Model;
+﻿using LinqKit;
+using Paramedic.Gestion.Model;
 using Paramedic.Gestion.Repository;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Paramedic.Gestion.Service
 {
@@ -102,6 +105,37 @@ namespace Paramedic.Gestion.Service
 
 			return null;
 
+		}
+
+		public void DeleteClientesLicencia(int id)
+		{
+			ClientesLicencia clientesLicencia = GetById(id);
+			List<ClientesLicenciasProducto> productos = clientesLicencia.ClientesLicenciasProductos.ToList();
+			List<ClientesLicenciasProductosModulo> modulos = productos.SelectMany(x => x.ClientesLicenciasProductosModulos).ToList();
+			List<ClientesLicenciasProductosModulosHistorial> historial = modulos.SelectMany(x => x.Historial).ToList();
+			historial.ForEach(s => _historialRepo.Delete(s));
+			modulos.ForEach(s => _clientesLicenciasProductosModuloRepo.Delete(s));
+			productos.ForEach(s => _clientesLicenciasProdRepo.Delete(s));
+			this.Delete(clientesLicencia);
+		}
+
+		public IEnumerable<ClientesLicencia> GetLicencias(VencimientosQueryControllerParametersDTO queryParameters)
+		{
+			var predicate = GetPredicateByConditions(queryParameters);
+
+			return FindByPage(predicate, "FechaDeVencimiento DESC", queryParameters.PageSize, queryParameters.Page);
+		}
+
+		public Expression<Func<ClientesLicencia, bool>> GetPredicateByConditions(VencimientosQueryControllerParametersDTO queryParameters)
+		{
+			var predicate = PredicateBuilder.New<ClientesLicencia>();
+
+			if (!string.IsNullOrEmpty(queryParameters.SearchDescription))
+			{
+				predicate = predicate.And(p => (p.Cliente.RazonSocial.Contains(queryParameters.SearchDescription)));
+			}
+
+			return predicate;
 		}
 
 		#endregion

@@ -38,7 +38,7 @@ namespace Paramedic.Gestion.Web.Controllers
             return PartialView("~/Views/Shared/_NotificacionRecontacto.cshtml", recontactos);
         }
 
-        public ActionResult Index()
+		public ActionResult Index()
         {
             if (User.IsInRole("Administrador"))
             {

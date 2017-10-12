@@ -170,7 +170,7 @@ namespace Paramedic.Gestion.Web.Controllers
 		public ActionResult DeleteConfirmed(int id)
 		{
 			ClientesLicencia clienteslicencia = _ClientesLicenciaService.GetById(id);
-			_ClientesLicenciaService.Delete(clienteslicencia);
+			_ClientesLicenciaService.DeleteClientesLicencia(id);		
 			return RedirectToAction("Index", routeValues: new { ClienteID = clienteslicencia.ClienteId });
 		}
 
@@ -178,10 +178,10 @@ namespace Paramedic.Gestion.Web.Controllers
 		[HttpGet]
 		public JsonResult GetExpiredLicenses()
 		{
-			DateTime now = DateTime.Now.Date;
+			DateTime dateToAlert = DateTime.Now.Date.AddDays(-20);
 			IEnumerable<ClientesLicencia> clientesLicencias = _ClientesLicenciaService
 				.GetAll()
-				.Where(x => x.FechaDeVencimiento.Date <= now)
+				.Where(x => x.FechaDeVencimiento.Date > dateToAlert)
 				.Where(x => (bool) (x.FechaDeVencimiento != SqlSmallDateTime.MinValue));
 			return Json(
 				clientesLicencias.Select(x => new
@@ -195,10 +195,10 @@ namespace Paramedic.Gestion.Web.Controllers
 		[HttpGet]
 		public JsonResult GetExpiredLicenseSupports()
 		{
-			DateTime now = DateTime.Now.Date;
+			DateTime dateToAlert = DateTime.Now.Date.AddDays(-20);
 			IEnumerable<ClientesLicencia> clientesLicencias = _ClientesLicenciaService
 				.GetAll()
-				.Where(x => (x.FechaVencimientoSoporte.Date <= now))
+				.Where(x => (x.FechaVencimientoSoporte.Date > dateToAlert))
 				.Where(x => (bool) (x.FechaVencimientoSoporte != SqlSmallDateTime.MinValue));
 			return Json(
 				clientesLicencias.Select(x => new
