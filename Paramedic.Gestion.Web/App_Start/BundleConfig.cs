@@ -8,34 +8,20 @@ namespace Gestion
 		// For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
 		public static void RegisterBundles(BundleCollection bundles)
 		{
-			bundles.Add(new ScriptBundle("~/bundles/AdminJs").Include(
-				  "~/Scripts/sbadmin/jquery-2.0.3.min.js",
-				  "~/Scripts/sbadmin/bootstrap.js",
-				  "~/Scripts/sbadmin/tablesorter/jquery.tablesorter.js",
-				  "~/Scripts/sbadmin/tables.js",
-				  "~/Scripts/sbadmin/bootbox.min.js",
-				  "~/Scripts/sbadmin/bootstrap-datepicker.js",
-				  "~/Scripts/sbadmin/jquery.fancybox.pack.js",
-				  "~/Scripts/sbadmin/bootstrap-select.min.js",
-				  "~/Scripts/sbadmin/messenger.min.js",
-				  "~/Scripts/sbadmin/messenger-theme-future.min.js",
-				  "~/Scripts/sbadmin/general.js"
-
-			 ));
-
 			bundles.Add(new ScriptBundle("~/bundles/libraries_js").Include(
 				"~/Scripts/template_scripts/js/jquery-1.7.2.min.js",
 				"~/Scripts/template_scripts/js/excanvas.min.js",
 				"~/Scripts/template_scripts/js/bootstrap.js",
 				"~/Scripts/sbadmin/jquery.fancybox.pack.js",
 				"~/Scripts/sbadmin/bootbox.min.js",
-				"~/Scripts/sbadmin/bootstrap-datepicker.js",
 				"~/Scripts/sbadmin/bootstrap-select.min.js",
 				"~/Scripts/bootstrap-colorpicker.js",
 				"~/Scripts/sbadmin/messenger.min.js",
 				"~/Scripts/sbadmin/messenger-theme-future.min.js",
 				"~/Scripts/template_scripts/js/base.js",
 				"~/Scripts/template_scripts/js/jquery.blockUI.js",
+				"~/Scripts/jquery-ui.js",
+				"~/Scripts/datepicker-es.js",
 				"~/Scripts/toastr.js"
 
 
@@ -58,7 +44,7 @@ namespace Gestion
 					"~/Content/template_resources/css/bootstrap.css",
 					"~/Content/template_resources/css/tabs/*.css",
 					"~/Content/sbadmin/jquery.fancybox.css",
-					"~/Content/sbadmin/datepicker.css",
+					"~/Content/jquery-ui.css",
 					"~/Content/sbadmin/messenger.min.css",
 					"~/Content/sbadmin/messenger-theme-future.min.css",
 					"~/Content/bootstrap-colorpicker.css",
@@ -75,25 +61,6 @@ namespace Gestion
 			bundles.Add(new ScriptBundle("~/bundles/mapa").Include(
 						"~/Scripts/sbadmin/map.js"
 						));
-
-			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-						"~/Scripts/jquery-{version}.js",
-						"~/Scripts/bootstrap-datepicker.js",
-						"~/Scripts/bootstrap.js",
-						"~/Scripts/jquery.unobtrusive*",
-						"~/Scripts/jquery.validate*",
-						"~/Scripts/bootbox.min.js",
-						"~/Scripts/flatui-checkbox.js",
-						"~/Scripts/flatui-radio.js",
-						"~/Scripts/tagsinput.js",
-						"~/Scripts/jquery.placeholder.js",
-						"~/Scripts/gestion.js"));
-
-
-			// Use the development version of Modernizr to develop with and learn from. Then, when you're
-			// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-						"~/Scripts/modernizr-*"));
 
 			bundles.Add(new StyleBundle("~/Content/bootstrap/base").Include(
 						"~/Content/styles/flat-ui.css"));

@@ -113,6 +113,7 @@
     <Compile Include="GenericRequired.cs" />
     <Compile Include="Geopoint.cs" />
     <Compile Include="GestionContext.cs" />
+    <Compile Include="Helpers\SqlSmallDateTime.cs" />
     <Compile Include="IAuditableEntity.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Licencia.cs" />

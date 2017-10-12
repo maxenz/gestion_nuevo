@@ -82,7 +82,12 @@ namespace Paramedic.Gestion.Model
         [Display(Name = "Subdominio")]
         public int? SitioSubDominioId { get; set; }
 
-        public virtual Sitio SitioSubDominio { get; set; }
+		[DataType(DataType.Date)]
+		[Column(TypeName = "DateTime2")]
+		[Display(Name = "Fecha de vencimiento del soporte")]
+		public DateTime FechaVencimientoSoporte { get; set; }
+
+		public virtual Sitio SitioSubDominio { get; set; }
 
         public virtual Cliente Cliente { get; set; }
 

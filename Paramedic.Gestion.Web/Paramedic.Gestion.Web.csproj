@@ -359,6 +359,10 @@
     <Compile Include="Migrations\201708151558263_LicenseModuleStatusType.Designer.cs">
       <DependentUpon>201708151558263_LicenseModuleStatusType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710101958478_FechaDeVencimientoDeSoporte.cs" />
+    <Compile Include="Migrations\201710101958478_FechaDeVencimientoDeSoporte.Designer.cs">
+      <DependentUpon>201710101958478_FechaDeVencimientoDeSoporte.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
     <Compile Include="Modules\RepositoryModule.cs" />
@@ -399,14 +403,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-colorpicker.css" />
     <Content Include="Content\bootstrap-colorpicker.min.css" />
-    <Content Include="Content\bootstrap-datepicker.css" />
-    <Content Include="Content\bootstrap-datepicker.min.css" />
-    <Content Include="Content\bootstrap-datepicker.standalone.css" />
-    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
-    <Content Include="Content\bootstrap-datepicker3.css" />
-    <Content Include="Content\bootstrap-datepicker3.min.css" />
-    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
-    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -433,6 +429,7 @@
     <Content Include="Content\images\productosmodulos\modulo_moviles.png" />
     <Content Include="Content\images\productosmodulos\modulo_panel_operativo.png" />
     <Content Include="Content\images\productosmodulos\modulo_prestadores.png" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\sbadmin\blank.gif" />
     <Content Include="Content\sbadmin\fancybox_loading%402x.gif" />
     <Content Include="Content\sbadmin\fancybox_loading.gif" />
@@ -574,14 +571,6 @@
     <Content Include="font\FontAwesome.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\bootstrap-datepicker3.standalone.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker3.standalone.css.map" />
-    <Content Include="Content\bootstrap-datepicker3.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker3.css.map" />
-    <Content Include="Content\bootstrap-datepicker.standalone.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
-    <Content Include="Content\bootstrap-datepicker.min.css.map" />
-    <Content Include="Content\bootstrap-datepicker.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -657,8 +646,6 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
-    <Content Include="Content\_bootstrap-datetimepicker.less" />
-    <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\bootstrap-colorpicker.css.map" />
     <Content Include="Content\bootstrap-colorpicker.min.css.map" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
@@ -692,10 +679,6 @@
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-colorpicker.js" />
     <Content Include="Scripts\bootstrap-colorpicker.min.js" />
-    <Content Include="Scripts\bootstrap-datepicker.js" />
-    <Content Include="Scripts\bootstrap-datepicker.min.js" />
-    <Content Include="Scripts\bootstrap-datetimepicker.js" />
-    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -711,6 +694,7 @@
     <Content Include="Scripts\jquery-migrate-3.0.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\jquery.tagsinput.js" />
     <Content Include="Scripts\jquery.ui.touch-punch.min.js" />
@@ -798,7 +782,6 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\sbadmin\bootbox.min.js" />
-    <Content Include="Scripts\sbadmin\bootstrap-datepicker.js" />
     <Content Include="Scripts\sbadmin\bootstrap-select.min.js" />
     <Content Include="Scripts\sbadmin\bootstrap.js" />
     <Content Include="Scripts\sbadmin\flot\chart-data-flot.js" />
@@ -1191,6 +1174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708151558263_LicenseModuleStatusType.resx">
       <DependentUpon>201708151558263_LicenseModuleStatusType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710101958478_FechaDeVencimientoDeSoporte.resx">
+      <DependentUpon>201710101958478_FechaDeVencimientoDeSoporte.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

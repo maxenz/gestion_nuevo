@@ -1,8 +1,9 @@
-﻿@model IList<Paramedic.Gestion.Model.ClientesLicencia>
+﻿@using Paramedic.Gestion.Model.Helpers
+@model IList<Paramedic.Gestion.Model.ClientesLicencia>
 
 <div id="clientesLicenciasList">
     <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
+        <div class="col-xs-12">
             <table class="table table-hover table-striped table-bordered tableIndex">
                 <thead>
                     <tr>
@@ -21,14 +22,16 @@
                         <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().CnnPassword)
                         </th>
-                        <th class="col-xs-2 centrado">
+                        <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().ConexionServidor.Url)
                         </th>
                         <th class="col-xs-1 centrado">
                             @Html.DisplayNameFor(model => model.First().FechaDeVencimiento)
                         </th>
-                        <th class="col-xs-1 centrado"></th>
-                        <th class="col-xs-1 centrado"></th>
+						<th class="col-xs-1 centrado">
+							@Html.DisplayNameFor(model => model.First().FechaVencimientoSoporte)
+						</th>
+                        <th class="col-xs-2 centrado"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,18 +53,22 @@
                             <td class="col-xs-1 centrado">
                                 @Html.DisplayFor(modelItem => item.CnnPassword)
                             </td>
-                            <td class="col-xs-2 centrado">
+                            <td class="col-xs-1 centrado">
                                 @Html.DisplayFor(modelItem => item.ConexionServidor.Url)
                             </td>
                             <td class="col-xs-1 centrado">
-                                @Html.DisplayFor(modelItem => item.FechaDeVencimiento)
+                                @item.FechaDeVencimiento.ToString("dd/MM/yyyy")
                             </td>
-                            <td class="centrado">
+							<td class="col-xs-1 centrado">								
+								@if(item.FechaVencimientoSoporte != SqlSmallDateTime.MinValue)
+								{
+									@item.FechaVencimientoSoporte.ToString("dd/MM/yyy");
+								}
+							</td>
+                            <td class="centrado col-xs-2">
                                 <a href="@Url.Action("Edit", "ClientesLicencias", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions">
                                     <i class="btn-icon-only fa fa-edit"></i>
                                 </a>
-                            </td>
-                            <td class="centrado">
                                 <a href="@Url.Action("Delete","ClientesLicencias", new { id = item.Id, clienteId = item.ClienteId })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#clientesLicenciasList">
                                     <i class="btn-icon-only fa fa-times"></i>
                                 </a>

@@ -58,13 +58,21 @@
                                 </div>
                             </div>
 
-                            <div class="control-group">
-                                <label class="control-label" for="FechaDeVencimiento">Fecha de Vencimiento</label>
-                                <div class="controls">
-                                    @Html.TextBoxFor(model => model.FechaDeVencimiento, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker" })
-                                    @Html.ValidationMessageFor(model => model.FechaDeVencimiento)
-                                </div>
-                            </div>
+							<div class="control-group">
+								@Html.LabelFor(model => model.FechaDeVencimiento, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(model => model.FechaDeVencimiento, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker-with-format" })
+									@Html.ValidationMessageFor(model => model.FechaDeVencimiento)
+								</div>
+							</div>
+
+							<div class="control-group">
+								@Html.LabelFor(model => model.FechaVencimientoSoporte, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(model => model.FechaVencimientoSoporte, "{0:dd/MM/yyyy}", new { @class = "col-xs-12 form-control datepicker-with-format" })
+									@Html.ValidationMessageFor(model => model.FechaVencimientoSoporte)
+								</div>
+							</div>
 
                             <div class="control-group">
                                 <label class="control-label" for="SitioWeb">Sitio Web</label>

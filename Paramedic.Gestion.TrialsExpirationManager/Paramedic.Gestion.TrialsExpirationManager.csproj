@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HistorialDTO.cs" />
+    <Compile Include="LicenciaDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,6 +76,10 @@
     <ProjectReference Include="..\Paramedic.Gestion.Model\Paramedic.Gestion.Model.csproj">
       <Project>{3115BFD3-9CAD-450D-B98E-2EC5BA11A2E3}</Project>
       <Name>Paramedic.Gestion.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramedic.Gestion.SocialMedia\Paramedic.Gestion.SocialMedia.csproj">
+      <Project>{29C7B7E2-8FA3-43D0-9EAD-E5CA3A73138C}</Project>
+      <Name>Paramedic.Gestion.SocialMedia</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

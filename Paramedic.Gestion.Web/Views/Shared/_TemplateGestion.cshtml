@@ -191,15 +191,16 @@
 
     </div>
 
+
     <section>
         @RenderBody()
     </section>
 
+	@Scripts.Render("~/bundles/libraries_js")
+	@Scripts.Render("~/bundles/general_js")
 
-    @Scripts.Render("~/bundles/libraries_js")
-    @Scripts.Render("~/bundles/general_js")
+	@RenderSection("scripts", required: false)
 
-    @RenderSection("scripts", required: false)
 
 </body>
 </html>

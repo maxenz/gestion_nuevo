@@ -19,7 +19,7 @@
                         <div class="control-group">
                             <label class="control-label" for="Fecha">Fecha</label>
                             <div class="controls">
-                                @Html.TextBoxFor(model => model.Fecha, new { @class = "form-control datepicker", data_date_format = "dd/mm/yyyy" })
+                                @Html.TextBoxFor(model => model.Fecha, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker-with-format", data_date_format = "dd/mm/yyyy" })
                                 @Html.ValidationMessageFor(model => model.Fecha)
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="control-group">
                             <label class="control-label" for="FechaRecontacto">Fecha de Recontacto</label>
                             <div class="controls">
-                                @Html.TextBoxFor(model => model.FechaRecontacto, new { @class = "form-control datepicker", data_date_format = "dd/mm/yyyy" })
+                                @Html.TextBoxFor(model => model.FechaRecontacto, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker-with-format", data_date_format = "dd/mm/yyyy" })
                                 @Html.ValidationMessageFor(model => model.FechaRecontacto)
                             </div>
                         </div>

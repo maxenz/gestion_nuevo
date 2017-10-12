@@ -1,413 +1,417 @@
 ﻿
 $(function () {
-    //en la tabla ClientesGestiones, corto el texto si es mayor a 20 caracteres
-    function setFormatTables() {
+	//en la tabla ClientesGestiones, corto el texto si es mayor a 20 caracteres
+	function setFormatTables() {
 
-        $("#tbGestion > tbody > tr > td").each(function () {
+		$("#tbGestion > tbody > tr > td").each(function () {
 
-            var str = $(this).html().trim();
+			var str = $(this).html().trim();
 
-            if (str.length > 70) {
+			if (str.length > 70) {
 
-                if (str.indexOf("a href") == -1) {
-                    var subStr = str.substring(0, 70);
-                    $(this).html(subStr + "...");
-                }
-            }
-        });
+				if (str.indexOf("a href") == -1) {
+					var subStr = str.substring(0, 70);
+					$(this).html(subStr + "...");
+				}
+			}
+		});
 
-    }
+	}
 
-    var closeTicket = function () {
+	var closeTicket = function () {
 
-        var $a = $(this);
-        confirmCloseTicket($a);
-        return false;
+		var $a = $(this);
+		confirmCloseTicket($a);
+		return false;
 
-    }
+	}
 
-    var ticketEvento = function () {
+	var ticketEvento = function () {
 
-        var $btn = $(this);
-        var $url = $btn.attr("data-ref");
-        var $evID = $btn.attr("data-evento-id");
-        var $ticketID = $btn.attr("data-model-id");
-        var $dataResponse = $btn.attr("data-response");
-        $dataResponse = parseInt($dataResponse);
-        confirmTicketEvento($url, $evID, $btn, $dataResponse, $ticketID);
-        return false;
+		var $btn = $(this);
+		var $url = $btn.attr("data-ref");
+		var $evID = $btn.attr("data-evento-id");
+		var $ticketID = $btn.attr("data-model-id");
+		var $dataResponse = $btn.attr("data-response");
+		$dataResponse = parseInt($dataResponse);
+		confirmTicketEvento($url, $evID, $btn, $dataResponse, $ticketID);
+		return false;
 
-    }
+	}
 
-    function confirmTicketEvento($url, $evID, $btn, $dataResponse, $ticketID) {
+	function confirmTicketEvento($url, $evID, $btn, $dataResponse, $ticketID) {
 
-        var $message = "";
-        var $title = "";
-        var $tipoEvento = 1;
+		var $message = "";
+		var $title = "";
+		var $tipoEvento = 1;
 
-        if ($evID == undefined) { //Creacion de consulta
+		if ($evID == undefined) { //Creacion de consulta
 
-            $message = "<form id=\"formAddConsulta\" action=\"/MisTickets/CreateTicketEvento/" + $ticketID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' placeholder='Ingrese su consulta...' autofocus='true' /><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /><input type=\"hidden\" id=\"tipoEvento\" name=\"tipoEvento\" value=\"1\" /></form>";
-            $title = "<h4 class='bold'>Nueva consulta</h4>";
-        } else if ($dataResponse == 1) { //Creacion de respuesta
+			$message = "<form id=\"formAddConsulta\" action=\"/MisTickets/CreateTicketEvento/" + $ticketID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' placeholder='Ingrese su consulta...' autofocus='true' /><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /><input type=\"hidden\" id=\"tipoEvento\" name=\"tipoEvento\" value=\"1\" /></form>";
+			$title = "<h4 class='bold'>Nueva consulta</h4>";
+		} else if ($dataResponse == 1) { //Creacion de respuesta
 
-            $message = "<form id=\"formAddRespuesta\" action=\"/MisTickets/CreateTicketEvento/" + $ticketID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' placeholder='Ingrese la respuesta...' autofocus='true' /><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /><input type=\"hidden\" id=\"tipoEvento\" name=\"tipoEvento\" value=\"2\" /></form>";
-            $title = "<h4 class='bold'>Respuesta de consulta</h4>";
-        } else { //Edición consulta/respuesta
+			$message = "<form id=\"formAddRespuesta\" action=\"/MisTickets/CreateTicketEvento/" + $ticketID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' placeholder='Ingrese la respuesta...' autofocus='true' /><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /><input type=\"hidden\" id=\"tipoEvento\" name=\"tipoEvento\" value=\"2\" /></form>";
+			$title = "<h4 class='bold'>Respuesta de consulta</h4>";
+		} else { //Edición consulta/respuesta
 
-            $description = $btn.closest('.alert').find('p').text();
-            $message = "<form id=\"formEditAll\" action=\"/MisTickets/EditTicketEvento/" + $evID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' autofocus='true' >" + $description + "</textarea><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /></form>";
-            $title = "<span class='label label-primary'>Editar</span>";
+			$description = $btn.closest('.alert').find('p').text();
+			$message = "<form id=\"formEditAll\" action=\"/MisTickets/EditTicketEvento/" + $evID + "\" enctype=\"multipart/form-data\" method=\"post\"><textarea class='form-control' rows='10' name='descripcion' id='descripcion' style='width:100%' autofocus='true' >" + $description + "</textarea><br/><input type=\"file\" id=\"image\" name=\"image\" accept=\"image/x-png, image/gif, image/jpeg\" /></form>";
+			$title = "<span class='label label-primary'>Editar</span>";
 
-        }
+		}
 
-        bootbox.dialog({
-            message: $message,
-            className: 'modalTickets',
-            title: $title,
-            buttons: {
-                danger: {
-                    label: "Aceptar",
-                    className: "btn-success btn-outline",
-                    callback: function () {
-                        if ($evID == undefined) {
-                            $('form#formAddConsulta').submit();
-                        } else if ($dataResponse == 1) {
-                            $('form#formAddRespuesta').submit();
-                        } else {
-                            $('form#formEditAll').submit();
-                        }
+		bootbox.dialog({
+			message: $message,
+			className: 'modalTickets',
+			title: $title,
+			buttons: {
+				danger: {
+					label: "Aceptar",
+					className: "btn-success btn-outline",
+					callback: function () {
+						if ($evID == undefined) {
+							$('form#formAddConsulta').submit();
+						} else if ($dataResponse == 1) {
+							$('form#formAddRespuesta').submit();
+						} else {
+							$('form#formEditAll').submit();
+						}
 
-                        //$.ajax({
-                        //    url: $url,
-                        //    data: {
-                        //        'descripcion': $("#descripcion").val(),
-                        //        'tipoEvento': $tipoEvento
-                        //    },
-                        //    type: 'POST',
-                        //    success: function (data) {
-                        //        var target = "#listaEventos";
-                        //        $(target).replaceWith(data);
-                        //    },
-                        //    error: function (error) {
-                        //        alert(error.responseText);
-                        //    }
-                        //});
-                    }
-                },
-                main: {
-                    label: "Cancelar",
-                    className: "btn-danger btn-outline",
-                    callback: function () {
+						//$.ajax({
+						//    url: $url,
+						//    data: {
+						//        'descripcion': $("#descripcion").val(),
+						//        'tipoEvento': $tipoEvento
+						//    },
+						//    type: 'POST',
+						//    success: function (data) {
+						//        var target = "#listaEventos";
+						//        $(target).replaceWith(data);
+						//    },
+						//    error: function (error) {
+						//        alert(error.responseText);
+						//    }
+						//});
+					}
+				},
+				main: {
+					label: "Cancelar",
+					className: "btn-danger btn-outline",
+					callback: function () {
 
-                    }
-                }
-            }
-        });
+					}
+				}
+			}
+		});
 
-    }
+	}
 
-    function confirmCloseTicket($a) {
+	function confirmCloseTicket($a) {
 
-        bootbox.dialog({
-            message: "¿Está seguro que desea cerrar el ticket?",
-            title: "Atención!",
-            buttons: {
-                danger: {
-                    label: "Aceptar",
-                    className: "btn-danger",
-                    callback: function () {
-                        var $url = $a.attr("href");
-                        $.ajax({
-                            url: $url,
-                            type: 'POST',
-                            success: function (data) {
-                                var target = "#bottomEditTicket";
-                                $(target).
+		bootbox.dialog({
+			message: "¿Está seguro que desea cerrar el ticket?",
+			title: "Atención!",
+			buttons: {
+				danger: {
+					label: "Aceptar",
+					className: "btn-danger",
+					callback: function () {
+						var $url = $a.attr("href");
+						$.ajax({
+							url: $url,
+							type: 'POST',
+							success: function (data) {
+								var target = "#bottomEditTicket";
+								$(target).
                                     fadeOut(500, function () { $(target).html(data).fadeIn(500); });
-                                $('.btnEditCreateEvento').remove();
-                            },
-                            error: function (error) {
-                                alert(error.responseText);
-                            }
-                        });
-                    }
-                },
-                main: {
-                    label: "Cancelar",
-                    className: "btn-primary",
-                    callback: function () {
+								$('.btnEditCreateEvento').remove();
+							},
+							error: function (error) {
+								alert(error.responseText);
+							}
+						});
+					}
+				},
+				main: {
+					label: "Cancelar",
+					className: "btn-primary",
+					callback: function () {
 
-                    }
-                }
-            }
-        });
-    }
+					}
+				}
+			}
+		});
+	}
 
-    // Seteo popup modal para confirmar si borro un registro de la tabla (general)
-    function setDeleteConfirmBox($a) {
+	// Seteo popup modal para confirmar si borro un registro de la tabla (general)
+	function setDeleteConfirmBox($a) {
 
-        bootbox.dialog({
-            message: "¿Está seguro que desea eliminar el registro?",
-            title: "Atención!",
-            buttons: {
-                danger: {
-                    label: "Aceptar",
-                    className: "btn-danger",
-                    callback: function () {
-                        var $url = $a.attr("href");
-                        blockInterface();
-                        $.ajax({
-                            url: $url,
-                            type: 'POST',
-                            success: function (data) {
-                                var target = $a.attr("data-gestion-target");
-                                $(target).replaceWith(data);
-                                $.unblockUI();
-                            },
-                            error: function (error) {
-                                alert(error.responseText);
-                                $.unblockUI();
-                            }
-                        });
-                    }
-                },
-                main: {
-                    label: "Cancelar",
-                    className: "btn-info",
-                    callback: function () {
+		bootbox.dialog({
+			message: "¿Está seguro que desea eliminar el registro?",
+			title: "Atención!",
+			buttons: {
+				danger: {
+					label: "Aceptar",
+					className: "btn-danger",
+					callback: function () {
+						var $url = $a.attr("href");
+						blockInterface();
+						$.ajax({
+							url: $url,
+							type: 'POST',
+							success: function (data) {
+								var target = $a.attr("data-gestion-target");
+								$(target).replaceWith(data);
+								$.unblockUI();
+							},
+							error: function (error) {
+								alert(error.responseText);
+								$.unblockUI();
+							}
+						});
+					}
+				},
+				main: {
+					label: "Cancelar",
+					className: "btn-info",
+					callback: function () {
 
-                    }
-                }
-            }
-        });
-    }
+					}
+				}
+			}
+		});
+	}
 
-    // Obtengo un vector con todos los modulos asignados
-    function getModulosAsignados() {
+	// Obtengo un vector con todos los modulos asignados
+	function getModulosAsignados() {
 
-        var vModAsignados = [];
-        $checkboxes = $('#modulosList > div.row > label > input:checked');
+		var vModAsignados = [];
+		$checkboxes = $('#modulosList > div.row > label > input:checked');
 
-        for (var i = 0; i < $checkboxes.length; i++) {
-        	vModAsignados.push($checkboxes[i].id);
-        }
+		for (var i = 0; i < $checkboxes.length; i++) {
+			vModAsignados.push($checkboxes[i].id);
+		}
 
-        return vModAsignados;
+		return vModAsignados;
 
-    }
+	}
 
-    //Seteo via ajax los modulos asignados de un producto.
-    function setModulosAsignados($a) {
+	//Seteo via ajax los modulos asignados de un producto.
+	function setModulosAsignados($a) {
 
-        var $url = $a.attr("href");
+		var $url = $a.attr("href");
 
-        $.ajax({
-            url: $url,
-            type: 'GET',
-            success: function (data) {
-                bootbox.dialog({
-                    message: data,
-                    title: "Seleccione módulos a asignar",
-                    buttons: {
-                        danger: {
-                            label: "Aceptar",
-                            className: "btn-danger",
-                            callback: function () {
-                                var $url = $a.attr("data-gestion-setModAsignados");
-                                var $modAsignados = getModulosAsignados();
-                                $.ajax({
-                                    url: $url,
-                                    datatype: "json",
-                                    traditional: true,
-                                    data: { 'vModAsignados': $modAsignados },
-                                    type: 'POST',
-                                    success: function (data) {
-                                    	toastr.success('Los módulos del producto se actualizaron correctamente.');
-                                    },
-                                    error: function (error) {
-                                    	toastr.error('Los módulos del producto no pudieron actualizarse. Intente nuevamente.');
-                                    }
-                                });
-                            }
-                        },
-                        main: {
-                            label: "Cancelar",
-                            className: "btn-info",
-                            callback: function () {
+		$.ajax({
+			url: $url,
+			type: 'GET',
+			success: function (data) {
+				bootbox.dialog({
+					message: data,
+					title: "Seleccione módulos a asignar",
+					buttons: {
+						danger: {
+							label: "Aceptar",
+							className: "btn-danger",
+							callback: function () {
+								var $url = $a.attr("data-gestion-setModAsignados");
+								var $modAsignados = getModulosAsignados();
+								$.ajax({
+									url: $url,
+									datatype: "json",
+									traditional: true,
+									data: { 'vModAsignados': $modAsignados },
+									type: 'POST',
+									success: function (data) {
+										toastr.success('Los módulos del producto se actualizaron correctamente.');
+									},
+									error: function (error) {
+										toastr.error('Los módulos del producto no pudieron actualizarse. Intente nuevamente.');
+									}
+								});
+							}
+						},
+						main: {
+							label: "Cancelar",
+							className: "btn-info",
+							callback: function () {
 
-                            }
-                        }
-                    }
-                });
-            },
-            error: function (error) {
-                alert(error.statusText);
-            }
-        });
-    }
+							}
+						}
+					}
+				});
+			},
+			error: function (error) {
+				alert(error.statusText);
+			}
+		});
+	}
 
-    // Handler para cerrar sesion
-    var cerrarSesion = function () {
-        $('#logoutForm').submit();
-    }
+	// Handler para cerrar sesion
+	var cerrarSesion = function () {
+		$('#logoutForm').submit();
+	}
 
-    // Handler para la vista de clientes del dropdown vendidos / en gestion
-    var selTipoClientes = function () {
+	// Handler para la vista de clientes del dropdown vendidos / en gestion
+	var selTipoClientes = function () {
 
-        $tipoCliente = $(this).attr("value");
-        $url = "/Clientes/GetInfoClienteSegunEstado/" + $tipoCliente;
-        $.ajax({
-            url: $url,
-            type: 'GET',
-            success: function (data) {
-                var target = "#clientesList";
-                $(target).replaceWith(data);
-            },
-            error: function (error) {
-                alert(error.statusText);
-            }
-        });
+		$tipoCliente = $(this).attr("value");
+		$url = "/Clientes/GetInfoClienteSegunEstado/" + $tipoCliente;
+		$.ajax({
+			url: $url,
+			type: 'GET',
+			success: function (data) {
+				var target = "#clientesList";
+				$(target).replaceWith(data);
+			},
+			error: function (error) {
+				alert(error.statusText);
+			}
+		});
 
-    }
+	}
 
-    var ajaxFormSubmit = function () {
+	var ajaxFormSubmit = function () {
 
-        var $form = $(this);
+		var $form = $(this);
 
-        var options = {
-            url: $form.attr("action"),
-            type: $form.attr("method"),
-            data: $form.serialize()
-        };
+		var options = {
+			url: $form.attr("action"),
+			type: $form.attr("method"),
+			data: $form.serialize()
+		};
 
-        blockInterface();
+		blockInterface();
 
-        $.ajax(options).done(function (data) {
-            var $target = $($form.attr("data-gestion-target"));
-            var $newHtml = $(data);
-            $target.replaceWith($newHtml);
-            setFormatTables();
-            $.unblockUI();
+		$.ajax(options).done(function (data) {
+			var $target = $($form.attr("data-gestion-target"));
+			var $newHtml = $(data);
+			$target.replaceWith($newHtml);
+			setFormatTables();
+			$.unblockUI();
 
-        });
+		});
 
-        return false;
-    };
+		return false;
+	};
 
-    var getPage = function () {
-        var $a = $(this);
-        var options = {
-            url: $a.attr("href"),
-            data: $("form").serialize(),
-            type: "get"
-        };
+	var getPage = function () {
+		var $a = $(this);
+		var options = {
+			url: $a.attr("href"),
+			data: $("form").serialize(),
+			type: "get"
+		};
 
-        blockInterface();
+		blockInterface();
 
-        $.ajax(options).done(function (data) {
-            var target = $a.parents("div.pagedList").attr("data-gestion-target");
-            $(target).replaceWith(data);
-            setFormatTables();
-            $.unblockUI();
-        });
+		$.ajax(options).done(function (data) {
+			var target = $a.parents("div.pagedList").attr("data-gestion-target");
+			$(target).replaceWith(data);
+			setFormatTables();
+			$.unblockUI();
+		});
 
-        return false;
-    };
+		return false;
+	};
 
-    $(document).on('click', '.delete', function () {
+	$(document).on('click', '.delete', function () {
 
-        var $a = $(this);
+		var $a = $(this);
 
-        setDeleteConfirmBox($a);
+		setDeleteConfirmBox($a);
 
-        return false;
+		return false;
 
-    });
+	});
 
-    $(document).on('click', '.modAsignados', function () {
+	$(document).on('click', '.modAsignados', function () {
 
-        var $a = $(this);
+		var $a = $(this);
 
-        setModulosAsignados($a);
+		setModulosAsignados($a);
 
-        return false;
+		return false;
 
-    });
+	});
 
-    var execPrincipalForm = function () {
+	var execPrincipalForm = function () {
 
-        $('.searchIndex').submit();
+		$('.searchIndex').submit();
 
-    }
+	}
 
-    function validarLocalidad() {
+	function validarLocalidad() {
 
-        var $obj = $(".selectLoc[data-validar-localidad='true']");
-        var $loc_id = $obj.val();
-        var $url = base_url_gestion + "Clientes/ValidarLocalidad/" + $loc_id;
-        $.ajax({
-            url: $url,
-            type: 'GET',
-            success: function (data) {
-                if (data) {
-                    $('#paisCliente').val(data.pais);
-                    $('#provCliente').val(data.provincia);
-                }
-            },
-            error: function (error) {
-                console.log(error.responseText);
-            }
-        });
+		var $obj = $(".selectLoc[data-validar-localidad='true']");
+		var $loc_id = $obj.val();
+		var $url = base_url_gestion + "Clientes/ValidarLocalidad/" + $loc_id;
+		$.ajax({
+			url: $url,
+			type: 'GET',
+			success: function (data) {
+				if (data) {
+					$('#paisCliente').val(data.pais);
+					$('#provCliente').val(data.provincia);
+				}
+			},
+			error: function (error) {
+				console.log(error.responseText);
+			}
+		});
 
-    }
+	}
 
-    function blockInterface() {
+	function blockInterface() {
 
-        $.blockUI({
-            css: {
-                border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                opacity: .5,
-                color: '#fff'
-            },
-            message: 'Aguarde un instante...'
-        });
+		$.blockUI({
+			css: {
+				border: 'none',
+				padding: '15px',
+				backgroundColor: '#000',
+				'-webkit-border-radius': '10px',
+				'-moz-border-radius': '10px',
+				opacity: .5,
+				color: '#fff'
+			},
+			message: 'Aguarde un instante...'
+		});
 
-    }
+	}
 
-    $('.new_model').tooltip({ placement: "top" });
+	$('.new_model').tooltip({ placement: "top" });
 
-    $('#cerrarSesion').click(cerrarSesion);
+	$('#cerrarSesion').click(cerrarSesion);
 
-    $("form[data-gestion-ajax='true']").submit(ajaxFormSubmit);
+	$("form[data-gestion-ajax='true']").submit(ajaxFormSubmit);
 
-    $(".selectLoc[data-validar-localidad='true']").on('change', validarLocalidad);
+	$(".selectLoc[data-validar-localidad='true']").on('change', validarLocalidad);
 
-    $(document).on("click", ".pagedList a", getPage);
+	$(document).on("click", ".pagedList a", getPage);
 
-    $('#selTipoClientes,#selDatosSegunVista,#selTipoGestion, #chkFutureFeatures, #selTicketsClasificacion, .sel-filter').on('change', execPrincipalForm);
+	$('#selTipoClientes,#selDatosSegunVista,#selTipoGestion, #chkFutureFeatures, #selTicketsClasificacion, .sel-filter').on('change', execPrincipalForm);
 
-    $('#btnCloseTicket').on('click', closeTicket);
+	$('#btnCloseTicket').on('click', closeTicket);
 
-    $(document).on('click', '.btnEditCreateEvento', ticketEvento);
+	$(document).on('click', '.btnEditCreateEvento', ticketEvento);
 
-    $("a.single_image").fancybox({
-        'type': 'image',
-        'showCloseButton': 'true',
-    });
+	$("a.single_image").fancybox({
+		'type': 'image',
+		'showCloseButton': 'true',
+	});
 
-    $('.selectpicker').selectpicker({
-        style: 'btn-primary',
-        width: '100%'
-    });
+	$('.selectpicker').selectpicker({
+		style: 'btn-primary',
+		width: '100%'
+	});
 
 	// Seteo el formato de los datepickers
-	$(".datepicker-with-format").datepicker({autoClose: true, format: "dd/mm/yyyy"})
-    $(".datepicker").datepicker({ autoclose: true});
+	$(".datepicker-with-format").datepicker({
+		changeMonth: true,
+		changeYear: true,
+		yearRange: "-100:+0"
+	});
+	$(".datepicker-with-format").datepicker($.datepicker.regional["es"]);
 
 
     $("#tituloShaman")
