@@ -394,7 +394,7 @@
     <Compile Include="ViewModels\SocialServiceTypesViewModel.cs" />
     <Compile Include="ViewModels\TicketAdminViewModel.cs" />
     <Compile Include="ViewModels\TicketViewModel.cs" />
-    <Compile Include="ViewModels\Vencimiento.cs" />
+    <Compile Include="ViewModels\VencimientoViewModel.cs" />
     <Compile Include="ViewModels\VideoViewModel.cs" />
     <Compile Include="Web References\wsCuentaCorriente\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -1062,6 +1062,7 @@
     <Content Include="Views\Addons\NoIntentoConfigured.cshtml" />
     <Content Include="Views\Vencimientos\_Vencimientos.cshtml" />
     <Content Include="Views\Vencimientos\Index.cshtml" />
+    <Content Include="Views\Shared\_NotificacionVencimientos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1113,6 +1114,10 @@
     <ProjectReference Include="..\Paramedic.Gestion.SocialMedia\Paramedic.Gestion.SocialMedia.csproj">
       <Project>{29C7B7E2-8FA3-43D0-9EAD-E5CA3A73138C}</Project>
       <Name>Paramedic.Gestion.SocialMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramedic.Gestion.TrialsExpirationManager\Paramedic.Gestion.TrialsExpirationManager.csproj">
+      <Project>{540BD7E3-1853-406E-B6DA-D5CC5A8E8049}</Project>
+      <Name>Paramedic.Gestion.TrialsExpirationManager</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -6,9 +6,9 @@ namespace Paramedic.Gestion.Model.Helpers
 	public static class SqlSmallDateTime
 	{
 		public static readonly SqlDateTime MinValue =
-			new SqlDateTime(new DateTime(1900, 01, 01, 00, 00, 00));
+			new SqlDateTime(new DateTime(1900, 01, 01));
 
 		public static readonly SqlDateTime MaxValue =
-			new SqlDateTime(new DateTime(2079, 06, 06, 23, 59, 00));
+			new SqlDateTime(new DateTime(2099, 12, 31));
 	}
 }

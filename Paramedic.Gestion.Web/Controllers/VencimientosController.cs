@@ -34,33 +34,43 @@ namespace Paramedic.Gestion.Web.Controllers
 
 		public ActionResult Index(string searchName = null, int page = 1, string fechaDesde = null, string fechaHasta = null)
 		{
-			DateTime dtFechaDesde = Convert.ToDateTime(fechaDesde);
-			DateTime dtFechaHasta = Convert.ToDateTime(fechaHasta);
-			ViewBag.dftDesde = DateTime.Now.AddDays(-30).ToShortDateString();
-			ViewBag.dftHasta = DateTime.Now.ToShortDateString();
+			DateTime dtFechaDesde;
+			DateTime dtFechaHasta;
+			if (fechaDesde != null)
+			{
+				dtFechaDesde = Convert.ToDateTime(fechaDesde);
+				dtFechaHasta = Convert.ToDateTime(fechaHasta);
+			} else
+			{
+				dtFechaDesde = DateTime.Now.AddDays(-20);
+				dtFechaHasta = DateTime.Now;
+			}
+
+			ViewBag.dftDesde = dtFechaDesde.ToShortDateString();
+			ViewBag.dftHasta = dtFechaHasta.ToShortDateString();
 
 			VencimientosQueryControllerParametersDTO queryParameters = new VencimientosQueryControllerParametersDTO(searchName, controllersPageSize, page, dtFechaDesde, dtFechaHasta);
 
 			IEnumerable<ClientesLicencia> cliLics = _ClientesLicenciaService.GetLicencias(queryParameters);
 			int count = _ClientesLicenciaService.GetCount(_ClientesLicenciaService.GetPredicateByConditions(queryParameters));
 
-			List<Vencimiento> vencimientos = new List<Vencimiento>();
+			List<VencimientoViewModel> vencimientos = new List<VencimientoViewModel>();
 			foreach(ClientesLicencia cl in cliLics)
 			{
-				if (cl.FechaDeVencimiento != SqlSmallDateTime.MinValue)
+				if (cl.FechaDeVencimiento > dtFechaDesde && cl.FechaDeVencimiento < dtFechaHasta)
 				{
-					Vencimiento v = new Vencimiento(cl.FechaDeVencimiento, cl.Licencia.Serial, cl.Cliente.RazonSocial, VencimientoType.Licencia);
+					VencimientoViewModel v = new VencimientoViewModel(cl.FechaDeVencimiento, cl.Licencia.Serial, cl.Cliente.RazonSocial, VencimientoType.Licencia);
 					vencimientos.Add(v);
 				}
 
-				if (cl.FechaVencimientoSoporte != SqlSmallDateTime.MinValue)
+				if (cl.FechaVencimientoSoporte > dtFechaDesde && cl.FechaVencimientoSoporte < dtFechaHasta)
 				{
-					Vencimiento v = new Vencimiento(cl.FechaVencimientoSoporte, cl.Licencia.Serial, cl.Cliente.RazonSocial, VencimientoType.Soporte);
+					VencimientoViewModel v = new VencimientoViewModel(cl.FechaVencimientoSoporte, cl.Licencia.Serial, cl.Cliente.RazonSocial, VencimientoType.Soporte);
 					vencimientos.Add(v);
 				}
 			}
 
-			var resultAsPagedList = new StaticPagedList<Vencimiento>(vencimientos, page, controllersPageSize, count);
+			var resultAsPagedList = new StaticPagedList<VencimientoViewModel>(vencimientos, page, controllersPageSize, count);
 
 			if (Request.IsAjaxRequest())
 			{

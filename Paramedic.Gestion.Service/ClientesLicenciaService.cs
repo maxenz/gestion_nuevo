@@ -123,7 +123,7 @@ namespace Paramedic.Gestion.Service
 		{
 			var predicate = GetPredicateByConditions(queryParameters);
 
-			return FindByPage(predicate, "FechaDeVencimiento DESC", queryParameters.PageSize, queryParameters.Page);
+			return FindByPage(predicate, "FechaDeVencimiento DESC, FechaVencimientoSoporte DESC", queryParameters.PageSize, queryParameters.Page);
 		}
 
 		public Expression<Func<ClientesLicencia, bool>> GetPredicateByConditions(VencimientosQueryControllerParametersDTO queryParameters)
@@ -135,6 +135,8 @@ namespace Paramedic.Gestion.Service
 				predicate = predicate.And(p => (p.Cliente.RazonSocial.Contains(queryParameters.SearchDescription)));
 			}
 
+			predicate = predicate.And(p => (p.FechaDeVencimiento > queryParameters.DateFrom && p.FechaDeVencimiento < queryParameters.DateTo) || (p.FechaVencimientoSoporte > queryParameters.DateFrom && p.FechaVencimientoSoporte < queryParameters.DateTo));
+			
 			return predicate;
 		}
 

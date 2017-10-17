@@ -1,16 +1,29 @@
 ﻿using Paramedic.Gestion.Model.Enums;
 using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramedic.Gestion.Web.ViewModels
 {
-	public class Vencimiento
+	public class VencimientoViewModel
 	{
 		#region Properties
 
+		[DisplayName("Fecha de vencimiento")]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public DateTime FechaVencimiento { get; set; }
 
 		public VencimientoType TipoDeVencimiento { get; set; }
 
+		public string TipoVencimientoClassDescription
+		{
+			get
+			{
+				return this.TipoDeVencimiento == VencimientoType.Licencia ? "color-vencimiento-licencia" : "color-vencimiento-soporte";
+			}
+		}
+
+		[DisplayName("Tipo de vencimiento")]
 		public string Descripcion
 		{
 			get
@@ -21,6 +34,7 @@ namespace Paramedic.Gestion.Web.ViewModels
 
 		public string NroLicencia { get; set; }
 
+		[DisplayName("Cliente")]
 		public string ClienteDescripcion { get; set; }
 
 		public bool ProximoAVencer
@@ -35,9 +49,9 @@ namespace Paramedic.Gestion.Web.ViewModels
 
 		#region Constructors
 
-		public Vencimiento() { }
+		public VencimientoViewModel() { }
 
-		public Vencimiento(
+		public VencimientoViewModel(
 			DateTime fechaVencimiento,
 			string nroLicencia,
 			string clienteDescripcion,

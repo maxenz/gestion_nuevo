@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Paramedic.Gestion.Web.ViewModels.Vencimiento>
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Web.ViewModels.VencimientoViewModel>
 @using PagedList.Mvc;
 @using Paramedic.Gestion.Model.Enums;
 
@@ -26,7 +26,7 @@
 									<td>
 										@Html.DisplayFor(m => item.FechaVencimiento)
 									</td>
-									<td>
+									<td class="@item.TipoVencimientoClassDescription">
 										@Html.DisplayFor(m => item.Descripcion)
 									</td>
 									<td>

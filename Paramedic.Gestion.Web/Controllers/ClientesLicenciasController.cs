@@ -8,6 +8,10 @@ using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Web.ViewModels;
 using System;
 using Paramedic.Gestion.Model.Helpers;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Paramedic.Gestion.TrialsExpirationManager;
+using System.Web.Script.Serialization;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
@@ -182,7 +186,8 @@ namespace Paramedic.Gestion.Web.Controllers
 			IEnumerable<ClientesLicencia> clientesLicencias = _ClientesLicenciaService
 				.GetAll()
 				.Where(x => x.FechaDeVencimiento.Date > dateToAlert)
-				.Where(x => (bool) (x.FechaDeVencimiento != SqlSmallDateTime.MinValue));
+				.Where(x => (bool) (x.FechaDeVencimiento != SqlSmallDateTime.MinValue))
+				.Where(x => (bool) (x.FechaDeVencimiento < dateToAlert.AddDays(90)));
 			return Json(
 				clientesLicencias.Select(x => new
 				{
@@ -199,13 +204,22 @@ namespace Paramedic.Gestion.Web.Controllers
 			IEnumerable<ClientesLicencia> clientesLicencias = _ClientesLicenciaService
 				.GetAll()
 				.Where(x => (x.FechaVencimientoSoporte.Date > dateToAlert))
-				.Where(x => (bool) (x.FechaVencimientoSoporte != SqlSmallDateTime.MinValue));
+				.Where(x => (bool) (x.FechaVencimientoSoporte != SqlSmallDateTime.MinValue))
+				.Where(x => (bool) (x.FechaVencimientoSoporte < dateToAlert.AddDays(90)));
 			return Json(
 				clientesLicencias.Select(x => new
 				{
 					Cliente = x.Cliente.RazonSocial,
 					NroLicencia = x.Licencia.Serial
 				}), JsonRequestBehavior.AllowGet);
+		}
+
+		public ActionResult GetVencimientosCount()
+		{
+			IEnumerable<LicenciaDTO> licencias = JsonConvert.DeserializeObject<IEnumerable<LicenciaDTO>>(new JavaScriptSerializer().Serialize(GetExpiredLicenses().Data));
+			IEnumerable<LicenciaDTO> supports = JsonConvert.DeserializeObject<IEnumerable<LicenciaDTO>>(new JavaScriptSerializer().Serialize(GetExpiredLicenseSupports().Data));
+			int count = licencias.Count() + supports.Count();
+			return PartialView("~/Views/Shared/_NotificacionVencimientos.cshtml", count);
 		}
 
 		#endregion
