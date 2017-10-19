@@ -32,6 +32,12 @@ namespace Gestion
 			);
 
 			routes.MapRoute(
+				name: "Proyectos.Tareas",
+				url: "Proyectos/{ProyectoId}/Tareas/{action}/{id}",
+				defaults: new { controller = "Tareas", action = "Index", id = UrlParameter.Optional }
+			);
+
+			routes.MapRoute(
 				name: "ProductosModulos.Intentos",
 				url: "Productos/{ProductoId}/ProductosModulos/{ProductosModuloId}/Intentos/{action}/{id}",
 				defaults: new { controller = "ProductosModulosIntentos", action = "Index", id = UrlParameter.Optional }

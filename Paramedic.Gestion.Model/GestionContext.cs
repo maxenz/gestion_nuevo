@@ -46,6 +46,9 @@ namespace Paramedic.Gestion.Model
 		public DbSet<ProductosModulosIntento> ProductosModulosIntentos { get; set; }
 		public DbSet<ClientesLicenciasProductosModulosHistorial> ClientesLicenciasProductosModulosHistorial { get; set; }
 		public DbSet<Noticia> Noticias { get; set; }
+		public DbSet<Proyecto> Proyectos { get; set; }
+		public DbSet<Tarea> Tareas { get; set; }
+		public DbSet<TareasGestion> TareasGestiones { get; set; }
 
 		#endregion
 

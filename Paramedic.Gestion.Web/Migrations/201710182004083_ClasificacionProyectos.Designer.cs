@@ -7,13 +7,13 @@ namespace Paramedic.Gestion.Web
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class FechaDeVencimientoDeSoporte : IMigrationMetadata
+    public sealed partial class ClasificacionProyectos : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FechaDeVencimientoDeSoporte));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ClasificacionProyectos));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710101958478_FechaDeVencimientoDeSoporte"; }
+            get { return "201710182004083_ClasificacionProyectos"; }
         }
         
         string IMigrationMetadata.Source

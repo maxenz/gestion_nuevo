@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountService.cs" />
+    <Compile Include="ClasificacionesProyectoService.cs" />
     <Compile Include="ClientesContactoService.cs" />
     <Compile Include="ClienteService.cs" />
     <Compile Include="ClientesGestionService.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="EstadoService.cs" />
     <Compile Include="GeolocalizationService.cs" />
     <Compile Include="IAccountService.cs" />
+    <Compile Include="IClasificacionesProyectoService.cs" />
     <Compile Include="IClientesContactoService.cs" />
     <Compile Include="IClienteService.cs" />
     <Compile Include="IClientesGestionService.cs" />
@@ -104,11 +106,13 @@
     <Compile Include="IProductosModuloService.cs" />
     <Compile Include="IProductosModulosIntentoService.cs" />
     <Compile Include="IProvinciaService.cs" />
+    <Compile Include="IProyectoService.cs" />
     <Compile Include="IRevendedorService.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="ISitioService.cs" />
     <Compile Include="ISocialServicesService.cs" />
     <Compile Include="ISocialServiceTypesService.cs" />
+    <Compile Include="ITareaService.cs" />
     <Compile Include="ITicketsClasificacionService.cs" />
     <Compile Include="ITicketsClasificacionUsuarioService.cs" />
     <Compile Include="ITicketService.cs" />
@@ -129,10 +133,12 @@
     <Compile Include="ProductosModulosIntentoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaService.cs" />
+    <Compile Include="ProyectoService.cs" />
     <Compile Include="RevendedorService.cs" />
     <Compile Include="SitioService.cs" />
     <Compile Include="SocialServicesService.cs" />
     <Compile Include="SocialServiceTypesService.cs" />
+    <Compile Include="TareaService.cs" />
     <Compile Include="TicketsClasificacionService.cs" />
     <Compile Include="TicketsClasificacionUsuarioService.cs" />
     <Compile Include="TicketService.cs" />

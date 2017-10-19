@@ -1,0 +1,1 @@
+INSERT INTO webpages_Roles VALUES ('Colaborador')

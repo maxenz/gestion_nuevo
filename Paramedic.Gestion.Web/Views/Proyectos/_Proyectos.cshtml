@@ -1,0 +1,66 @@
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.Proyecto>
+@using PagedList.Mvc;
+
+<div id="proyectosList">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="widget widget-table action-table" style="margin-bottom:0">
+                <div class="widget-header">
+                    <h3>Proyectos</h3>
+                </div>
+                <div class="widget-content">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-3">@Html.DisplayNameFor(model => model.First().Descripcion) </th>
+								<th class="col-xs-3">Clasificación </th>
+                                <th class="col-xs-3">Cantidad de tareas</th>
+                                <th class="col-xs-1"></th>
+                                <th class="col-xs-1"></th>
+                                <th class="col-xs-1"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Descripcion)
+                                    </td>
+									<td>
+										@Html.DisplayFor(modelItem => item.Clasificacion.Descripcion)
+									</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tareas.Count)
+                                    </td>
+                                    <td class="centrado">
+                                        <a href="@Url.Action("Index","Proyectos/" + item.Id + "/Tareas")" class="btn btn-small btn-success btn-actions">
+                                            <i class="btn-icon-only fa fa-search"></i>
+                                        </a>
+                                    </td>
+
+                                    <td class="centrado">
+                                        <a href="@Url.Action("Edit", "Proyectos", new { id = item.Id })" class="btn btn-small btn-success btn-actions">
+                                            <i class="btn-icon-only fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td class="centrado">
+                                        <a href="@Url.Action("Delete","Proyectos", new { id = item.Id })" class="btn btn-small btn-success btn-actions delete" data-gestion-target="#proyectosList">
+                                            <i class="btn-icon-only fa fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="pagedList centered" data-gestion-target="#proyectosList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>
+

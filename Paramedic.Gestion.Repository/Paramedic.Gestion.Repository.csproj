@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountRepository.cs" />
+    <Compile Include="ClasificacionesProyectoRepository.cs" />
     <Compile Include="ClienteRepository.cs" />
     <Compile Include="ClientesContactoRepository.cs" />
     <Compile Include="ClientesGestionRepository.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="EstadoRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IAccountRepository.cs" />
+    <Compile Include="IClasificacionesProyectoRepository.cs" />
     <Compile Include="IClienteRepository.cs" />
     <Compile Include="IClientesContactoRepository.cs" />
     <Compile Include="IClientesGestionRepository.cs" />
@@ -91,10 +93,12 @@
     <Compile Include="IProductosModuloRepository.cs" />
     <Compile Include="IProductosModulosIntentoRepository.cs" />
     <Compile Include="IProvinciaRepository.cs" />
+    <Compile Include="IProyectoRepository.cs" />
     <Compile Include="IRevendedorRepository.cs" />
     <Compile Include="ISitioRepository.cs" />
     <Compile Include="ISocialServicesRepository.cs" />
     <Compile Include="ISocialServiceTypesRepository.cs" />
+    <Compile Include="ITareaRepository.cs" />
     <Compile Include="ITicketsClasificacionRepository.cs" />
     <Compile Include="ITicketsClasificacionUsuarioRepository.cs" />
     <Compile Include="ITipoTerminalRepository.cs" />
@@ -115,10 +119,12 @@
     <Compile Include="ProductosModuloRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaRepository.cs" />
+    <Compile Include="ProyectoRepository.cs" />
     <Compile Include="RevendedorRepository.cs" />
     <Compile Include="SitioRepository.cs" />
     <Compile Include="SocialServicesRepository.cs" />
     <Compile Include="SocialServiceTypesRepository.cs" />
+    <Compile Include="TareaRepository.cs" />
     <Compile Include="TicketsClasificacionRepository.cs" />
     <Compile Include="TicketsClasificacionUsuarioRepository.cs" />
     <Compile Include="TipoTerminalRepository.cs" />

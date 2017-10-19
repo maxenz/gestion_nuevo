@@ -246,6 +246,9 @@
     <Compile Include="Controllers\CuentaCorrienteController.cs" />
     <Compile Include="Controllers\LogsRegistrosSistemaController.cs" />
     <Compile Include="Controllers\NoticiasController.cs" />
+    <Compile Include="Controllers\ClasificacionesProyectosController.cs" />
+    <Compile Include="Controllers\TareasController.cs" />
+    <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\ProductosModulosIntentosController.cs" />
     <Compile Include="Controllers\SocialServicesController.cs" />
     <Compile Include="Controllers\SocialServiceTypesController.cs" />
@@ -360,9 +363,13 @@
     <Compile Include="Migrations\201708151558263_LicenseModuleStatusType.Designer.cs">
       <DependentUpon>201708151558263_LicenseModuleStatusType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710101958478_FechaDeVencimientoDeSoporte.cs" />
-    <Compile Include="Migrations\201710101958478_FechaDeVencimientoDeSoporte.Designer.cs">
-      <DependentUpon>201710101958478_FechaDeVencimientoDeSoporte.cs</DependentUpon>
+    <Compile Include="Migrations\201710181955221_ProyectosTareas.cs" />
+    <Compile Include="Migrations\201710181955221_ProyectosTareas.Designer.cs">
+      <DependentUpon>201710181955221_ProyectosTareas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710182004083_ClasificacionProyectos.cs" />
+    <Compile Include="Migrations\201710182004083_ClasificacionProyectos.Designer.cs">
+      <DependentUpon>201710182004083_ClasificacionProyectos.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
@@ -1063,6 +1070,24 @@
     <Content Include="Views\Vencimientos\_Vencimientos.cshtml" />
     <Content Include="Views\Vencimientos\Index.cshtml" />
     <Content Include="Views\Shared\_NotificacionVencimientos.cshtml" />
+    <Content Include="Views\Proyectos\_Form.cshtml" />
+    <Content Include="Views\Proyectos\_Header.cshtml" />
+    <Content Include="Views\Proyectos\_Proyectos.cshtml" />
+    <Content Include="Views\Proyectos\Create.cshtml" />
+    <Content Include="Views\Proyectos\Edit.cshtml" />
+    <Content Include="Views\Proyectos\Index.cshtml" />
+    <Content Include="Views\ClasificacionesProyectos\_Form.cshtml" />
+    <Content Include="Views\ClasificacionesProyectos\_Header.cshtml" />
+    <Content Include="Views\ClasificacionesProyectos\_ClasificacionesProyectos.cshtml" />
+    <Content Include="Views\ClasificacionesProyectos\Create.cshtml" />
+    <Content Include="Views\ClasificacionesProyectos\Edit.cshtml" />
+    <Content Include="Views\ClasificacionesProyectos\Index.cshtml" />
+    <Content Include="Views\Tareas\_Form.cshtml" />
+    <Content Include="Views\Tareas\_Header.cshtml" />
+    <Content Include="Views\Tareas\_Tareas.cshtml" />
+    <Content Include="Views\Tareas\Create.cshtml" />
+    <Content Include="Views\Tareas\Edit.cshtml" />
+    <Content Include="Views\Tareas\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1184,8 +1209,11 @@
     <EmbeddedResource Include="Migrations\201708151558263_LicenseModuleStatusType.resx">
       <DependentUpon>201708151558263_LicenseModuleStatusType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710101958478_FechaDeVencimientoDeSoporte.resx">
-      <DependentUpon>201710101958478_FechaDeVencimientoDeSoporte.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710181955221_ProyectosTareas.resx">
+      <DependentUpon>201710181955221_ProyectosTareas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710182004083_ClasificacionProyectos.resx">
+      <DependentUpon>201710182004083_ClasificacionProyectos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

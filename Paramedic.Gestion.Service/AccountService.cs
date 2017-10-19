@@ -37,7 +37,12 @@ namespace Paramedic.Gestion.Service
                 return "Cliente ticket";
             }
 
-            return "";
+			if (HasRole("Colaborador", userName))
+			{
+				return "Colaborador";
+			}
+
+			return "";
 
         }
 
