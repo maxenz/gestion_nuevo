@@ -1,0 +1,50 @@
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.TareasGestion>
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>Filtros</h3>
+                        </div>
+
+                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+                            <form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#tareasGestionesList" style="margin-bottom:0px">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="Buscar..." name="searchName">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-outline" type="submit">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+									<div class="col-xs-2">
+										<input type="text" class="form-control datepicker-with-format centered" id="tgFechaDesde" name="dateFrom" value="@ViewBag.dateFrom" data-date-format="dd/mm/yyyy" style="width:100%">
+									</div>
+									<div class="col-xs-2">
+										<input type="text" class="form-control datepicker-with-format centered" id="tgFechaHasta" name="dateTo" value="@ViewBag.dateTo" data-date-format="dd/mm/yyyy" style="width:100%">
+									</div>
+
+                                    <a href="@Url.Action("Create", "MonitorTareas")" class="btn btn-success btn-outline">
+                                        Agregar gestión de tarea
+                                    </a>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @Html.Partial("_TareasGestiones", Model)
+
+        </div>
+    </div>
+</div>
+

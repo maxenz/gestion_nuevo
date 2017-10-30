@@ -145,6 +145,7 @@
     <Compile Include="SocialServiceType.cs" />
     <Compile Include="Tarea.cs" />
     <Compile Include="TareasGestion.cs" />
+    <Compile Include="TareasGestionQueryParametersDTO.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="TicketEvento.cs" />
     <Compile Include="TicketQueryControllerParametersDTO.cs" />

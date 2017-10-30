@@ -113,6 +113,7 @@
     <Compile Include="ISocialServicesService.cs" />
     <Compile Include="ISocialServiceTypesService.cs" />
     <Compile Include="ITareaService.cs" />
+    <Compile Include="ITareasGestionService.cs" />
     <Compile Include="ITicketsClasificacionService.cs" />
     <Compile Include="ITicketsClasificacionUsuarioService.cs" />
     <Compile Include="ITicketService.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="SocialServicesService.cs" />
     <Compile Include="SocialServiceTypesService.cs" />
     <Compile Include="TareaService.cs" />
+    <Compile Include="TareasGestionService.cs" />
     <Compile Include="TicketsClasificacionService.cs" />
     <Compile Include="TicketsClasificacionUsuarioService.cs" />
     <Compile Include="TicketService.cs" />

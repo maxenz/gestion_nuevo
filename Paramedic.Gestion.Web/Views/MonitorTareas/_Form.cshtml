@@ -1,0 +1,83 @@
+﻿@model Paramedic.Gestion.Model.TareasGestion
+
+<div class="main">
+	<div class="main-inner">
+		<div class="container">
+			<div class="col-xs-8 col-xs-offset-2">
+				<div class="widget">
+					<div class="widget-header">
+						<h3>Registro de Gestión de tarea</h3>
+					</div>
+					<div class="widget-content">
+						<fieldset>
+
+							<div class="control-group">
+								<label class="control-label" for="Fecha">Fecha</label>
+								<div class="controls">
+									@Html.TextBoxFor(x => x.Fecha, new { @class = "col-xs-12 form-control datepicker-with-format" })
+									@Html.ValidationMessageFor(x => x.Fecha)
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="Proyecto">Proyecto</label>
+								<div class="controls">
+									@Html.DropDownList("GestionProyectoId", (SelectList) ViewBag.ProyectosList, "Seleccione proyecto...", new { @class = "col-xs-12 form-control", id = "selProyectosTareasFilter" })
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="Proyecto">Tarea</label>
+								<div class="controls">
+									@Html.DropDownListFor(x => x.TareaId, (SelectList) ViewBag.TareasList, new { @class = "col-xs-12 form-control", id = "selTareaFilter" })
+									@Html.ValidationMessageFor(x => x.TareaId)
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="Horas">Horas</label>
+								<div class="controls">
+									@Html.TextBoxFor(x => x.Horas, new { @class = "col-xs-12 form-control" })
+									@Html.ValidationMessageFor(model => model.Horas)
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="Cliente">Cliente</label>
+								<div class="controls">
+									@Html.DropDownList("ClienteId", (SelectList) ViewBag.ClientesList, "Seleccione cliente...", new { @class = "col-xs-12 form-control" })
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="Usuario">Usuario</label>
+								<div class="controls">
+									@Html.DropDownList("UsuarioId", (SelectList) ViewBag.UsuariosList, "Seleccione usuario...", new { @class = "col-xs-12 form-control" })
+									@Html.ValidationMessageFor(x => x.UsuarioId)
+								</div>
+							</div>
+
+
+							<div class="control-group">
+								<label class="control-label" for="Observaciones">Observaciones</label>
+								<div class="controls">
+									@Html.TextAreaFor(x => x.Observaciones, new { @class = "col-xs-12 form-control" })
+								</div>
+							</div>
+
+							<br>
+
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success btn-outline">Guardar</button>
+								<a href="@Url.Action("Index", "MonitorTareasGestiones")" class="btn btn-danger btn-outline">Cancelar</a>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

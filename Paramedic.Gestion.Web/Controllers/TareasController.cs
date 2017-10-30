@@ -6,6 +6,7 @@ using Paramedic.Gestion.Service;
 using Paramedic.Gestion.Model;
 using System.Net;
 using LinqKit;
+using Newtonsoft.Json;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
@@ -106,6 +107,23 @@ namespace Paramedic.Gestion.Web.Controllers
 			_TareaService.Delete(tarea);
             return RedirectToAction("Index");
         }
+
+		[HttpGet]
+		public JsonResult GetTareasByProyectoId(int id)
+		{
+			Proyecto proyecto = _ProyectoService.FindBy(x => x.Id == id).FirstOrDefault();
+			if (proyecto != null)
+			{
+				var result = JsonConvert.SerializeObject(proyecto.Tareas, Formatting.Indented,
+						   new JsonSerializerSettings
+						   {
+							   ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+						   });
+				return Json(result, JsonRequestBehavior.AllowGet);
+			}
+
+			return null;
+		}
 
         #endregion
 

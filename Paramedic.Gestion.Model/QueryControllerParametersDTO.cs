@@ -5,13 +5,19 @@
         #region Properties
 
         public string SearchDescription { get; set; }
+
         public int PageSize { get; set; }
+
         public int Page { get; set; }
 
-        #endregion
+		public bool IsCurrentUserAdmin { get; set; }
 
-        #region Constructors
-        public QueryControllerParametersDTO(string searchDescription, int pageSize, int page)
+		public int UserId { get; set; }
+
+		#endregion
+
+		#region Constructors
+		public QueryControllerParametersDTO(string searchDescription, int pageSize, int page)
         {
             SearchDescription = searchDescription;
             PageSize = pageSize;

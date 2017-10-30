@@ -1,0 +1,13 @@
+﻿@model Paramedic.Gestion.Model.TareasGestion
+
+@section Scripts
+{
+	<script type="text/javascript" src="@Url.Content("~/Scripts/MonitorTareas.js")"></script>
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_Form",Model)
+}

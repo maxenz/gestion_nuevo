@@ -10,177 +10,186 @@ using LinqKit;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-    [Authorize]
-    public class VideosController : Controller
-    {
-        #region Properties
+	[Authorize]
+	public class VideosController : Controller
+	{
+		#region Properties
 
-        IVideoService _VideoService;
-        IClienteService _ClienteService;
-        IUserProfileService _UserProfileService;
-        IClientesUsuarioService _ClientesUsuarioService;
-        private int controllersPageSize = 6;
+		IVideoService _VideoService;
+		IClienteService _ClienteService;
+		IUserProfileService _UserProfileService;
+		IClientesUsuarioService _ClientesUsuarioService;
+		private int controllersPageSize = 6;
 
-        #endregion
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        public VideosController(IVideoService VideoService, IClienteService ClienteService, IUserProfileService UserProfileService, IClientesUsuarioService ClientesUsuarioService)
-        {
-            _VideoService = VideoService;
-            _ClienteService = ClienteService;
-            _UserProfileService = UserProfileService;
-            _ClientesUsuarioService = ClientesUsuarioService;
-        }
+		public VideosController(IVideoService VideoService, IClienteService ClienteService, IUserProfileService UserProfileService, IClientesUsuarioService ClientesUsuarioService)
+		{
+			_VideoService = VideoService;
+			_ClienteService = ClienteService;
+			_UserProfileService = UserProfileService;
+			_ClientesUsuarioService = ClientesUsuarioService;
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        public ActionResult Index(string searchName = null, int page = 1)
-        {
-            int currentUserId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
+		public ActionResult Index(string searchName = null, int page = 1)
+		{
+			int currentUserId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
 
-            var predicate = PredicateBuilder.New<Video>();
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                predicate = predicate.And(x => x.Descripcion.Contains(searchName));
-            }
+			var predicate = PredicateBuilder.New<Video>();
+			if (!string.IsNullOrEmpty(searchName))
+			{
+				predicate = predicate.And(x => x.Descripcion.Contains(searchName));
+			}
 
-            if (!User.IsInRole("Administrador"))
-            {
-                Cliente cliente =
-                    _ClientesUsuarioService
-                    .FindBy(x => x.UsuarioId == currentUserId)
-                    .Select(x => x.Cliente).FirstOrDefault();
+			if (!User.IsInRole("Administrador"))
+			{
+				Cliente cliente =
+					_ClientesUsuarioService
+					.FindBy(x => x.UsuarioId == currentUserId)
+					.Select(x => x.Cliente).FirstOrDefault();
 
-                predicate = predicate.And(x => x.ClientesVideos.Any(q => q.ClienteId == cliente.Id) || x.EsPublico);
-            }
+				if (cliente == null)
+				{
+					ViewBag.HasNoClient = true;
+					predicate = predicate.And(x => x.EsPublico);
+				}
+				else
+				{
+					predicate = predicate.And(x => x.ClientesVideos.Any(q => q.ClienteId == cliente.Id) || x.EsPublico);
+				}
 
-            if (string.IsNullOrEmpty(searchName) && User.IsInRole("Administrador"))
-            {
-                predicate = null;
-            }
+			}
 
-            IEnumerable<Video> videos = _VideoService.FindByPage(predicate, "UpdatedDate DESC", controllersPageSize, page);
+			if (string.IsNullOrEmpty(searchName) && User.IsInRole("Administrador"))
+			{
+				predicate = null;
+			}
 
-            int count = _VideoService.FindBy(predicate).Count();
-            var resultAsPagedList = new StaticPagedList<Video>(videos, page, controllersPageSize, count);
+			IEnumerable<Video> videos = _VideoService.FindByPage(predicate, "UpdatedDate DESC", controllersPageSize, page);
 
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_Videos", resultAsPagedList);
-            }
+			int count = _VideoService.FindBy(predicate).Count();
+			var resultAsPagedList = new StaticPagedList<Video>(videos, page, controllersPageSize, count);
 
-            return View(resultAsPagedList);
-        }
+			if (Request.IsAjaxRequest())
+			{
+				return PartialView("_Videos", resultAsPagedList);
+			}
 
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Create()
-        {
-            ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
-            return View();
-        }
+			return View(resultAsPagedList);
+		}
 
-        [Authorize(Roles = "Administrador")]
-        [HttpPost]
-        public ActionResult Create(VideoViewModel vm)
-        {
-            ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
+		[Authorize(Roles = "Administrador")]
+		public ActionResult Create()
+		{
+			ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
+			return View();
+		}
 
-            if (!vm.EsPublico)
-            {
-                if (vm.ClienteId == 0)
-                {
-                    return View(vm);
-                }
-            }
+		[Authorize(Roles = "Administrador")]
+		[HttpPost]
+		public ActionResult Create(VideoViewModel vm)
+		{
+			ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
 
-            if (ModelState.IsValid)
-            {
-                Video video = vm.ConvertVideoViewModelToVideo();
-                _VideoService.Create(video);
+			if (!vm.EsPublico)
+			{
+				if (vm.ClienteId == 0)
+				{
+					return View(vm);
+				}
+			}
 
-                return RedirectToAction("Index");
-            }
+			if (ModelState.IsValid)
+			{
+				Video video = vm.ConvertVideoViewModelToVideo();
+				_VideoService.Create(video);
 
-            return View(vm);
-        }
+				return RedirectToAction("Index");
+			}
 
-        [Authorize(Roles = "Administrador")]
-        public ActionResult Edit(int id = 0)
-        {
-            Video video = _VideoService.FindBy(x => x.Id == id).FirstOrDefault();
-            VideoViewModel vm = new VideoViewModel(video);
+			return View(vm);
+		}
 
-            if (video == null)
-            {
-                return HttpNotFound();
-            }
+		[Authorize(Roles = "Administrador")]
+		public ActionResult Edit(int id = 0)
+		{
+			Video video = _VideoService.FindBy(x => x.Id == id).FirstOrDefault();
+			VideoViewModel vm = new VideoViewModel(video);
 
-            ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
-            return View(vm);
-        }
+			if (video == null)
+			{
+				return HttpNotFound();
+			}
 
-        [Authorize(Roles = "Administrador")]
-        [HttpPost]
-        public ActionResult Edit(VideoViewModel vm)
-        {
-            if (ModelState.IsValid)
-            {
-                Video video = _VideoService.FindBy(x => x.Id == vm.Id).FirstOrDefault();
+			ViewBag.Clientes = _ClienteService.GetAll().OrderBy(x => x.RazonSocial);
+			return View(vm);
+		}
 
-                if (video.EsPublico)
-                {
-                    if (!vm.EsPublico)
-                    {
-                        VideosCliente vc = new VideosCliente();
-                        vc.ClienteId = vm.ClienteId;
-                        vc.VideoId = video.Id;
-                        video.ClientesVideos.Add(vc);
-                    }
-                }
-                else
-                {
+		[Authorize(Roles = "Administrador")]
+		[HttpPost]
+		public ActionResult Edit(VideoViewModel vm)
+		{
+			if (ModelState.IsValid)
+			{
+				Video video = _VideoService.FindBy(x => x.Id == vm.Id).FirstOrDefault();
 
-                    if (vm.EsPublico)
-                    {
-                        video.ClientesVideos.Clear();
-                    }
-                    else
-                    {
-                        if (video.ClientesVideos.FirstOrDefault().ClienteId != vm.ClienteId)
-                        {
-                            video.ClientesVideos.FirstOrDefault().ClienteId = vm.ClienteId;
-                        }
-                    }
+				if (video.EsPublico)
+				{
+					if (!vm.EsPublico)
+					{
+						VideosCliente vc = new VideosCliente();
+						vc.ClienteId = vm.ClienteId;
+						vc.VideoId = video.Id;
+						video.ClientesVideos.Add(vc);
+					}
+				}
+				else
+				{
 
-                }
+					if (vm.EsPublico)
+					{
+						video.ClientesVideos.Clear();
+					}
+					else
+					{
+						if (video.ClientesVideos.FirstOrDefault().ClienteId != vm.ClienteId)
+						{
+							video.ClientesVideos.FirstOrDefault().ClienteId = vm.ClienteId;
+						}
+					}
 
-                video.Descripcion = vm.Descripcion;
-                video.Alias = vm.Alias;
-                video.EsPublico = vm.EsPublico;
+				}
 
-                _VideoService.Update(video);
+				video.Descripcion = vm.Descripcion;
+				video.Alias = vm.Alias;
+				video.EsPublico = vm.EsPublico;
 
-                return RedirectToAction("Index");
-            }
+				_VideoService.Update(video);
 
-            return View(vm);
+				return RedirectToAction("Index");
+			}
 
-        }
+			return View(vm);
+
+		}
 
 
-        [Authorize(Roles = "Administrador")]
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Video video = _VideoService.FindBy(x => x.Id == id).FirstOrDefault();
-            video.ClientesVideos.Clear();
-            _VideoService.Delete(video);
-            return RedirectToAction("Index");
-        }
+		[Authorize(Roles = "Administrador")]
+		[HttpPost, ActionName("Delete")]
+		public ActionResult DeleteConfirmed(int id)
+		{
+			Video video = _VideoService.FindBy(x => x.Id == id).FirstOrDefault();
+			video.ClientesVideos.Clear();
+			_VideoService.Delete(video);
+			return RedirectToAction("Index");
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -2222,3 +2222,7 @@ div.pagedList.centered.clientes > .pagination-container > .pagination {
 .color-vencimiento-soporte {
 	background-color: #FF6117 !important;
 }
+
+.ui-datepicker {
+	z-index:99 !important;
+}

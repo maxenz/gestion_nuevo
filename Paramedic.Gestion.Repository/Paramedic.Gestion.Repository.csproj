@@ -99,6 +99,7 @@
     <Compile Include="ISocialServicesRepository.cs" />
     <Compile Include="ISocialServiceTypesRepository.cs" />
     <Compile Include="ITareaRepository.cs" />
+    <Compile Include="ITareasGestionRepository.cs" />
     <Compile Include="ITicketsClasificacionRepository.cs" />
     <Compile Include="ITicketsClasificacionUsuarioRepository.cs" />
     <Compile Include="ITipoTerminalRepository.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="SocialServicesRepository.cs" />
     <Compile Include="SocialServiceTypesRepository.cs" />
     <Compile Include="TareaRepository.cs" />
+    <Compile Include="TareasGestionRepository.cs" />
     <Compile Include="TicketsClasificacionRepository.cs" />
     <Compile Include="TicketsClasificacionUsuarioRepository.cs" />
     <Compile Include="TipoTerminalRepository.cs" />

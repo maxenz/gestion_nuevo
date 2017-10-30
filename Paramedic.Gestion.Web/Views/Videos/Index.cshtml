@@ -1,52 +1,59 @@
 ﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.Video>
 
 <div class="main">
-    <div class="main-inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
-                    <div class="widget">
-                        <div class="widget-header">
-                            <h3>Filtros</h3>
-                        </div>
+	<div class="main-inner">
+		<div class="container">
+			@{
+				if ((bool) ViewBag.HasNoClient)
+				{
+					@Html.Partial("~/Views/Utils/_AlertView.cshtml", "El usuario no está asociado a ningún cliente.");
+				}
+			}
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="widget">
+						<div class="widget-header">
+							<h3>Filtros</h3>
+						</div>
 
-                        <div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
-                            <form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#videosList" style="margin-bottom:0px">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="Buscar..." name="searchName">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success btn-outline" type="submit">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    @if (User.IsInRole("Administrador"))
-                                    {
-                                        <a href="@Url.Action("Create", "Videos")" class="btn btn-success btn-outline">
-                                            Agregar video
-                                        </a>
-                                    }
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (User.IsInRole("Administrador"))
-            {
-                @Html.Partial("_Videos", Model)
-            }
-            else
-            {
-                @Html.Partial("_VideosClientes", Model)
-            }
+						<div class="widget-content" style="margin-top: -10px; padding-bottom: 10px">
+							<form action="@Url.Action("Index")" method="get" class="searchIndex" data-gestion-ajax="true" data-gestion-target="#videosList" style="margin-bottom:0px">
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="input-group">
+											<input class="form-control" placeholder="Buscar..." name="searchName">
+											<span class="input-group-btn">
+												<button class="btn btn-success btn-outline" type="submit">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+									@if (User.IsInRole("Administrador"))
+									{
+										<a href="@Url.Action("Create", "Videos")" class="btn btn-success btn-outline">
+											Agregar video
+										</a>
+									}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <script src="//vjs.zencdn.net/4.2/video.js"></script>
+			@if (User.IsInRole("Administrador"))
+			{
+				@Html.Partial("_Videos", Model)
+			}
+			else
+			{
+				@Html.Partial("_VideosClientes", Model)
+			}
 
-        </div>
+			<script src="//vjs.zencdn.net/4.2/video.js"></script>
 
-    </div>
+		</div>
+
+	</div>
 </div>

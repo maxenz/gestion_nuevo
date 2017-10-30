@@ -1,6 +1,5 @@
 ﻿@model Paramedic.Gestion.Model.Localidad
 
-
 <div class="main">
     <div class="main-inner">
         <div class="container">
@@ -17,29 +16,27 @@
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Codigo, new { @class = "col-xs-12 form-control", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Codigo)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div> 
+                            </div> 
 
                             <div class="control-group">
                                 <label class="control-label" for="Descripcion">Descripci&oacute;n</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.Descripcion, new { @class = "col-xs-12 form-control", autofocus = "" })
                                     @Html.ValidationMessageFor(model => model.Descripcion)
-                                </div> <!-- /controls -->
-                            </div> <!-- /control-group -->
+                                </div>
+                            </div>
 
                             <br>
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-success btn-outline">Guardar</button>
                                 <a href="@Url.Action("Index")" class="btn btn-danger btn-outline">Cancelar</a>
-                            </div> <!-- /form-actions -->
+                            </div> 
                         </fieldset>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- /container -->
 </div>

@@ -1,0 +1,65 @@
+﻿@model PagedList.IPagedList<Paramedic.Gestion.Model.TareasGestion>
+@using PagedList.Mvc;
+
+<div id="tareasGestionesList">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="widget widget-table action-table" style="margin-bottom:0">
+				<div class="widget-header">
+					<h3>Monitor de gestión de tareas</h3>
+				</div>
+
+				<div class="widget-content">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="col-xs-1">@Html.DisplayNameFor(model => model.First().Fecha)</th>
+								@if ((bool)ViewBag.IsCurrentUserAdmin)
+								{
+									<th class="col-xs-1">Usuario</th>
+								}
+
+								<th class="col-xs-3">Proyecto</th>
+								<th class="col-xs-2">Tarea</th>
+								<th class="col-xs-2">@Html.DisplayNameFor(model => model.First().Observaciones)</th>
+								<th class="col-xs-1">@Html.DisplayNameFor(model => model.First().Horas)</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										@item.Fecha.ToShortDateString()
+									</td>
+									@if ((bool)ViewBag.IsCurrentUserAdmin)
+									{
+										<td>
+											@Html.DisplayFor(modelItem => item.Usuario.UserName)
+										</td>
+									}
+									<td>
+										@Html.DisplayFor(modelItem => item.Tarea.Proyecto.Descripcion)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.Tarea.Descripcion)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.Observaciones)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.Horas)
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="pagedList centered" data-gestion-target="#tareasGestionesList">
+		@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+	</div>
+</div>

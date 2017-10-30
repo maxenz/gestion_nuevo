@@ -247,6 +247,7 @@
     <Compile Include="Controllers\LogsRegistrosSistemaController.cs" />
     <Compile Include="Controllers\NoticiasController.cs" />
     <Compile Include="Controllers\ClasificacionesProyectosController.cs" />
+    <Compile Include="Controllers\MonitorTareasController.cs" />
     <Compile Include="Controllers\TareasController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\ProductosModulosIntentosController.cs" />
@@ -370,6 +371,18 @@
     <Compile Include="Migrations\201710182004083_ClasificacionProyectos.cs" />
     <Compile Include="Migrations\201710182004083_ClasificacionProyectos.Designer.cs">
       <DependentUpon>201710182004083_ClasificacionProyectos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710241839006_AddUsuarioToTareasGestion.cs" />
+    <Compile Include="Migrations\201710241839006_AddUsuarioToTareasGestion.Designer.cs">
+      <DependentUpon>201710241839006_AddUsuarioToTareasGestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710261257109_ClienteNullableInTareaGestion.cs" />
+    <Compile Include="Migrations\201710261257109_ClienteNullableInTareaGestion.Designer.cs">
+      <DependentUpon>201710261257109_ClienteNullableInTareaGestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710261311527_ObservacionesNullableInTareaGestion.cs" />
+    <Compile Include="Migrations\201710261311527_ObservacionesNullableInTareaGestion.Designer.cs">
+      <DependentUpon>201710261311527_ObservacionesNullableInTareaGestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\GestionDb.cs" />
     <Compile Include="Modules\EFModule.cs" />
@@ -846,6 +859,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Content\styles\style-addons.css" />
+    <Content Include="Scripts\MonitorTareas.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -1088,6 +1102,14 @@
     <Content Include="Views\Tareas\Create.cshtml" />
     <Content Include="Views\Tareas\Edit.cshtml" />
     <Content Include="Views\Tareas\Index.cshtml" />
+    <Content Include="Views\Shared\_Contactos_MenuItem.cshtml" />
+    <Content Include="Views\Utils\_AlertView.cshtml" />
+    <Content Include="Views\MonitorTareas\Index.cshtml" />
+    <Content Include="Views\MonitorTareas\Create.cshtml" />
+    <Content Include="Views\MonitorTareas\_Header.cshtml" />
+    <Content Include="Views\MonitorTareas\_Form.cshtml" />
+    <Content Include="Views\MonitorTareas\_TareasGestiones.cshtml" />
+    <Content Include="Views\Shared\_Tareas_MenuItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1214,6 +1236,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710182004083_ClasificacionProyectos.resx">
       <DependentUpon>201710182004083_ClasificacionProyectos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241839006_AddUsuarioToTareasGestion.resx">
+      <DependentUpon>201710241839006_AddUsuarioToTareasGestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710261257109_ClienteNullableInTareaGestion.resx">
+      <DependentUpon>201710261257109_ClienteNullableInTareaGestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710261311527_ObservacionesNullableInTareaGestion.resx">
+      <DependentUpon>201710261311527_ObservacionesNullableInTareaGestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
