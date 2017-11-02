@@ -285,7 +285,7 @@ namespace Paramedic.Gestion.Web.Controllers
 
         private void setRoles(string selValue)
         {
-            var rolesCollection = new List<string> { "Administrador", "Cliente", "Cliente ticket", "Colaborador" };
+            var rolesCollection = new List<string> { "Administrador", "Cliente", "Cliente ticket", "Colaborador", "ColaboradorCliente" };
             ViewBag.Roles = new SelectList(rolesCollection, selValue);
         }
 

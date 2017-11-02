@@ -9,7 +9,7 @@ using System;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-	[Authorize(Roles = "Administrador, Colaborador")]
+	[Authorize(Roles = "Administrador, Colaborador, ColaboradorCliente")]
 	public class MonitorTareasController : Controller
 	{
 
@@ -65,7 +65,7 @@ namespace Paramedic.Gestion.Web.Controllers
 
 			DateQueryControllerParametersDTO queryParameters = new DateQueryControllerParametersDTO(searchName, controllersPageSize, page, dtFrom, dtTo);
 
-			if (User.IsInRole("Colaborador"))
+			if (!IsCurrentUserAdmin())
 			{
 				ViewBag.IsCurrentUserAdmin = false;
 				var user = _UserProfileService.FindBy(x => x.UserName == User.Identity.Name).FirstOrDefault();
@@ -100,6 +100,11 @@ namespace Paramedic.Gestion.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Create(TareasGestion tareasGestion)
 		{
+			if (!IsCurrentUserAdmin())
+			{
+				var user = _UserProfileService.FindBy(x => x.UserName == User.Identity.Name).FirstOrDefault();
+				tareasGestion.UsuarioId = user.Id;
+			}
 			if (ModelState.IsValid)
 			{
 				_TareasGestionService.Create(tareasGestion);
@@ -138,6 +143,12 @@ namespace Paramedic.Gestion.Web.Controllers
 			ViewBag.ClientesList = new SelectList(_ClientesService.GetAll().OrderBy(x => x.RazonSocial), "Id", "RazonSocial", "ClienteId");
 			ViewBag.UsuariosList = new SelectList(_UserProfileService.GetAll().OrderBy(x => x.UserName), "Id", "UserName", "UsuarioId");
 			ViewBag.TareasList = new SelectList(new List<Tarea>(), "Id", "Descripcion", "TareaId");
+			ViewBag.IsCurrentUserAdmin = IsCurrentUserAdmin();
+		}
+
+		private bool IsCurrentUserAdmin()
+		{
+			return User.IsInRole("Administrador");
 		}
 
 		#endregion

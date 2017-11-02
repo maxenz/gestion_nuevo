@@ -49,14 +49,16 @@
 								</div>
 							</div>
 
-							<div class="control-group">
-								<label class="control-label" for="Usuario">Usuario</label>
-								<div class="controls">
-									@Html.DropDownList("UsuarioId", (SelectList) ViewBag.UsuariosList, "Seleccione usuario...", new { @class = "col-xs-12 form-control" })
-									@Html.ValidationMessageFor(x => x.UsuarioId)
+							@if ((bool) ViewBag.IsCurrentUserAdmin)
+							{
+								<div class="control-group">
+									<label class="control-label" for="Usuario">Usuario</label>
+									<div class="controls">
+										@Html.DropDownList("UsuarioId", (SelectList) ViewBag.UsuariosList, "Seleccione usuario...", new { @class = "col-xs-12 form-control" })
+										@Html.ValidationMessageFor(x => x.UsuarioId)
+									</div>
 								</div>
-							</div>
-
+							}
 
 							<div class="control-group">
 								<label class="control-label" for="Observaciones">Observaciones</label>

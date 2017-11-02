@@ -8,7 +8,7 @@ using Paramedic.Gestion.Model;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-    [Authorize(Roles = "Administrador, Colaborador")]
+    [Authorize(Roles = "Administrador, Colaborador, ColaboradorCliente")]
     public class ContactosController : Controller
     {
         #region Properties

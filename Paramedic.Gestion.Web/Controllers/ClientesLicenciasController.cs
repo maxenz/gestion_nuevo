@@ -185,9 +185,7 @@ namespace Paramedic.Gestion.Web.Controllers
 			DateTime dateToAlert = DateTime.Now.Date.AddDays(-20);
 			IEnumerable<ClientesLicencia> clientesLicencias = _ClientesLicenciaService
 				.GetAll()
-				.Where(x => x.FechaDeVencimiento.Date > dateToAlert)
-				.Where(x => (bool) (x.FechaDeVencimiento != SqlSmallDateTime.MinValue))
-				.Where(x => (bool) (x.FechaDeVencimiento < dateToAlert.AddDays(90)));
+				.Where(x => (x.FechaDeVencimiento.Date <= dateToAlert) && (bool) (x.FechaDeVencimiento != SqlSmallDateTime.MinValue) && (x.FechaDeVencimiento < dateToAlert.AddDays(90)));
 			return Json(
 				clientesLicencias.Select(x => new
 				{
@@ -203,9 +201,7 @@ namespace Paramedic.Gestion.Web.Controllers
 			DateTime dateToAlert = DateTime.Now.Date.AddDays(-20);
 			IEnumerable<ClientesLicencia> clientesLicencias = _ClientesLicenciaService
 				.GetAll()
-				.Where(x => (x.FechaVencimientoSoporte.Date > dateToAlert))
-				.Where(x => (bool) (x.FechaVencimientoSoporte != SqlSmallDateTime.MinValue))
-				.Where(x => (bool) (x.FechaVencimientoSoporte < dateToAlert.AddDays(90)));
+				.Where(x => (x.FechaVencimientoSoporte.Date <= dateToAlert) && (bool)(x.FechaVencimientoSoporte != SqlSmallDateTime.MinValue) && (x.FechaVencimientoSoporte < dateToAlert.AddDays(90)));
 			return Json(
 				clientesLicencias.Select(x => new
 				{

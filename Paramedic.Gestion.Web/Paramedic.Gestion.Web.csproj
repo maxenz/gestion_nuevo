@@ -704,6 +704,7 @@
     <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datepicker-es.js" />
     <Content Include="Scripts\flatui-checkbox.js" />
     <Content Include="Scripts\flatui-radio.js" />
     <Content Include="Scripts\html5shiv.js" />
@@ -1109,7 +1110,9 @@
     <Content Include="Views\MonitorTareas\_Header.cshtml" />
     <Content Include="Views\MonitorTareas\_Form.cshtml" />
     <Content Include="Views\MonitorTareas\_TareasGestiones.cshtml" />
-    <Content Include="Views\Shared\_Tareas_MenuItem.cshtml" />
+    <Content Include="Views\Shared\_Tareas_MenuItem_Colaborador.cshtml" />
+    <Content Include="Views\Shared\_Tareas_MenuItem_Admin.cshtml" />
+    <Content Include="Views\Shared\_Clientes_MenuItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

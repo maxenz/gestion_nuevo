@@ -10,7 +10,7 @@ using Paramedic.Gestion.Web.ViewModels;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-    [Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador, ColaboradorCliente")]
     public class ClientesController : Controller
     {
         #region Properties

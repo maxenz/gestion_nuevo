@@ -109,6 +109,7 @@ namespace Paramedic.Gestion.Web.Controllers
         }
 
 		[HttpGet]
+		[AllowAnonymous]
 		public JsonResult GetTareasByProyectoId(int id)
 		{
 			Proyecto proyecto = _ProyectoService.FindBy(x => x.Id == id).FirstOrDefault();

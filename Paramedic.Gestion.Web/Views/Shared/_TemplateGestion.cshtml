@@ -113,15 +113,8 @@
 							</ul>
 						</li>
 
-						@Html.Partial("_Tareas_MenuItem");
-
-						<li class="@(@Request.Path.Contains("Clientes") ? "selected-menu-option" : "")">
-							<a href="@Url.Action("Index", "Clientes")">
-								<i class="fa fa-user"></i>
-								<span>Clientes</span>
-							</a>
-						</li>
-
+						@Html.Partial("_Tareas_MenuItem_Admin");
+						@Html.Partial("_Clientes_MenuItem");
 						@Html.Partial("_Contactos_MenuItem");
 
 						<li class="@(@Request.Path.Contains("Account") ? "selected-menu-option" : "")">
@@ -168,10 +161,15 @@
 							</a>
 						</li>
 					}
-					else if (User.IsInRole("Colaborador"))
+					else if (User.IsInRole("Colaborador") || User.IsInRole("ColaboradorCliente"))
 					{
 						@Html.Partial("_Contactos_MenuItem");
-						@Html.Partial("_Tareas_MenuItem");
+						@Html.Partial("_Tareas_MenuItem_Colaborador");
+					}
+
+					@if (User.IsInRole("ColaboradorCliente"))
+					{
+						@Html.Partial("_Clientes_MenuItem");
 					}
 
 					<li class="@(@Request.Path.Contains("MisTickets") ? "selected-menu-option" : "")">
