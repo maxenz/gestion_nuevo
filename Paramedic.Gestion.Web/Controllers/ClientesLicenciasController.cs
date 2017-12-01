@@ -15,7 +15,7 @@ using System.Web.Script.Serialization;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-	[Authorize(Roles = "Administrador")]
+	[Authorize(Roles = "Administrador, ColaboradorCliente")]
 	public class ClientesLicenciasController : Controller
 	{
 		#region Properties
@@ -100,6 +100,7 @@ namespace Paramedic.Gestion.Web.Controllers
 
 		public ActionResult Create(string clienteId)
 		{
+			ViewBag.Cliente_ID = clienteId;
 			if (getLicenciasDisponibles().Count > 0)
 			{
 				ViewBag.Licencias = getLicenciasDisponibles();
@@ -133,7 +134,7 @@ namespace Paramedic.Gestion.Web.Controllers
 
 		public ActionResult Edit(int id = 0)
 		{
-
+			ViewBag.Cliente_ID = id;
 			ClientesLicencia clienteslicencia = _ClientesLicenciaService.GetById(id);
 
 			LlenarProductosAsignados(clienteslicencia);

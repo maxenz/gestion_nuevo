@@ -8,7 +8,7 @@ using System;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-	[Authorize(Roles = "Administrador")]
+	[Authorize(Roles = "Administrador, ColaboradorCliente")]
 	public class ClientesHistorialesController : Controller
 	{
 		#region Properties

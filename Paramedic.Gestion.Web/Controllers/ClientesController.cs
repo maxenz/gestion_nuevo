@@ -158,9 +158,12 @@ namespace Paramedic.Gestion.Web.Controllers
         private Cliente validarGeoreferenciacion(Cliente cli)
         {
             cli.Localidad = _LocalidadService.GetById(cli.LocalidadId);
-            Geopoint point = _GeolocalizationService.GetLocalization(cli.GeoAddress);
-            cli.Latitud = point.Latitude;
-            cli.Longitud = point.Longitude;
+			if (!string.IsNullOrEmpty(cli.Calle) && !string.IsNullOrEmpty(cli.Altura))
+			{
+				Geopoint point = _GeolocalizationService.GetLocalization(cli.GeoAddress);
+				cli.Latitud = point.Latitude;
+				cli.Longitud = point.Longitude;
+			}           
 
             return cli;
         }

@@ -9,7 +9,7 @@ using Paramedic.Gestion.Model;
 
 namespace Paramedic.Gestion.Web.Controllers
 {
-    [Authorize(Roles = "Cliente,Administrador")]
+    [Authorize(Roles = "Cliente,Administrador, ColaboradorCliente")]
     public class CuentaCorrienteController : Controller
     {
 
@@ -33,7 +33,7 @@ namespace Paramedic.Gestion.Web.Controllers
         public ActionResult Index(int ClienteID = 0)
         {
             //si el que accede a cuentasCorrientes es Administrador
-            if (User.IsInRole("Administrador"))
+            if (User.IsInRole("Administrador") || User.IsInRole("ColaboradorCliente"))
             {
                 if (ClienteID == 0)
                 {

@@ -39,6 +39,7 @@ namespace Paramedic.Gestion.Web.Controllers
 
 		public ActionResult Index(string searchName = null, int page = 1)
 		{
+			ViewBag.HasNoClient = false;
 			int currentUserId = _UserProfileService.GetCurrentUserId(User.Identity.Name);
 
 			var predicate = PredicateBuilder.New<Video>();

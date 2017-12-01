@@ -119,8 +119,8 @@ namespace Paramedic.Gestion.Model
                 bool emptyDataSource = string.IsNullOrEmpty(this.CnnDataSource);
                 bool emptyCatalog = string.IsNullOrEmpty(this.CnnCatalog);
                 bool emptyUser = string.IsNullOrEmpty(this.CnnUser);
-                bool emptyPassword = string.IsNullOrEmpty(this.CnnPassword);
-                if (!emptyDataSource && !emptyCatalog && !emptyUser && !emptyPassword)
+                bool emptyPassword = string.IsNullOrEmpty(this.CnnPassword);				
+                if (!emptyDataSource && !emptyCatalog && !emptyUser && !emptyPassword && this.ConexionServidor != null)
                 {
                     return string.Format("Data Source = {0}; Initial Catalog = {1}; User Id = {2}; Password = {3}",
                         this.ConexionServidor.Url,
